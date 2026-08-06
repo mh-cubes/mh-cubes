@@ -13,22 +13,20 @@ function loadCart(){
         let item = document.createElement("div");
 
         item.innerHTML = `
-            <img src="${cart[product].image}" width="80">
+    <img src="${cart[product].image}" class="cart-image">
 
-            <h3>${product}</h3>
+    <div class="cart-info">
+        <h3>${product}</h3>
+        <p>PKR ${cart[product].price}</p>
+    </div>
 
-            <p>PKR ${cart[product].price}</p>
-
-            <button onclick="decrease('${product}')">−</button>
-
-            <span>${cart[product].quantity}</span>
-
-            <button onclick="increase('${product}')">+</button>
-
-            <button onclick="removeItem('${product}')">❌</button>
-
-            <hr>
-        `;
+    <div class="cart-controls">
+        <button onclick="decrease('${product}')">−</button>
+        <span>${cart[product].quantity}</span>
+        <button onclick="increase('${product}')">+</button>
+        <button onclick="removeItem('${product}')">❌</button>
+    </div>
+`;
 
         cartItems.appendChild(item);
 

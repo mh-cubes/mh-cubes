@@ -1,7 +1,6 @@
 let order = JSON.parse(localStorage.getItem("order"));
 
-
-let box = document.getElementById("order-box");
+let box = document.getElementById("admin-order-box");
 
 
 if(order){
@@ -36,26 +35,27 @@ ${order.products[product].quantity}
 
 <p>
 Status:
-<span id="order-status">
 ${order.status || "Pending 🟡"}
-</span>
 </p>
-${(order.status || "Pending 🟡") === "Pending 🟡" ? 
-`
-<button onclick="cancelOrder()" class="cancel-btn">
-Cancel Pending Order ❌
+
+
+<button onclick="cancelAdminOrder()">
+Cancel Order ❌
 </button>
-`
-:
-""
-}
+
 `;
 
 }
-function cancelOrder(){
 
-localStorage.removeItem("order");
 
-box.innerHTML = "Order cancelled successfully ❌";
+function cancelAdminOrder(){
+
+let order = JSON.parse(localStorage.getItem("order"));
+
+order.status = "Cancelled ❌";
+
+localStorage.setItem("order", JSON.stringify(order));
+
+box.innerHTML = "Order cancelled by admin ❌";
 
 }
