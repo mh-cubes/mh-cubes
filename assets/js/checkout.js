@@ -1,9 +1,12 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
+
+
 function loadCheckout(){
 
 let box = document.getElementById("checkout-items");
 
 box.innerHTML = "";
+
 
 for(let product in cart){
 
@@ -32,6 +35,7 @@ updateTotal();
 }
 
 
+
 function increaseQty(product){
 
 cart[product].quantity++;
@@ -39,6 +43,7 @@ cart[product].quantity++;
 saveCheckout();
 
 }
+
 
 
 function decreaseQty(product){
@@ -56,6 +61,7 @@ saveCheckout();
 }
 
 
+
 function saveCheckout(){
 
 localStorage.setItem("cart", JSON.stringify(cart));
@@ -65,67 +71,79 @@ loadCheckout();
 }
 
 
+
 function updateTotal(){
 
+let total = 0;
 
+
+for(let product in cart){
+
+total += cart[product].price * cart[product].quantity;
+
+}
+
+
+document.getElementById("checkout-total").innerText =
+"Total: PKR " + total;
+
+}
 
 
 
 function placeOrder(){
 
-    let name = document.getElementById("customer-name").value;
+let name = document.getElementById("customer-name").value;
 
-    let phone = document.getElementById("customer-phone").value;
+let phone = document.getElementById("customer-phone").value;
 
-    let address = document.getElementById("customer-address").value;
-
-
-    if(name === "" || phone === "" || address === ""){
-
-        alert("Please fill all details.");
-
-        return;
-
-    }
+let address = document.getElementById("customer-address").value;
 
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || {};
+if(name === "" || phone === "" || address === ""){
 
+alert("Please fill all details.");
 
-    let order = {
-
-        customerName: name,
-
-        phone: phone,
-
-        address: address,
-
-        products: cart,
-
-        date: new Date().toLocaleString()
-
-    };
-
-
-    localStorage.setItem(
-        "order",
-        JSON.stringify(order)
-    );
-
-
-    let confirmOrder = confirm(
-        "Are you sure you want to place this order?"
-    );
-
-
-    if(confirmOrder){
-
-        alert("Order placed successfully! 🎉");
-
-        localStorage.removeItem("cart");
-
-        window.location.href = "index.html";
-
-    }
+return;
 
 }
+
+
+let order = {
+
+customerName:name,
+
+phone:phone,
+
+address:address,
+
+products:cart,
+
+date:new Date().toLocaleString()
+
+};
+
+
+localStorage.setItem("order", JSON.stringify(order));
+
+
+let confirmOrder = confirm(
+"Are you sure you want to place this order?"
+);
+
+
+if(confirmOrder){
+
+alert("Order placed successfully! 🎉");
+
+localStorage.removeItem("cart");
+
+window.location.href="index.html";
+
+}
+
+}
+
+
+
+loadCheckout();
