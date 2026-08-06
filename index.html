@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MH CUBES</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">MH CUBES</div>
+
+        <nav>
+    <a href="index.html">Home</a>
+    <a href="#products">Products</a>
+    <a href="#categories">Categories</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+        <a href="cart.html">
+    <button class="cart-btn">
+        🛒 Cart
+        <span id="cart-count">0</span>
+    </button>
+</a>
+<div id="cartBox">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>
+    <p id="cartTotal">Total: PKR 0</p>
+</div>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to MH CUBES</h1>
+        <p>Buy the best products at the best prices.</p>
+        <button onclick="scrollToProducts()">Shop Now</button>
+    </section>
+
+<section class="products" id="products">
+<div class="search-box">
+    <input type="text" id="searchInput" placeholder="🔍 Search cubes...">
+</div>
+    <div id="categories"></div>
+
+    <div class="product-box">
+
+        <div class="product">
+            <a href="product.html">
+    <img src="assets/images/3x3.jpg" alt="3x3 Cube">
+</a>
+            <h3><a href="product.html">3x3 Speed Cube</a></h3>
+
+            <p>PKR 999</p>
+            <div class="product-buttons">
+
+    <button class="cart-btn">Add to Cart 🛒</button>
+
+    <button class="shop-btn">Shop Now ⚡</button>
+
+</div>
+        </div>
+
+        <div class="product">
+            <a href="2x2.html">
+    <img src="assets/images/2x2.jpg" alt="2x2 Cube">
+</a>
+            <h3>2x2 Speed Cube</h3>
+
+            <p>PKR 699</p>
+            <div class="product-buttons">
+
+    <button class="cart-btn">Add to Cart 🛒</button>
+
+    <button class="shop-btn">Shop Now ⚡</button>
+
+</div>
+        </div>
+
+        <div class="product">
+            <a href="4x4.html">
+    <img src="assets/images/4x4.jpg" alt="4x4 Cube">
+</a>
+            <h3>4x4 Speed Cube</h3>
+
+            <p>PKR 1499</p>
+            <div class="product-buttons">
+
+    <button class="cart-btn">Add to Cart 🛒</button>
+
+    <button class="shop-btn">Shop Now ⚡</button>
+
+</div>
+        </div>
+
+    </div>
+
+</section>
+<div id="toast">Product added to cart!</div>
+<div id="shop-loading">
+    Preparing your order...
+</div>
+<footer>
+    <p>© 2026 MH Cubes. All Rights Reserved.</p>
+    <p>Contact: mhcubes@email.com</p>
+</footer>
+<script src="assets/js/app.js"></script>
+<footer class="footer" id="contact">
+
+    <div class="footer-container">
+
+        <div class="footer-about">
+            <h2>MH CUBES</h2>
+            <p>
+                Your trusted cube store for high-quality speed cubes.
+                We provide original cubes, great prices, and fast delivery.
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+
+            <a href="index.html">Home</a>
+            <a href="#products">Shop</a>
+            <a href="cart.html">Cart</a>
+            <a href="orders.html">Orders</a>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Contact</h3>
+
+            <p>📧 mhcubes@email.com</p>
+            <p class="phone-number" onclick="openContactPopup()">
+    📞 +92 331 5120323
+</p>
+        </div>
+
+        <div class="footer-social">
+            <h3>Follow Us</h3>
+
+            <a href="https://www.instagram.com/mhcubes.pk/" target="_blank">
+    📷 Instagram
+</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 MH CUBES. All Rights Reserved.</p>
+    </div>
+
+</footer>
+<div id="contact-popup" class="contact-popup">
+
+    <div class="contact-box">
+
+        <h2>Contact MH CUBES</h2>
+
+        <p>How would you like to contact us?</p>
+
+        <a href="sms:+923315120323" class="popup-btn">
+            💬 Text
+        </a>
+
+        <a href="tel:+923315120323" class="popup-btn">
+            📞 Call
+        </a>
+
+        <button onclick="closeContactPopup()" class="close-popup">
+            ❌ Close
+        </button>
+
+    </div>
+
+</div>
+</div>
+</body>
+</html>

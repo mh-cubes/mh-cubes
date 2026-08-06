@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - MH CUBES</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        MH CUBES
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="cart.html">Cart</a>
+    </nav>
+
+</header>
+
+
+
+<div class="checkout">
+
+
+    <h1>
+        Checkout 🛒
+    </h1>
+
+
+    <div class="checkout-box">
+
+
+        <h2>
+            Customer Details
+        </h2>
+
+
+        <input id="customer-name" type="text" placeholder="Full Name">
+
+<input id="customer-phone" type="text" placeholder="Phone Number">
+
+<textarea id="customer-address" placeholder="Delivery Address"></textarea>
+
+
+        <h2>
+            Your Order
+        </h2>
+
+
+        <div id="checkout-items">
+
+        </div>
+
+
+        <h2 id="checkout-total">
+            Total: PKR 0
+        </h2>
+
+
+
+       <button class="place-order" onclick="placeOrder()">
+    Place Order
+</button>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script src="assets/js/checkout.js"></script>
+
+
+</body>
+</html>
