@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Orders - MH CUBES</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+MH CUBES
+</div>
+
+<nav>
+
+<a href="index.html">🏠 Home</a>
+
+<a href="cart.html">🛒 Cart</a>
+
+</nav>
+
+</header>
+
+<div class="checkout">
+
+<h1>
+📦 My Orders
+</h1>
+
+<div class="checkout-box">
+
+<h2>
+Enter Your Phone Number
+</h2>
+
+<input
+type="tel"
+id="history-phone"
+placeholder="03XXXXXXXXX"
+maxlength="11">
+
+<button
+class="place-order"
+onclick="loadOrderHistory()">
+
+View My Orders
+
+</button>
+
+<br><br>
+
+<div id="history-box">
+
+</div>
+
+</div>
+
+</div>
+<script>
+
+function loadOrderHistory(){
+
+let phone = document.getElementById("history-phone").value.trim();
+
+let historyBox = document.getElementById("history-box");
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+if(phone === ""){
+
+historyBox.innerHTML =
+"<h3 style='color:red;'>❌ Please enter your phone number.</h3>";
+
+return;
+
+}
+
+let customerOrders = orders.filter(function(order){
+
+return order.phone === phone;
+
+});
+
+if(customerOrders.length === 0){
+
+historyBox.innerHTML =
+"<h3 style='color:red;'>❌ No orders found for this phone number.</h3>";
+
+return;
+
+}
+
+historyBox.innerHTML = "";
+
+customerOrders.forEach(function(order){
+
+let total = 0;
+
+for(let product in order.products){
+
+total += order.products[product].price * order.products[product].quantity;
+
+}
+
+let productsHTML = "";
+
+for(let product in order.products){
+
+productsHTML += `
+<p>🧩 ${product} × ${order.products[product].quantity}</p>
+`;
+
+}
+
+historyBox.innerHTML += `
+
+<div class="admin-order-box">
+
+<h2>📦 Order ID: ${order.orderID}</h2>
+
+<p><b>Status:</b> ${order.status}</p>
+
+<p><b>Date:</b> ${order.date}</p>
+
+<p><b>Payment:</b> ${order.payment}</p>
+
+<p><b>Address:</b> ${order.address}</p>
+
+<h3>Products</h3>
+
+${productsHTML}
+
+<p><b>Total:</b> PKR ${total}</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+</script>
+<script src="app.js"></script>
+</body>
+
+</html>

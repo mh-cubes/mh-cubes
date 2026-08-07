@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Track Order - MH CUBES</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+MH CUBES
+</div>
+
+<nav>
+
+<a href="index.html">🏠 Home</a>
+
+<a href="cart.html">🛒 Cart</a>
+
+</nav>
+
+</header>
+
+<div class="checkout">
+
+<h1>
+📦 Track Your Order
+</h1>
+
+<div class="checkout-box">
+
+<h2>
+Enter Your Order ID
+</h2>
+
+<input
+type="text"
+id="track-id"
+placeholder="Example: MH1754652345678">
+
+<button
+class="place-order"
+onclick="trackOrder()">
+
+Track Order
+
+</button>
+
+<br><br>
+
+<div id="track-result">
+
+</div>
+
+</div>
+
+</div>
+<script>
+
+function trackOrder(){
+
+let id = document.getElementById("track-id").value.trim();
+
+let result = document.getElementById("track-result");
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+if(id === ""){
+
+result.innerHTML =
+"<h3 style='color:red;'>❌ Please enter your Order ID.</h3>";
+
+return;
+
+}
+
+let found = orders.find(function(order){
+
+return order.orderID === id;
+
+});
+
+if(found){
+
+result.innerHTML = `
+<div class="admin-order-box">
+
+<h2>📦 Order Found</h2>
+
+<p><b>Order ID:</b> ${found.orderID}</p>
+
+<p><b>Customer:</b> ${found.customerName}</p>
+
+<p><b>Phone:</b> ${found.phone}</p>
+
+<p><b>Payment:</b> ${found.payment}</p>
+
+<p><b>Status:</b> ${found.status}</p>
+
+<p><b>Date:</b> ${found.date}</p>
+
+</div>
+`;
+
+}else{
+
+result.innerHTML =
+"<h3 style='color:red;'>❌ No order found with this Order ID.</h3>";
+
+}
+
+}
+
+</script>
+<script src="app.js"></script>
+</body>
+
+</html>

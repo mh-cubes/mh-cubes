@@ -1453,3 +1453,558 @@ background:#0066cc;
 background:#444;
 
 }
+.confirm-btn{
+
+background:#28a745;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+margin-right:10px;
+transition:0.3s;
+
+}
+
+.confirm-btn:hover{
+
+background:#218838;
+transform:translateY(-2px);
+
+}
+
+.cancel-btn{
+
+background:#dc3545;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+
+}
+
+.cancel-btn:hover{
+
+background:#c82333;
+transform:translateY(-2px);
+
+}
+#order-toast.show{
+
+opacity:1;
+visibility:visible;
+
+}
+#phone-message{
+
+display:block;
+margin-top:6px;
+font-size:14px;
+font-weight:bold;
+
+}
+
+.valid-phone{
+
+color:#28a745;
+
+}
+
+.invalid-phone{
+
+color:#dc3545;
+
+}
+
+.phone-valid{
+
+border:2px solid #28a745 !important;
+
+}
+
+.phone-invalid{
+
+border:2px solid #dc3545 !important;
+
+}
+.payment-popup{
+
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+justify-content:center;
+align-items:center;
+z-index:999;
+
+}
+
+
+.payment-box{
+
+background:white;
+padding:30px;
+border-radius:15px;
+width:350px;
+text-align:center;
+
+}
+
+
+.payment-box input{
+
+width:90%;
+padding:12px;
+margin:15px 0;
+
+}
+
+
+.payment-box button{
+position:relative;
+padding:10px 20px;
+margin:5px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+
+}
+/* Admin Logout Button */
+
+.logout-btn{
+
+position:absolute;
+top:25px;
+right:25px;
+
+background:#ef4444;
+color:white;
+
+border:none;
+
+padding:18px 45px;
+
+border-radius:15px;
+
+font-size:22px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.25);
+
+transition:0.3s;
+
+}
+
+
+.logout-btn:hover{
+
+background:#dc2626;
+
+transform:scale(1.08);
+
+}
+.loader{
+
+width:45px;
+height:45px;
+
+border:5px solid #ddd;
+border-top:5px solid #2563eb;
+
+border-radius:50%;
+
+margin:20px auto;
+
+animation:spin 1s linear infinite;
+
+}
+
+
+@keyframes spin{
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+.popup-loader{
+
+width:50px;
+height:50px;
+
+border:5px solid #ddd;
+border-top:5px solid #0066ff;
+
+border-radius:50%;
+
+margin:30px auto;
+
+animation:popupSpin 1s linear infinite;
+
+}
+
+@keyframes popupSpin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+.payment-warning{
+
+background:#fff3cd;
+border:2px solid #ffc107;
+
+padding:15px;
+
+border-radius:12px;
+
+margin:20px 0;
+
+text-align:left;
+
+}
+
+.payment-warning h3{
+
+color:#d97706;
+
+font-size:22px;
+
+margin-bottom:10px;
+
+font-weight:bold;
+
+animation:warningBlink 1.2s infinite;
+
+}
+
+.payment-warning p{
+
+color:#7c2d12;
+
+font-size:16px;
+
+line-height:1.6;
+
+}
+
+@keyframes warningBlink{
+
+0%,100%{
+
+opacity:1;
+
+}
+
+50%{
+
+opacity:0.5;
+
+}
+
+}
+.close-payment{
+
+position:absolute;
+
+top:12px;
+right:12px;
+
+width:35px;
+height:35px;
+
+border:none;
+border-radius:50%;
+
+background:#f2f2f2;
+color:#555;
+
+font-size:18px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.close-payment:hover{
+
+background:#dc3545;
+
+color:white;
+
+transform:rotate(90deg);
+
+}
+.payment-loading{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.6);
+
+z-index:9999;
+
+justify-content:center;
+align-items:center;
+flex-direction:column;
+
+color:white;
+
+}
+
+.payment-loading .loader{
+
+width:70px;
+height:70px;
+
+border:6px solid #ddd;
+border-top:6px solid #00c853;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+margin-bottom:20px;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+/* Settings Page */
+
+.settings-page {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.settings-page h1 {
+    font-size: 35px;
+    margin-bottom: 30px;
+}
+
+.settings-box {
+    background: white;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.settings-box h2 {
+    margin-bottom: 10px;
+}
+
+.settings-box button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: black;
+    color: white;
+    font-size: 16px;
+}
+.dark-mode {
+    background: #111;
+    color: white;
+}
+
+.dark-mode .settings-box {
+    background: #222;
+    color: white;
+}
+#loader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 6px solid white;
+    border-top: 6px solid black;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* BEAUTIFUL SETTINGS DESIGN */
+
+.settings-page {
+    padding: 50px 20px;
+    text-align: center;
+    min-height: 80vh;
+}
+
+.settings-page h1 {
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+
+.settings-box {
+    background: linear-gradient(135deg, #ffffff, #f3f3f3);
+    padding: 30px;
+    margin: 25px auto;
+    max-width: 550px;
+    border-radius: 20px;
+
+    box-shadow: 
+    0 10px 25px rgba(0,0,0,0.15);
+
+    transition: 0.3s;
+}
+
+
+.settings-box:hover {
+    transform: translateY(-8px);
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.25);
+}
+
+
+.settings-box h2 {
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+
+.settings-box p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+.settings-box button {
+    padding: 14px 30px;
+    border: none;
+
+    border-radius: 30px;
+
+    background: black;
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.settings-box button:hover {
+    transform: scale(1.08);
+}
+
+
+.settings-box input {
+
+    width: 85%;
+
+    padding: 14px;
+
+    border-radius: 15px;
+
+    border: 1px solid #ddd;
+
+    font-size: 15px;
+
+    outline: none;
+
+}
+
+
+.settings-box input:focus {
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+}
+
+
+
+/* Dark mode improvement */
+
+.dark-mode .settings-box {
+
+    background: linear-gradient(135deg,#222,#333);
+
+    color:white;
+
+}
+
+
+.dark-mode .settings-box p {
+
+    color:#ddd;
+
+}
+
+
+.dark-mode .settings-box input {
+
+    background:#111;
+
+    color:white;
+
+}
+.dark-mode {
+    background: #121212;
+    color: white;
+}
+
+.dark-mode body {
+    background: #121212;
+    color: white;
+}
+
+.dark-mode .card,
+.dark-mode .settings-box,
+.dark-mode .product-card {
+    background: #1e1e1e;
+    color: white;
+}

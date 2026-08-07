@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,24 +15,54 @@
 
 <body>
 
+
+<script>
+
+if(localStorage.getItem("adminAccess") !== "granted"){
+
+window.location.href = "index.html";
+
+}
+
+</script>
+
+
+
 <header>
 
 <div class="logo">
 MH CUBES ADMIN
 </div>
 
+
 <nav>
-<a href="index.html">Home</a>
+
+<a href="index.html">
+Home
+</a>
+
 </nav>
+
 
 </header>
 
 
+
+
 <div class="orders">
+
+
+<button class="logout-btn" onclick="logoutOwner()">
+🚪 Logout
+</button>
+
+
 
 <h1>
 Customer Orders 📦
 </h1>
+
+
 
 
 <div id="admin-order-box" class="admin-order-box">
@@ -40,7 +71,11 @@ No orders yet.
 
 </div>
 
+
+
 </div>
+
+
 
 
 <script src="assets/js/admin.js"></script>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings - MH CUBES</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">MH CUBES</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">🛒 Cart</a>
+        <a href="my-orders.html">📦 My Orders</a>
+    </nav>
+</header>
+
+
+<section class="settings-page">
+
+<h1>⚙️ Settings</h1>
+
+
+<div class="settings-box">
+    <h2>Account Settings</h2>
+    <p>Manage your MH CUBES account.</p>
+
+    <button onclick="openAccount()">👤 Open Account</button>
+
+    <div id="account-panel" style="display:none; margin-top:20px;">
+
+        <input id="username" placeholder="Your Name">
+        <br><br>
+
+        <input id="email" placeholder="Your Email">
+        <br><br>
+
+        <button onclick="saveAccount()">Save Account</button>
+
+    </div>
+</div>
+
+
+<div class="settings-box">
+    <h2>Notifications</h2>
+    <p>Order updates and alerts.</p>
+</div>
+
+
+<div class="settings-box">
+    <h2>Theme</h2>
+    <button id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+</div>
+
+
+</section>
+
+
+<!-- Loading Screen -->
+
+<div id="loader">
+    <div class="spinner"></div>
+</div>
+
+
+
+<script>
+
+function toggleDarkMode() {
+
+    document.getElementById("loader").style.display = "flex";
+
+    setTimeout(function(){
+
+        document.body.classList.toggle("dark-mode");
+
+        document.getElementById("loader").style.display = "none";
+
+    }, 2000);
+
+}
+
+
+
+function openAccount(){
+
+    document.getElementById("account-panel").style.display="block";
+
+
+    document.getElementById("username").value =
+    localStorage.getItem("username") || "";
+
+
+    document.getElementById("email").value =
+    localStorage.getItem("email") || "";
+
+}
+
+
+
+function saveAccount(){
+
+    localStorage.setItem(
+        "username",
+        document.getElementById("username").value
+    );
+
+
+    localStorage.setItem(
+        "email",
+        document.getElementById("email").value
+    );
+
+
+    alert("Account saved successfully ✅");
+
+}
+
+
+</script>
+<script src="app.js"></script>
+
+</body>
+</html>

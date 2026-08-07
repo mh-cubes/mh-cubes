@@ -1,64 +1,102 @@
-let order = JSON.parse(localStorage.getItem("order"));
-
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
 let box = document.getElementById("order-box");
 
+if(orders.length === 0){
 
-if(order){
+    box.innerHTML = "<h2>No active orders.</h2>";
 
-box.innerHTML = `
+}else{
 
-<h2>Customer Details</h2>
+    box.innerHTML = "";
 
-<p>Name: ${order.customerName}</p>
+    orders.forEach(function(order, index){
 
-<p>Phone: ${order.phone}</p>
+        box.innerHTML += `
 
-<p>Address: ${order.address}</p>
-<p>
-💳 Payment Method:
-${order.payment}
-</p>
+        <div class="customer-order-card">
 
-<h2>Products</h2>
+        <h2>Order #${index + 1}</h2>
 
-${Object.keys(order.products).map(product => {
+        <p><strong>Name:</strong> ${order.customerName}</p>
 
-return `
-<p>
-${product}
--
-PKR ${order.products[product].price}
-x
-${order.products[product].quantity}
-</p>
-`
+        <p><strong>Phone:</strong> ${order.phone}</p>
 
-}).join("")}
+        <p><strong>Address:</strong> ${order.address}</p>
 
+        <p>
+        <strong>Payment:</strong>
+        ${order.payment || "Not Selected"}
+        </p>
 
-<p>
-Status:
-<span id="order-status">
-${order.status || "Pending 🟡"}
-</span>
-</p>
-${(order.status || "Pending 🟡") === "Pending 🟡" ? 
-`
-<button onclick="cancelOrder()" class="cancel-btn">
-Cancel Pending Order ❌
-</button>
-`
-:
-""
+        <h3>Products</h3>
+
+        ${Object.keys(order.products).map(product => {
+
+            return `
+            <p>
+            ${product}
+            -
+            PKR ${order.products[product].price}
+            ×
+            ${order.products[product].quantity}
+            </p>
+            `;
+
+        }).join("")}
+
+        <p>
+        <strong>Status:</strong>
+        ${order.status || "Pending 🟡"}
+        </p>
+
+        ${
+            !order.status || order.status === "Pending 🟡"
+            ?
+            `<button onclick="cancelCustomerOrder(${index})">
+            Cancel Pending Order ❌
+            </button>`
+            :
+            ""
+        }
+
+        <hr>
+
+        </div>
+
+        `;
+
+    });
+
 }
-`;
+
+function cancelCustomerOrder(index){
+
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    orders.splice(index,1);
+
+    localStorage.setItem("orders", JSON.stringify(orders));
+
+    location.reload();
 
 }
-function cancelOrder(){
+if(order.notification){
 
-localStorage.removeItem("order");
+let toast = document.getElementById("order-toast");
 
-box.innerHTML = "Order cancelled successfully ❌";
+toast.innerText = order.notification;
+
+toast.classList.add("show");
+
+setTimeout(function(){
+
+toast.classList.remove("show");
+
+},4000);
+
+order.notification = "";
+
+localStorage.setItem("orders", JSON.stringify(orders));
 
 }
