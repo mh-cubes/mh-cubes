@@ -14,7 +14,12 @@ box.innerHTML = `
 <p>Phone: ${order.phone}</p>
 
 <p>Address: ${order.address}</p>
-
+<p>
+💳 Payment:
+<span class="payment-badge ${order.payment.replace(/\s+/g,'-')}">
+${order.payment}
+</span>
+</p>
 
 <h2>Products</h2>
 

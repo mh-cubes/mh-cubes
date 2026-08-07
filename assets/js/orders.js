@@ -15,7 +15,10 @@ box.innerHTML = `
 <p>Phone: ${order.phone}</p>
 
 <p>Address: ${order.address}</p>
-
+<p>
+💳 Payment Method:
+${order.payment}
+</p>
 
 <h2>Products</h2>
 

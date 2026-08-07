@@ -98,28 +98,40 @@ let name = document.getElementById("customer-name").value;
 let phone = document.getElementById("customer-phone").value;
 
 let address = document.getElementById("customer-address").value;
+let payment = document.querySelector('input[name="payment"]:checked');
 
+if(payment){
 
-if(name === "" || phone === "" || address === ""){
+payment = payment.value;
 
-alert("Please fill all details.");
+}else{
 
-return;
+payment = "";
+
+}
+
+if(name === "" || phone === "" || address === "" || payment === ""){
+
+    alert("Please fill all details and select a payment method.");
+
+    return;
 
 }
 
 
 let order = {
 
-customerName:name,
+    customerName: name,
 
-phone:phone,
+    phone: phone,
 
-address:address,
+    address: address,
 
-products:cart,
+    payment: payment,
 
-date:new Date().toLocaleString()
+    products: cart,
+
+    date: new Date().toLocaleString()
 
 };
 
