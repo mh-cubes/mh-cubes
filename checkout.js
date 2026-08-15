@@ -4,7 +4,6 @@ import {
     addDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-
 // ==============================
 // CART
 // ==============================
@@ -13,134 +12,63 @@ let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
 
 // ==============================
-// PHONE VALIDATION
-// ==============================
-
-let phoneInput = document.getElementById("customer-phone");
-let phoneMessage = document.getElementById("phone-message");
-
-if(phoneInput){
-
-    phoneInput.addEventListener("input", function(){
-
-        let phone = phoneInput.value.trim();
-
-        if(phone === ""){
-
-            phoneMessage.innerText = "";
-
-            phoneInput.classList.remove(
-                "phone-valid",
-                "phone-invalid"
-            );
-
-            return;
-        }
-
-
-        if(/^03\d{9}$/.test(phone)){
-
-            phoneMessage.innerText =
-                "✅ Valid Pakistani phone number";
-
-            phoneMessage.className = "valid-phone";
-
-            phoneInput.classList.add("phone-valid");
-
-            phoneInput.classList.remove("phone-invalid");
-
-        }else{
-
-            phoneMessage.innerText =
-                "❌ Phone number must be 11 digits and start with 03";
-
-            phoneMessage.className = "invalid-phone";
-
-            phoneInput.classList.add("phone-invalid");
-
-            phoneInput.classList.remove("phone-valid");
-
-        }
-
-    });
-
-}
-
-
-// ==============================
 // LOAD CHECKOUT
 // ==============================
 
-function loadCheckout(){
+function loadCheckout() {
 
-    let box = document.getElementById("checkout-items");
+    cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-    if(!box) return;
+    const box = document.getElementById("checkout-items");
+
+    if (!box) return;
 
     box.innerHTML = "";
 
     let total = 0;
 
+    for (const product in cart) {
 
-    for(let product in cart){
+        const item = cart[product];
 
-        let item = document.createElement("div");
+        const itemTotal =
+            Number(item.price) * Number(item.quantity);
 
-        item.className = "checkout-product";
+        total += itemTotal;
 
+        const div = document.createElement("div");
 
-        item.innerHTML = `
+        div.className = "checkout-product";
 
-            <h3>${product}</h3>
+        div.innerHTML = `
+            <div class="checkout-product-info">
+                <img
+                    src="${item.image}"
+                    alt="${product}"
+                    class="checkout-image"
+                >
 
-            <p>
-                PKR ${cart[product].price}
-            </p>
+                <div>
+                    <h3>${product}</h3>
+                    <p>PKR ${item.price}</p>
+                </div>
+            </div>
 
-            <button onclick="decreaseQty('${product}')">
-                −
-            </button>
-
-            <span>
-                ${cart[product].quantity}
-            </span>
-
-            <button onclick="increaseQty('${product}')">
-                +
-            </button>
-
+            <div class="checkout-controls">
+                <button onclick="decreaseQty('${product}')">−</button>
+                <span>${item.quantity}</span>
+                <button onclick="increaseQty('${product}')">+</button>
+            </div>
         `;
 
-
-        box.appendChild(item);
-
-
-        total +=
-            Number(cart[product].price) *
-            Number(cart[product].quantity);
-
+        box.appendChild(div);
     }
 
-
-    updateTotal(total);
-
-}
-
-
-// ==============================
-// UPDATE TOTAL
-// ==============================
-
-function updateTotal(total = 0){
-
-    let totalElement =
+    const totalElement =
         document.getElementById("checkout-total");
 
-    if(totalElement){
-
-        totalElement.innerText =
-            "Total: PKR " + total;
-
+    if (totalElement) {
+        totalElement.innerText = "Total: PKR " + total;
     }
 
 }
@@ -150,13 +78,13 @@ function updateTotal(total = 0){
 // INCREASE QUANTITY
 // ==============================
 
-function increaseQty(product){
+function increaseQty(product) {
 
-    if(!cart[product]) return;
+    if (!cart[product]) return;
 
     cart[product].quantity++;
 
-    saveCheckout();
+    saveCart();
 
 }
 
@@ -165,30 +93,26 @@ function increaseQty(product){
 // DECREASE QUANTITY
 // ==============================
 
-function decreaseQty(product){
+function decreaseQty(product) {
 
-    if(!cart[product]) return;
+    if (!cart[product]) return;
 
     cart[product].quantity--;
 
-
-    if(cart[product].quantity <= 0){
-
+    if (cart[product].quantity <= 0) {
         delete cart[product];
-
     }
 
-
-    saveCheckout();
+    saveCart();
 
 }
 
 
 // ==============================
-// SAVE CHECKOUT
+// SAVE CART
 // ==============================
 
-function saveCheckout(){
+function saveCart() {
 
     localStorage.setItem(
         "cart",
@@ -201,41 +125,273 @@ function saveCheckout(){
 
 
 // ==============================
+// PHONE VALIDATION
+// ==============================
+
+const phoneInput =
+    document.getElementById("customer-phone");
+
+const phoneMessage =
+    document.getElementById("phone-message");
+
+if (phoneInput) {
+
+    phoneInput.addEventListener("input", function () {
+
+        const phone = phoneInput.value.trim();
+
+        if (phone === "") {
+
+            phoneMessage.innerText = "";
+
+            phoneInput.classList.remove(
+                "phone-valid",
+                "phone-invalid"
+            );
+
+            return;
+        }
+
+        if (/^03\d{9}$/.test(phone)) {
+
+            phoneMessage.innerText =
+                "✅ Valid Pakistani phone number";
+
+            phoneMessage.className =
+                "valid-phone";
+
+            phoneInput.classList.add(
+                "phone-valid"
+            );
+
+            phoneInput.classList.remove(
+                "phone-invalid"
+            );
+
+        } else {
+
+            phoneMessage.innerText =
+                "❌ Phone number must be 11 digits and start with 03";
+
+            phoneMessage.className =
+                "invalid-phone";
+
+            phoneInput.classList.add(
+                "phone-invalid"
+            );
+
+            phoneInput.classList.remove(
+                "phone-valid"
+            );
+
+        }
+
+    });
+
+}
+
+
+// ==============================
+// SAVED CUSTOMER DETAILS
+// ==============================
+
+const nameInput =
+    document.getElementById("customer-name");
+
+const addressInput =
+    document.getElementById("customer-address");
+
+if (nameInput) {
+
+    nameInput.value =
+        localStorage.getItem("customerName") || "";
+
+}
+
+if (phoneInput) {
+
+    phoneInput.value =
+        localStorage.getItem("customerPhone") || "";
+
+}
+
+if (addressInput) {
+
+    addressInput.value =
+        localStorage.getItem("customerAddress") || "";
+
+}
+
+
+// ==============================
+// PAYMENT SELECTION
+// ==============================
+
+const paymentOptions =
+    document.querySelectorAll(
+        'input[name="payment"]'
+    );
+
+paymentOptions.forEach(function (option) {
+
+    option.addEventListener("change", function () {
+
+        const method = this.value;
+
+        if (
+            method === "EasyPaisa" ||
+            method === "JazzCash"
+        ) {
+
+            openPaymentPopup(method);
+
+        }
+
+    });
+
+});
+
+
+// ==============================
+// PAYMENT POPUP
+// ==============================
+
+function openPaymentPopup(method) {
+
+    const loading =
+        document.getElementById("payment-loading");
+
+    const popup =
+        document.getElementById("payment-popup");
+
+    const title =
+        document.getElementById("payment-title");
+
+    const message =
+        document.getElementById("payment-message");
+
+    const number =
+        document.getElementById("payment-number");
+
+    const accountName =
+        document.getElementById("payment-name");
+
+    if (!loading || !popup) return;
+
+    loading.style.display = "flex";
+
+    setTimeout(function () {
+
+        loading.style.display = "none";
+
+        popup.style.display = "flex";
+
+        if (method === "EasyPaisa") {
+
+            title.innerHTML =
+                "🟢 EasyPaisa Payment";
+
+            message.innerHTML =
+                "⚠️ <b>IMPORTANT!</b><br><br>" +
+                "EasyPaisa payments are manual.<br>" +
+                "Please send the payment first, then enter your Transaction ID below.";
+
+        } else {
+
+            title.innerHTML =
+                "🔴 JazzCash Payment";
+
+            message.innerHTML =
+                "⚠️ <b>IMPORTANT!</b><br><br>" +
+                "JazzCash payments are manual.<br>" +
+                "Please send the payment first, then enter your Transaction ID below.";
+
+        }
+
+        if (number) {
+            number.innerHTML = "03XXXXXXXXX";
+        }
+
+        if (accountName) {
+            accountName.innerHTML =
+                "Account Name: MH CUBES";
+        }
+
+    }, 1200);
+
+}
+
+
+// ==============================
+// CLOSE PAYMENT POPUP
+// ==============================
+
+function closePaymentPopup() {
+
+    const popup =
+        document.getElementById("payment-popup");
+
+    const transaction =
+        document.getElementById("transaction-id");
+
+    if (popup) {
+        popup.style.display = "none";
+    }
+
+    if (transaction) {
+        transaction.value = "";
+    }
+
+}
+
+
+// ==============================
+// CONFIRM PAYMENT
+// ==============================
+
+function confirmPayment() {
+
+    const input =
+        document.getElementById("transaction-id");
+
+    if (!input) return;
+
+    const id = input.value.trim();
+
+    if (id === "") {
+
+        alert(
+            "⚠️ Please enter your Transaction ID."
+        );
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        "transactionID",
+        id
+    );
+
+    alert(
+        "✅ Payment details received."
+    );
+
+    closePaymentPopup();
+
+}
+
+
+// ==============================
 // PLACE ORDER
 // ==============================
 
-async function placeOrder(){
+async function placeOrder() {
 
-    let name =
-        document.getElementById("customer-name")
-        .value.trim();
+    cart =
+        JSON.parse(localStorage.getItem("cart")) || {};
 
-
-    let phone =
-        document.getElementById("customer-phone")
-        .value.trim();
-
-
-    let address =
-        document.getElementById("customer-address")
-        .value.trim();
-
-
-    let paymentElement =
-        document.querySelector(
-            'input[name="payment"]:checked'
-        );
-
-
-    let payment =
-        paymentElement
-        ? paymentElement.value
-        : "";
-
-
-    // CHECK CART
-
-    if(Object.keys(cart).length === 0){
+    if (Object.keys(cart).length === 0) {
 
         alert("🛒 Your cart is empty.");
 
@@ -243,15 +399,34 @@ async function placeOrder(){
 
     }
 
+    const name =
+        document.getElementById("customer-name")
+        .value.trim();
 
-    // CHECK DETAILS
+    const phone =
+        document.getElementById("customer-phone")
+        .value.trim();
 
-    if(
+    const address =
+        document.getElementById("customer-address")
+        .value.trim();
+
+    const paymentElement =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+    const payment =
+        paymentElement
+            ? paymentElement.value
+            : "";
+
+    if (
         name === "" ||
         phone === "" ||
         address === "" ||
         payment === ""
-    ){
+    ) {
 
         alert(
             "Please fill all details and select a payment method."
@@ -261,10 +436,7 @@ async function placeOrder(){
 
     }
 
-
-    // CHECK PHONE
-
-    if(!/^03\d{9}$/.test(phone)){
+    if (!/^03\d{9}$/.test(phone)) {
 
         alert(
             "Please enter a valid Pakistani phone number."
@@ -273,9 +445,6 @@ async function placeOrder(){
         return;
 
     }
-
-
-    // SAVE CUSTOMER DETAILS
 
     localStorage.setItem(
         "customerName",
@@ -292,10 +461,17 @@ async function placeOrder(){
         address
     );
 
+    let total = 0;
 
-    // CREATE ORDER
+    for (const product in cart) {
 
-    let order = {
+        total +=
+            Number(cart[product].price) *
+            Number(cart[product].quantity);
+
+    }
+
+    const order = {
 
         orderID:
             "MH" + Date.now(),
@@ -315,6 +491,9 @@ async function placeOrder(){
         products:
             cart,
 
+        total:
+            total,
+
         transactionID:
             localStorage.getItem(
                 "transactionID"
@@ -328,31 +507,19 @@ async function placeOrder(){
 
     };
 
-
-    // CONFIRM
-
-    let confirmed =
+    const confirmed =
         confirm(
             "Are you sure you want to place this order?"
         );
 
+    if (!confirmed) return;
 
-    if(!confirmed){
-
-        return;
-
-    }
-
-
-    try{
-
-        // SAVE DIRECTLY TO FIRESTORE
+    try {
 
         await addDoc(
             collection(db, "orders"),
             order
         );
-
 
         alert(
             "🎉 Order placed successfully!\n\n" +
@@ -362,29 +529,21 @@ async function placeOrder(){
             "Please save this Order ID."
         );
 
-
-        // CLEAR CART
-
         localStorage.removeItem("cart");
 
         localStorage.removeItem(
             "transactionID"
         );
 
-
-        // GO HOME
-
         window.location.href =
             "index.html";
 
-
-    }catch(error){
+    } catch (error) {
 
         console.error(
             "Order error:",
             error
         );
-
 
         alert(
             "❌ Order could not be placed.\n\n" +
@@ -397,281 +556,20 @@ async function placeOrder(){
 
 
 // ==============================
-// LOAD SAVED CUSTOMER DETAILS
-// ==============================
-
-let savedName =
-    localStorage.getItem("customerName") || "";
-
-let savedPhone =
-    localStorage.getItem("customerPhone") || "";
-
-let savedAddress =
-    localStorage.getItem("customerAddress") || "";
-
-
-let nameInput =
-    document.getElementById("customer-name");
-
-let phoneField =
-    document.getElementById("customer-phone");
-
-let addressInput =
-    document.getElementById("customer-address");
-
-
-if(nameInput){
-
-    nameInput.value = savedName;
-
-}
-
-
-if(phoneField){
-
-    phoneField.value = savedPhone;
-
-}
-
-
-if(addressInput){
-
-    addressInput.value = savedAddress;
-
-}
-
-
-// ==============================
-// PAYMENT SELECTION
-// ==============================
-
-let paymentOptions =
-    document.querySelectorAll(
-        'input[name="payment"]'
-    );
-
-
-paymentOptions.forEach(function(option){
-
-    option.addEventListener(
-        "change",
-        function(){
-
-            let method = this.value;
-
-
-            if(
-                method === "EasyPaisa" ||
-                method === "JazzCash"
-            ){
-
-                openPaymentPopup(method);
-
-            }
-
-        }
-    );
-
-});
-
-
-// ==============================
-// PAYMENT POPUP
-// ==============================
-
-function openPaymentPopup(method){
-
-    let loading =
-        document.getElementById(
-            "payment-loading"
-        );
-
-
-    let popup =
-        document.getElementById(
-            "payment-popup"
-        );
-
-
-    let title =
-        document.getElementById(
-            "payment-title"
-        );
-
-
-    let message =
-        document.getElementById(
-            "payment-message"
-        );
-
-
-    let number =
-        document.getElementById(
-            "payment-number"
-        );
-
-
-    let accountName =
-        document.getElementById(
-            "payment-name"
-        );
-
-
-    if(!loading || !popup) return;
-
-
-    loading.style.display = "flex";
-
-
-    setTimeout(function(){
-
-        loading.style.display = "none";
-
-        popup.style.display = "flex";
-
-
-        if(method === "EasyPaisa"){
-
-            title.innerHTML =
-                "🟢 EasyPaisa Payment";
-
-
-            message.innerHTML =
-                "⚠️ <b>IMPORTANT!</b><br><br>" +
-                "EasyPaisa payments are manual.<br>" +
-                "Please send the payment first, " +
-                "then enter your Transaction ID below.";
-
-
-            number.innerHTML =
-                "03XXXXXXXXX";
-
-
-            accountName.innerHTML =
-                "Account Name: MH CUBES";
-
-        }else{
-
-            title.innerHTML =
-                "🔴 JazzCash Payment";
-
-
-            message.innerHTML =
-                "⚠️ <b>IMPORTANT!</b><br><br>" +
-                "JazzCash payments are manual.<br>" +
-                "Please send the payment first, " +
-                "then enter your Transaction ID below.";
-
-
-            number.innerHTML =
-                "03XXXXXXXXX";
-
-
-            accountName.innerHTML =
-                "Account Name: MH CUBES";
-
-        }
-
-    },1200);
-
-}
-
-
-// ==============================
-// CLOSE PAYMENT POPUP
-// ==============================
-
-function closePaymentPopup(){
-
-    let popup =
-        document.getElementById(
-            "payment-popup"
-        );
-
-
-    let transaction =
-        document.getElementById(
-            "transaction-id"
-        );
-
-
-    if(popup){
-
-        popup.style.display = "none";
-
-    }
-
-
-    if(transaction){
-
-        transaction.value = "";
-
-    }
-
-}
-
-
-// ==============================
-// CONFIRM PAYMENT
-// ==============================
-
-function confirmPayment(){
-
-    let input =
-        document.getElementById(
-            "transaction-id"
-        );
-
-
-    let id =
-        input.value.trim();
-
-
-    if(id === ""){
-
-        alert(
-            "⚠️ Please enter your Transaction ID."
-        );
-
-        return;
-
-    }
-
-
-    localStorage.setItem(
-        "transactionID",
-        id
-    );
-
-
-    alert(
-        "✅ Payment details received."
-    );
-
-
-    closePaymentPopup();
-
-}
-
-
-// ==============================
-// CLICK OUTSIDE POPUP
+// CLICK OUTSIDE PAYMENT POPUP
 // ==============================
 
 window.addEventListener(
     "click",
-    function(event){
+    function (event) {
 
-        let popup =
-            document.getElementById(
-                "payment-popup"
-            );
+        const popup =
+            document.getElementById("payment-popup");
 
-
-        if(
+        if (
             popup &&
             event.target === popup
-        ){
+        ) {
 
             closePaymentPopup();
 
@@ -683,7 +581,6 @@ window.addEventListener(
 
 // ==============================
 // MAKE FUNCTIONS AVAILABLE
-// TO HTML BUTTONS
 // ==============================
 
 window.placeOrder =
@@ -706,7 +603,7 @@ window.confirmPayment =
 
 
 // ==============================
-// START
+// START CHECKOUT
 // ==============================
 
 loadCheckout();
