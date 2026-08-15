@@ -1,3 +1,5 @@
+import { db } from "../../firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
 let phoneInput = document.getElementById("customer-phone");
@@ -138,7 +140,7 @@ function updateTotal(){
 // Place Order
 // ------------------------------
 
-function placeOrder(){
+async function placeOrder(){
 
     let name = document.getElementById("customer-name").value.trim();
 
@@ -223,9 +225,7 @@ orderID: "MH" + Date.now(),
 
     }
 
-    orders.push(order);
-
-    localStorage.setItem("orders",JSON.stringify(orders));
+    await addDoc(collection(db, "orders"), order);
 
     alert(
 "🎉 Order placed successfully!\n\nYour Order ID:\n" +

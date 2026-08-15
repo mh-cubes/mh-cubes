@@ -16,51 +16,110 @@ if(button && savedTheme === "dark"){
     let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
 
-    document.querySelectorAll(".cart-btn").forEach(function(button){
+   document.querySelectorAll(".cart-btn").forEach(function(button){
 
-        button.addEventListener("click", function(){
+    button.addEventListener("click", function(){
+
+        let name;
+        let price;
+        let image;
+
+
+        // Product page buttons
+        if(button.dataset.name){
+
+            name = button.dataset.name;
+
+            price = Number(button.dataset.price);
+
+            image = button.dataset.image;
+
+        }
+
+        // Homepage product cards
+        else{
 
             let productBox = button.closest(".product");
 
-            let name = productBox.querySelector("h3").innerText;
+            name = productBox.querySelector("h3").innerText;
 
-            let price = Number(
+            price = Number(
                 productBox.querySelector("p").innerText.replace("PKR ", "")
             );
 
+            image = productBox.querySelector("img").src;
 
-            if(cart[name]){
-                cart[name].quantity++;
-            }
-            else{
-                cart[name] = {
-                    price: price,
-                    quantity: 1,
-                    image: productBox.querySelector("img").src
-                };
-            }
+        }
 
 
-            localStorage.setItem("cart", JSON.stringify(cart));
+        // Safety check
+        if(!name || !price || !image){
 
-            updateCartCount();
+            console.error("Product information missing:", {
+                name,
+                price,
+                image
+            });
+
+            return;
+
+        }
 
 
-            let toast = document.getElementById("toast");
+        // Add to cart
+        if(cart[name]){
 
-            if(toast){
-                toast.innerText = name + " added to cart 🛒";
+            cart[name].quantity++;
 
-                toast.classList.add("show");
+        }
+        else{
 
-                setTimeout(function(){
-                    toast.classList.remove("show");
-                },3000);
-            }
+            cart[name] = {
 
-        });
+                price: price,
+
+                quantity: 1,
+
+                image: image
+
+            };
+
+        }
+
+
+        // Save cart
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+
+        updateCartCount();
+
+
+        // Toast
+        let toast = document.getElementById("toast");
+
+
+        if(toast){
+
+            toast.innerText =
+                name + " added to cart 🛒";
+
+            toast.classList.add("show");
+
+
+            setTimeout(function(){
+
+                toast.classList.remove("show");
+
+            },3000);
+
+        }
 
     });
+
+});
 
 
 

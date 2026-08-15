@@ -1,220 +1,349 @@
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+import { db } from "../../firebase.js";
+
+import {
+    collection,
+    getDocs,
+    doc,
+    updateDoc,
+    deleteDoc
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 let box = document.getElementById("admin-order-box");
 
-if(orders.length === 0){
 
-    box.innerHTML = "<h2>No active orders.</h2>";
+// ------------------------------
+// Load Orders From Firebase
+// ------------------------------
 
-}else{
+async function loadOrders(){
 
-    box.innerHTML = "";
+    try{
 
-    orders.forEach(function(order, index){
+        let orders = [];
 
-        box.innerHTML += `
+        const snapshot = await getDocs(collection(db, "orders"));
 
-        <div class="admin-order-card">
 
-        <h2>Order #${index + 1}</h2>
+        snapshot.forEach((docSnap)=>{
 
-        <p><strong>Name:</strong> ${order.customerName}</p>
+            orders.push({
 
-        <p><strong>Phone:</strong> ${order.phone}</p>
+                id: docSnap.id,
 
-        <p><strong>Address:</strong> ${order.address}</p>
+                ...docSnap.data()
 
-        <p>
-        <strong>Payment:</strong>
-        <span class="payment-badge ${order.payment ? order.payment.replace(/\s+/g,'-') : ''}">
-        ${order.payment || "Not Selected"}
-        </span>
-        </p>
+            });
 
-        <h3>Products</h3>
+        });
 
-        ${Object.keys(order.products).map(product => {
 
-            return `
-            <p>
-            ${product}
-            -
-            PKR ${order.products[product].price}
-            ×
-            ${order.products[product].quantity}
-            </p>
+        if(orders.length === 0){
+
+            box.innerHTML = "<h2>No active orders.</h2>";
+
+            return;
+
+        }
+
+
+        box.innerHTML = "";
+
+
+        orders.forEach((order)=>{
+
+
+            box.innerHTML += `
+
+            <div class="admin-order-card">
+
+
+                <h2>Order #${order.orderID}</h2>
+
+
+                <p>
+                <strong>Name:</strong>
+                ${order.customerName}
+                </p>
+
+
+                <p>
+                <strong>Phone:</strong>
+                ${order.phone}
+                </p>
+
+
+                <p>
+                <strong>Address:</strong>
+                ${order.address}
+                </p>
+
+
+                <p>
+                <strong>Payment:</strong>
+                ${order.payment}
+                </p>
+
+
+                <p>
+                <strong>Transaction ID:</strong>
+                ${order.transactionID || "Not provided"}
+                </p>
+
+
+                <h3>Products</h3>
+
+
+                ${Object.keys(order.products).map(product=>`
+
+
+                    <p>
+                    ${product}
+                    - PKR ${order.products[product].price}
+                    × ${order.products[product].quantity}
+                    </p>
+
+
+                `).join("")}
+
+
+                <p>
+                <strong>Status:</strong>
+                ${order.status || "Pending"}
+                </p>
+
+
+                <button onclick="confirmOrder('${order.id}')">
+                Confirm ✅
+                </button>
+
+
+                <button onclick="processOrder('${order.id}')">
+                Processing 📦
+                </button>
+
+
+                <button onclick="shipOrder('${order.id}')">
+                Ship 🚚
+                </button>
+
+
+                <button onclick="deliverOrder('${order.id}')">
+                Deliver ✅
+                </button>
+
+
+                <button onclick="cancelAdminOrder('${order.id}')">
+                Cancel ❌
+                </button>
+
+
+            </div>
+
+
             `;
 
-        }).join("")}
 
-        <p>
-        <strong>Status:</strong>
-        ${order.status || "Pending 🟡"}
-        </p>
-${order.status !== "Confirmed ✅" ? `
-<button class="confirm-btn" onclick="confirmOrder(${index})">
-✅ Confirm
-</button>
-` : ""}
+        });
 
-${order.status === "Pending 🟡" ? `
-<button class="confirm-btn" onclick="confirmOrder(${index})">
-✅ Confirm
-</button>
-` : ""}
 
-${order.status === "Confirmed ✅" ? `
-<button class="process-btn" onclick="processOrder(${index})">
-📦 Processing
-</button>
-` : ""}
+    }catch(error){
 
-${order.status === "Processing 📦" ? `
-<button class="ship-btn" onclick="shipOrder(${index})">
-🚚 Ship
-</button>
-` : ""}
+        console.error("Error loading orders:", error);
 
-${order.status === "Shipped 🚚" ? `
-<button class="deliver-btn" onclick="deliverOrder(${index})">
-✅ Deliver
-</button>
-` : ""}
+        box.innerHTML =
+        "<h2>Error loading orders.</h2>";
 
-<button class="cancel-btn" onclick="cancelAdminOrder(${index})">
-❌ Cancel
-</button>
-
-        <hr>
-
-        </div>
-
-        `;
-
-    });
-
-}
-function confirmOrder(index){
-
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-    orders[index].status = "Confirmed ✅";
-orders[index].notification = "🎉 Your order has been confirmed and is now being prepared.";
-    localStorage.setItem("orders", JSON.stringify(orders));
-
-    location.reload();
-
-}
-function cancelAdminOrder(index){
-
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-    orders.splice(index,1);
-
-    localStorage.setItem("orders", JSON.stringify(orders));
-
-    location.reload();
-
-}
-function confirmOrder(index){
-
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-    orders[index].status = "Confirmed ✅";
-
-    orders[index].notification = "🎉 Your order has been confirmed and is now being prepared.";
-
-    localStorage.setItem("orders", JSON.stringify(orders));
-
-    location.reload();
+    }
 
 }
 
 
-function processOrder(index){
+loadOrders();
 
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+// ------------------------------
+// Update Order Status
+// ------------------------------
 
-    orders[index].status = "Processing 📦";
+async function updateOrderStatus(id, status, message){
 
-    orders[index].notification = "📦 Your order is now being prepared.";
+    try{
 
-    localStorage.setItem("orders", JSON.stringify(orders));
+        await updateDoc(doc(db, "orders", id), {
 
-    location.reload();
+            status: status,
+
+            notification: message
+
+        });
+
+
+        location.reload();
+
+
+    }catch(error){
+
+        console.error("Error updating order:", error);
+
+        alert("Failed to update order.");
+
+    }
+
+}
+
+
+
+// ------------------------------
+// Confirm Order
+// ------------------------------
+
+async function confirmOrder(id){
+
+    updateOrderStatus(
+        id,
+        "Confirmed ✅",
+        "🎉 Your order has been confirmed and is now being prepared."
+    );
 
 }
 
 
-function shipOrder(index){
 
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+// ------------------------------
+// Processing Order
+// ------------------------------
 
-    orders[index].status = "Shipped 🚚";
+async function processOrder(id){
 
-    orders[index].notification = "🚚 Your order has been shipped and is on the way!";
+    updateOrderStatus(
+        id,
+        "Processing 📦",
+        "📦 Your order is now being prepared."
+    );
 
-    localStorage.setItem("orders", JSON.stringify(orders));
+}
 
-    location.reload();
+
+
+// ------------------------------
+// Ship Order
+// ------------------------------
+
+async function shipOrder(id){
+
+    updateOrderStatus(
+        id,
+        "Shipped 🚚",
+        "🚚 Your order has been shipped and is on the way!"
+    );
 
 }
 
 
-function deliverOrder(index){
 
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+// ------------------------------
+// Deliver Order
+// ------------------------------
 
-    orders[index].status = "Delivered ✅";
+async function deliverOrder(id){
 
-    orders[index].notification = "✅ Your order has been delivered. Thank you for shopping with MH CUBES!";
+    updateOrderStatus(
+        id,
+        "Delivered ✅",
+        "✅ Your order has been delivered. Thank you for shopping with MH CUBES!"
+    );
 
-    localStorage.setItem("orders", JSON.stringify(orders));
-
-
-    // Remove order after 5 minutes
-    setTimeout(function(){
-
-        let updatedOrders = JSON.parse(localStorage.getItem("orders")) || [];
-
-        updatedOrders.splice(index, 1);
-
-        localStorage.setItem(
-            "orders",
-            JSON.stringify(updatedOrders)
-        );
-
-    }, 300000);
-
-
-    location.reload();
 
 }
+
+// ------------------------------
+// Cancel Order
+// ------------------------------
+
+async function cancelAdminOrder(id){
+
+    let confirmCancel = confirm(
+        "Are you sure you want to cancel this order?"
+    );
+
+
+    if(!confirmCancel){
+
+        return;
+
+    }
+
+
+    try{
+
+
+        await deleteDoc(doc(db, "orders", id));
+
+
+        location.reload();
+
+
+    }catch(error){
+
+        console.error("Error cancelling order:", error);
+
+        alert("Failed to cancel order.");
+
+    }
+
+}
+
+
+
+// ------------------------------
+// Owner Logout
+// ------------------------------
+
 function logoutOwner(){
 
 
-document.querySelector(".orders").innerHTML = `
-
-<h1>🔐 Logging Out...</h1>
-
-<p style="text-align:center;font-size:20px;">
-Returning to Owner Login
-</p>
-
-<div class="loader"></div>
-
-`;
+    let ordersBox = document.querySelector(".orders");
 
 
+    if(ordersBox){
 
-setTimeout(function(){
+        ordersBox.innerHTML = `
 
-localStorage.removeItem("adminAccess");
+        <h2>
+        Logging out...
+        </h2>
 
-window.location.href="owner-login.html";
+        `;
+
+    }
 
 
-},2000);
+
+    setTimeout(function(){
+
+
+        localStorage.removeItem("adminAccess");
+
+
+        window.location.href = "owner-login.html";
+
+
+    },2000);
 
 
 }
+
+
+
+// Make Functions Available To HTML Buttons
+
+window.confirmOrder = confirmOrder;
+
+window.processOrder = processOrder;
+
+window.shipOrder = shipOrder;
+
+window.deliverOrder = deliverOrder;
+
+window.cancelAdminOrder = cancelAdminOrder;
+
+window.logoutOwner = logoutOwner;
