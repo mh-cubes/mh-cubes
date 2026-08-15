@@ -1,3 +1,10 @@
+import { db } from "./firebase-config.js";
+
+import {
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 
 // ==============================
 // CART
@@ -16,6 +23,9 @@ function loadCheckout() {
 
     const box = document.getElementById("checkout-items");
 
+    const totalElement =
+        document.getElementById("checkout-total");
+
     if (!box) return;
 
     box.innerHTML = "";
@@ -26,10 +36,10 @@ function loadCheckout() {
 
         const item = cart[product];
 
-        const itemTotal =
-            Number(item.price) * Number(item.quantity);
+        const price = Number(item.price);
+        const quantity = Number(item.quantity);
 
-        total += itemTotal;
+        total += price * quantity;
 
         const div = document.createElement("div");
 
@@ -37,6 +47,7 @@ function loadCheckout() {
 
         div.innerHTML = `
             <div class="checkout-product-info">
+
                 <img
                     src="${item.image}"
                     alt="${product}"
@@ -45,25 +56,34 @@ function loadCheckout() {
 
                 <div>
                     <h3>${product}</h3>
-                    <p>PKR ${item.price}</p>
+                    <p>PKR ${price}</p>
                 </div>
+
             </div>
 
             <div class="checkout-controls">
-                <button onclick="decreaseQty('${product}')">−</button>
-                <span>${item.quantity}</span>
-                <button onclick="increaseQty('${product}')">+</button>
+
+                <button onclick="decreaseQty('${product}')">
+                    −
+                </button>
+
+                <span>${quantity}</span>
+
+                <button onclick="increaseQty('${product}')">
+                    +
+                </button>
+
             </div>
         `;
 
         box.appendChild(div);
     }
 
-    const totalElement =
-        document.getElementById("checkout-total");
-
     if (totalElement) {
-        totalElement.innerText = "Total: PKR " + total;
+
+        totalElement.innerText =
+            "Total: PKR " + total;
+
     }
 
 }
@@ -95,7 +115,9 @@ function decreaseQty(product) {
     cart[product].quantity--;
 
     if (cart[product].quantity <= 0) {
+
         delete cart[product];
+
     }
 
     saveCart();
@@ -129,11 +151,13 @@ const phoneInput =
 const phoneMessage =
     document.getElementById("phone-message");
 
+
 if (phoneInput) {
 
     phoneInput.addEventListener("input", function () {
 
-        const phone = phoneInput.value.trim();
+        const phone =
+            phoneInput.value.trim();
 
         if (phone === "") {
 
@@ -146,6 +170,7 @@ if (phoneInput) {
 
             return;
         }
+
 
         if (/^03\d{9}$/.test(phone)) {
 
@@ -196,6 +221,7 @@ const nameInput =
 const addressInput =
     document.getElementById("customer-address");
 
+
 if (nameInput) {
 
     nameInput.value =
@@ -203,12 +229,14 @@ if (nameInput) {
 
 }
 
+
 if (phoneInput) {
 
     phoneInput.value =
         localStorage.getItem("customerPhone") || "";
 
 }
+
 
 if (addressInput) {
 
@@ -226,6 +254,7 @@ const paymentOptions =
     document.querySelectorAll(
         'input[name="payment"]'
     );
+
 
 paymentOptions.forEach(function (option) {
 
@@ -271,15 +300,19 @@ function openPaymentPopup(method) {
     const accountName =
         document.getElementById("payment-name");
 
+
     if (!loading || !popup) return;
 
+
     loading.style.display = "flex";
+
 
     setTimeout(function () {
 
         loading.style.display = "none";
 
         popup.style.display = "flex";
+
 
         if (method === "EasyPaisa") {
 
@@ -303,13 +336,20 @@ function openPaymentPopup(method) {
 
         }
 
+
         if (number) {
-            number.innerHTML = "03XXXXXXXXX";
+
+            number.innerHTML =
+                "03XXXXXXXXX";
+
         }
 
+
         if (accountName) {
+
             accountName.innerHTML =
                 "Account Name: MH CUBES";
+
         }
 
     }, 1200);
@@ -329,12 +369,18 @@ function closePaymentPopup() {
     const transaction =
         document.getElementById("transaction-id");
 
+
     if (popup) {
+
         popup.style.display = "none";
+
     }
 
+
     if (transaction) {
+
         transaction.value = "";
+
     }
 
 }
@@ -351,7 +397,9 @@ function confirmPayment() {
 
     if (!input) return;
 
-    const id = input.value.trim();
+    const id =
+        input.value.trim();
+
 
     if (id === "") {
 
@@ -363,14 +411,17 @@ function confirmPayment() {
 
     }
 
+
     localStorage.setItem(
         "transactionID",
         id
     );
 
+
     alert(
         "✅ Payment details received."
     );
+
 
     closePaymentPopup();
 
@@ -386,35 +437,44 @@ async function placeOrder() {
     cart =
         JSON.parse(localStorage.getItem("cart")) || {};
 
+
     if (Object.keys(cart).length === 0) {
 
-        alert("🛒 Your cart is empty.");
+        alert(
+            "🛒 Your cart is empty."
+        );
 
         return;
 
     }
 
+
     const name =
         document.getElementById("customer-name")
         .value.trim();
+
 
     const phone =
         document.getElementById("customer-phone")
         .value.trim();
 
+
     const address =
         document.getElementById("customer-address")
         .value.trim();
+
 
     const paymentElement =
         document.querySelector(
             'input[name="payment"]:checked'
         );
 
+
     const payment =
         paymentElement
             ? paymentElement.value
             : "";
+
 
     if (
         name === "" ||
@@ -431,6 +491,7 @@ async function placeOrder() {
 
     }
 
+
     if (!/^03\d{9}$/.test(phone)) {
 
         alert(
@@ -440,6 +501,9 @@ async function placeOrder() {
         return;
 
     }
+
+
+    // SAVE CUSTOMER DETAILS
 
     localStorage.setItem(
         "customerName",
@@ -456,6 +520,9 @@ async function placeOrder() {
         address
     );
 
+
+    // CALCULATE TOTAL
+
     let total = 0;
 
     for (const product in cart) {
@@ -465,6 +532,9 @@ async function placeOrder() {
             Number(cart[product].quantity);
 
     }
+
+
+    // CREATE ORDER
 
     const order = {
 
@@ -502,12 +572,15 @@ async function placeOrder() {
 
     };
 
+
     const confirmed =
         confirm(
             "Are you sure you want to place this order?"
         );
 
+
     if (!confirmed) return;
+
 
     try {
 
@@ -515,6 +588,7 @@ async function placeOrder() {
             collection(db, "orders"),
             order
         );
+
 
         alert(
             "🎉 Order placed successfully!\n\n" +
@@ -524,14 +598,17 @@ async function placeOrder() {
             "Please save this Order ID."
         );
 
+
         localStorage.removeItem("cart");
 
         localStorage.removeItem(
             "transactionID"
         );
 
+
         window.location.href =
             "index.html";
+
 
     } catch (error) {
 
@@ -539,6 +616,7 @@ async function placeOrder() {
             "Order error:",
             error
         );
+
 
         alert(
             "❌ Order could not be placed.\n\n" +
@@ -559,7 +637,10 @@ window.addEventListener(
     function (event) {
 
         const popup =
-            document.getElementById("payment-popup");
+            document.getElementById(
+                "payment-popup"
+            );
+
 
         if (
             popup &&
