@@ -83,7 +83,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            const files = Array.from(imageInput.files);
+           const files = Array.from(imageInput.files).slice(0, 5);
+
+if (imageInput.files.length > 5) {
+    showToast("⚠️ You can upload a maximum of 5 images.");
+}
 
 
             files.forEach(function (file) {
