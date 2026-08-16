@@ -8,26 +8,36 @@ document.addEventListener("DOMContentLoaded", function () {
     const toast = document.getElementById("review-toast");
     const stars = document.querySelectorAll(".stars span");
 
+    const imageInput = document.getElementById("review-images");
+    const imagePreview = document.getElementById("image-preview");
+
     if (!nameInput || !reviewInput || !ratingInput || !submitButton) {
         console.error("Review elements missing!");
         return;
     }
 
 
-    /* =========================
-       PRODUCT NAME
-    ========================= */
+    // =========================================
+    // PRODUCT NAME
+    // =========================================
 
-    let productName = document.title
+    const productName = document.title
         .split("-")[0]
         .trim();
 
     const storageKey = "reviews_" + productName;
 
 
-    /* =========================
-       STAR RATING
-    ========================= */
+    // =========================================
+    // SELECTED IMAGES
+    // =========================================
+
+    let selectedImages = [];
+
+
+    // =========================================
+    // STAR RATING
+    // =========================================
 
     stars.forEach(function (star) {
 
@@ -58,22 +68,92 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* =========================
-       SUBMIT REVIEW
-    ========================= */
+    // =========================================
+    // IMAGE UPLOAD
+    // =========================================
+
+    if (imageInput) {
+
+        imageInput.addEventListener("change", function () {
+
+            selectedImages = [];
+
+            if (imagePreview) {
+                imagePreview.innerHTML = "";
+            }
+
+
+            const files =
+                Array.from(imageInput.files);
+
+
+            files.forEach(function (file) {
+
+                if (!file.type.startsWith("image/")) {
+                    return;
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload = function (event) {
+
+                    selectedImages.push(
+                        event.target.result
+                    );
+
+
+                    if (imagePreview) {
+
+                        const img =
+                            document.createElement("img");
+
+                        img.src =
+                            event.target.result;
+
+                        img.className =
+                            "review-preview-image";
+
+                        imagePreview.appendChild(img);
+
+                    }
+
+                };
+
+
+                reader.readAsDataURL(file);
+
+            });
+
+        });
+
+    }
+
+
+    // =========================================
+    // SUBMIT REVIEW
+    // =========================================
 
     submitButton.addEventListener("click", function () {
 
-        const name = nameInput.value.trim();
-        const review = reviewInput.value.trim();
-        const rating = Number(ratingInput.value);
+        const name =
+            nameInput.value.trim();
+
+        const review =
+            reviewInput.value.trim();
+
+        const rating =
+            Number(ratingInput.value);
 
 
-        /* NAME */
-
+        // NAME
         if (!name) {
 
-            showToast("⚠️ Please enter your name.");
+            showToast(
+                "⚠️ Please enter your name."
+            );
 
             nameInput.focus();
 
@@ -81,11 +161,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* REVIEW */
-
+        // REVIEW
         if (!review) {
 
-            showToast("⚠️ Please write your review.");
+            showToast(
+                "⚠️ Please write your review."
+            );
 
             reviewInput.focus();
 
@@ -93,23 +174,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* RATING */
-
+        // RATING
         if (rating === 0) {
 
-            showToast("⭐ Please select a star rating.");
+            showToast(
+                "⭐ Please select a star rating."
+            );
 
             return;
         }
 
 
-        /* LOAD REVIEWS */
+        // =====================================
+        // LOAD REVIEWS
+        // =====================================
 
         let reviews =
-            JSON.parse(localStorage.getItem(storageKey)) || [];
+            JSON.parse(
+                localStorage.getItem(storageKey)
+            ) || [];
 
 
-        /* CREATE REVIEW */
+        // =====================================
+        // CREATE REVIEW
+        // =====================================
 
         const newReview = {
 
@@ -123,16 +211,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
             rating: rating,
 
-            images: [],
+            images: selectedImages,
 
             date: new Date().toLocaleDateString()
 
         };
 
 
-        /* SAVE */
+        // =====================================
+        // SAVE
+        // =====================================
 
         reviews.unshift(newReview);
+
 
         localStorage.setItem(
             storageKey,
@@ -140,7 +231,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* CLEAR FORM */
+        // =====================================
+        // CLEAR FORM
+        // =====================================
 
         nameInput.value = "";
 
@@ -149,6 +242,20 @@ document.addEventListener("DOMContentLoaded", function () {
         ratingInput.value = "0";
 
 
+        selectedImages = [];
+
+
+        if (imagePreview) {
+            imagePreview.innerHTML = "";
+        }
+
+
+        if (imageInput) {
+            imageInput.value = "";
+        }
+
+
+        // RESET STARS
         stars.forEach(function (star) {
 
             star.textContent = "☆";
@@ -158,18 +265,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        /* SUCCESS */
+        // SUCCESS
+        showToast(
+            "✅ Review submitted successfully!"
+        );
 
-        showToast("✅ Review submitted successfully!");
 
         displayReviews();
 
     });
 
 
-    /* =========================
-       TOAST
-    ========================= */
+    // =========================================
+    // TOAST
+    // =========================================
 
     function showToast(message) {
 
@@ -180,6 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
 
         }
+
 
         toast.textContent = message;
 
@@ -195,9 +305,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
-       DISPLAY REVIEWS
-    ========================= */
+    // =========================================
+    // DISPLAY REVIEWS
+    // =========================================
 
     function displayReviews() {
 
@@ -205,13 +315,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const reviews =
-            JSON.parse(localStorage.getItem(storageKey)) || [];
+            JSON.parse(
+                localStorage.getItem(storageKey)
+            ) || [];
 
 
         reviewList.innerHTML = "";
 
 
-        /* NO REVIEWS */
+        // =====================================
+        // NO REVIEWS
+        // =====================================
 
         if (reviews.length === 0) {
 
@@ -241,15 +355,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* DISPLAY REVIEWS */
+        // =====================================
+        // EACH REVIEW
+        // =====================================
 
         reviews.forEach(function (item) {
 
             let starsHTML = "";
 
 
-            /* STARS */
-
+            // STARS
             for (let i = 1; i <= 5; i++) {
 
                 starsHTML +=
@@ -260,10 +375,53 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
+            // =================================
+            // REVIEW IMAGES
+            // =================================
+
+            let imagesHTML = "";
+
+
+            if (
+                item.images &&
+                item.images.length > 0
+            ) {
+
+                imagesHTML = `
+
+                    <div class="review-images">
+
+                        ${item.images.map(function (image) {
+
+                            return `
+
+                                <img
+                                    src="${image}"
+                                    alt="Customer review image"
+                                    class="review-image"
+                                >
+
+                            `;
+
+                        }).join("")}
+
+                    </div>
+
+                `;
+
+            }
+
+
+            // =================================
+            // REVIEW CARD
+            // =================================
+
             const card =
                 document.createElement("div");
 
-            card.className = "review-card";
+
+            card.className =
+                "review-card";
 
 
             card.innerHTML = `
@@ -293,9 +451,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </h3>
 
                         <div class="review-stars">
-
                             ${starsHTML}
-
                         </div>
 
                     </div>
@@ -304,9 +460,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <!-- DATE -->
 
                     <span class="review-date">
-
                         ${item.date}
-
                     </span>
 
 
@@ -336,7 +490,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     </div>
 
-
                 </div>
 
 
@@ -348,18 +501,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 </p>
 
+
+                <!-- REVIEW IMAGES -->
+
+                ${imagesHTML}
+
             `;
 
 
-            /* =========================
-               THREE DOT BUTTON
-            ========================= */
+            // =================================
+            // THREE DOT MENU
+            // =================================
 
             const menuButton =
-                card.querySelector(".review-menu-btn");
+                card.querySelector(
+                    ".review-menu-btn"
+                );
+
 
             const menu =
-                card.querySelector(".review-menu-dropdown");
+                card.querySelector(
+                    ".review-menu-dropdown"
+                );
 
 
             menuButton.addEventListener(
@@ -368,8 +531,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     event.stopPropagation();
 
-
-                    /* Close other menus */
 
                     document
                         .querySelectorAll(
@@ -394,12 +555,14 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-            /* =========================
-               DELETE REVIEW
-            ========================= */
+            // =================================
+            // DELETE REVIEW
+            // =================================
 
             const deleteButton =
-                card.querySelector(".delete-review-btn");
+                card.querySelector(
+                    ".delete-review-btn"
+                );
 
 
             deleteButton.addEventListener(
@@ -417,14 +580,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (!confirmed) {
 
-                        menu.classList.remove("show");
+                        menu.classList.remove(
+                            "show"
+                        );
 
                         return;
 
                     }
 
 
-                    /* Remove this review */
+                    // REMOVE REVIEW
 
                     const updatedReviews =
                         reviews.filter(function (review) {
@@ -434,7 +599,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         });
 
 
-                    /* Save */
+                    // SAVE
 
                     localStorage.setItem(
                         storageKey,
@@ -442,7 +607,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
 
-                    /* Refresh */
+                    // REFRESH
 
                     displayReviews();
 
@@ -455,6 +620,8 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
+            // ADD CARD
+
             reviewList.appendChild(card);
 
         });
@@ -462,10 +629,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
-       CLOSE MENUS WHEN CLICKING
-       OUTSIDE
-    ========================= */
+    // =========================================
+    // CLOSE MENUS
+    // =========================================
 
     document.addEventListener(
         "click",
@@ -477,7 +643,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 )
                 .forEach(function (menu) {
 
-                    menu.classList.remove("show");
+                    menu.classList.remove(
+                        "show"
+                    );
 
                 });
 
@@ -485,9 +653,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =========================
-       SECURITY
-    ========================= */
+    // =========================================
+    // SECURITY
+    // =========================================
 
     function escapeHTML(text) {
 
@@ -501,9 +669,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
-       LOAD REVIEWS
-    ========================= */
+    // =========================================
+    // LOAD REVIEWS
+    // =========================================
 
     displayReviews();
 
