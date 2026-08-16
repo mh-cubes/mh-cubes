@@ -13,6 +13,11 @@
            MH CUBES - PREMIUM PRODUCT PAGE
         ================================= */
 
+        body {
+            background: #080808;
+            color: #ffffff;
+        }
+
         .product-page {
             max-width: 1200px;
             margin: 50px auto;
@@ -70,7 +75,7 @@
             top: 20px;
             left: 20px;
             background: #16a34a;
-            color: white;
+            color: #ffffff !important;
             padding: 8px 14px;
             border-radius: 30px;
             font-size: 13px;
@@ -82,6 +87,7 @@
 
         .product-info {
             animation: productFade 0.7s ease;
+            color: #ffffff;
         }
 
         @keyframes productFade {
@@ -98,7 +104,7 @@
 
         .product-tag {
             display: inline-block;
-            color: #ff3030;
+            color: #ff3030 !important;
             font-size: 14px;
             font-weight: bold;
             letter-spacing: 1px;
@@ -106,6 +112,7 @@
         }
 
         .product-info h1 {
+            color: #ffffff !important;
             font-size: 46px;
             line-height: 1.1;
             margin: 0 0 12px;
@@ -116,23 +123,24 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 20px;
-            color: #ffc107;
+            color: #ffc107 !important;
             font-size: 18px;
         }
 
         .rating span {
-    color: #ffd700 !important;
-    font-size: 14px;
-}
+            color: #aaaaaa !important;
+            font-size: 14px;
+        }
 
         .product-price {
+            color: #ffffff !important;
             font-size: 36px;
             font-weight: 800;
             margin-bottom: 20px;
         }
 
         .product-description {
-            color: #bdbdbd;
+            color: #bdbdbd !important;
             line-height: 1.7;
             font-size: 16px;
             margin-bottom: 25px;
@@ -141,7 +149,7 @@
         /* Delivery Card */
 
         .delivery-card {
-            background: #111;
+            background: #111111;
             border: 1px solid #292929;
             border-radius: 16px;
             padding: 18px;
@@ -149,12 +157,13 @@
         }
 
         .delivery-card h3 {
+            color: #ffffff !important;
             margin: 0 0 12px;
             font-size: 17px;
         }
 
         .delivery-card p {
-            color: #aaa;
+            color: #aaaaaa !important;
             line-height: 1.7;
             margin: 0;
             font-size: 14px;
@@ -179,24 +188,24 @@
         }
 
         .cart-btn {
-            background: #ff2020;
-            color: white;
+            background: #ff2020 !important;
+            color: #ffffff !important;
         }
 
         .cart-btn:hover {
-            background: #d90000;
+            background: #d90000 !important;
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(255,0,0,0.25);
         }
 
         .shop-btn {
-            background: white;
-            color: black;
+            background: #ffffff !important;
+            color: #000000 !important;
         }
 
         .shop-btn:hover {
             transform: translateY(-3px);
-            background: #eeeeee;
+            background: #eeeeee !important;
         }
 
         /* Reviews */
@@ -205,14 +214,94 @@
             max-width: 1000px;
             margin: 90px auto 0;
             padding: 30px;
-            background: #111;
+            background: #111111;
             border: 1px solid #292929;
             border-radius: 22px;
+            color: #ffffff !important;
         }
 
         .reviews h2 {
+            color: #ffffff !important;
             font-size: 28px;
             margin-bottom: 30px;
+        }
+
+        .reviews h3 {
+            color: #ffffff !important;
+            margin-top: 20px;
+        }
+
+        .reviews input,
+        .reviews textarea {
+            background: #1a1a1a !important;
+            color: #ffffff !important;
+            border: 1px solid #333333;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .reviews input::placeholder,
+        .reviews textarea::placeholder {
+            color: #888888 !important;
+        }
+
+        .reviews textarea {
+            width: 100%;
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .stars {
+            color: #ffc107 !important;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .stars span {
+            color: #ffc107 !important;
+        }
+
+        #submit-review {
+            background: #ff2020 !important;
+            color: #ffffff !important;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            background: #222222;
+            color: #ffffff !important;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #review-images {
+            display: none;
+        }
+
+        #review-toast {
+            color: #ffffff !important;
+        }
+
+        /* Why Choose */
+
+        .why-choose {
+            color: #ffffff !important;
+        }
+
+        .why-choose h2,
+        .why-choose h3 {
+            color: #ffffff !important;
+        }
+
+        .why-choose p {
+            color: #aaaaaa !important;
         }
 
         /* Mobile */
