@@ -382,3 +382,13 @@ window.onclick = function(event){
     }
 
 }
+// ------------------------------
+// MAKE FUNCTIONS AVAILABLE TO HTML
+// ------------------------------
+
+window.placeOrder = placeOrder;
+window.increaseQty = increaseQty;
+window.decreaseQty = decreaseQty;
+window.openPaymentPopup = openPaymentPopup;
+window.closePaymentPopup = closePaymentPopup;
+window.confirmPayment = confirmPayment;
