@@ -1,195 +1,620 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>MH CUBES</title>
-<link rel="icon" type="image/png" href="assets/images/mh-logo.png">
+
+    <link rel="icon" type="image/png" href="assets/images/mh-logo.png">
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-    <header>
-        <div class="logo">MH CUBES</div>
+<!-- ================= HEADER ================= -->
 
-       <nav>
-<a href="index.html">Home</a>
-<a href="#products">Products</a>
-<a href="#categories">Categories</a>
-<a href="#contact">Contact</a>
-<a href="my-orders.html">📦 My Orders</a>
-<a href="track-order.html">🔍 Track Order</a>
-<a href="settings.html">⚙️ Settings</a>
-</nav>
+<header>
 
-        <a href="cart.html">
-    <button class="cart-btn">
-        🛒 Cart
-        <span id="cart-count">0</span>
-    </button>
-</a>
+    <div class="logo">
+        MH CUBES
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#products">Products</a>
+        <a href="#categories">Categories</a>
+        <a href="#contact">Contact</a>
+        <a href="my-orders.html">📦 My Orders</a>
+        <a href="track-order.html">🔍 Track Order</a>
+        <a href="settings.html">⚙️ Settings</a>
+    </nav>
+
+    <a href="cart.html">
+        <button class="cart-btn">
+            🛒 Cart
+            <span id="cart-count">0</span>
+        </button>
+    </a>
+
+</header>
+
+
+<!-- ================= CART BOX ================= -->
+
 <div id="cartBox">
-    <h3>Your Cart</h3>
-    <div id="cartItems"></div>
-    <p id="cartTotal">Total: PKR 0</p>
-</div>
-    </header>
 
-    <section class="hero">
-        <h1>Welcome to MH CUBES</h1>
-        <p>Buy the best products at the best prices.</p>
-        <button onclick="scrollToProducts()">Shop Now</button>
-    </section>
+    <h3>Your Cart</h3>
+
+    <div id="cartItems"></div>
+
+    <p id="cartTotal">
+        Total: PKR 0
+    </p>
+
+</div>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <h1>
+        Welcome to MH CUBES
+    </h1>
+
+    <p>
+        Buy the best products at the best prices.
+    </p>
+
+    <button onclick="scrollToProducts()">
+        Shop Now
+    </button>
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
 
 <section class="products" id="products">
-<div class="search-box">
-    <input type="text" id="searchInput" placeholder="🔍 Search cubes...">
-</div>
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search cubes..."
+        >
+
+    </div>
+
+
     <div id="categories"></div>
+
 
     <div class="product-box">
 
+
+        <!-- 3x3 -->
+
         <div class="product">
+
             <a href="product.html">
-    <img src="assets/images/3x3.jpg" alt="3x3 Cube">
-</a>
-            <h3><a href="product.html">3x3 Speed Cube</a></h3>
 
-            <p>PKR 999</p>
+                <img
+                    src="assets/images/3x3.jpg"
+                    alt="3x3 Cube"
+                >
+
+            </a>
+
+            <h3>
+                <a href="product.html">
+                    3x3 Speed Cube
+                </a>
+            </h3>
+
+            <p>
+                PKR 999
+            </p>
+
             <div class="product-buttons">
 
-    <button class="cart-btn">Add to Cart 🛒</button>
+                <button class="cart-btn">
+                    Add to Cart 🛒
+                </button>
 
-    <button class="shop-btn">Shop Now ⚡</button>
+                <button class="shop-btn">
+                    Shop Now ⚡
+                </button>
 
-</div>
+            </div>
+
         </div>
 
+
+        <!-- 2x2 -->
+
         <div class="product">
+
             <a href="2x2.html">
-    <img src="assets/images/2x2.jpg" alt="2x2 Cube">
-</a>
-            <h3>2x2 Speed Cube</h3>
 
-            <p>PKR 699</p>
+                <img
+                    src="assets/images/2x2.jpg"
+                    alt="2x2 Cube"
+                >
+
+            </a>
+
+            <h3>
+                2x2 Speed Cube
+            </h3>
+
+            <p>
+                PKR 699
+            </p>
+
             <div class="product-buttons">
 
-    <button class="cart-btn">Add to Cart 🛒</button>
+                <button class="cart-btn">
+                    Add to Cart 🛒
+                </button>
 
-    <button class="shop-btn">Shop Now ⚡</button>
+                <button class="shop-btn">
+                    Shop Now ⚡
+                </button>
 
-</div>
+            </div>
+
         </div>
+
+
+        <!-- 4x4 -->
 
         <div class="product">
-            <a href="4x4.html">
-    <img src="assets/images/4x4.jpg" alt="4x4 Cube">
-</a>
-            <h3>4x4 Speed Cube</h3>
 
-            <p>PKR 1499</p>
+            <a href="4x4.html">
+
+                <img
+                    src="assets/images/4x4.jpg"
+                    alt="4x4 Cube"
+                >
+
+            </a>
+
+            <h3>
+                4x4 Speed Cube
+            </h3>
+
+            <p>
+                PKR 1499
+            </p>
+
             <div class="product-buttons">
 
-    <button class="cart-btn">Add to Cart 🛒</button>
+                <button class="cart-btn">
+                    Add to Cart 🛒
+                </button>
 
-    <button class="shop-btn">Shop Now ⚡</button>
+                <button class="shop-btn">
+                    Shop Now ⚡
+                </button>
 
-</div>
+            </div>
+
         </div>
+
 
     </div>
 
 </section>
-<div id="toast">Product added to cart!</div>
+
+
+<!-- ================= WHY CHOOSE MH CUBES ================= -->
+
+<section class="why-choose">
+
+    <div class="section-title">
+
+        <h2>
+            Why Choose MH CUBES?
+        </h2>
+
+        <p>
+            Everything you need for a better cubing experience.
+        </p>
+
+    </div>
+
+
+    <div class="why-container">
+
+
+        <div
+            class="why-box"
+            onclick="showWhy('delivery', this)"
+        >
+
+            <div class="why-icon">
+                🚚
+            </div>
+
+            <h3>
+                Fast Delivery
+            </h3>
+
+            <p>
+                Fast and reliable delivery throughout Islamabad.
+            </p>
+
+        </div>
+
+
+        <div
+            class="why-box"
+            onclick="showWhy('original', this)"
+        >
+
+            <div class="why-icon">
+                💯
+            </div>
+
+            <h3>
+                Original Cubes
+            </h3>
+
+            <p>
+                Genuine speed cubes from trusted brands.
+            </p>
+
+        </div>
+
+
+        <div
+            class="why-box"
+            onclick="showWhy('price', this)"
+        >
+
+            <div class="why-icon">
+                💰
+            </div>
+
+            <h3>
+                Best Prices
+            </h3>
+
+            <p>
+                Premium cubes at affordable prices.
+            </p>
+
+        </div>
+
+
+        <div
+            class="why-box"
+            onclick="showWhy('trusted', this)"
+        >
+
+            <div class="why-icon">
+                ⭐
+            </div>
+
+            <h3>
+                Trusted by Cubers
+            </h3>
+
+            <p>
+                Quality products and excellent customer service.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="why-details"
+        class="why-details"
+    >
+
+        <h3>
+            ⭐ Why MH CUBES?
+        </h3>
+
+        <p>
+            Click one of the options above to learn more.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CUSTOMER REVIEWS ================= -->
+
+<section class="reviews">
+
+    <h2>
+        ⭐ Customer Reviews
+    </h2>
+
+    <div id="reviews-list">
+
+        <div class="no-reviews">
+
+            <div class="no-reviews-icon">
+                ⭐
+            </div>
+
+            <h3>
+                No reviews yet
+            </h3>
+
+            <p>
+                Be the first customer to leave a review!
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <h3>
+        Leave a Review
+    </h3>
+
+
+    <!-- NAME -->
+
+    <input
+        type="text"
+        id="review-name"
+        placeholder="Your name"
+    >
+
+
+    <!-- STAR RATING -->
+
+    <div class="stars">
+
+        <span data-star="1">☆</span>
+        <span data-star="2">☆</span>
+        <span data-star="3">☆</span>
+        <span data-star="4">☆</span>
+        <span data-star="5">☆</span>
+
+    </div>
+
+
+    <input
+        type="hidden"
+        id="rating"
+        value="0"
+    >
+
+
+    <!-- REVIEW -->
+
+    <textarea
+        id="review-text"
+        placeholder="Write your review..."
+    ></textarea>
+
+
+    <br>
+
+
+    <!-- IMAGE UPLOAD -->
+
+    <label
+        for="review-images"
+        class="upload-btn"
+    >
+        📷 Add Photos
+    </label>
+
+    <input
+        type="file"
+        id="review-images"
+        accept="image/*"
+        multiple
+    >
+
+
+    <div id="image-preview"></div>
+
+
+    <br>
+
+
+    <!-- SUBMIT -->
+
+    <button id="submit-review">
+        ⭐ Submit Review
+    </button>
+
+
+</section>
+
+
+<!-- ================= TOASTS ================= -->
+
+<div id="toast">
+    Product added to cart!
+</div>
+
+
+<div id="review-toast">
+    Review submitted successfully! ⭐
+</div>
+
+
 <div id="shop-loading">
     Preparing your order...
 </div>
-<footer>
-    <footer>
-    <p>© 2026 MH Cubes. All Rights Reserved.</p>
-    <p>
-        Contact:
-        <a href="mailto:huzaifa81102@gmail.com" style="color: inherit; text-decoration: none;">
-            huzaifa81102@gmail.com
-        </a>
-    </p>
-</footer>
-</footer>
-<script src="assets/js/app.js"></script>
-<footer class="footer" id="contact">
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer
+    class="footer"
+    id="contact"
+>
 
     <div class="footer-container">
 
+
         <div class="footer-about">
-            <h2>MH CUBES</h2>
+
+            <h2>
+                MH CUBES
+            </h2>
+
             <p>
                 Your trusted cube store for high-quality speed cubes.
                 We provide original cubes, great prices, and fast delivery.
             </p>
+
         </div>
+
 
         <div class="footer-links">
-            <h3>Quick Links</h3>
 
-            <a href="index.html">Home</a>
-            <a href="#products">Shop</a>
-            <a href="cart.html">Cart</a>
-           <a href="my-orders.html">📦 My Orders</a>
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="#products">
+                Shop
+            </a>
+
+            <a href="cart.html">
+                Cart
+            </a>
+
+            <a href="my-orders.html">
+                📦 My Orders
+            </a>
+
         </div>
+
 
         <div class="footer-contact">
-            <h3>Contact</h3>
 
-           <p>
-    📧
-    <a href="mailto:huzaifa81102@gmail.com" style="color: inherit; text-decoration: none;">
-        huzaifa81102@gmail.com
-    </a>
-</p>
-            <p class="phone-number" onclick="openContactPopup()">
-    📞 +92 331 5120323
-</p>
+            <h3>
+                Contact
+            </h3>
+
+            <p>
+
+                📧
+
+                <a
+                    href="mailto:huzaifa81102@gmail.com"
+                    style="color:inherit;text-decoration:none;"
+                >
+                    huzaifa81102@gmail.com
+                </a>
+
+            </p>
+
+
+            <p
+                class="phone-number"
+                onclick="openContactPopup()"
+            >
+                📞 +92 331 5120323
+            </p>
+
         </div>
+
 
         <div class="footer-social">
-            <h3>Follow Us</h3>
 
-            <a href="https://www.instagram.com/mhcubes.pk/" target="_blank">
-    📷 Instagram
-</a>
+            <h3>
+                Follow Us
+            </h3>
+
+            <a
+                href="https://www.instagram.com/mhcubes.pk/"
+                target="_blank"
+            >
+                📷 Instagram
+            </a>
+
         </div>
+
 
     </div>
 
+
     <div class="footer-bottom">
-        <p>© 2026 MH CUBES. All Rights Reserved.</p>
+
+        <p>
+            © 2026 MH CUBES. All Rights Reserved.
+        </p>
+
     </div>
 
 </footer>
-<div id="contact-popup" class="contact-popup">
+
+
+<!-- ================= CONTACT POPUP ================= -->
+
+<div
+    id="contact-popup"
+    class="contact-popup"
+>
 
     <div class="contact-box">
 
-        <h2>Contact MH CUBES</h2>
+        <h2>
+            Contact MH CUBES
+        </h2>
 
-        <p>How would you like to contact us?</p>
+        <p>
+            How would you like to contact us?
+        </p>
 
-        <a href="sms:+923315120323" class="popup-btn">
+
+        <a
+            href="sms:+923315120323"
+            class="popup-btn"
+        >
             💬 Text
         </a>
 
-        <a href="tel:+923315120323" class="popup-btn">
+
+        <a
+            href="tel:+923315120323"
+            class="popup-btn"
+        >
             📞 Call
         </a>
 
-        <button onclick="closeContactPopup()" class="close-popup">
+
+        <button
+            onclick="closeContactPopup()"
+            class="close-popup"
+        >
             ❌ Close
         </button>
 
     </div>
 
 </div>
-</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
 <script src="assets/js/app.js"></script>
+
 </body>
+
 </html>
