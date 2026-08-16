@@ -76,18 +76,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         imageInput.addEventListener("change", function () {
 
-            selectedImages = [];
+            const files = Array.from(imageInput.files);
 
-            if (imagePreview) {
-                imagePreview.innerHTML = "";
+            // Check total image limit
+            if (selectedImages.length + files.length > 5) {
+
+                showToast(
+                    "⚠️ You can upload a maximum of 5 images."
+                );
+
+                imageInput.value = "";
+
+                return;
             }
-
-
-           const files = Array.from(imageInput.files).slice(0, 5);
-
-if (imageInput.files.length > 5) {
-    showToast("⚠️ You can upload a maximum of 5 images.");
-}
 
 
             files.forEach(function (file) {
@@ -106,12 +107,16 @@ if (imageInput.files.length > 5) {
                         event.target.result;
 
 
+                    // Add image WITHOUT removing old images
                     selectedImages.push(imageData);
 
 
                     if (imagePreview) {
 
+                        // =================================
                         // IMAGE WRAPPER
+                        // =================================
+
                         const wrapper =
                             document.createElement("div");
 
@@ -119,7 +124,10 @@ if (imageInput.files.length > 5) {
                             "review-preview-wrapper";
 
 
+                        // =================================
                         // IMAGE
+                        // =================================
+
                         const img =
                             document.createElement("img");
 
@@ -128,8 +136,14 @@ if (imageInput.files.length > 5) {
                         img.className =
                             "review-preview-image";
 
+                        img.alt =
+                            "Review image";
 
+
+                        // =================================
                         // CROSS BUTTON
+                        // =================================
+
                         const removeButton =
                             document.createElement("button");
 
@@ -146,10 +160,18 @@ if (imageInput.files.length > 5) {
                         );
 
 
+                        // =================================
                         // REMOVE IMAGE
+                        // =================================
+
                         removeButton.addEventListener(
                             "click",
-                            function () {
+                            function (event) {
+
+                                event.preventDefault();
+
+                                event.stopPropagation();
+
 
                                 const imageIndex =
                                     selectedImages.indexOf(
@@ -192,6 +214,12 @@ if (imageInput.files.length > 5) {
 
             });
 
+
+            // IMPORTANT:
+            // Clear file input so the same image
+            // can be selected again later.
+            imageInput.value = "";
+
         });
 
     }
@@ -213,7 +241,10 @@ if (imageInput.files.length > 5) {
             Number(ratingInput.value);
 
 
+        // =====================================
         // NAME
+        // =====================================
+
         if (!name) {
 
             showToast(
@@ -226,7 +257,10 @@ if (imageInput.files.length > 5) {
         }
 
 
+        // =====================================
         // REVIEW
+        // =====================================
+
         if (!review) {
 
             showToast(
@@ -239,7 +273,10 @@ if (imageInput.files.length > 5) {
         }
 
 
+        // =====================================
         // RATING
+        // =====================================
+
         if (rating === 0) {
 
             showToast(
@@ -289,7 +326,6 @@ if (imageInput.files.length > 5) {
 
         reviews.unshift(newReview);
 
-
         localStorage.setItem(
             storageKey,
             JSON.stringify(reviews)
@@ -306,21 +342,27 @@ if (imageInput.files.length > 5) {
 
         ratingInput.value = "0";
 
-
         selectedImages = [];
 
 
         if (imagePreview) {
+
             imagePreview.innerHTML = "";
+
         }
 
 
         if (imageInput) {
+
             imageInput.value = "";
+
         }
 
 
+        // =====================================
         // RESET STARS
+        // =====================================
+
         stars.forEach(function (star) {
 
             star.textContent = "☆";
@@ -330,7 +372,10 @@ if (imageInput.files.length > 5) {
         });
 
 
+        // =====================================
         // SUCCESS
+        // =====================================
+
         showToast(
             "✅ Review submitted successfully!"
         );
@@ -429,7 +474,10 @@ if (imageInput.files.length > 5) {
             let starsHTML = "";
 
 
+            // =================================
             // STARS
+            // =================================
+
             for (let i = 1; i <= 5; i++) {
 
                 starsHTML +=
@@ -483,7 +531,6 @@ if (imageInput.files.length > 5) {
 
             const card =
                 document.createElement("div");
-
 
             card.className =
                 "review-card";
@@ -582,7 +629,6 @@ if (imageInput.files.length > 5) {
                 card.querySelector(
                     ".review-menu-btn"
                 );
-
 
             const menu =
                 card.querySelector(
@@ -685,7 +731,9 @@ if (imageInput.files.length > 5) {
             );
 
 
+            // =================================
             // ADD CARD
+            // =================================
 
             reviewList.appendChild(card);
 
