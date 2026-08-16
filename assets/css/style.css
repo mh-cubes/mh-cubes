@@ -2531,3 +2531,90 @@ transform:rotate(360deg);
 
     transform: translate(-50%, 0) !important;
 }
+/* =========================================
+   REVIEW THREE DOT MENU
+========================================= */
+
+.review-header {
+    position: relative;
+}
+
+
+.review-menu {
+    position: relative;
+    margin-left: auto;
+}
+
+
+.review-menu-btn {
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #777;
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+
+.review-menu-btn:hover {
+    background: #eeeeee;
+    color: #111;
+}
+
+
+.review-menu-dropdown {
+    position: absolute;
+    right: 0;
+    top: 38px;
+
+    min-width: 160px;
+
+    background: #ffffff;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 10px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+    padding: 6px;
+
+    display: none;
+
+    z-index: 100;
+}
+
+
+.review-menu-dropdown.show {
+    display: block;
+}
+
+
+.delete-review-btn {
+    width: 100%;
+
+    background: transparent;
+
+    border: none;
+
+    color: #d90000;
+
+    padding: 10px 12px;
+
+    text-align: left;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.delete-review-btn:hover {
+    background: #fff0f0;
+}
