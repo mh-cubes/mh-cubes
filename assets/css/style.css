@@ -2487,3 +2487,47 @@ transform:rotate(360deg);
 
     transform: translateX(-50%) translateY(0) !important;
 }
+/* ==============================
+   REVIEW TOAST - FINAL FIX
+============================== */
+
+#review-toast {
+    position: fixed !important;
+    bottom: 30px !important;
+    left: 50% !important;
+
+    width: auto !important;
+    min-width: 280px !important;
+    max-width: 90% !important;
+
+    padding: 16px 25px !important;
+
+    background: #111111 !important;
+    color: white !important;
+
+    font-size: 17px !important;
+    font-weight: bold !important;
+    line-height: 1.5 !important;
+
+    text-align: center !important;
+
+    border-radius: 14px !important;
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+
+    transform: translate(-50%, 80px) !important;
+
+    transition: all 0.4s ease !important;
+
+    z-index: 999999 !important;
+
+    display: block !important;
+}
+
+#review-toast.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    transform: translate(-50%, 0) !important;
+}
