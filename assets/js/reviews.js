@@ -83,8 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            const files =
-                Array.from(imageInput.files);
+            const files = Array.from(imageInput.files);
 
 
             files.forEach(function (file) {
@@ -94,29 +93,91 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
 
-                const reader =
-                    new FileReader();
+                const reader = new FileReader();
 
 
                 reader.onload = function (event) {
 
-                    selectedImages.push(
-                        event.target.result
-                    );
+                    const imageData =
+                        event.target.result;
+
+
+                    selectedImages.push(imageData);
 
 
                     if (imagePreview) {
 
+                        // IMAGE WRAPPER
+                        const wrapper =
+                            document.createElement("div");
+
+                        wrapper.className =
+                            "review-preview-wrapper";
+
+
+                        // IMAGE
                         const img =
                             document.createElement("img");
 
-                        img.src =
-                            event.target.result;
+                        img.src = imageData;
 
                         img.className =
                             "review-preview-image";
 
-                        imagePreview.appendChild(img);
+
+                        // CROSS BUTTON
+                        const removeButton =
+                            document.createElement("button");
+
+                        removeButton.type = "button";
+
+                        removeButton.className =
+                            "remove-preview-image";
+
+                        removeButton.innerHTML = "×";
+
+                        removeButton.setAttribute(
+                            "aria-label",
+                            "Remove image"
+                        );
+
+
+                        // REMOVE IMAGE
+                        removeButton.addEventListener(
+                            "click",
+                            function () {
+
+                                const imageIndex =
+                                    selectedImages.indexOf(
+                                        imageData
+                                    );
+
+
+                                if (imageIndex !== -1) {
+
+                                    selectedImages.splice(
+                                        imageIndex,
+                                        1
+                                    );
+
+                                }
+
+
+                                wrapper.remove();
+
+                            }
+                        );
+
+
+                        wrapper.appendChild(img);
+
+                        wrapper.appendChild(
+                            removeButton
+                        );
+
+                        imagePreview.appendChild(
+                            wrapper
+                        );
 
                     }
 
