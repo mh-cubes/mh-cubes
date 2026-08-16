@@ -1,115 +1,732 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>4x4 Speed Cube - MH CUBES</title>
+
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+
+        /* =================================
+           MH CUBES - PRODUCT PAGE
+        ================================= */
+
+        body {
+            background: #ffffff !important;
+            color: #111111 !important;
+        }
+
+        .product-page {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 25px;
+        }
+
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* PRODUCT IMAGE */
+
+        .product-image-box {
+            position: relative;
+            background: #f5f5f5 !important;
+            border: 1px solid #dddddd;
+            border-radius: 25px;
+            padding: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.10);
+        }
+
+        .product-image-box::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 0, 0, 0.08);
+            border-radius: 50%;
+            filter: blur(70px);
+        }
+
+        .product-image-box img {
+            position: relative;
+            width: 85%;
+            max-width: 430px;
+            border-radius: 18px;
+            transition: transform 0.45s ease;
+            z-index: 1;
+        }
+
+        .product-image-box:hover img {
+            transform: scale(1.06) rotate(1deg);
+        }
+
+        .stock-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #16a34a !important;
+            color: #ffffff !important;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        /* PRODUCT INFO */
+
+        .product-info {
+            animation: productFade 0.7s ease;
+            color: #111111 !important;
+        }
+
+        @keyframes productFade {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .product-tag {
+            display: inline-block;
+            color: #ff2020 !important;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .product-info h1 {
+            color: #111111 !important;
+            font-size: 46px;
+            line-height: 1.1;
+            margin: 0 0 12px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: #ffc107 !important;
+            font-size: 18px;
+        }
+
+        .rating span {
+            color: #666666 !important;
+            font-size: 14px;
+        }
+
+        .product-price {
+            color: #111111 !important;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            color: #555555 !important;
+            line-height: 1.7;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        /* DELIVERY */
+
+        .delivery-card {
+            background: #f7f7f7 !important;
+            border: 1px solid #dddddd;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 25px;
+        }
+
+        .delivery-card h3 {
+            color: #111111 !important;
+            margin: 0 0 12px;
+            font-size: 17px;
+        }
+
+        .delivery-card p {
+            color: #555555 !important;
+            line-height: 1.7;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* BUTTONS */
+
+        .product-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .product-buttons button {
+            flex: 1;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-btn {
+            background: #ff2020 !important;
+            color: #ffffff !important;
+        }
+
+        .cart-btn:hover {
+            background: #d90000 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,0,0,0.25);
+        }
+
+        .shop-btn {
+            background: #111111 !important;
+            color: #ffffff !important;
+        }
+
+        .shop-btn:hover {
+            background: #333333 !important;
+            transform: translateY(-3px);
+        }
+
+        /* REVIEWS */
+
+        .reviews {
+            max-width: 1000px;
+            margin: 90px auto 0;
+            padding: 30px;
+            background: #f7f7f7 !important;
+            border: 1px solid #dddddd;
+            border-radius: 22px;
+            color: #111111 !important;
+        }
+
+        .reviews h2 {
+            color: #111111 !important;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .reviews h3 {
+            color: #111111 !important;
+            margin-top: 20px;
+        }
+
+        .reviews input,
+        .reviews textarea {
+            background: #ffffff !important;
+            color: #111111 !important;
+            border: 1px solid #cccccc !important;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .reviews input::placeholder,
+        .reviews textarea::placeholder {
+            color: #888888 !important;
+        }
+
+        .reviews textarea {
+            width: 100%;
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .stars {
+            color: #ffc107 !important;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .stars span {
+            color: #ffc107 !important;
+        }
+
+        #submit-review {
+            background: #ff2020 !important;
+            color: #ffffff !important;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            background: #111111 !important;
+            color: #ffffff !important;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #review-images {
+            display: none;
+        }
+
+        /* WHY CHOOSE */
+
+        .why-choose {
+            background: #ffffff !important;
+            color: #111111 !important;
+            padding: 50px 20px;
+        }
+
+        .why-choose h2,
+        .why-choose h3 {
+            color: #111111 !important;
+        }
+
+        .why-choose p {
+            color: #555555 !important;
+        }
+
+        .why-details {
+            color: #111111 !important;
+        }
+
+        .why-details h3 {
+            color: #111111 !important;
+        }
+
+        .why-details p {
+            color: #555555 !important;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .product-page {
+                margin: 25px auto;
+                padding: 0 15px;
+            }
+
+            .product-main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .product-image-box {
+                min-height: 350px;
+                padding: 25px;
+            }
+
+            .product-info h1 {
+                font-size: 34px;
+            }
+
+            .product-price {
+                font-size: 30px;
+            }
+
+            .product-buttons {
+                flex-direction: column;
+            }
+
+            .reviews {
+                margin-top: 50px;
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
 
+
+<!-- HEADER -->
+
 <header>
-    <div class="logo">MH CUBES</div>
+
+    <div class="logo">
+        MH CUBES
+    </div>
 
     <nav>
-        <a href="index.html">Home</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
     </nav>
+
 </header>
 
-<div class="product-details">
 
-    <img src="assets/images/4x4.jpg" alt="4x4 Cube">
+<!-- PRODUCT PAGE -->
 
-    <div class="details">
-        <h1>4x4 Speed Cube</h1>
+<main class="product-page">
 
-        <h2>PKR 1499</h2>
 
-       <p>
-    Professional 4x4 speed cube designed for smooth and fast solving.
-    Features excellent corner cutting, stable turning, and a durable build.
-    Perfect for advanced cubers and anyone looking to improve their solving skills.
-</p>
-<div class="availability">
+    <div class="product-main">
 
-    <h3>Availability</h3>
 
-    <p>✅ In Stock</p>
+        <!-- PRODUCT IMAGE -->
 
-    <h3>🚚 Delivery Information</h3>
+        <div class="product-image-box">
 
-    <p>
-        • Delivery available all over Islamabad.<br>
-        • Flat delivery charges: PKR 200.<br>
-        • Estimated delivery time: 3–5 working days.<br>
-        • Products are safely packed before shipping.<br>
-        • Cash on Delivery available.
-    </p>
+            <div class="stock-badge">
+                ● IN STOCK
+            </div>
 
-</div>
-        <div class="product-buttons">
+            <img
+                src="assets/images/4x4.jpg"
+                alt="4x4 Speed Cube"
+            >
 
-    <button class="cart-btn" data-name="4x4 Speed Cube" data-price="1499">
-    Add to Cart 🛒
-</button>
-    <button class="shop-btn">Shop Now ⚡</button>
+        </div>
 
-</div>
+
+        <!-- PRODUCT INFORMATION -->
+
+        <div class="product-info">
+
+            <div class="product-tag">
+                MH CUBES • SPEED CUBE
+            </div>
+
+            <h1>
+                4x4 Speed Cube
+            </h1>
+
+            <div class="rating">
+
+                ★★★★★
+
+                <span>
+                    Customer Reviews
+                </span>
+
+            </div>
+
+            <div class="product-price">
+                PKR 1499
+            </div>
+
+            <p class="product-description">
+
+                Professional 4x4 speed cube designed for smooth
+                and fast solving. Features excellent corner cutting,
+                stable turning, and a durable build. Perfect for
+                advanced cubers and anyone looking to improve
+                their solving skills.
+
+            </p>
+
+
+            <!-- DELIVERY -->
+
+            <div class="delivery-card">
+
+                <h3>
+                    🚚 Delivery Information
+                </h3>
+
+                <p>
+
+                    ✅ Delivery available all over Islamabad.<br>
+
+                    💰 Flat delivery charges: PKR 200.<br>
+
+                    📦 Estimated delivery: 3–5 working days.<br>
+
+                    🛡️ Products are safely packed before shipping.<br>
+
+                    💵 Cash on Delivery available.
+
+                </p>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="product-buttons">
+
+                <button
+                    class="cart-btn"
+                    data-name="4x4 Speed Cube"
+                    data-price="1499"
+                    data-image="assets/images/4x4.jpg"
+                >
+
+                    🛒 Add to Cart
+
+                </button>
+
+
+                <button class="shop-btn">
+
+                    ⚡ Shop Now
+
+                </button>
+
+            </div>
+
+        </div>
 
     </div>
 
-</div>
-<div class="reviews">
 
-    <h2>Customer Reviews ⭐</h2>
+    <!-- REVIEWS -->
 
-    <div id="reviews-list">
-        <!-- Reviews will appear here -->
+    <div class="reviews">
+
+        <h2>
+            Customer Reviews ⭐
+        </h2>
+
+        <div id="reviews-list">
+            <!-- Reviews appear here -->
+        </div>
+
+
+        <h3>
+            Write a Review
+        </h3>
+
+
+        <input
+            type="text"
+            id="review-name"
+            placeholder="Your Name"
+        >
+
+        <br><br>
+
+
+        <div class="stars">
+
+            <span data-star="1">☆</span>
+            <span data-star="2">☆</span>
+            <span data-star="3">☆</span>
+            <span data-star="4">☆</span>
+            <span data-star="5">☆</span>
+
+        </div>
+
+
+        <input
+            type="hidden"
+            id="rating"
+            value="0"
+        >
+
+
+        <br>
+
+
+        <textarea
+            id="review-text"
+            placeholder="Write your review..."
+        ></textarea>
+
+
+        <br><br>
+
+
+        <label
+            for="review-images"
+            class="upload-btn"
+        >
+
+            🖼️ Add Pictures
+
+        </label>
+
+
+        <input
+            type="file"
+            id="review-images"
+            accept="image/*"
+            multiple
+        >
+
+
+        <br><br>
+
+
+        <div id="image-preview"></div>
+
+
+        <br>
+
+
+        <button id="submit-review">
+
+            ⭐ Submit Review
+
+        </button>
+
+
+        <div id="review-toast"></div>
+
     </div>
 
-    <h3>Write a Review</h3>
+</main>
 
-    <input type="text" id="review-name" placeholder="Your Name">
 
-    <br><br>
-<div class="stars">
-    <span data-star="1">☆</span>
-    <span data-star="2">☆</span>
-    <span data-star="3">☆</span>
-    <span data-star="4">☆</span>
-    <span data-star="5">☆</span>
-</div>
+<!-- WHY CHOOSE MH CUBES -->
 
-<input type="hidden" id="rating" value="0">
-    <textarea id="review-text" placeholder="Your Review"></textarea>
-
-    <br><br>
-
-    <button id="submit-review">Submit Review</button>
-<div id="review-toast">
-    Review submitted successfully ⭐
-</div>
-</div>
-<script type="module" src="assets/js/firebase.js"></script>
-<script src="assets/js/app.js"></script>
-<script src="assets/js/reviews.js"></script>
-<!-- Why Choose MH CUBES -->
 <section class="why-choose">
 
-    <h2>Why Choose MH CUBES?</h2>
+    <h2>
+        Why Choose MH CUBES?
+    </h2>
+
 
     <div class="why-container">
 
-        <!-- 4 cards here -->
+
+        <div
+            class="why-box"
+            onclick="showWhy('delivery', this)"
+        >
+
+            <div class="why-icon">
+                🚚
+            </div>
+
+            <h3>
+                Fast Delivery
+            </h3>
+
+            <p>
+                Quick and reliable delivery across Islamabad.
+            </p>
+
+        </div>
+
+
+        <div
+            class="why-box"
+            onclick="showWhy('original', this)"
+        >
+
+            <div class="why-icon">
+                💯
+            </div>
+
+            <h3>
+                100% Original
+            </h3>
+
+            <p>
+                Premium quality speed cubes from trusted brands.
+            </p>
+
+        </div>
+
+
+        <div
+            class="why-box"
+            onclick="showWhy('price', this)"
+        >
+
+            <div class="why-icon">
+                💰
+            </div>
+
+            <h3>
+                Best Prices
+            </h3>
+
+            <p>
+                Affordable prices with excellent value for money.
+            </p>
+
+        </div>
+
+
+        <div
+            class="why-box"
+            onclick="showWhy('trusted', this)"
+        >
+
+            <div class="why-icon">
+                ⭐
+            </div>
+
+            <h3>
+                Trusted by Cubers
+            </h3>
+
+            <p>
+                Loved by beginners and speedcubers alike.
+            </p>
+
+        </div>
 
     </div>
 
-    <div id="why-details" class="why-details">
-        <h3>👆 Click a card above</h3>
-        <p>Select any feature to learn more about why MH CUBES is the perfect place to buy your cubes.</p>
+
+    <div
+        id="why-details"
+        class="why-details"
+    >
+
+        <h3>
+            👆 Click any card above
+        </h3>
+
+        <p>
+            Click one of the four cards to learn more.
+        </p>
+
     </div>
 
 </section>
 
+
+<!-- FIREBASE -->
+
+<script
+    type="module"
+    src="assets/js/firebase.js">
+</script>
+
+
+<!-- MAIN APP -->
+
+<script src="assets/js/app.js"></script>
+
+
+<!-- REVIEWS -->
+
+<script src="assets/js/reviews.js"></script>
+
+
 </body>
+
 </html>
