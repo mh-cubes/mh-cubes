@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const files = Array.from(imageInput.files);
 
-            // Check total image limit
+            // Maximum 5 images
             if (selectedImages.length + files.length > 5) {
 
                 showToast(
@@ -107,16 +107,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         event.target.result;
 
 
-                    // Add image WITHOUT removing old images
+                    // Add without replacing existing images
                     selectedImages.push(imageData);
 
 
                     if (imagePreview) {
 
-                        // =================================
                         // IMAGE WRAPPER
-                        // =================================
-
                         const wrapper =
                             document.createElement("div");
 
@@ -124,10 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             "review-preview-wrapper";
 
 
-                        // =================================
                         // IMAGE
-                        // =================================
-
                         const img =
                             document.createElement("img");
 
@@ -140,10 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             "Review image";
 
 
-                        // =================================
                         // CROSS BUTTON
-                        // =================================
-
                         const removeButton =
                             document.createElement("button");
 
@@ -160,10 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         );
 
 
-                        // =================================
                         // REMOVE IMAGE
-                        // =================================
-
                         removeButton.addEventListener(
                             "click",
                             function (event) {
@@ -215,9 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
 
-            // IMPORTANT:
-            // Clear file input so the same image
-            // can be selected again later.
+            // Allow same image to be selected again
             imageInput.value = "";
 
         });
@@ -241,10 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
             Number(ratingInput.value);
 
 
-        // =====================================
         // NAME
-        // =====================================
-
         if (!name) {
 
             showToast(
@@ -257,10 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // =====================================
         // REVIEW
-        // =====================================
-
         if (!review) {
 
             showToast(
@@ -273,10 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // =====================================
         // RATING
-        // =====================================
-
         if (rating === 0) {
 
             showToast(
@@ -287,20 +264,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // =====================================
         // LOAD REVIEWS
-        // =====================================
-
         let reviews =
             JSON.parse(
                 localStorage.getItem(storageKey)
             ) || [];
 
 
-        // =====================================
         // CREATE REVIEW
-        // =====================================
-
         const newReview = {
 
             id: Date.now(),
@@ -320,10 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        // =====================================
         // SAVE
-        // =====================================
-
         reviews.unshift(newReview);
 
         localStorage.setItem(
@@ -332,10 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        // =====================================
         // CLEAR FORM
-        // =====================================
-
         nameInput.value = "";
 
         reviewInput.value = "";
@@ -346,23 +311,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         if (imagePreview) {
-
             imagePreview.innerHTML = "";
-
         }
 
 
         if (imageInput) {
-
             imageInput.value = "";
-
         }
 
 
-        // =====================================
         // RESET STARS
-        // =====================================
-
         stars.forEach(function (star) {
 
             star.textContent = "☆";
@@ -372,10 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        // =====================================
         // SUCCESS
-        // =====================================
-
         showToast(
             "✅ Review submitted successfully!"
         );
@@ -433,10 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
         reviewList.innerHTML = "";
 
 
-        // =====================================
         // NO REVIEWS
-        // =====================================
-
         if (reviews.length === 0) {
 
             reviewList.innerHTML = `
@@ -465,19 +417,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // =====================================
         // EACH REVIEW
-        // =====================================
-
         reviews.forEach(function (item) {
 
             let starsHTML = "";
 
 
-            // =================================
             // STARS
-            // =================================
-
             for (let i = 1; i <= 5; i++) {
 
                 starsHTML +=
@@ -539,7 +485,6 @@ document.addEventListener("DOMContentLoaded", function () {
             card.innerHTML = `
 
                 <div class="review-header">
-
 
                     <!-- AVATAR -->
 
@@ -622,6 +567,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             // =================================
+            // IMAGE CLICK
+            // =================================
+
+            const reviewImages =
+                card.querySelectorAll(".review-image");
+
+
+            reviewImages.forEach(function (image) {
+
+                image.addEventListener(
+                    "click",
+                    function (event) {
+
+                        event.stopPropagation();
+
+                        openImageViewer(
+                            image.src
+                        );
+
+                    }
+                );
+
+            });
+
+
+            // =================================
             // THREE DOT MENU
             // =================================
 
@@ -629,6 +600,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 card.querySelector(
                     ".review-menu-btn"
                 );
+
 
             const menu =
                 card.querySelector(
@@ -731,13 +703,164 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-            // =================================
             // ADD CARD
-            // =================================
 
             reviewList.appendChild(card);
 
         });
+
+    }
+
+
+    // =========================================
+    // IMAGE VIEWER
+    // =========================================
+
+    function openImageViewer(imageSrc) {
+
+        // Remove existing viewer
+        const oldViewer =
+            document.querySelector(
+                ".review-image-viewer"
+            );
+
+        if (oldViewer) {
+            oldViewer.remove();
+        }
+
+
+        // Create viewer
+        const viewer =
+            document.createElement("div");
+
+        viewer.className =
+            "review-image-viewer";
+
+
+        // Create image
+        const image =
+            document.createElement("img");
+
+        image.src = imageSrc;
+
+        image.alt =
+            "Enlarged customer review image";
+
+
+        // Create close button
+        const closeButton =
+            document.createElement("button");
+
+        closeButton.className =
+            "review-image-viewer-close";
+
+        closeButton.type = "button";
+
+        closeButton.innerHTML = "×";
+
+        closeButton.setAttribute(
+            "aria-label",
+            "Close image"
+        );
+
+
+        // Add elements
+        viewer.appendChild(image);
+
+        viewer.appendChild(closeButton);
+
+        document.body.appendChild(viewer);
+
+
+        // Animate open
+        requestAnimationFrame(function () {
+
+            viewer.classList.add("show");
+
+        });
+
+
+        // CLOSE BUTTON
+        closeButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                closeImageViewer();
+
+            }
+        );
+
+
+        // CLICK BACKGROUND TO CLOSE
+        viewer.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === viewer) {
+
+                    closeImageViewer();
+
+                }
+
+            }
+        );
+
+
+        // ESC KEY
+        document.addEventListener(
+            "keydown",
+            imageViewerEscapeHandler
+        );
+
+    }
+
+
+    // =========================================
+    // CLOSE IMAGE VIEWER
+    // =========================================
+
+    function closeImageViewer() {
+
+        const viewer =
+            document.querySelector(
+                ".review-image-viewer"
+            );
+
+
+        if (!viewer) return;
+
+
+        viewer.classList.remove("show");
+
+
+        setTimeout(function () {
+
+            viewer.remove();
+
+        }, 250);
+
+
+        document.removeEventListener(
+            "keydown",
+            imageViewerEscapeHandler
+        );
+
+    }
+
+
+    // =========================================
+    // ESC KEY HANDLER
+    // =========================================
+
+    function imageViewerEscapeHandler(event) {
+
+        if (event.key === "Escape") {
+
+            closeImageViewer();
+
+        }
 
     }
 
