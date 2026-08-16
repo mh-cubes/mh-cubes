@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,6 +31,7 @@ MH CUBES
 </nav>
 
 </header>
+
 
 <div class="checkout">
 
@@ -65,64 +67,129 @@ Track Order
 </div>
 
 </div>
-<script>
 
-function trackOrder(){
 
-let id = document.getElementById("track-id").value.trim();
+<script type="module">
 
-let result = document.getElementById("track-result");
+import { db } from "./assets/js/firebase.js";
 
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-if(id === ""){
 
-result.innerHTML =
-"<h3 style='color:red;'>❌ Please enter your Order ID.</h3>";
+window.trackOrder = async function(){
 
-return;
+    const id =
+        document.getElementById("track-id").value.trim();
 
-}
+    const result =
+        document.getElementById("track-result");
 
-let found = orders.find(function(order){
 
-return order.orderID === id;
+    if(id === ""){
 
-});
+        result.innerHTML =
+        "<h3 style='color:red;'>❌ Please enter your Order ID.</h3>";
 
-if(found){
+        return;
 
-result.innerHTML = `
-<div class="admin-order-box">
+    }
 
-<h2>📦 Order Found</h2>
 
-<p><b>Order ID:</b> ${found.orderID}</p>
+    result.innerHTML =
+    "<h3>🔍 Searching for your order...</h3>";
 
-<p><b>Customer:</b> ${found.customerName}</p>
 
-<p><b>Phone:</b> ${found.phone}</p>
+    try{
 
-<p><b>Payment:</b> ${found.payment}</p>
+        const snapshot =
+            await getDocs(collection(db, "orders"));
 
-<p><b>Status:</b> ${found.status}</p>
 
-<p><b>Date:</b> ${found.date}</p>
+        let found = null;
 
-</div>
-`;
 
-}else{
+        snapshot.forEach(function(docSnap){
 
-result.innerHTML =
-"<h3 style='color:red;'>❌ No order found with this Order ID.</h3>";
+            const order = docSnap.data();
 
-}
 
-}
+            if(order.orderID === id){
+
+                found = order;
+
+            }
+
+        });
+
+
+        if(found){
+
+            result.innerHTML = `
+
+            <div class="admin-order-box">
+
+                <h2>📦 Order Found</h2>
+
+                <p>
+                    <b>Order ID:</b>
+                    ${found.orderID}
+                </p>
+
+                <p>
+                    <b>Customer:</b>
+                    ${found.customerName}
+                </p>
+
+                <p>
+                    <b>Phone:</b>
+                    ${found.phone}
+                </p>
+
+                <p>
+                    <b>Payment:</b>
+                    ${found.payment}
+                </p>
+
+                <p>
+                    <b>Status:</b>
+                    ${found.status || "Pending"}
+                </p>
+
+                <p>
+                    <b>Date:</b>
+                    ${found.date}
+                </p>
+
+            </div>
+
+            `;
+
+        }else{
+
+            result.innerHTML =
+            "<h3 style='color:red;'>❌ No order found with this Order ID.</h3>";
+
+        }
+
+
+    }catch(error){
+
+        console.error("Tracking error:", error);
+
+        result.innerHTML =
+        "<h3 style='color:red;'>❌ Unable to check order. Please try again.</h3>";
+
+    }
+
+};
 
 </script>
-<script type="module" src="assets/js/admin.js"></script>
+
+
 </body>
 
 </html>
+```
