@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("dark-mode");
     }
 
-    let button = document.getElementById("darkModeBtn");
+    const button = document.getElementById("darkModeBtn");
 
     if (button && savedTheme === "dark") {
         button.innerHTML = "☀️ Light Mode";
@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-
     document.querySelectorAll(".cart-btn").forEach(function(button) {
 
         button.addEventListener("click", function() {
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let image;
 
 
-            // Product page buttons
+            // PRODUCT PAGE BUTTON
             if (button.dataset.name) {
 
                 name = button.dataset.name;
@@ -42,26 +41,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-            // Homepage product cards
+
+            // HOMEPAGE PRODUCT CARD
             else {
 
-                let productBox = button.closest(".product");
+                const productBox = button.closest(".product");
 
                 if (!productBox) return;
 
-                name = productBox.querySelector("h3").innerText;
+                name = productBox.querySelector("h3")?.innerText;
 
                 price = Number(
-                    productBox.querySelector("p").innerText.replace("PKR ", "")
+                    productBox.querySelector("p")?.innerText
+                        .replace("PKR ", "")
                 );
 
-                image = productBox.querySelector("img").src;
+                image = productBox.querySelector("img")?.src;
 
             }
 
 
-            // Safety check
-            if (!name || !price || !image) {
+            // SAFETY CHECK
+            if (!name || !price) {
 
                 console.error("Product information missing:", {
                     name,
@@ -74,14 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            // Add to cart
+            // ADD TO CART
             if (cart[name]) {
 
                 cart[name].quantity++;
 
-            }
-
-            else {
+            } else {
 
                 cart[name] = {
 
@@ -89,14 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     quantity: 1,
 
-                    image: image
+                    image: image || ""
 
                 };
 
             }
 
 
-            // Save cart
+            // SAVE CART
             localStorage.setItem(
                 "cart",
                 JSON.stringify(cart)
@@ -106,8 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
             updateCartCount();
 
 
-            // Toast
-            let toast = document.getElementById("toast");
+            // TOAST
+            const toast = document.getElementById("toast");
 
             if (toast) {
 
@@ -132,36 +131,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
-    // SHOP BUTTON
+    // SHOP NOW BUTTON
     // =========================================
 
     document.querySelectorAll(".shop-btn").forEach(function(button) {
 
         button.addEventListener("click", function() {
 
-            let productBox = button.closest(".product");
+            const productBox = button.closest(".product");
 
             if (!productBox) return;
 
-            let name = productBox.querySelector("h3").innerText;
 
-            let price = Number(
-                productBox.querySelector("p").innerText.replace("PKR ", "")
-            );
+            const name =
+                productBox.querySelector("h3")?.innerText;
 
-            let image = productBox.querySelector("img").src;
+            const price =
+                Number(
+                    productBox.querySelector("p")?.innerText
+                        .replace("PKR ", "")
+                );
+
+            const image =
+                productBox.querySelector("img")?.src;
 
 
-            let cart = JSON.parse(localStorage.getItem("cart")) || {};
+            if (!name || !price) return;
+
+
+            let cart =
+                JSON.parse(localStorage.getItem("cart")) || {};
 
 
             if (cart[name]) {
 
                 cart[name].quantity++;
 
-            }
-
-            else {
+            } else {
 
                 cart[name] = {
 
@@ -169,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     quantity: 1,
 
-                    image: image
+                    image: image || ""
 
                 };
 
@@ -182,7 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-            let loading = document.getElementById("shop-loading");
+            const loading =
+                document.getElementById("shop-loading");
+
 
             if (loading) {
                 loading.classList.add("show");
@@ -200,11 +208,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // Update cart count
+    // UPDATE CART COUNT
     updateCartCount();
 
 });
-
 
 
 
@@ -214,20 +221,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updateCartCount() {
 
-    let cart =
+    const cart =
         JSON.parse(localStorage.getItem("cart")) || {};
 
     let count = 0;
 
 
-    for (let product in cart) {
+    for (const product in cart) {
 
-        count += cart[product].quantity;
+        count += Number(cart[product].quantity) || 0;
 
     }
 
 
-    let cartCount =
+    const cartCount =
         document.getElementById("cart-count");
 
 
@@ -241,15 +248,15 @@ function updateCartCount() {
 
 
 
-
 // =========================================
 // SCROLL TO PRODUCTS
 // =========================================
 
 function scrollToProducts() {
 
-    let products =
+    const products =
         document.querySelector(".products");
+
 
     if (products) {
 
@@ -263,10 +270,8 @@ function scrollToProducts() {
 
 
 
-
 // =========================================
 // WHY CHOOSE MH CUBES
-// BEAUTIFUL DETAILS
 // =========================================
 
 function showWhy(type, element) {
@@ -278,8 +283,7 @@ function showWhy(type, element) {
     if (!details) return;
 
 
-    // Remove active from all cards
-
+    // REMOVE ACTIVE
     document.querySelectorAll(".why-box").forEach(card => {
 
         card.classList.remove("active");
@@ -287,8 +291,7 @@ function showWhy(type, element) {
     });
 
 
-    // Add active to clicked card
-
+    // ADD ACTIVE
     if (element) {
 
         element.classList.add("active");
@@ -296,14 +299,14 @@ function showWhy(type, element) {
     }
 
 
-    // Small animation reset
-
+    // RESTART ANIMATION
     details.style.animation = "none";
 
     void details.offsetWidth;
 
     details.style.animation =
         "detailsAppear 0.45s ease";
+
 
 
     // =========================================
@@ -505,15 +508,15 @@ function showWhy(type, element) {
 
 
 
-
 // =========================================
 // CONTACT POPUP
 // =========================================
 
 function openContactPopup() {
 
-    let popup =
+    const popup =
         document.getElementById("contact-popup");
+
 
     if (popup) {
 
@@ -527,7 +530,7 @@ function openContactPopup() {
 
 function closeContactPopup() {
 
-    let popup =
+    const popup =
         document.getElementById("contact-popup");
 
 
@@ -549,14 +552,13 @@ function closeContactPopup() {
 
 
 
-
 // =========================================
-// DARK MODE BUTTON
+// DARK MODE
 // =========================================
 
 function toggleDarkMode() {
 
-    let loading =
+    const loading =
         document.getElementById("shop-loading");
 
 
@@ -572,7 +574,7 @@ function toggleDarkMode() {
         document.body.classList.toggle("dark-mode");
 
 
-        let button =
+        const button =
             document.getElementById("darkModeBtn");
 
 
@@ -593,9 +595,7 @@ function toggleDarkMode() {
 
             }
 
-        }
-
-        else {
+        } else {
 
             localStorage.setItem(
                 "theme",
