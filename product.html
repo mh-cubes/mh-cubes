@@ -524,38 +524,33 @@
 
 
         <textarea
-            id="review-text"
-            placeholder="Write your review">
-        </textarea>
+    id="review-text"
+    placeholder="Write your review..."
+></textarea>
 
-        <br><br>
+<br><br>
 
+<label
+    for="review-images"
+    class="upload-btn"
+>
+    🖼️ Add Pictures
+</label>
 
-        <label
-            for="review-images"
-            class="upload-btn">
+<input
+    type="file"
+    id="review-images"
+    accept="image/*"
+    multiple
+>
 
-            🖼️ Add Pictures
+<div id="image-preview"></div>
 
-        </label>
+<br>
 
-        <input
-            type="file"
-            id="review-images"
-            accept="image/*"
-            multiple>
-
-        <br><br>
-
-
-        <div id="image-preview"></div>
-
-        <br>
-
-
-        <button id="submit-review">
-            Submit Review
-        </button>
+<button id="submit-review">
+    Submit Review
+</button>
 
         <div id="review-toast"></div>
 
