@@ -8,7 +8,7 @@ import {
     where
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-import { db } from "../../firebase.js";
+import { db } from "./firebase.js";
 
 
 document.addEventListener("DOMContentLoaded", function () {
