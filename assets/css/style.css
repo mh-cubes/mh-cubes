@@ -2008,3 +2008,196 @@ transform:rotate(360deg);
     background: #1e1e1e;
     color: white;
 }
+/* =========================================
+   BEAUTIFUL WHY DETAILS
+========================================= */
+
+.why-details {
+    max-width: 850px;
+    margin: 45px auto 0;
+    padding: 40px;
+
+    background: linear-gradient(135deg, #ffffff, #f8f8f8);
+
+    border-radius: 24px;
+
+    border: 1px solid #e5e5e5;
+
+    box-shadow: 0 18px 45px rgba(0,0,0,0.10);
+
+    text-align: center;
+
+    animation: detailsAppear 0.45s ease;
+}
+
+.details-icon {
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #ff2b2b,
+        #c40000
+    );
+
+    color: white;
+
+    font-size: 36px;
+
+    box-shadow:
+        0 10px 25px rgba(196,0,0,0.25);
+
+    animation: detailsIcon 0.5s ease;
+}
+
+.why-details h3 {
+    color: #c40000 !important;
+
+    font-size: 30px;
+
+    margin-bottom: 12px;
+
+    font-weight: 800;
+}
+
+.why-details p {
+    color: #555 !important;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    max-width: 650px;
+
+    margin: 0 auto 25px;
+}
+
+.why-details ul {
+    list-style: none;
+
+    padding: 0;
+    margin: 0 auto;
+
+    max-width: 700px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.why-details li {
+    background: white;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 16px;
+
+    padding: 20px 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,0.07);
+
+    transition: 0.3s ease;
+}
+
+.why-details li:hover {
+    transform: translateY(-7px);
+
+    border-color: #c40000;
+
+    box-shadow:
+        0 12px 28px rgba(196,0,0,0.15);
+}
+
+.why-details li span {
+    font-size: 28px;
+}
+
+.why-details li strong {
+    color: #222;
+
+    font-size: 15px;
+}
+
+.why-details li small {
+    color: #777;
+
+    font-size: 12px;
+}
+
+.why-box.active {
+    border-color: #c40000;
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 18px 40px rgba(196,0,0,0.18);
+}
+
+@keyframes detailsAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+@keyframes detailsIcon {
+
+    from {
+        transform: scale(0.5) rotate(-20deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .why-details {
+        margin: 30px 15px 0;
+        padding: 30px 18px;
+    }
+
+    .why-details h3 {
+        font-size: 24px;
+    }
+
+    .why-details p {
+        font-size: 15px;
+    }
+
+    .why-details ul {
+        grid-template-columns: 1fr;
+    }
+
+}
