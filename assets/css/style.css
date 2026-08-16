@@ -2453,3 +2453,37 @@ transform:rotate(360deg);
     }
 
 }
+/* REVIEW TOAST FIX */
+
+#review-toast {
+    position: fixed !important;
+    bottom: 30px !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(80px) !important;
+
+    background: #111 !important;
+    color: #ffffff !important;
+
+    padding: 16px 25px !important;
+    border-radius: 12px !important;
+
+    font-size: 16px !important;
+    font-weight: bold !important;
+
+    min-width: 250px;
+    text-align: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.35s ease;
+
+    z-index: 99999;
+}
+
+#review-toast.show {
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    transform: translateX(-50%) translateY(0) !important;
+}
