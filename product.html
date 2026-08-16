@@ -3,10 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>3x3 Speed Cube - MH CUBES</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        /* ================================
+           MH CUBES - PREMIUM PRODUCT PAGE
+        ================================= */
+
+        .product-page {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 25px;
+        }
+
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* Product Image */
+
+        .product-image-box {
+            position: relative;
+            background: linear-gradient(145deg, #181818, #080808);
+            border: 1px solid #2b2b2b;
+            border-radius: 25px;
+            padding: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+        }
+
+        .product-image-box::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 0, 0, 0.08);
+            border-radius: 50%;
+            filter: blur(70px);
+        }
+
+        .product-image-box img {
+            position: relative;
+            width: 85%;
+            max-width: 430px;
+            border-radius: 18px;
+            transition: transform 0.45s ease;
+            z-index: 1;
+        }
+
+        .product-image-box:hover img {
+            transform: scale(1.06) rotate(1deg);
+        }
+
+        .stock-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #16a34a;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        /* Product Info */
+
+        .product-info {
+            animation: productFade 0.7s ease;
+        }
+
+        @keyframes productFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-tag {
+            display: inline-block;
+            color: #ff3030;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .product-info h1 {
+            font-size: 46px;
+            line-height: 1.1;
+            margin: 0 0 12px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: #ffc107;
+            font-size: 18px;
+        }
+
+        .rating span {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .product-price {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            color: #bdbdbd;
+            line-height: 1.7;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        /* Delivery Card */
+
+        .delivery-card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 25px;
+        }
+
+        .delivery-card h3 {
+            margin: 0 0 12px;
+            font-size: 17px;
+        }
+
+        .delivery-card p {
+            color: #aaa;
+            line-height: 1.7;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Buttons */
+
+        .product-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .product-buttons button {
+            flex: 1;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-btn {
+            background: #ff2020;
+            color: white;
+        }
+
+        .cart-btn:hover {
+            background: #d90000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,0,0,0.25);
+        }
+
+        .shop-btn {
+            background: white;
+            color: black;
+        }
+
+        .shop-btn:hover {
+            transform: translateY(-3px);
+            background: #eeeeee;
+        }
+
+        /* Reviews */
+
+        .reviews {
+            max-width: 1000px;
+            margin: 90px auto 0;
+            padding: 30px;
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 22px;
+        }
+
+        .reviews h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 800px) {
+
+            .product-page {
+                margin: 25px auto;
+                padding: 0 15px;
+            }
+
+            .product-main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .product-image-box {
+                min-height: 350px;
+                padding: 25px;
+            }
+
+            .product-info h1 {
+                font-size: 34px;
+            }
+
+            .product-price {
+                font-size: 30px;
+            }
+
+            .product-buttons {
+                flex-direction: column;
+            }
+
+            .reviews {
+                margin-top: 50px;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
 <header>
@@ -21,155 +268,295 @@
 
 </header>
 
-<div class="product-details">
 
-    <img src="assets/images/3x3.jpg" alt="3x3 Speed Cube">
+<main class="product-page">
 
-    <div class="details">
+    <div class="product-main">
 
-        <h1>3x3 Speed Cube</h1>
+        <!-- PRODUCT IMAGE -->
 
-        <h2>PKR 999</h2>
+        <div class="product-image-box">
 
-        <p>
-            High-quality speed cube with smooth turning,
-            durable plastic, and excellent corner cutting.
-            Perfect for beginners and professionals.
-        </p>
+            <div class="stock-badge">
+                ● IN STOCK
+            </div>
 
-      <div class="availability">
+            <img
+                src="assets/images/3x3.jpg"
+                alt="3x3 Speed Cube">
 
-    <h3>Availability</h3>
+        </div>
 
-    <p>✅ In Stock</p>
 
-    <h3>🚚 Delivery Information</h3>
+        <!-- PRODUCT INFORMATION -->
 
-    <p>
-        • Delivery available all over Islamabad.<br>
-        • Flat delivery charges: PKR 200.<br>
-        • Estimated delivery time: 3–5 working days.<br>
-        • Products are safely packed before shipping.<br>
-        • Cash on Delivery available.
-    </p>
+        <div class="product-info">
 
-</div>
+            <div class="product-tag">
+                MH CUBES • SPEED CUBE
+            </div>
 
-        <div class="product-buttons">
+            <h1>
+                3x3 Speed Cube
+            </h1>
 
-            <button
-                class="cart-btn"
-                data-name="3x3 Speed Cube"
-                data-price="999"
-                data-image="assets/images/3x3.jpg">
+            <div class="rating">
+                ★★★★★
+                <span>Customer Reviews</span>
+            </div>
 
-                Add to Cart 🛒
+            <div class="product-price">
+                PKR 999
+            </div>
 
-            </button>
+            <p class="product-description">
+                High-quality speed cube with smooth turning,
+                durable plastic, and excellent corner cutting.
+                Perfect for beginners and professionals.
+            </p>
 
-            <button class="shop-btn">
-                Shop Now ⚡
-            </button>
+
+            <!-- DELIVERY -->
+
+            <div class="delivery-card">
+
+                <h3>
+                    🚚 Delivery Information
+                </h3>
+
+                <p>
+                    ✅ Delivery available all over Islamabad.<br>
+                    💰 Flat delivery charges: PKR 200.<br>
+                    📦 Estimated delivery: 3–5 working days.<br>
+                    🛡️ Products are safely packed before shipping.<br>
+                    💵 Cash on Delivery available.
+                </p>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="product-buttons">
+
+                <button
+                    class="cart-btn"
+                    data-name="3x3 Speed Cube"
+                    data-price="999"
+                    data-image="assets/images/3x3.jpg">
+
+                    🛒 Add to Cart
+
+                </button>
+
+                <button class="shop-btn">
+
+                    ⚡ Shop Now
+
+                </button>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-<div class="reviews">
 
-    <h2>Customer Reviews ⭐</h2>
+    <!-- REVIEWS -->
 
-    <div id="reviews-list">
-        <!-- Reviews will appear here -->
+    <div class="reviews">
+
+        <h2>
+            Customer Reviews ⭐
+        </h2>
+
+        <div id="reviews-list">
+            <!-- Reviews will appear here -->
+        </div>
+
+
+        <h3>
+            Write a Review
+        </h3>
+
+        <input
+            type="text"
+            id="review-name"
+            placeholder="Your Name">
+
+        <br><br>
+
+
+        <div class="stars">
+
+            <span data-star="1">☆</span>
+            <span data-star="2">☆</span>
+            <span data-star="3">☆</span>
+            <span data-star="4">☆</span>
+            <span data-star="5">☆</span>
+
+        </div>
+
+        <input
+            type="hidden"
+            id="rating"
+            value="0">
+
+        <br>
+
+
+        <textarea
+            id="review-text"
+            placeholder="Write your review">
+        </textarea>
+
+        <br><br>
+
+
+        <label
+            for="review-images"
+            class="upload-btn">
+
+            🖼️ Add Pictures
+
+        </label>
+
+        <input
+            type="file"
+            id="review-images"
+            accept="image/*"
+            multiple>
+
+        <br><br>
+
+
+        <div id="image-preview"></div>
+
+        <br>
+
+
+        <button id="submit-review">
+            Submit Review
+        </button>
+
+        <div id="review-toast"></div>
+
     </div>
 
-    <h3>Write a Review</h3>
+</main>
 
-    <input type="text" id="review-name" placeholder="Your Name">
 
-    <br><br>
+<!-- WHY CHOOSE MH CUBES -->
 
-    <div class="stars">
-        <span data-star="1">☆</span>
-        <span data-star="2">☆</span>
-        <span data-star="3">☆</span>
-        <span data-star="4">☆</span>
-        <span data-star="5">☆</span>
-    </div>
-
-    <input type="hidden" id="rating" value="0">
-
-    <br>
-
-    <textarea id="review-text" placeholder="Write your review"></textarea>
-
-    <br><br>
-
-    <label for="review-images" class="upload-btn">
-        🖼️ Add Pictures
-    </label>
-
-    <input
-        type="file"
-        id="review-images"
-        accept="image/*"
-        multiple>
-
-    <br><br>
-
-    <div id="image-preview"></div>
-
-    <br>
-
-    <button id="submit-review">
-        Submit Review
-    </button>
-
-    <div id="review-toast"></div>
-
-</div>
-<!-- Why Choose MH CUBES -->
 <section class="why-choose">
 
-    <h2>Why Choose MH CUBES?</h2>
+    <h2>
+        Why Choose MH CUBES?
+    </h2>
 
     <div class="why-container">
 
-        <div class="why-box" onclick="showWhy('delivery', this)">
-            <div class="why-icon">🚚</div>
-            <h3>Fast Delivery</h3>
-            <p>Quick and reliable delivery across Islamabad.</p>
+        <div
+            class="why-box"
+            onclick="showWhy('delivery', this)">
+
+            <div class="why-icon">
+                🚚
+            </div>
+
+            <h3>
+                Fast Delivery
+            </h3>
+
+            <p>
+                Quick and reliable delivery across Islamabad.
+            </p>
+
         </div>
 
-        <div class="why-box" onclick="showWhy('original', this)">
-            <div class="why-icon">💯</div>
-            <h3>100% Original</h3>
-            <p>Premium quality speed cubes from trusted brands.</p>
+
+        <div
+            class="why-box"
+            onclick="showWhy('original', this)">
+
+            <div class="why-icon">
+                💯
+            </div>
+
+            <h3>
+                100% Original
+            </h3>
+
+            <p>
+                Premium quality speed cubes from trusted brands.
+            </p>
+
         </div>
 
-        <div class="why-box" onclick="showWhy('price', this)">
-            <div class="why-icon">💰</div>
-            <h3>Best Prices</h3>
-            <p>Affordable prices with excellent value for money.</p>
+
+        <div
+            class="why-box"
+            onclick="showWhy('price', this)">
+
+            <div class="why-icon">
+                💰
+            </div>
+
+            <h3>
+                Best Prices
+            </h3>
+
+            <p>
+                Affordable prices with excellent value for money.
+            </p>
+
         </div>
 
-        <div class="why-box" onclick="showWhy('trusted', this)">
-            <div class="why-icon">⭐</div>
-            <h3>Trusted by Cubers</h3>
-            <p>Loved by beginners and speedcubers alike.</p>
+
+        <div
+            class="why-box"
+            onclick="showWhy('trusted', this)">
+
+            <div class="why-icon">
+                ⭐
+            </div>
+
+            <h3>
+                Trusted by Cubers
+            </h3>
+
+            <p>
+                Loved by beginners and speedcubers alike.
+            </p>
+
         </div>
 
     </div>
 
-    <div id="why-details" class="why-details">
-        <h3>👆 Click any card above</h3>
-        <p>Click one of the four cards to learn more.</p>
+
+    <div
+        id="why-details"
+        class="why-details">
+
+        <h3>
+            👆 Click any card above
+        </h3>
+
+        <p>
+            Click one of the four cards to learn more.
+        </p>
+
     </div>
 
 </section>
+
+
+<!-- SCRIPTS -->
+
 <script type="module" src="assets/js/firebase.js"></script>
+
 <script src="assets/js/app.js"></script>
+
 <script src="assets/js/reviews.js"></script>
 
 </body>
