@@ -12,14 +12,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /*
     ========================================
-    PRODUCT IDENTIFICATION
+    DETECT PRODUCT
     ========================================
     */
 
-    const productName = "3x3 Speed Cube";
+    let productName = document.title
+        .split("-")[0]
+        .trim();
+
+    if (!productName) {
+        productName = "Unknown Product";
+    }
 
     const reviewStorageKey = "reviews_" + productName;
-
 
     let selectedImages = [];
 
@@ -43,15 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 const number = Number(s.dataset.star);
 
                 if (number <= rating) {
-
                     s.innerText = "★";
                     s.classList.add("selected");
-
                 } else {
-
                     s.innerText = "☆";
                     s.classList.remove("selected");
-
                 }
 
             });
@@ -66,13 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
             stars.forEach(s => {
 
                 if (Number(s.dataset.star) <= rating) {
-
                     s.innerText = "★";
-
                 } else {
-
                     s.innerText = "☆";
-
                 }
 
             });
@@ -89,13 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
         stars.forEach(s => {
 
             if (Number(s.dataset.star) <= rating) {
-
                 s.innerText = "★";
-
             } else {
-
                 s.innerText = "☆";
-
             }
 
         });
@@ -105,11 +98,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /*
     ========================================
-    IMAGE PREVIEW
+    IMAGE UPLOAD
+    PICTURES ARE OPTIONAL
     ========================================
     */
 
-    if (reviewImages) {
+    if (reviewImages && imagePreview) {
 
         reviewImages.addEventListener("change", () => {
 
@@ -117,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             imagePreview.innerHTML = "";
 
-            const files = Array.from(reviewImages.files);
+            const files = Array.from(reviewImages.files || []);
 
             files.forEach(file => {
 
@@ -134,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     const img = document.createElement("img");
 
                     img.src = event.target.result;
-
                     img.className = "review-preview-image";
 
                     imagePreview.appendChild(img);
@@ -160,21 +153,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
         submitButton.addEventListener("click", () => {
 
-            const name = reviewName.value.trim();
+            /*
+            IMPORTANT:
+            Read values WITHOUT clearing them first.
+            */
 
-            const review = reviewText.value.trim();
+            const name = reviewName
+                ? reviewName.value.trim()
+                : "";
 
-            const rating = Number(ratingInput.value);
+            const review = reviewText
+                ? reviewText.value.trim()
+                : "";
+
+            const rating = ratingInput
+                ? Number(ratingInput.value)
+                : 0;
 
 
-            /* VALIDATION */
+            /*
+            VALIDATION
+            */
 
-            if (name === "" || review === "") {
+            if (name === "") {
 
-                showToast("⚠️ Please fill your name and review.");
+                showToast("⚠️ Please enter your name.");
 
                 return;
+            }
 
+
+            if (review === "") {
+
+                showToast("⚠️ Please write your review.");
+
+                return;
             }
 
 
@@ -183,12 +196,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 showToast("⭐ Please select a star rating.");
 
                 return;
-
             }
 
 
             /*
-            LOAD ONLY THIS PRODUCT'S REVIEWS
+            LOAD EXISTING REVIEWS
             */
 
             let reviews =
@@ -224,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-            SAVE
+            SAVE REVIEW
             */
 
             localStorage.setItem(
@@ -234,20 +246,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-            CLEAR FORM
+            CLEAR FORM ONLY AFTER SUCCESS
             */
 
-            reviewName.value = "";
+            if (reviewName) {
+                reviewName.value = "";
+            }
 
-            reviewText.value = "";
+            if (reviewText) {
+                reviewText.value = "";
+            }
 
-            ratingInput.value = "0";
+            if (ratingInput) {
+                ratingInput.value = "0";
+            }
 
             selectedImages = [];
 
-            imagePreview.innerHTML = "";
 
-            reviewImages.value = "";
+            if (imagePreview) {
+                imagePreview.innerHTML = "";
+            }
+
+            if (reviewImages) {
+                reviewImages.value = "";
+            }
 
 
             stars.forEach(star => {
@@ -260,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-            SUCCESS MESSAGE
+            SUCCESS
             */
 
             showToast(
@@ -269,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-            REFRESH
+            REFRESH REVIEWS
             */
 
             displayReviews();
@@ -292,7 +315,6 @@ document.addEventListener("DOMContentLoaded", () => {
         toast.innerText = message;
 
         toast.classList.add("show");
-
 
         setTimeout(() => {
 
@@ -352,7 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-        DISPLAY EACH REVIEW
+        DISPLAY REVIEWS
         */
 
         reviews.forEach(item => {
@@ -420,9 +442,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <div class="review-avatar">
 
-                        ${item.name
-                            .charAt(0)
-                            .toUpperCase()}
+                        ${escapeHTML(
+                            item.name
+                                .charAt(0)
+                                .toUpperCase()
+                        )}
 
                     </div>
 
@@ -434,27 +458,21 @@ document.addEventListener("DOMContentLoaded", () => {
                         </h3>
 
                         <div class="review-stars">
-
                             ${starsHTML}
-
                         </div>
 
                     </div>
 
 
                     <span class="review-date">
-
                         ${item.date}
-
                     </span>
 
                 </div>
 
 
                 <p class="review-message">
-
                     ${escapeHTML(item.review)}
-
                 </p>
 
 
