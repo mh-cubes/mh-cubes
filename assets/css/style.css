@@ -2539,24 +2539,22 @@ transform:rotate(360deg);
     position: relative;
 }
 
-
 .review-menu {
     position: relative;
     margin-left: auto;
 }
 
-
 .review-menu-btn {
     background: transparent;
     border: none;
+    color: #777;
     font-size: 26px;
     font-weight: bold;
+    line-height: 1;
     cursor: pointer;
-    color: #777;
-    padding: 2px 8px;
+    padding: 4px 8px;
     border-radius: 8px;
 }
-
 
 .review-menu-btn:hover {
     background: #eeeeee;
@@ -2564,56 +2562,58 @@ transform:rotate(360deg);
 }
 
 
+/* HIDDEN BY DEFAULT */
+
 .review-menu-dropdown {
+    display: none;
+
     position: absolute;
     right: 0;
     top: 38px;
 
-    min-width: 160px;
+    width: 170px;
 
     background: #ffffff;
 
     border: 1px solid #dddddd;
-
-    border-radius: 10px;
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 12px;
 
     padding: 6px;
 
-    display: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 
-    z-index: 100;
+    z-index: 9999;
 }
 
+
+/* ONLY SHOW AFTER CLICKING ⋮ */
 
 .review-menu-dropdown.show {
     display: block;
 }
 
 
+/* DELETE BUTTON */
+
 .delete-review-btn {
     width: 100%;
 
     background: transparent;
-
     border: none;
 
     color: #d90000;
 
-    padding: 10px 12px;
+    padding: 11px 12px;
 
     text-align: left;
 
-    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 8px;
 
     cursor: pointer;
-
-    font-size: 14px;
-
-    font-weight: 600;
 }
-
 
 .delete-review-btn:hover {
     background: #fff0f0;
