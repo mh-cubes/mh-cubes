@@ -10,11 +10,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const reviewList = document.getElementById("reviews-list");
     const toast = document.getElementById("review-toast");
 
+    /*
+    ========================================
+    PRODUCT IDENTIFICATION
+    ========================================
+    */
+
+    const productName = "3x3 Speed Cube";
+
+    const reviewStorageKey = "reviews_" + productName;
+
+
     let selectedImages = [];
 
-    /* =========================
-       STAR RATING
-    ========================= */
+
+    /*
+    ========================================
+    STAR RATING
+    ========================================
+    */
 
     stars.forEach(star => {
 
@@ -26,21 +40,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
             stars.forEach(s => {
 
-                const starNumber = Number(s.dataset.star);
+                const number = Number(s.dataset.star);
 
-                if (starNumber <= rating) {
+                if (number <= rating) {
+
                     s.innerText = "★";
                     s.classList.add("selected");
+
                 } else {
+
                     s.innerText = "☆";
                     s.classList.remove("selected");
+
                 }
 
             });
 
         });
 
-        /* Hover effect */
 
         star.addEventListener("mouseenter", () => {
 
@@ -49,9 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
             stars.forEach(s => {
 
                 if (Number(s.dataset.star) <= rating) {
+
                     s.innerText = "★";
+
                 } else {
+
                     s.innerText = "☆";
+
                 }
 
             });
@@ -61,8 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* Restore selected rating after mouse leaves */
-
     document.querySelector(".stars")?.addEventListener("mouseleave", () => {
 
         const rating = Number(ratingInput.value);
@@ -70,9 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
         stars.forEach(s => {
 
             if (Number(s.dataset.star) <= rating) {
+
                 s.innerText = "★";
+
             } else {
+
                 s.innerText = "☆";
+
             }
 
         });
@@ -80,9 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* =========================
-       IMAGE UPLOAD PREVIEW
-    ========================= */
+    /*
+    ========================================
+    IMAGE PREVIEW
+    ========================================
+    */
 
     if (reviewImages) {
 
@@ -125,9 +150,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       SUBMIT REVIEW
-    ========================= */
+    /*
+    ========================================
+    SUBMIT REVIEW
+    ========================================
+    */
 
     if (submitButton) {
 
@@ -140,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const rating = Number(ratingInput.value);
 
 
-            /* Validation */
+            /* VALIDATION */
 
             if (name === "" || review === "") {
 
@@ -160,17 +187,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            /* Load existing reviews */
+            /*
+            LOAD ONLY THIS PRODUCT'S REVIEWS
+            */
 
             let reviews =
-                JSON.parse(localStorage.getItem("reviews")) || [];
+                JSON.parse(
+                    localStorage.getItem(reviewStorageKey)
+                ) || [];
 
 
-            /* Create review */
+            /*
+            CREATE REVIEW
+            */
 
             const newReview = {
 
                 id: Date.now(),
+
+                product: productName,
 
                 name: name,
 
@@ -188,15 +223,19 @@ document.addEventListener("DOMContentLoaded", () => {
             reviews.unshift(newReview);
 
 
-            /* Save */
+            /*
+            SAVE
+            */
 
             localStorage.setItem(
-                "reviews",
+                reviewStorageKey,
                 JSON.stringify(reviews)
             );
 
 
-            /* Clear form */
+            /*
+            CLEAR FORM
+            */
 
             reviewName.value = "";
 
@@ -220,12 +259,18 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
 
-            /* Show success */
+            /*
+            SUCCESS MESSAGE
+            */
 
-            showToast("✅ Review submitted successfully!");
+            showToast(
+                "✅ Review submitted successfully!"
+            );
 
 
-            /* Refresh reviews */
+            /*
+            REFRESH
+            */
 
             displayReviews();
 
@@ -234,9 +279,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       SHOW TOAST
-    ========================= */
+    /*
+    ========================================
+    TOAST
+    ========================================
+    */
 
     function showToast(message) {
 
@@ -256,9 +303,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       DISPLAY REVIEWS
-    ========================= */
+    /*
+    ========================================
+    DISPLAY REVIEWS
+    ========================================
+    */
 
     function displayReviews() {
 
@@ -266,7 +315,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         const reviews =
-            JSON.parse(localStorage.getItem("reviews")) || [];
+            JSON.parse(
+                localStorage.getItem(reviewStorageKey)
+            ) || [];
 
 
         reviewList.innerHTML = "";
@@ -282,10 +333,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         ⭐
                     </div>
 
-                    <h3>No reviews yet</h3>
+                    <h3>
+                        No reviews yet
+                    </h3>
 
                     <p>
-                        Be the first customer to share your experience!
+                        Be the first customer to share
+                        your experience!
                     </p>
 
                 </div>
@@ -297,30 +351,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
+        /*
+        DISPLAY EACH REVIEW
+        */
+
         reviews.forEach(item => {
 
-            const card = document.createElement("div");
+            const card =
+                document.createElement("div");
 
             card.className = "review-card";
 
 
-            /* Stars */
+            /*
+            STARS
+            */
 
             let starsHTML = "";
 
             for (let i = 1; i <= 5; i++) {
 
                 starsHTML +=
-                    i <= item.rating ? "★" : "☆";
+                    i <= item.rating
+                        ? "★"
+                        : "☆";
 
             }
 
 
-            /* Images */
+            /*
+            IMAGES
+            */
 
             let imagesHTML = "";
 
-            if (item.images && item.images.length > 0) {
+            if (
+                item.images &&
+                item.images.length > 0
+            ) {
 
                 imagesHTML = `
 
@@ -342,6 +410,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
+            /*
+            REVIEW CARD
+            */
+
             card.innerHTML = `
 
                 <div class="review-header">
@@ -354,6 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     </div>
 
+
                     <div>
 
                         <h3>
@@ -361,13 +434,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         </h3>
 
                         <div class="review-stars">
+
                             ${starsHTML}
+
                         </div>
 
                     </div>
 
+
                     <span class="review-date">
+
                         ${item.date}
+
                     </span>
 
                 </div>
@@ -392,13 +470,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       SECURITY
-    ========================= */
+    /*
+    ========================================
+    SECURITY
+    ========================================
+    */
 
     function escapeHTML(text) {
 
-        const div = document.createElement("div");
+        const div =
+            document.createElement("div");
 
         div.textContent = text;
 
@@ -407,9 +488,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================
-       LOAD REVIEWS
-    ========================= */
+    /*
+    ========================================
+    LOAD REVIEWS
+    ========================================
+    */
 
     displayReviews();
 
