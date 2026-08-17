@@ -1,13 +1,21 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-<title>Orders - MH CUBES</title>
+<title>My Orders - MH CUBES</title>
 
-<link rel="stylesheet" href="assets/css/style.css">
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
 
 </head>
 
@@ -21,33 +29,104 @@ MH CUBES
 </div>
 
 <nav>
-<a href="index.html">Home</a>
+
+<a href="index.html">
+🏠 Home
+</a>
+
+<a href="customer-account.html">
+👤 My Account
+</a>
+
 </nav>
 
 </header>
 
 
-
-<div class="orders">
+<main class="orders">
 
 <h1>
-Customer Orders 📦
+📦 My Orders
 </h1>
 
 
 <div id="order-box">
 
-No orders yet.
+🔄 Checking login...
 
 </div>
 
 
-</div>
+</main>
+
 
 <div id="order-toast" class="toast"></div>
-<script type="module" src="assets/js/orders.js"></script>
+
+
+<script type="module">
+
+import { auth } from "./assets/js/firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const orderBox =
+    document.getElementById("order-box");
+
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        // ============================
+        // NOT LOGGED IN
+        // ============================
+
+        if(!user){
+
+            window.location.href =
+                "customer-login.html";
+
+            return;
+
+        }
+
+
+        // ============================
+        // LOGGED IN
+        // ============================
+
+        orderBox.innerHTML = `
+
+            <h2>
+                📦 Your Orders
+            </h2>
+
+            <p>
+                You are logged in as:
+            </p>
+
+            <strong>
+                ${user.email || "Customer"}
+            </strong>
+
+            <br><br>
+
+            <p>
+                Your orders will appear here.
+            </p>
+
+        `;
+
+    }
+);
+
+</script>
 
 
 </body>
 
 </html>
+```
