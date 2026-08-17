@@ -14,7 +14,19 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 let box = document.getElementById("admin-order-box");
+onAuthStateChanged(auth, (user) => {
 
+    if (!user) {
+
+        window.location.href = "owner-login.html";
+
+        return;
+
+    }
+
+    loadOrders();
+
+});
 
 // ------------------------------
 // Load Orders From Firebase
