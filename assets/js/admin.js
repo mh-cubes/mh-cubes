@@ -23,7 +23,6 @@ onAuthStateChanged(auth, (user) => {
 
     }
 
-    loadOrders();
 
 });
 
