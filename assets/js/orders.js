@@ -400,9 +400,7 @@ if (logoutButton) {
 
             try {
 
-                logoutButton.disabled =
-                    true;
-
+                logoutButton.disabled = true;
 
                 logoutButton.innerText =
                     "⏳ Logging out...";
@@ -411,7 +409,17 @@ if (logoutButton) {
                 await signOut(auth);
 
 
-                // Success message
+                // Hide account buttons
+
+                if (accountActions) {
+
+                    accountActions.style.display =
+                        "none";
+
+                }
+
+
+                // Show success message
 
                 orderBox.innerHTML = `
 
@@ -421,7 +429,7 @@ if (logoutButton) {
                     ">
 
                         <div style="
-                            font-size:55px;
+                            font-size:60px;
                             margin-bottom:15px;
                         ">
                             ✅
@@ -447,16 +455,13 @@ if (logoutButton) {
                 `;
 
 
-                accountActions.style.display =
-                    "none";
+                // Redirect after exactly 5 seconds
 
+                setTimeout(() => {
 
-                // Redirect after 5 seconds
-
-                setTimeout(function() {
-
-                    window.location.href =
-                        "index.html";
+                    window.location.replace(
+                        "index.html"
+                    );
 
                 }, 5000);
 
@@ -502,4 +507,3 @@ if (logoutButton) {
     );
 
 }
-
