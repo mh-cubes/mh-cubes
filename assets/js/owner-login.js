@@ -2,63 +2,77 @@ import {
     signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-import {
-    getAuth
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-const auth = getAuth();
-function ownerLogin(){
-
-let username =
-document.getElementById("owner-username").value;
+import { auth } from "./firebase.js";
 
 
-let password =
-document.getElementById("owner-password").value;
+function ownerLogin() {
+
+    const email =
+        document.getElementById("owner-username").value.trim();
+
+    const password =
+        document.getElementById("owner-password").value;
 
 
+    if (!email || !password) {
 
-if(username === "Huzaifa" && password === "Officialmhcubes1"){
+        document.getElementById("login-error").innerText =
+            "❌ Please enter your email and password.";
 
+        return;
 
-localStorage.setItem(
-"adminAccess",
-"granted"
-);
-
-
-// Show loading message
-
-document.querySelector(".login-box").innerHTML = `
-
-<h1>🔐</h1>
-
-<h2>Access Granted</h2>
-
-<p>Opening Admin Dashboard...</p>
-
-<div class="loader"></div>
-
-`;
+    }
 
 
-// Wait then open admin
+    signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+    )
 
-setTimeout(function(){
+    .then(function () {
 
-window.location.href="admin.html";
-
-},2000);
-
-
-
-}else{
+        localStorage.setItem(
+            "adminAccess",
+            "granted"
+        );
 
 
-document.getElementById("login-error").innerText =
-"❌ Wrong username or password";
+        document.querySelector(".login-box").innerHTML = `
 
+            <h1>🔐</h1>
+
+            <h2>Access Granted</h2>
+
+            <p>Opening Admin Dashboard...</p>
+
+            <div class="loader"></div>
+
+        `;
+
+
+        setTimeout(function () {
+
+            window.location.href = "admin.html";
+
+        }, 2000);
+
+    })
+
+    .catch(function (error) {
+
+        console.error(
+            "Firebase login error:",
+            error
+        );
+
+
+        document.getElementById("login-error").innerText =
+            "❌ Invalid email or password.";
+
+    });
 
 }
 
-}
+
+window.ownerLogin = ownerLogin;
