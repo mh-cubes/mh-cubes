@@ -2978,3 +2978,55 @@ transform:rotate(360deg);
     }
 
 }
+/* ============================= */
+/* MOBILE CART */
+/* ============================= */
+
+@media (max-width: 768px){
+
+    .cart{
+        width:100%;
+        box-sizing:border-box;
+        padding:30px 15px;
+    }
+
+    .cart h1{
+        font-size:28px;
+        text-align:center;
+        margin-bottom:25px;
+    }
+
+    .cart-layout{
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
+
+    #cart-items{
+        width:100%;
+        box-sizing:border-box;
+    }
+
+    .summary{
+        width:100%;
+        box-sizing:border-box;
+        padding:20px;
+        border-radius:16px;
+    }
+
+    .summary h2{
+        font-size:21px;
+    }
+
+    #summary-total{
+        font-size:18px;
+        font-weight:bold;
+    }
+
+    .summary button{
+        width:100%;
+        padding:14px;
+        font-size:16px;
+    }
+
+}
