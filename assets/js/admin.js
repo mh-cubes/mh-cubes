@@ -13,11 +13,16 @@ import {
     deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+
+// ------------------------------
+// Admin Order Box
+// ------------------------------
+
 let box = document.getElementById("admin-order-box");
 
 
 // ------------------------------
-// Check Firebase Authentication
+// Firebase Authentication Check
 // ------------------------------
 
 onAuthStateChanged(auth, (user) => {
@@ -39,58 +44,40 @@ onAuthStateChanged(auth, (user) => {
 // Load Orders From Firebase
 // ------------------------------
 
-async function logoutOwner(){
-
-    const ordersBox =
-        document.querySelector(".orders");
-
-
-    if(ordersBox){
-
-        ordersBox.innerHTML = `
-
-            <h2>
-                Logging out...
-            </h2>
-
-            <div class="loader"></div>
-
-        `;
-
-    }
-
+async function loadOrders(){
 
     try{
 
-        await signOut(auth);
+        let orders = [];
 
-        localStorage.removeItem(
-            "adminAccess"
-        );
-
-
-        setTimeout(function(){
-
-            window.location.href =
-                "owner-login.html";
-
-        }, 2000);
+        const snapshot =
+            await getDocs(
+                collection(db, "orders")
+            );
 
 
-    }catch(error){
+        snapshot.forEach((docSnap) => {
 
-        console.error(
-            "Logout error:",
-            error
-        );
+            orders.push({
 
-        alert(
-            "Failed to logout."
-        );
+                id: docSnap.id,
 
-    }
+                ...docSnap.data()
 
-}
+            });
+
+        });
+
+
+        if(orders.length === 0){
+
+            box.innerHTML =
+                "<h2>No active orders.</h2>";
+
+            return;
+
+        }
+
 
         box.innerHTML = "";
 
@@ -99,89 +86,97 @@ async function logoutOwner(){
 
             box.innerHTML += `
 
-            <div class="admin-order-card">
+                <div class="admin-order-card">
 
-                <h2>
-                    Order #${order.orderID}
-                </h2>
+                    <h2>
+                        Order #${order.orderID}
+                    </h2>
 
-
-                <p>
-                    <strong>Name:</strong>
-                    ${order.customerName}
-                </p>
-
-
-                <p>
-                    <strong>Phone:</strong>
-                    ${order.phone}
-                </p>
-
-
-                <p>
-                    <strong>Address:</strong>
-                    ${order.address}
-                </p>
-
-
-                <p>
-                    <strong>Payment:</strong>
-                    ${order.payment}
-                </p>
-
-
-                <p>
-                    <strong>Transaction ID:</strong>
-                    ${order.transactionID || "Not provided"}
-                </p>
-
-
-                <h3>Products</h3>
-
-
-                ${Object.keys(order.products).map(product => `
 
                     <p>
-                        ${product}
-                        - PKR ${order.products[product].price}
-                        × ${order.products[product].quantity}
+                        <strong>Name:</strong>
+                        ${order.customerName}
                     </p>
 
-                `).join("")}
+
+                    <p>
+                        <strong>Phone:</strong>
+                        ${order.phone}
+                    </p>
 
 
-                <p>
-                    <strong>Status:</strong>
-                    ${order.status || "Pending"}
-                </p>
+                    <p>
+                        <strong>Address:</strong>
+                        ${order.address}
+                    </p>
 
 
-                <button onclick="confirmOrder('${order.id}')">
-                    Confirm ✅
-                </button>
+                    <p>
+                        <strong>Payment:</strong>
+                        ${order.payment}
+                    </p>
 
 
-                <button onclick="processOrder('${order.id}')">
-                    Processing 📦
-                </button>
+                    <p>
+                        <strong>Transaction ID:</strong>
+                        ${order.transactionID || "Not provided"}
+                    </p>
 
 
-                <button onclick="shipOrder('${order.id}')">
-                    Ship 🚚
-                </button>
+                    <h3>Products</h3>
 
 
-                <button onclick="deliverOrder('${order.id}')">
-                    Deliver ✅
-                </button>
+                    ${
+                        Object.keys(order.products || {})
+                        .map(product => `
+
+                            <p>
+                                ${product}
+                                - PKR ${order.products[product].price}
+                                × ${order.products[product].quantity}
+                            </p>
+
+                        `)
+                        .join("")
+                    }
 
 
-                <button onclick="cancelAdminOrder('${order.id}')">
-                    Cancel ❌
-                </button>
+                    <p>
+                        <strong>Status:</strong>
+                        ${order.status || "Pending"}
+                    </p>
 
 
-            </div>
+                    <button
+                        onclick="confirmOrder('${order.id}')">
+                        Confirm ✅
+                    </button>
+
+
+                    <button
+                        onclick="processOrder('${order.id}')">
+                        Processing 📦
+                    </button>
+
+
+                    <button
+                        onclick="shipOrder('${order.id}')">
+                        Ship 🚚
+                    </button>
+
+
+                    <button
+                        onclick="deliverOrder('${order.id}')">
+                        Deliver ✅
+                    </button>
+
+
+                    <button
+                        onclick="cancelAdminOrder('${order.id}')">
+                        Cancel ❌
+                    </button>
+
+                </div>
 
             `;
 
@@ -312,9 +307,10 @@ async function deliverOrder(id){
 
 async function cancelAdminOrder(id){
 
-    const confirmCancel = confirm(
-        "Are you sure you want to cancel this order?"
-    );
+    const confirmCancel =
+        confirm(
+            "Are you sure you want to cancel this order?"
+        );
 
 
     if(!confirmCancel){
@@ -368,6 +364,8 @@ async function logoutOwner(){
                 Logging out...
             </h2>
 
+            <div class="loader"></div>
+
         `;
 
     }
@@ -383,8 +381,12 @@ async function logoutOwner(){
         );
 
 
-        window.location.href =
-            "owner-login.html";
+        setTimeout(function(){
+
+            window.location.href =
+                "owner-login.html";
+
+        }, 2000);
 
 
     }catch(error){
@@ -393,7 +395,6 @@ async function logoutOwner(){
             "Logout error:",
             error
         );
-
 
         alert(
             "Failed to logout."
