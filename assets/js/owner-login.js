@@ -7,8 +7,8 @@ import { auth } from "./firebase.js";
 
 function ownerLogin() {
 
-    const email =
-        document.getElementById("owner-username").value.trim();
+   const email =
+    document.getElementById("owner-email").value.trim();
 
     const password =
         document.getElementById("owner-password").value;
