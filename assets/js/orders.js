@@ -1,4 +1,3 @@
-
 import { db, auth } from "./firebase.js";
 
 import {
@@ -29,6 +28,11 @@ const logoutButton =
 // =========================================
 
 async function loadCustomerOrders(user) {
+
+    if (!orderBox) {
+        return;
+    }
+
 
     orderBox.innerHTML = `
 
@@ -141,14 +145,12 @@ async function loadCustomerOrders(user) {
 
             let productsHTML = "";
 
-
             let total = 0;
 
 
             Object.keys(
                 order.products || {}
-            )
-            .forEach(function(product) {
+            ).forEach(function(product) {
 
                 const item =
                     order.products[product];
@@ -200,7 +202,6 @@ async function loadCustomerOrders(user) {
                         ${order.orderID || "Order"}
                     </h2>
 
-
                     <span class="order-status">
                         ${status}
                     </span>
@@ -211,62 +212,52 @@ async function loadCustomerOrders(user) {
                 <div class="order-details">
 
                     <p>
-
                         <strong>
                             👤 Name:
                         </strong>
 
                         ${order.customerName ||
-                          "Not available"}
-
+                        "Not available"}
                     </p>
 
 
                     <p>
-
                         <strong>
                             📱 Phone:
                         </strong>
 
                         ${order.phone ||
-                          "Not available"}
-
+                        "Not available"}
                     </p>
 
 
                     <p>
-
                         <strong>
                             📍 Address:
                         </strong>
 
                         ${order.address ||
-                          "Not available"}
-
+                        "Not available"}
                     </p>
 
 
                     <p>
-
                         <strong>
                             💳 Payment:
                         </strong>
 
                         ${order.payment ||
-                          "Not selected"}
-
+                        "Not selected"}
                     </p>
 
 
                     <p>
-
                         <strong>
                             📅 Date:
                         </strong>
 
                         ${order.date ||
-                          "Not available"}
-
+                        "Not available"}
                     </p>
 
                 </div>
@@ -360,11 +351,13 @@ onAuthStateChanged(
     auth,
     function(user) {
 
+        // =================================
         // NOT LOGGED IN
+        // =================================
 
         if (!user) {
 
-            // If logout is in progress,
+            // If logout is happening,
             // stay on this page.
 
             if (
@@ -377,8 +370,8 @@ onAuthStateChanged(
             }
 
 
-            // Otherwise send logged-out
-            // customers to login.
+            // Normal logged-out customer
+            // goes to login page.
 
             window.location.href =
                 "customer-login.html";
@@ -388,7 +381,9 @@ onAuthStateChanged(
         }
 
 
+        // =================================
         // LOGGED IN
+        // =================================
 
         if (accountActions) {
 
@@ -402,6 +397,7 @@ onAuthStateChanged(
 
     }
 );
+
 
 // =========================================
 // LOGOUT
@@ -417,17 +413,46 @@ if (logoutButton) {
 
                 logoutButton.disabled = true;
 
+
                 logoutButton.innerText =
                     "⏳ Logging out...";
-sessionStorage.setItem(
-    "loggingOut",
-    "true"
-);
+
+
+                // Tell authentication listener
+                // that logout is intentional.
+
+                sessionStorage.setItem(
+                    "loggingOut",
+                    "true"
+                );
+
+
+                // =================================
+                // START 5-SECOND REDIRECT TIMER
+                // BEFORE SIGN OUT
+                // =================================
+
+                setTimeout(function() {
+
+                    sessionStorage.removeItem(
+                        "loggingOut"
+                    );
+
+
+                    window.location.href =
+                        "https://mh-cubes.pages.dev/";
+
+                }, 5000);
+
+
+                // =================================
+                // SIGN OUT
+                // =================================
 
                 await signOut(auth);
 
 
-                // Hide account buttons
+                // Hide logout button
 
                 if (accountActions) {
 
@@ -437,7 +462,9 @@ sessionStorage.setItem(
                 }
 
 
-                // Show success message
+                // =================================
+                // SHOW LOGGED OUT MESSAGE
+                // =================================
 
                 orderBox.innerHTML = `
 
@@ -473,22 +500,16 @@ sessionStorage.setItem(
                 `;
 
 
-                // Redirect after exactly 5 seconds
-
-             setTimeout(function(){
-
-    sessionStorage.removeItem("loggingOut");
-
-    window.location.href =
-        "https://mh-cubes.pages.dev/";
-
-}, 5000);
-
             } catch (error) {
 
                 console.error(
                     "Logout error:",
                     error
+                );
+
+
+                sessionStorage.removeItem(
+                    "loggingOut"
                 );
 
 
