@@ -1,3 +1,12 @@
+import {
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+    getAuth
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+const auth = getAuth();
 function ownerLogin(){
 
 let username =
