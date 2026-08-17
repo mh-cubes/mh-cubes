@@ -1,206 +1,367 @@
-import { db } from "./firebase.js";
+```javascript
+import { db, auth } from "./firebase.js";
 
 import {
-collection,
-getDocs,
-query,
-where
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+    collection,
+    getDocs,
+    query,
+    where
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+
 const orderBox =
-document.getElementById("order-box");
-
-const phone =
-localStorage.getItem("customerPhone") || "";
-
-async function loadCustomerOrders() {
-
-```
-if (!orderBox) {
-    return;
-}
+    document.getElementById("order-box");
 
 
-if (!phone) {
+// =========================================
+// LOAD CUSTOMER ORDERS
+// =========================================
 
-    orderBox.innerHTML = `
-        <h2>No saved customer information.</h2>
-        <p>
-            Please place an order first.
-        </p>
-    `;
+async function loadCustomerOrders(user) {
 
-    return;
-
-}
-
-
-orderBox.innerHTML =
-    "<h2>🔄 Loading your orders...</h2>";
-
-
-try {
-
-    const ordersQuery = query(
-        collection(db, "orders"),
-        where("phone", "==", phone)
-    );
-
-
-    const snapshot =
-        await getDocs(ordersQuery);
-
-
-    const orders = [];
-
-
-    snapshot.forEach(function(docSnap) {
-
-        orders.push({
-            id: docSnap.id,
-            ...docSnap.data()
-        });
-
-    });
-
-
-    orders.sort(function(a, b) {
-
-        return String(b.date || "")
-            .localeCompare(String(a.date || ""));
-
-    });
-
-
-    if (orders.length === 0) {
-
-        orderBox.innerHTML = `
-            <h2>No orders found.</h2>
-            <p>
-                No orders were found for this phone number.
-            </p>
-        `;
-
+    if (!orderBox) {
         return;
-
     }
 
 
-    orderBox.innerHTML = "";
+    orderBox.innerHTML =
+        "<h2>🔄 Loading your orders...</h2>";
 
 
-    orders.forEach(function(order) {
+    try {
 
-        const card =
-            document.createElement("div");
+        const ordersQuery = query(
+            collection(db, "orders"),
+            where(
+                "customerUID",
+                "==",
+                user.uid
+            )
+        );
 
 
-        card.className =
-            "customer-order-card";
+        const snapshot =
+            await getDocs(ordersQuery);
 
 
-        let productsHTML = "";
+        const orders = [];
 
 
-        Object.keys(order.products || {})
+        snapshot.forEach(function(docSnap) {
+
+            orders.push({
+
+                id:
+                    docSnap.id,
+
+                ...docSnap.data()
+
+            });
+
+        });
+
+
+        // =================================
+        // SORT NEWEST FIRST
+        // =================================
+
+        orders.sort(function(a, b) {
+
+            return Number(
+                b.createdAt || 0
+            ) - Number(
+                a.createdAt || 0
+            );
+
+        });
+
+
+        // =================================
+        // NO ORDERS
+        // =================================
+
+        if (orders.length === 0) {
+
+            orderBox.innerHTML = `
+
+                <h2>
+                    📦 No orders found.
+                </h2>
+
+                <p>
+                    You haven't placed any orders
+                    with this account yet.
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        // =================================
+        // DISPLAY ORDERS
+        // =================================
+
+        orderBox.innerHTML = "";
+
+
+        orders.forEach(function(order) {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "customer-order-card";
+
+
+            let productsHTML = "";
+
+
+            let total = 0;
+
+
+            Object.keys(
+                order.products || {}
+            )
             .forEach(function(product) {
 
                 const item =
                     order.products[product];
 
 
+                const price =
+                    Number(item.price) || 0;
+
+
+                const quantity =
+                    Number(item.quantity) || 0;
+
+
+                total +=
+                    price * quantity;
+
+
                 productsHTML += `
+
                     <p>
-                        <strong>${product}</strong>
-                        -
-                        PKR ${item.price}
-                        ×
-                        ${item.quantity}
+
+                        <strong>
+                            🧩 ${product}
+                        </strong>
+
+                        <br>
+
+                        PKR ${price}
+                        × ${quantity}
+
                     </p>
+
                 `;
 
             });
 
 
-        const status =
-            order.status || "Pending 🟡";
+            const status =
+                order.status ||
+                "Pending 🟡";
 
 
-        card.innerHTML = `
+            card.innerHTML = `
+
+                <div class="order-card-header">
+
+                    <h2>
+
+                        📦
+                        ${order.orderID || "Order"}
+
+                    </h2>
+
+
+                    <span class="order-status">
+
+                        ${status}
+
+                    </span>
+
+                </div>
+
+
+                <div class="order-details">
+
+                    <p>
+
+                        <strong>
+                            👤 Name:
+                        </strong>
+
+                        ${order.customerName || "Not available"}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            📱 Phone:
+                        </strong>
+
+                        ${order.phone || "Not available"}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            📍 Address:
+                        </strong>
+
+                        ${order.address || "Not available"}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            💳 Payment:
+                        </strong>
+
+                        ${order.payment || "Not selected"}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            📅 Date:
+                        </strong>
+
+                        ${order.date || "Not available"}
+
+                    </p>
+
+                </div>
+
+
+                <h3>
+                    🧩 Products
+                </h3>
+
+
+                <div class="my-order-products">
+
+                    ${productsHTML}
+
+                </div>
+
+
+                <div class="order-total">
+
+                    <strong>
+                        Total
+                    </strong>
+
+                    <strong>
+                        PKR ${order.total || total}
+                    </strong>
+
+                </div>
+
+
+                ${
+                    order.notification
+                    ?
+                    `
+                    <div class="order-notification">
+
+                        🔔
+                        ${order.notification}
+
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+            `;
+
+
+            orderBox.appendChild(card);
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Error loading customer orders:",
+            error
+        );
+
+
+        orderBox.innerHTML = `
 
             <h2>
-                📦 Order ${order.orderID || ""}
+                ❌ Failed to load orders.
             </h2>
 
             <p>
-                <strong>Name:</strong>
-                ${order.customerName || "Not available"}
+                Please try again.
             </p>
-
-            <p>
-                <strong>Phone:</strong>
-                ${order.phone || "Not available"}
-            </p>
-
-            <p>
-                <strong>Address:</strong>
-                ${order.address || "Not available"}
-            </p>
-
-            <p>
-                <strong>Payment:</strong>
-                ${order.payment || "Not selected"}
-            </p>
-
-            <p>
-                <strong>Date:</strong>
-                ${order.date || "Not available"}
-            </p>
-
-            <h3>
-                Products
-            </h3>
-
-            ${productsHTML}
-
-            <p>
-                <strong>Total:</strong>
-                PKR ${order.total || 0}
-            </p>
-
-            <p>
-                <strong>Status:</strong>
-                ${status}
-            </p>
-
-            <hr>
 
         `;
 
-
-        orderBox.appendChild(card);
-
-    });
-
-
-} catch (error) {
-
-    console.error(
-        "Error loading customer orders:",
-        error
-    );
-
-
-    orderBox.innerHTML = `
-        <h2>❌ Failed to load orders.</h2>
-        <p>
-            Please try again.
-        </p>
-    `;
+    }
 
 }
+
+
+// =========================================
+// AUTHENTICATION CHECK
+// =========================================
+
+onAuthStateChanged(
+    auth,
+    function(user) {
+
+        if (!user) {
+
+            orderBox.innerHTML = `
+
+                <h2>
+                    🔐 Login Required
+                </h2>
+
+                <p>
+                    Please login to your customer
+                    account to view your orders.
+                </p>
+
+                <button
+                    onclick="window.location.href='customer-login.html'"
+                >
+                    Login / Create Account
+                </button>
+
+            `;
+
+            return;
+
+        }
+
+
+        loadCustomerOrders(user);
+
+    }
+);
 ```
-
-}
-
-loadCustomerOrders();
