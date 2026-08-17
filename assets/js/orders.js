@@ -362,14 +362,14 @@ onAuthStateChanged(
 
         // NOT LOGGED IN
 
-        if (!user) {
+      if (!user) {
 
-            window.location.href =
-                "customer-login.html";
+    window.location.href =
+        "customer-login.html";
 
-            return;
+    return;
 
-        }
+}
 
 
         // LOGGED IN
