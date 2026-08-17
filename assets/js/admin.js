@@ -1,8 +1,9 @@
 import { db, auth } from "./firebase.js";
+
 import {
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js"
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
     collection,
@@ -13,6 +14,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 let box = document.getElementById("admin-order-box");
+
+
+// ------------------------------
+// Check Firebase Authentication
+// ------------------------------
+
 onAuthStateChanged(auth, (user) => {
 
     if (!user) {
@@ -23,8 +30,10 @@ onAuthStateChanged(auth, (user) => {
 
     }
 
+    loadOrders();
 
 });
+
 
 // ------------------------------
 // Load Orders From Firebase
@@ -36,10 +45,12 @@ async function loadOrders(){
 
         let orders = [];
 
-        const snapshot = await getDocs(collection(db, "orders"));
+        const snapshot = await getDocs(
+            collection(db, "orders")
+        );
 
 
-        snapshot.forEach((docSnap)=>{
+        snapshot.forEach((docSnap) => {
 
             orders.push({
 
@@ -54,7 +65,8 @@ async function loadOrders(){
 
         if(orders.length === 0){
 
-            box.innerHTML = "<h2>No active orders.</h2>";
+            box.innerHTML =
+                "<h2>No active orders.</h2>";
 
             return;
 
@@ -64,132 +76,136 @@ async function loadOrders(){
         box.innerHTML = "";
 
 
-        orders.forEach((order)=>{
-
+        orders.forEach((order) => {
 
             box.innerHTML += `
 
             <div class="admin-order-card">
 
-
-                <h2>Order #${order.orderID}</h2>
+                <h2>
+                    Order #${order.orderID}
+                </h2>
 
 
                 <p>
-                <strong>Name:</strong>
-                ${order.customerName}
+                    <strong>Name:</strong>
+                    ${order.customerName}
                 </p>
 
 
                 <p>
-                <strong>Phone:</strong>
-                ${order.phone}
+                    <strong>Phone:</strong>
+                    ${order.phone}
                 </p>
 
 
                 <p>
-                <strong>Address:</strong>
-                ${order.address}
+                    <strong>Address:</strong>
+                    ${order.address}
                 </p>
 
 
                 <p>
-                <strong>Payment:</strong>
-                ${order.payment}
+                    <strong>Payment:</strong>
+                    ${order.payment}
                 </p>
 
 
                 <p>
-                <strong>Transaction ID:</strong>
-                ${order.transactionID || "Not provided"}
+                    <strong>Transaction ID:</strong>
+                    ${order.transactionID || "Not provided"}
                 </p>
 
 
                 <h3>Products</h3>
 
 
-                ${Object.keys(order.products).map(product=>`
-
+                ${Object.keys(order.products).map(product => `
 
                     <p>
-                    ${product}
-                    - PKR ${order.products[product].price}
-                    × ${order.products[product].quantity}
+                        ${product}
+                        - PKR ${order.products[product].price}
+                        × ${order.products[product].quantity}
                     </p>
-
 
                 `).join("")}
 
 
                 <p>
-                <strong>Status:</strong>
-                ${order.status || "Pending"}
+                    <strong>Status:</strong>
+                    ${order.status || "Pending"}
                 </p>
 
 
                 <button onclick="confirmOrder('${order.id}')">
-                Confirm ✅
+                    Confirm ✅
                 </button>
 
 
                 <button onclick="processOrder('${order.id}')">
-                Processing 📦
+                    Processing 📦
                 </button>
 
 
                 <button onclick="shipOrder('${order.id}')">
-                Ship 🚚
+                    Ship 🚚
                 </button>
 
 
                 <button onclick="deliverOrder('${order.id}')">
-                Deliver ✅
+                    Deliver ✅
                 </button>
 
 
                 <button onclick="cancelAdminOrder('${order.id}')">
-                Cancel ❌
+                    Cancel ❌
                 </button>
 
 
             </div>
 
-
             `;
-
 
         });
 
 
     }catch(error){
 
-        console.error("Error loading orders:", error);
+        console.error(
+            "Error loading orders:",
+            error
+        );
 
         box.innerHTML =
-        "<h2>Error loading orders.</h2>";
+            "<h2>Error loading orders.</h2>";
 
     }
 
 }
 
 
-loadOrders();
-
 // ------------------------------
 // Update Order Status
 // ------------------------------
 
-async function updateOrderStatus(id, status, message){
+async function updateOrderStatus(
+    id,
+    status,
+    message
+){
 
     try{
 
-        await updateDoc(doc(db, "orders", id), {
+        await updateDoc(
+            doc(db, "orders", id),
+            {
 
-            status: status,
+                status: status,
 
-            notification: message
+                notification: message
 
-        });
+            }
+        );
 
 
         location.reload();
@@ -197,14 +213,18 @@ async function updateOrderStatus(id, status, message){
 
     }catch(error){
 
-        console.error("Error updating order:", error);
+        console.error(
+            "Error updating order:",
+            error
+        );
 
-        alert("Failed to update order.");
+        alert(
+            "Failed to update order."
+        );
 
     }
 
 }
-
 
 
 // ------------------------------
@@ -213,7 +233,7 @@ async function updateOrderStatus(id, status, message){
 
 async function confirmOrder(id){
 
-    updateOrderStatus(
+    await updateOrderStatus(
         id,
         "Confirmed ✅",
         "🎉 Your order has been confirmed and is now being prepared."
@@ -222,14 +242,13 @@ async function confirmOrder(id){
 }
 
 
-
 // ------------------------------
 // Processing Order
 // ------------------------------
 
 async function processOrder(id){
 
-    updateOrderStatus(
+    await updateOrderStatus(
         id,
         "Processing 📦",
         "📦 Your order is now being prepared."
@@ -238,14 +257,13 @@ async function processOrder(id){
 }
 
 
-
 // ------------------------------
 // Ship Order
 // ------------------------------
 
 async function shipOrder(id){
 
-    updateOrderStatus(
+    await updateOrderStatus(
         id,
         "Shipped 🚚",
         "🚚 Your order has been shipped and is on the way!"
@@ -254,21 +272,20 @@ async function shipOrder(id){
 }
 
 
-
 // ------------------------------
 // Deliver Order
 // ------------------------------
 
 async function deliverOrder(id){
 
-    updateOrderStatus(
+    await updateOrderStatus(
         id,
         "Delivered ✅",
         "✅ Your order has been delivered. Thank you for shopping with MH CUBES!"
     );
 
-
 }
+
 
 // ------------------------------
 // Cancel Order
@@ -276,7 +293,7 @@ async function deliverOrder(id){
 
 async function cancelAdminOrder(id){
 
-    let confirmCancel = confirm(
+    const confirmCancel = confirm(
         "Are you sure you want to cancel this order?"
     );
 
@@ -290,8 +307,9 @@ async function cancelAdminOrder(id){
 
     try{
 
-
-        await deleteDoc(doc(db, "orders", id));
+        await deleteDoc(
+            doc(db, "orders", id)
+        );
 
 
         location.reload();
@@ -299,14 +317,18 @@ async function cancelAdminOrder(id){
 
     }catch(error){
 
-        console.error("Error cancelling order:", error);
+        console.error(
+            "Error cancelling order:",
+            error
+        );
 
-        alert("Failed to cancel order.");
+        alert(
+            "Failed to cancel order."
+        );
 
     }
 
 }
-
 
 
 // ------------------------------
@@ -315,48 +337,73 @@ async function cancelAdminOrder(id){
 
 async function logoutOwner(){
 
-    let ordersBox = document.querySelector(".orders");
+    const ordersBox =
+        document.querySelector(".orders");
+
 
     if(ordersBox){
 
         ordersBox.innerHTML = `
+
             <h2>
-            Logging out...
+                Logging out...
             </h2>
+
         `;
 
     }
+
 
     try{
 
         await signOut(auth);
 
-        localStorage.removeItem("adminAccess");
 
-        window.location.href = "owner-login.html";
+        localStorage.removeItem(
+            "adminAccess"
+        );
+
+
+        window.location.href =
+            "owner-login.html";
+
 
     }catch(error){
 
-        console.error("Logout error:", error);
+        console.error(
+            "Logout error:",
+            error
+        );
 
-        alert("Failed to logout.");
+
+        alert(
+            "Failed to logout."
+        );
 
     }
 
 }
 
 
+// ------------------------------
+// Make Functions Available
+// To HTML Buttons
+// ------------------------------
 
-// Make Functions Available To HTML Buttons
+window.confirmOrder =
+    confirmOrder;
 
-window.confirmOrder = confirmOrder;
+window.processOrder =
+    processOrder;
 
-window.processOrder = processOrder;
+window.shipOrder =
+    shipOrder;
 
-window.shipOrder = shipOrder;
+window.deliverOrder =
+    deliverOrder;
 
-window.deliverOrder = deliverOrder;
+window.cancelAdminOrder =
+    cancelAdminOrder;
 
-window.cancelAdminOrder = cancelAdminOrder;
-
-window.logoutOwner = logoutOwner;
+window.logoutOwner =
+    logoutOwner;
