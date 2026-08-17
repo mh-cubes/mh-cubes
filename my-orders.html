@@ -1,285 +1,479 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>My Orders - MH CUBES</title>
+    <title>My Orders - MH CUBES</title>
 
-<link rel="stylesheet" href="assets/css/style.css">
-
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
 
 </head>
 
+
 <body>
+
 
 <header>
 
+    <div class="logo">
+        MH CUBES
+    </div>
 
-<div class="logo">
-    MH CUBES
-</div>
+    <nav>
 
-<nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="cart.html">🛒 Cart</a>
-</nav>
+        <a href="index.html">
+            🏠 Home
+        </a>
 
+        <a href="cart.html">
+            🛒 Cart
+        </a>
+
+    </nav>
 
 </header>
+
+
 
 <main class="checkout">
 
 
-<h1>📦 My Orders</h1>
+    <h1>
+        📦 My Orders
+    </h1>
 
-<div class="checkout-box">
 
-    <h2>Find Your Orders</h2>
+    <div class="checkout-box">
 
-    <p>
-        Enter the phone number you used when placing your order.
-    </p>
+        <h2>
+            Your Orders
+        </h2>
 
-    <input
-        type="tel"
-        id="history-phone"
-        placeholder="03XXXXXXXXX"
-        maxlength="11"
-    >
+        <p>
+            Your orders are linked securely to your
+            customer account.
+        </p>
 
-    <button
-        class="place-order"
-        id="view-orders-btn"
-    >
-        🔍 View My Orders
-    </button>
 
-    <div id="history-box"></div>
+        <div id="history-box">
 
-</div>
+            <div class="order-loading">
+
+                <div class="loader"></div>
+
+                <h3>
+                    🔄 Checking your account...
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
 </main>
 
+
+
 <script type="module">
 
-import { db } from "./assets/js/firebase.js";
+
+// =========================================
+// FIREBASE
+// =========================================
+
+import {
+    db,
+    auth
+} from "./assets/js/firebase.js";
+
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
 
 import {
     collection,
-    getDocs
+    getDocs,
+    query,
+    where
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-const phoneInput =
-    document.getElementById("history-phone");
 
-const viewButton =
-    document.getElementById("view-orders-btn");
+// =========================================
+// ELEMENT
+// =========================================
 
 const historyBox =
-    document.getElementById("history-box");
+    document.getElementById(
+        "history-box"
+    );
 
 
-viewButton.addEventListener("click", loadOrderHistory);
 
+// =========================================
+// LOAD CUSTOMER ORDERS
+// =========================================
 
-async function loadOrderHistory(){
-
-    const phone =
-        phoneInput.value.trim();
-
-
-    if(phone === ""){
-
-        historyBox.innerHTML =
-            "<h3 style='color:red;'>❌ Please enter your phone number.</h3>";
-
-        return;
-
-    }
-
-
-    if(!/^03\d{9}$/.test(phone)){
-
-        historyBox.innerHTML =
-            "<h3 style='color:red;'>❌ Please enter a valid Pakistani phone number.</h3>";
-
-        return;
-
-    }
+async function loadOrderHistory(user) {
 
 
     historyBox.innerHTML = `
+
         <div class="order-loading">
+
             <div class="loader"></div>
-            <h3>🔄 Loading your orders...</h3>
+
+            <h3>
+                🔄 Loading your orders...
+            </h3>
+
         </div>
+
     `;
 
 
-    try{
+    try {
+
+
+        // =================================
+        // ONLY GET THIS CUSTOMER'S ORDERS
+        // =================================
+
+        const ordersQuery = query(
+
+            collection(
+                db,
+                "orders"
+            ),
+
+            where(
+                "customerUID",
+                "==",
+                user.uid
+            )
+
+        );
+
 
         const snapshot =
             await getDocs(
-                collection(db, "orders")
+                ordersQuery
             );
 
 
         const customerOrders = [];
 
 
-        snapshot.forEach((docSnap) => {
-
-            const order = docSnap.data();
-
-
-            if(order.phone === phone){
+        snapshot.forEach(
+            function(docSnap) {
 
                 customerOrders.push({
 
-                    id: docSnap.id,
+                    id:
+                        docSnap.id,
 
-                    ...order
+                    ...docSnap.data()
 
                 });
 
             }
+        );
 
-        });
 
 
-        if(customerOrders.length === 0){
+        // =================================
+        // NO ORDERS
+        // =================================
 
-            historyBox.innerHTML =
-                "<h3 style='color:red;'>❌ No orders found for this phone number.</h3>";
+        if (
+            customerOrders.length === 0
+        ) {
+
+            historyBox.innerHTML = `
+
+                <h3>
+                    📦 No orders found.
+                </h3>
+
+                <p>
+                    You haven't placed any orders
+                    with this account yet.
+                </p>
+
+            `;
 
             return;
 
         }
 
 
+
+        // =================================
+        // NEWEST ORDERS FIRST
+        // =================================
+
+        customerOrders.sort(
+            function(a, b) {
+
+                return Number(
+                    b.createdAt || 0
+                )
+                -
+                Number(
+                    a.createdAt || 0
+                );
+
+            }
+        );
+
+
+
+        // =================================
+        // CLEAR LOADING
+        // =================================
+
         historyBox.innerHTML = "";
 
 
-        customerOrders.forEach((order) => {
 
-            let total = 0;
+        // =================================
+        // DISPLAY ORDERS
+        // =================================
 
-            let productsHTML = "";
-
-
-            for(const product in order.products || {}){
-
-                const item =
-                    order.products[product];
+        customerOrders.forEach(
+            function(order) {
 
 
-                const price =
-                    Number(item.price) || 0;
+                let total = 0;
+
+                let productsHTML = "";
 
 
-                const quantity =
-                    Number(item.quantity) || 0;
+
+                // =========================
+                // PRODUCTS
+                // =========================
+
+                for (
+                    const product
+                    in (order.products || {})
+                ) {
 
 
-                total += price * quantity;
+                    const item =
+                        order.products[
+                            product
+                        ];
 
 
-                productsHTML += `
+                    const price =
+                        Number(
+                            item.price
+                        ) || 0;
 
-                    <div class="my-order-product">
 
-                        <span>
-                            🧩 ${product}
-                        </span>
+                    const quantity =
+                        Number(
+                            item.quantity
+                        ) || 0;
 
-                        <strong>
-                            × ${quantity}
-                        </strong>
+
+                    total +=
+                        price *
+                        quantity;
+
+
+
+                    productsHTML += `
+
+                        <div class="my-order-product">
+
+                            <span>
+                                🧩 ${product}
+                            </span>
+
+                            <strong>
+                                × ${quantity}
+                            </strong>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+
+                // =========================
+                // STATUS
+                // =========================
+
+                const status =
+                    order.status ||
+                    "Pending 🟡";
+
+
+
+                // =========================
+                // ORDER CARD
+                // =========================
+
+                historyBox.innerHTML += `
+
+                    <div class="customer-order-card">
+
+
+                        <div class="order-card-header">
+
+                            <h2>
+
+                                📦
+                                ${order.orderID || "Order"}
+
+                            </h2>
+
+
+                            <span
+                                class="order-status"
+                            >
+
+                                ${status}
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="order-details">
+
+
+                            <p>
+
+                                <strong>
+                                    📅 Date:
+                                </strong>
+
+                                ${order.date || "Not available"}
+
+                            </p>
+
+
+
+                            <p>
+
+                                <strong>
+                                    💳 Payment:
+                                </strong>
+
+                                ${order.payment || "Not Selected"}
+
+                            </p>
+
+
+
+                            <p>
+
+                                <strong>
+                                    📍 Address:
+                                </strong>
+
+                                ${order.address || "Not available"}
+
+                            </p>
+
+
+
+                            <p>
+
+                                <strong>
+                                    📱 Phone:
+                                </strong>
+
+                                ${order.phone || "Not available"}
+
+                            </p>
+
+
+                        </div>
+
+
+
+                        <h3>
+                            🧩 Products
+                        </h3>
+
+
+
+                        <div class="my-order-products">
+
+                            ${productsHTML}
+
+                        </div>
+
+
+
+                        <div class="order-total">
+
+                            <strong>
+                                Total
+                            </strong>
+
+
+                            <strong>
+
+                                PKR
+                                ${order.total || total}
+
+                            </strong>
+
+                        </div>
+
+
+
+                        ${
+                            order.notification
+                            ?
+                            `
+
+                            <div class="order-notification">
+
+                                🔔
+                                ${order.notification}
+
+                            </div>
+
+                            `
+                            :
+                            ""
+                        }
+
 
                     </div>
 
                 `;
 
             }
+        );
 
 
-            historyBox.innerHTML += `
+    } catch (error) {
 
-                <div class="customer-order-card">
-
-                    <div class="order-card-header">
-
-                        <h2>
-                            📦 ${order.orderID || "Order"}
-                        </h2>
-
-                        <span class="order-status">
-                            ${order.status || "Pending 🟡"}
-                        </span>
-
-                    </div>
-
-
-                    <div class="order-details">
-
-                        <p>
-                            <strong>📅 Date:</strong>
-                            ${order.date || "Not available"}
-                        </p>
-
-
-                        <p>
-                            <strong>💳 Payment:</strong>
-                            ${order.payment || "Not Selected"}
-                        </p>
-
-
-                        <p>
-                            <strong>📍 Address:</strong>
-                            ${order.address || "Not available"}
-                        </p>
-
-                    </div>
-
-
-                    <h3>
-                        🧩 Products
-                    </h3>
-
-
-                    <div class="my-order-products">
-
-                        ${productsHTML}
-
-                    </div>
-
-
-                    <div class="order-total">
-
-                        <strong>
-                            Total
-                        </strong>
-
-                        <strong>
-                            PKR ${total}
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-
-    }catch(error){
 
         console.error(
             "Error loading orders:",
@@ -287,15 +481,89 @@ async function loadOrderHistory(){
         );
 
 
-        historyBox.innerHTML =
-            "<h3 style='color:red;'>❌ Failed to load orders. Please try again.</h3>";
+        historyBox.innerHTML = `
+
+            <h3 style="color:red;">
+
+                ❌ Failed to load orders.
+
+            </h3>
+
+
+            <p>
+
+                Please try refreshing the page.
+
+            </p>
+
+        `;
 
     }
 
 }
 
+
+
+// =========================================
+// CUSTOMER LOGIN CHECK
+// =========================================
+
+onAuthStateChanged(
+
+    auth,
+
+    function(user) {
+
+
+        if (!user) {
+
+
+            historyBox.innerHTML = `
+
+                <h3>
+                    🔐 Login Required
+                </h3>
+
+
+                <p>
+                    Please login to your customer
+                    account to view your orders.
+                </p>
+
+
+                <button
+                    class="place-order"
+                    onclick="
+                        window.location.href =
+                        'customer-login.html'
+                    "
+                >
+
+                    Login / Create Account
+
+                </button>
+
+            `;
+
+
+            return;
+
+        }
+
+
+
+        // User is logged in
+        loadOrderHistory(user);
+
+    }
+
+);
+
+
 </script>
+
 
 </body>
 
 </html>
+
