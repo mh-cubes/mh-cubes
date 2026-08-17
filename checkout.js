@@ -591,128 +591,139 @@ async function placeOrder() {
             order
         );
 // ==============================
-// ORDER SUCCESS
+// ORDER SUCCESS POPUP
 // ==============================
 
-const successBox =
+const successOverlay =
     document.createElement("div");
 
-successBox.style.position = "fixed";
-successBox.style.inset = "0";
-successBox.style.background = "rgba(0,0,0,0.75)";
-successBox.style.display = "flex";
-successBox.style.alignItems = "center";
-successBox.style.justifyContent = "center";
-successBox.style.zIndex = "99999";
-successBox.style.padding = "20px";
+successOverlay.style.position = "fixed";
+successOverlay.style.top = "0";
+successOverlay.style.left = "0";
+successOverlay.style.width = "100%";
+successOverlay.style.height = "100%";
+successOverlay.style.background = "rgba(0,0,0,0.75)";
+successOverlay.style.display = "flex";
+successOverlay.style.alignItems = "center";
+successOverlay.style.justifyContent = "center";
+successOverlay.style.zIndex = "999999";
+successOverlay.style.padding = "20px";
+successOverlay.style.boxSizing = "border-box";
 
 
-const successCard =
+const successPopup =
     document.createElement("div");
 
-successCard.style.background = "#ffffff";
-successCard.style.color = "#111111";
-successCard.style.padding = "30px";
-successCard.style.borderRadius = "18px";
-successCard.style.width = "100%";
-successCard.style.maxWidth = "450px";
-successCard.style.textAlign = "center";
-successCard.style.boxShadow =
-    "0 20px 60px rgba(0,0,0,0.3)";
+successPopup.style.background = "#ffffff";
+successPopup.style.color = "#111111";
+successPopup.style.width = "100%";
+successPopup.style.maxWidth = "450px";
+successPopup.style.padding = "30px";
+successPopup.style.borderRadius = "20px";
+successPopup.style.textAlign = "center";
+successPopup.style.boxSizing = "border-box";
 
 
-const successTitle =
-    document.createElement("h2");
+successPopup.innerHTML =
 
-successTitle.textContent =
-    "🎉 Order Placed Successfully!";
+    "<h2>🎉 Order Placed Successfully!</h2>" +
 
+    "<p>Thank you for ordering from MH CUBES.</p>" +
 
-const successMessage =
-    document.createElement("p");
+    "<h3>Your Order ID</h3>" +
 
-successMessage.textContent =
-    "Thank you for ordering from MH CUBES!";
+    "<div style='display:flex;gap:8px;margin:15px 0;'>" +
 
+        "<input " +
+            "id='success-order-id' " +
+            "type='text' " +
+            "value='" + order.orderID + "' " +
+            "readonly " +
+            "style='flex:1;padding:12px;border:1px solid #ccc;border-radius:8px;font-weight:bold;'>" +
 
-const orderLabel =
-    document.createElement("p");
+        "<button " +
+            "id='copy-order-id' " +
+            "type='button' " +
+            "style='padding:12px 15px;background:#111;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;'>" +
 
-orderLabel.textContent =
-    "Your Order ID:";
+            "📋 Copy" +
 
+        "</button>" +
 
-const orderIdBox =
-    document.createElement("div");
+    "</div>" +
 
-orderIdBox.style.display = "flex";
-orderIdBox.style.alignItems = "center";
-orderIdBox.style.gap = "8px";
-orderIdBox.style.margin = "15px 0";
+    "<p style='font-size:14px;color:#666;'>" +
+        "📌 Save your Order ID to track your order later." +
+    "</p>" +
 
+    "<button " +
+        "id='continue-shopping' " +
+        "type='button' " +
+        "style='width:100%;padding:14px;background:#ff2020;color:white;border:none;border-radius:10px;font-weight:bold;font-size:16px;cursor:pointer;'>" +
 
-const orderIdInput =
-    document.createElement("input");
+        "Continue Shopping" +
 
-orderIdInput.type = "text";
-orderIdInput.value = order.orderID;
-orderIdInput.readOnly = true;
-
-orderIdInput.style.flex = "1";
-orderIdInput.style.padding = "12px";
-orderIdInput.style.border = "1px solid #ccc";
-orderIdInput.style.borderRadius = "8px";
-orderIdInput.style.fontSize = "15px";
-orderIdInput.style.fontWeight = "bold";
+    "</button>";
 
 
-const copyButton =
-    document.createElement("button");
+successOverlay.appendChild(successPopup);
 
-copyButton.type = "button";
-copyButton.textContent = "📋 Copy";
-
-copyButton.style.padding = "12px 15px";
-copyButton.style.border = "none";
-copyButton.style.borderRadius = "8px";
-copyButton.style.background = "#111111";
-copyButton.style.color = "#ffffff";
-copyButton.style.fontWeight = "bold";
-copyButton.style.cursor = "pointer";
+document.body.appendChild(successOverlay);
 
 
-copyButton.addEventListener(
+// ==============================
+// COPY ORDER ID
+// ==============================
+
+const copyOrderButton =
+    document.getElementById("copy-order-id");
+
+
+copyOrderButton.addEventListener(
     "click",
     async function () {
+
+        const orderId =
+            order.orderID;
 
         try {
 
             await navigator.clipboard.writeText(
-                order.orderID
+                orderId
             );
 
-            copyButton.textContent =
+            copyOrderButton.textContent =
                 "✅ Copied!";
 
             setTimeout(function () {
 
-                copyButton.textContent =
+                copyOrderButton.textContent =
                     "📋 Copy";
 
             }, 2000);
 
         } catch (error) {
 
-            orderIdInput.select();
+            const input =
+                document.getElementById(
+                    "success-order-id"
+                );
+
+            input.select();
+
+            input.setSelectionRange(
+                0,
+                99999
+            );
 
             document.execCommand("copy");
 
-            copyButton.textContent =
+            copyOrderButton.textContent =
                 "✅ Copied!";
 
             setTimeout(function () {
 
-                copyButton.textContent =
+                copyOrderButton.textContent =
                     "📋 Copy";
 
             }, 2000);
@@ -723,36 +734,14 @@ copyButton.addEventListener(
 );
 
 
-orderIdBox.appendChild(orderIdInput);
-orderIdBox.appendChild(copyButton);
-
-
-const saveMessage =
-    document.createElement("p");
-
-saveMessage.textContent =
-    "📌 Save this Order ID to track your order later.";
-
-saveMessage.style.fontSize = "14px";
-saveMessage.style.color = "#555555";
-
+// ==============================
+// CONTINUE SHOPPING
+// ==============================
 
 const continueButton =
-    document.createElement("button");
-
-continueButton.type = "button";
-continueButton.textContent =
-    "Continue Shopping";
-
-continueButton.style.width = "100%";
-continueButton.style.padding = "14px";
-continueButton.style.border = "none";
-continueButton.style.borderRadius = "10px";
-continueButton.style.background = "#ff2020";
-continueButton.style.color = "#ffffff";
-continueButton.style.fontWeight = "bold";
-continueButton.style.fontSize = "16px";
-continueButton.style.cursor = "pointer";
+    document.getElementById(
+        "continue-shopping"
+    );
 
 
 continueButton.addEventListener(
@@ -764,18 +753,6 @@ continueButton.addEventListener(
 
     }
 );
-
-
-successCard.appendChild(successTitle);
-successCard.appendChild(successMessage);
-successCard.appendChild(orderLabel);
-successCard.appendChild(orderIdBox);
-successCard.appendChild(saveMessage);
-successCard.appendChild(continueButton);
-
-successBox.appendChild(successCard);
-
-document.body.appendChild(successBox);
 
 
 // ==============================
@@ -800,13 +777,10 @@ localStorage.removeItem(
         error
     );
 
-
     alert(
         "❌ Order could not be placed.\n\n" +
         "Please try again."
     );
-
-}
 
 }
 
@@ -823,7 +797,6 @@ window.addEventListener(
             document.getElementById(
                 "payment-popup"
             );
-
 
         if (
             popup &&
@@ -866,4 +839,3 @@ window.confirmPayment =
 // ==============================
 
 loadCheckout();
-    
