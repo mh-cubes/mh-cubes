@@ -1,4 +1,4 @@
-
+```javascript
 import { db, auth } from "./firebase.js";
 
 import {
@@ -28,8 +28,12 @@ async function loadCustomerOrders(user) {
     }
 
 
-    orderBox.innerHTML =
-        "<h2>🔄 Loading your orders...</h2>";
+    orderBox.innerHTML = `
+        <div class="order-loading">
+            <div class="loader"></div>
+            <h2>🔄 Loading your orders...</h2>
+        </div>
+    `;
 
 
     try {
@@ -55,8 +59,7 @@ async function loadCustomerOrders(user) {
 
             orders.push({
 
-                id:
-                    docSnap.id,
+                id: docSnap.id,
 
                 ...docSnap.data()
 
@@ -316,7 +319,7 @@ async function loadCustomerOrders(user) {
             </h2>
 
             <p>
-                Please try again.
+                Please try again later.
             </p>
 
         `;
@@ -327,7 +330,7 @@ async function loadCustomerOrders(user) {
 
 
 // =========================================
-// AUTHENTICATION CHECK
+// CHECK LOGIN
 // =========================================
 
 onAuthStateChanged(
@@ -336,32 +339,21 @@ onAuthStateChanged(
 
         if (!user) {
 
-            orderBox.innerHTML = `
+            // Immediately send logged-out
+            // customers to login.
 
-                <h2>
-                    🔐 Login Required
-                </h2>
-
-                <p>
-                    Please login to your customer
-                    account to view your orders.
-                </p>
-
-                <button
-                    onclick="window.location.href='customer-login.html'"
-                >
-                    Login / Create Account
-                </button>
-
-            `;
+            window.location.href =
+                "customer-login.html";
 
             return;
 
         }
 
 
+        // Customer is logged in.
+
         loadCustomerOrders(user);
 
     }
 );
-
+```
