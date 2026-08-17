@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -12,28 +13,13 @@
 
 </head>
 
-
 <body>
-
-
-<script>
-
-if(localStorage.getItem("adminAccess") !== "granted"){
-
-window.location.href = "index.html";
-
-}
-
-</script>
-
-
 
 <header>
 
 <div class="logo">
 MH CUBES ADMIN
 </div>
-
 
 <nav>
 
@@ -43,42 +29,87 @@ Home
 
 </nav>
 
-
 </header>
-
-
-
 
 <div class="orders">
 
-
-<button class="logout-btn" onclick="logoutOwner()">
+<button class="logout-btn" id="logout-button">
 🚪 Logout
 </button>
-
-
 
 <h1>
 Customer Orders 📦
 </h1>
 
-
-
-
 <div id="admin-order-box" class="admin-order-box">
-
-No orders yet.
+🔄 Checking owner access...
+</div>
 
 </div>
 
+<script type="module">
+
+import { auth } from "./assets/js/firebase.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
-</div>
+const orderBox =
+    document.getElementById("admin-order-box");
 
 
+onAuthStateChanged(auth, function(user) {
 
+    if (!user) {
+
+        window.location.href =
+            "owner-login.html";
+
+        return;
+
+    }
+
+    orderBox.innerHTML =
+        "🔄 Loading orders...";
+
+});
+
+
+document
+    .getElementById("logout-button")
+    .addEventListener("click", async function() {
+
+        try {
+
+            await signOut(auth);
+
+            localStorage.removeItem("adminAccess");
+
+            window.location.href =
+                "owner-login.html";
+
+        } catch (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+            alert(
+                "❌ Logout failed. Please try again."
+            );
+
+        }
+
+    });
+
+</script>
 
 <script type="module" src="assets/js/admin.js"></script>
+
 </body>
 
 </html>
