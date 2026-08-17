@@ -749,10 +749,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     "Delete Review";
 
 
-                menu.appendChild(deleteButton);
+               const isAdmin =
+    localStorage.getItem("adminAccess") === "granted";
 
-                menuContainer.appendChild(menuButton);
-                menuContainer.appendChild(menu);
+if (isAdmin) {
+
+    menu.appendChild(deleteButton);
+
+    menuContainer.appendChild(menuButton);
+    menuContainer.appendChild(menu);
+
+} else {
+
+    menuContainer.style.display = "none";
+
+}
 
 
                 header.appendChild(avatar);
