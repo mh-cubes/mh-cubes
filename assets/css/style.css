@@ -2774,3 +2774,70 @@ transform:rotate(360deg);
     }
 
 }
+/* ============================= */
+/* MOBILE PRODUCT LAYOUT */
+/* ============================= */
+
+@media (max-width: 768px){
+
+    .products{
+        padding:30px 15px;
+    }
+
+    .search-box{
+        width:100%;
+        margin-bottom:25px;
+    }
+
+    .search-box input{
+        width:100%;
+        box-sizing:border-box;
+        padding:14px;
+        font-size:16px;
+    }
+
+    .product-box{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .product{
+        width:100%;
+        box-sizing:border-box;
+        padding:18px;
+        border-radius:16px;
+    }
+
+    .product img{
+        width:100%;
+        max-width:280px;
+        height:auto;
+        display:block;
+        margin:0 auto 15px;
+    }
+
+    .product h3{
+        font-size:20px;
+        text-align:center;
+    }
+
+    .product p{
+        text-align:center;
+        font-size:18px;
+    }
+
+    .product-buttons{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        width:100%;
+    }
+
+    .product-buttons button{
+        width:100%;
+        padding:13px;
+        font-size:16px;
+    }
+
+}
