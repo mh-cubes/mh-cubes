@@ -130,6 +130,10 @@ const message =
     document.getElementById("login-message");
 
 
+// =============================
+// LOGIN
+// =============================
+
 document
 .getElementById("login-button")
 .addEventListener("click", async function(){
@@ -172,7 +176,7 @@ document
         setTimeout(function(){
 
             window.location.href =
-                "orders.html";
+                "customer-account.html";
 
         },1000);
 
@@ -191,6 +195,10 @@ document
 
 });
 
+
+// =============================
+// CREATE ACCOUNT
+// =============================
 
 document
 .getElementById("signup-button")
@@ -248,7 +256,7 @@ document
         setTimeout(function(){
 
             window.location.href =
-                "orders.html";
+                "customer-account.html";
 
         },1000);
 
@@ -256,6 +264,7 @@ document
     }catch(error){
 
         console.error(error);
+
 
         if(error.code === "auth/email-already-in-use"){
 
@@ -281,3 +290,4 @@ document
 </body>
 
 </html>
+
