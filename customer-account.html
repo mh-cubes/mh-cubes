@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,11 +60,102 @@
     opacity:0.9;
 }
 
+
+/* ============================= */
+/* LOGOUT LOADING SCREEN */
+/* ============================= */
+
+#logout-loading{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,0.85);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    z-index:9999;
+
+    color:white;
+
+}
+
+.loader{
+
+    width:60px;
+    height:60px;
+
+    border:6px solid #444;
+
+    border-top:6px solid #2563eb;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin-bottom:20px;
+
+}
+
+@keyframes spin{
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* ============================= */
+/* SUCCESS POPUP */
+/* ============================= */
+
+#logout-popup{
+
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    background:white;
+
+    padding:30px;
+
+    width:300px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 10px 40px rgba(0,0,0,0.4);
+
+    display:none;
+
+    z-index:10000;
+
+}
+
+#logout-popup h2{
+
+    color:#16a34a;
+
+    margin-bottom:10px;
+
+}
+
 </style>
 
 </head>
 
 <body>
+
 
 <header>
 
@@ -85,6 +176,7 @@ MH CUBES
 </nav>
 
 </header>
+
 
 <main>
 
@@ -123,11 +215,42 @@ Loading...
 🚪 Logout
 </button>
 
-<p id="account-message"></p>
-
 </div>
 
 </main>
+
+
+<!-- LOGOUT LOADING -->
+
+<div id="logout-loading">
+
+    <div class="loader"></div>
+
+    <h2>
+        Logging out...
+    </h2>
+
+    <p>
+        Please wait...
+    </p>
+
+</div>
+
+
+<!-- LOGOUT SUCCESS POPUP -->
+
+<div id="logout-popup">
+
+    <h2>
+        ✅ Logged Out
+    </h2>
+
+    <p>
+        You have been logged out successfully!
+    </p>
+
+</div>
+
 
 <script type="module">
 
@@ -142,55 +265,95 @@ import {
 const emailBox =
     document.getElementById("account-email");
 
-const message =
-    document.getElementById("account-message");
-
 const logoutButton =
     document.getElementById("logout-button");
 
+const loadingScreen =
+    document.getElementById("logout-loading");
 
-// Check login
+const logoutPopup =
+    document.getElementById("logout-popup");
 
-onAuthStateChanged(auth, function(user){
 
-    if(!user){
+// =============================
+// CHECK LOGIN
+// =============================
 
-        window.location.href =
-            "customer-login.html";
+onAuthStateChanged(
+    auth,
+    function(user){
 
-        return;
+        if(!user){
+
+            window.location.href =
+                "customer-login.html";
+
+            return;
+
+        }
+
+        emailBox.innerText =
+            user.email ||
+            "Customer account";
 
     }
-
-    emailBox.innerText =
-        user.email ||
-        "Customer account";
-
-});
+);
 
 
-// Logout
+// =============================
+// LOGOUT
+// =============================
 
 logoutButton.addEventListener(
     "click",
     async function(){
 
+        // Show loading screen
+
+        loadingScreen.style.display =
+            "flex";
+
+
         try{
+
+            // Firebase logout
 
             await signOut(auth);
 
-            message.innerText =
-                "✅ Logged out successfully!";
 
-            message.style.color =
-                "green";
+            // Wait 5 seconds
 
-            setTimeout(function(){
+            setTimeout(
+                function(){
 
-                window.location.href =
-                    "customer-login.html";
+                    // Hide loading
 
-            },1000);
+                    loadingScreen.style.display =
+                        "none";
+
+
+                    // Show popup
+
+                    logoutPopup.style.display =
+                        "block";
+
+
+                    // Redirect after popup
+
+                    setTimeout(
+                        function(){
+
+                            window.location.href =
+                                "customer-login.html";
+
+                        },
+                        1500
+                    );
+
+                },
+                5000
+            );
+
 
         }catch(error){
 
@@ -199,11 +362,14 @@ logoutButton.addEventListener(
                 error
             );
 
-            message.innerText =
-                "❌ Failed to logout.";
 
-            message.style.color =
-                "red";
+            loadingScreen.style.display =
+                "none";
+
+
+            alert(
+                "❌ Failed to logout. Please try again."
+            );
 
         }
 
@@ -212,7 +378,8 @@ logoutButton.addEventListener(
 
 </script>
 
+
 </body>
 
 </html>
-
+```
