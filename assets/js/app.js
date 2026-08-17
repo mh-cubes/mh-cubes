@@ -622,3 +622,24 @@ function toggleDarkMode() {
     }, 2000);
 
 }
+function toggleMobileMenu(){
+
+    const nav = document.getElementById("main-nav");
+
+    const menuBtn = document.getElementById("menu-btn");
+
+
+    nav.classList.toggle("mobile-open");
+
+
+    if(nav.classList.contains("mobile-open")){
+
+        menuBtn.innerText = "✕";
+
+    }else{
+
+        menuBtn.innerText = "☰";
+
+    }
+
+}
