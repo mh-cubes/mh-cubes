@@ -1,8 +1,9 @@
-```javascript
+
 import { db, auth } from "./firebase.js";
 
 import {
-    onAuthStateChanged
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
@@ -16,6 +17,12 @@ import {
 const orderBox =
     document.getElementById("order-box");
 
+const accountActions =
+    document.getElementById("account-actions");
+
+const logoutButton =
+    document.getElementById("logout-button");
+
 
 // =========================================
 // LOAD CUSTOMER ORDERS
@@ -23,16 +30,19 @@ const orderBox =
 
 async function loadCustomerOrders(user) {
 
-    if (!orderBox) {
-        return;
-    }
-
-
     orderBox.innerHTML = `
-        <div class="order-loading">
-            <div class="loader"></div>
-            <h2>🔄 Loading your orders...</h2>
+
+        <div style="
+            text-align:center;
+            padding:30px;
+        ">
+
+            <h2>
+                🔄 Loading your orders...
+            </h2>
+
         </div>
+
     `;
 
 
@@ -68,9 +78,7 @@ async function loadCustomerOrders(user) {
         });
 
 
-        // =================================
-        // SORT NEWEST FIRST
-        // =================================
+        // Newest orders first
 
         orders.sort(function(a, b) {
 
@@ -91,14 +99,21 @@ async function loadCustomerOrders(user) {
 
             orderBox.innerHTML = `
 
-                <h2>
-                    📦 No orders found.
-                </h2>
+                <div style="
+                    text-align:center;
+                    padding:30px;
+                ">
 
-                <p>
-                    You haven't placed any orders
-                    with this account yet.
-                </p>
+                    <h2>
+                        📦 No orders found.
+                    </h2>
+
+                    <p>
+                        You haven't placed any orders
+                        with this account yet.
+                    </p>
+
+                </div>
 
             `;
 
@@ -181,17 +196,13 @@ async function loadCustomerOrders(user) {
                 <div class="order-card-header">
 
                     <h2>
-
                         📦
                         ${order.orderID || "Order"}
-
                     </h2>
 
 
                     <span class="order-status">
-
                         ${status}
-
                     </span>
 
                 </div>
@@ -205,7 +216,8 @@ async function loadCustomerOrders(user) {
                             👤 Name:
                         </strong>
 
-                        ${order.customerName || "Not available"}
+                        ${order.customerName ||
+                          "Not available"}
 
                     </p>
 
@@ -216,7 +228,8 @@ async function loadCustomerOrders(user) {
                             📱 Phone:
                         </strong>
 
-                        ${order.phone || "Not available"}
+                        ${order.phone ||
+                          "Not available"}
 
                     </p>
 
@@ -227,7 +240,8 @@ async function loadCustomerOrders(user) {
                             📍 Address:
                         </strong>
 
-                        ${order.address || "Not available"}
+                        ${order.address ||
+                          "Not available"}
 
                     </p>
 
@@ -238,7 +252,8 @@ async function loadCustomerOrders(user) {
                             💳 Payment:
                         </strong>
 
-                        ${order.payment || "Not selected"}
+                        ${order.payment ||
+                          "Not selected"}
 
                     </p>
 
@@ -249,7 +264,8 @@ async function loadCustomerOrders(user) {
                             📅 Date:
                         </strong>
 
-                        ${order.date || "Not available"}
+                        ${order.date ||
+                          "Not available"}
 
                     </p>
 
@@ -314,13 +330,20 @@ async function loadCustomerOrders(user) {
 
         orderBox.innerHTML = `
 
-            <h2>
-                ❌ Failed to load orders.
-            </h2>
+            <div style="
+                text-align:center;
+                padding:30px;
+            ">
 
-            <p>
-                Please try again later.
-            </p>
+                <h2>
+                    ❌ Failed to load orders.
+                </h2>
+
+                <p>
+                    Please try again later.
+                </p>
+
+            </div>
 
         `;
 
@@ -330,17 +353,16 @@ async function loadCustomerOrders(user) {
 
 
 // =========================================
-// CHECK LOGIN
+// AUTHENTICATION
 // =========================================
 
 onAuthStateChanged(
     auth,
     function(user) {
 
-        if (!user) {
+        // NOT LOGGED IN
 
-            // Immediately send logged-out
-            // customers to login.
+        if (!user) {
 
             window.location.href =
                 "customer-login.html";
@@ -350,10 +372,134 @@ onAuthStateChanged(
         }
 
 
-        // Customer is logged in.
+        // LOGGED IN
+
+        if (accountActions) {
+
+            accountActions.style.display =
+                "flex";
+
+        }
+
 
         loadCustomerOrders(user);
 
     }
 );
-```
+
+
+// =========================================
+// LOGOUT
+// =========================================
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        async function() {
+
+            try {
+
+                logoutButton.disabled =
+                    true;
+
+
+                logoutButton.innerText =
+                    "⏳ Logging out...";
+
+
+                await signOut(auth);
+
+
+                // Success message
+
+                orderBox.innerHTML = `
+
+                    <div style="
+                        text-align:center;
+                        padding:40px;
+                    ">
+
+                        <div style="
+                            font-size:55px;
+                            margin-bottom:15px;
+                        ">
+                            ✅
+                        </div>
+
+
+                        <h2>
+                            Logged out successfully!
+                        </h2>
+
+
+                        <p>
+                            Redirecting to MH CUBES...
+                        </p>
+
+
+                        <p>
+                            ⏳ Please wait 5 seconds
+                        </p>
+
+                    </div>
+
+                `;
+
+
+                accountActions.style.display =
+                    "none";
+
+
+                // Redirect after 5 seconds
+
+                setTimeout(function() {
+
+                    window.location.href =
+                        "index.html";
+
+                }, 5000);
+
+
+            } catch (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+
+                logoutButton.disabled =
+                    false;
+
+
+                logoutButton.innerText =
+                    "🚪 Logout";
+
+
+                orderBox.innerHTML = `
+
+                    <div style="
+                        text-align:center;
+                        padding:30px;
+                    ">
+
+                        <h2>
+                            ❌ Failed to logout.
+                        </h2>
+
+                        <p>
+                            Please try again.
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+    );
+
+}
+
