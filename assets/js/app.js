@@ -643,3 +643,48 @@ function toggleMobileMenu(){
     }
 
 }
+// =========================================
+// PRODUCT SEARCH
+// =========================================
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const products =
+        document.querySelectorAll(".product");
+
+
+    if(!searchInput) return;
+
+
+    searchInput.addEventListener("input", function(){
+
+        const searchText =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+
+        products.forEach(function(product){
+
+            const productName =
+                product.innerText.toLowerCase();
+
+
+            if(productName.includes(searchText)){
+
+                product.style.display = "";
+
+            }else{
+
+                product.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+});
