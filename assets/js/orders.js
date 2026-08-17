@@ -470,11 +470,12 @@ sessionStorage.setItem(
 
                 // Redirect after exactly 5 seconds
 
-              setTimeout(function(){
+             setTimeout(function(){
 
     sessionStorage.removeItem("loggingOut");
 
-    window.location.href = "./index.html";
+    window.location.href =
+        "https://mh-cubes.pages.dev/";
 
 }, 5000);
 
