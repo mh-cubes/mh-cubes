@@ -1,102 +1,206 @@
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+import { db } from "./firebase.js";
 
-let box = document.getElementById("order-box");
+import {
+collection,
+getDocs,
+query,
+where
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-if(orders.length === 0){
+const orderBox =
+document.getElementById("order-box");
 
-    box.innerHTML = "<h2>No active orders.</h2>";
+const phone =
+localStorage.getItem("customerPhone") || "";
 
-}else{
+async function loadCustomerOrders() {
 
-    box.innerHTML = "";
+```
+if (!orderBox) {
+    return;
+}
 
-    orders.forEach(function(order, index){
 
-        box.innerHTML += `
+if (!phone) {
 
-        <div class="customer-order-card">
-
-        <h2>Order #${index + 1}</h2>
-
-        <p><strong>Name:</strong> ${order.customerName}</p>
-
-        <p><strong>Phone:</strong> ${order.phone}</p>
-
-        <p><strong>Address:</strong> ${order.address}</p>
-
+    orderBox.innerHTML = `
+        <h2>No saved customer information.</h2>
         <p>
-        <strong>Payment:</strong>
-        ${order.payment || "Not Selected"}
+            Please place an order first.
         </p>
+    `;
 
-        <h3>Products</h3>
+    return;
 
-        ${Object.keys(order.products).map(product => {
+}
 
-            return `
-            <p>
-            ${product}
-            -
-            PKR ${order.products[product].price}
-            ×
-            ${order.products[product].quantity}
-            </p>
-            `;
 
-        }).join("")}
+orderBox.innerHTML =
+    "<h2>🔄 Loading your orders...</h2>";
 
-        <p>
-        <strong>Status:</strong>
-        ${order.status || "Pending 🟡"}
-        </p>
 
-        ${
-            !order.status || order.status === "Pending 🟡"
-            ?
-            `<button onclick="cancelCustomerOrder(${index})">
-            Cancel Pending Order ❌
-            </button>`
-            :
-            ""
-        }
+try {
 
-        <hr>
+    const ordersQuery = query(
+        collection(db, "orders"),
+        where("phone", "==", phone)
+    );
 
-        </div>
 
-        `;
+    const snapshot =
+        await getDocs(ordersQuery);
+
+
+    const orders = [];
+
+
+    snapshot.forEach(function(docSnap) {
+
+        orders.push({
+            id: docSnap.id,
+            ...docSnap.data()
+        });
 
     });
 
+
+    orders.sort(function(a, b) {
+
+        return String(b.date || "")
+            .localeCompare(String(a.date || ""));
+
+    });
+
+
+    if (orders.length === 0) {
+
+        orderBox.innerHTML = `
+            <h2>No orders found.</h2>
+            <p>
+                No orders were found for this phone number.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    orderBox.innerHTML = "";
+
+
+    orders.forEach(function(order) {
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "customer-order-card";
+
+
+        let productsHTML = "";
+
+
+        Object.keys(order.products || {})
+            .forEach(function(product) {
+
+                const item =
+                    order.products[product];
+
+
+                productsHTML += `
+                    <p>
+                        <strong>${product}</strong>
+                        -
+                        PKR ${item.price}
+                        ×
+                        ${item.quantity}
+                    </p>
+                `;
+
+            });
+
+
+        const status =
+            order.status || "Pending 🟡";
+
+
+        card.innerHTML = `
+
+            <h2>
+                📦 Order ${order.orderID || ""}
+            </h2>
+
+            <p>
+                <strong>Name:</strong>
+                ${order.customerName || "Not available"}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                ${order.phone || "Not available"}
+            </p>
+
+            <p>
+                <strong>Address:</strong>
+                ${order.address || "Not available"}
+            </p>
+
+            <p>
+                <strong>Payment:</strong>
+                ${order.payment || "Not selected"}
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                ${order.date || "Not available"}
+            </p>
+
+            <h3>
+                Products
+            </h3>
+
+            ${productsHTML}
+
+            <p>
+                <strong>Total:</strong>
+                PKR ${order.total || 0}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                ${status}
+            </p>
+
+            <hr>
+
+        `;
+
+
+        orderBox.appendChild(card);
+
+    });
+
+
+} catch (error) {
+
+    console.error(
+        "Error loading customer orders:",
+        error
+    );
+
+
+    orderBox.innerHTML = `
+        <h2>❌ Failed to load orders.</h2>
+        <p>
+            Please try again.
+        </p>
+    `;
+
+}
+```
+
 }
 
-function cancelCustomerOrder(index){
-
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-    orders.splice(index,1);
-
-    localStorage.setItem("orders", JSON.stringify(orders));
-
-    location.reload();
-
-}
-if(order.notification){
-
-let toast = document.getElementById("order-toast");
-
-toast.innerText = order.notification;
-
-toast.classList.add("show");
-
-setTimeout(function(){
-
-toast.classList.remove("show");
-
-},4000);
-
-order.notification = "";
-
-localStorage.setItem("orders", JSON.stringify(orders));
-
-}
+loadCustomerOrders();
