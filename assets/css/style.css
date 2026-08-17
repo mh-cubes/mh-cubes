@@ -2872,3 +2872,67 @@ transform:rotate(360deg);
     }
 
 }
+/* ============================= */
+/* MOBILE WHY CHOOSE */
+/* ============================= */
+
+@media (max-width: 768px){
+
+    .why-choose{
+        padding:40px 15px;
+    }
+
+    .section-title h2{
+        font-size:26px;
+        line-height:1.3;
+    }
+
+    .section-title p{
+        font-size:15px;
+        line-height:1.5;
+    }
+
+    .why-container{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:15px;
+        margin-top:25px;
+    }
+
+    .why-box{
+        width:100%;
+        box-sizing:border-box;
+        padding:20px;
+        text-align:center;
+    }
+
+    .why-icon{
+        font-size:35px;
+    }
+
+    .why-box h3{
+        font-size:19px;
+    }
+
+    .why-box p{
+        font-size:14px;
+        line-height:1.5;
+    }
+
+    .why-details{
+        width:100%;
+        box-sizing:border-box;
+        margin-top:20px;
+        padding:20px;
+    }
+
+    .why-details ul{
+        padding-left:0;
+        list-style:none;
+    }
+
+    .why-details li{
+        margin-bottom:15px;
+    }
+
+}
