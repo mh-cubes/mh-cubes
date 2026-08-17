@@ -470,14 +470,15 @@ sessionStorage.setItem(
 
                 // Redirect after exactly 5 seconds
 
-                setTimeout(() => {
+              setTimeout(() => {
 
-                    window.location.replace(
-                        "index.html"
-                    );
+    sessionStorage.removeItem("loggingOut");
 
-                }, 5000);
+    window.location.replace(
+        "index.html"
+    );
 
+}, 5000);
 
             } catch (error) {
 
