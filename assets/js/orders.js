@@ -362,7 +362,17 @@ onAuthStateChanged(
 
         // NOT LOGGED IN
 
-      if (!user) {
+     if (!user) {
+
+    if (
+        sessionStorage.getItem("loggingOut")
+        === "true"
+    ) {
+
+        return;
+
+    }
+
 
     window.location.href =
         "customer-login.html";
