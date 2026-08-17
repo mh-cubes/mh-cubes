@@ -75,4 +75,4 @@ function ownerLogin() {
 }
 
 
-window.ownerLogin = ownerLogin;
+document.getElementById("login-button").addEventListener("click", ownerLogin);
