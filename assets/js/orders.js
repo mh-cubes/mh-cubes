@@ -362,24 +362,30 @@ onAuthStateChanged(
 
         // NOT LOGGED IN
 
-     if (!user) {
+        if (!user) {
 
-    if (
-        sessionStorage.getItem("loggingOut")
-        === "true"
-    ) {
+            // If logout is in progress,
+            // stay on this page.
 
-        return;
+            if (
+                sessionStorage.getItem("loggingOut")
+                === "true"
+            ) {
 
-    }
+                return;
+
+            }
 
 
-    window.location.href =
-        "customer-login.html";
+            // Otherwise send logged-out
+            // customers to login.
 
-    return;
+            window.location.href =
+                "customer-login.html";
 
-}
+            return;
+
+        }
 
 
         // LOGGED IN
@@ -396,7 +402,6 @@ onAuthStateChanged(
 
     }
 );
-
 
 // =========================================
 // LOGOUT
