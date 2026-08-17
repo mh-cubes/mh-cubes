@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>My Account - MH CUBES</title>
+
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
+
+<style>
+
+.account-box{
+    max-width:500px;
+    margin:80px auto;
+    padding:35px;
+    background:#fff;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+.account-box h1{
+    margin-bottom:10px;
+}
+
+.account-email{
+    margin:20px 0;
+    font-size:18px;
+}
+
+.account-button{
+    display:block;
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.logout-button{
+    background:#dc2626;
+}
+
+.account-button:hover{
+    opacity:0.9;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+MH CUBES
+</div>
+
+
+<nav>
+
+<a href="index.html">
+🏠 Home
+</a>
+
+<a href="orders.html">
+📦 My Orders
+</a>
+
+</nav>
+
+</header>
+
+
+
+<main>
+
+<div class="account-box">
+
+<div style="font-size:55px;">
+👤
+</div>
+
+
+<h1>
+My Account
+</h1>
+
+
+<p>
+You are currently logged in.
+</p>
+
+
+<div
+    class="account-email"
+    id="account-email"
+>
+Loading...
+</div>
+
+
+<button
+    class="account-button"
+    onclick="window.location.href='orders.html'"
+>
+    📦 View My Orders
+</button>
+
+
+<button
+    class="account-button logout-button"
+    id="logout-button"
+>
+    🚪 Logout
+</button>
+
+
+<p id="account-message"></p>
+
+</div>
+
+</main>
+
+
+
+<script type="module">
+
+import {
+    auth
+} from "./assets/js/firebase.js";
+
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+
+const emailBox =
+    document.getElementById(
+        "account-email"
+    );
+
+
+const message =
+    document.getElementById(
+        "account-message"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logout-button"
+    );
+
+
+
+// =========================================
+// CHECK LOGIN
+// =========================================
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(!user){
+
+            window.location.href =
+                "customer-login.html";
+
+            return;
+
+        }
+
+
+        emailBox.innerText =
+            user.email ||
+            "Customer account";
+
+    }
+);
+
+
+
+// =========================================
+// LOGOUT
+// =========================================
+
+logoutButton.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            await signOut(auth);
+
+
+            message.innerText =
+                "✅ Logged out successfully!";
+
+            message.style.color =
+                "green";
+
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "customer-login.html";
+
+                },
+                1000
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+
+            message.innerText =
+                "❌ Failed to logout.";
+
+            message.style.color =
+                "red";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>My Account - MH CUBES</title>
+
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
+
+<style>
+
+.account-box{
+    max-width:500px;
+    margin:80px auto;
+    padding:35px;
+    background:#fff;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+.account-box h1{
+    margin-bottom:10px;
+}
+
+.account-email{
+    margin:20px 0;
+    font-size:18px;
+}
+
+.account-button{
+    display:block;
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.logout-button{
+    background:#dc2626;
+}
+
+.account-button:hover{
+    opacity:0.9;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+MH CUBES
+</div>
+
+
+<nav>
+
+<a href="index.html">
+🏠 Home
+</a>
+
+<a href="orders.html">
+📦 My Orders
+</a>
+
+</nav>
+
+</header>
+
+
+
+<main>
+
+<div class="account-box">
+
+<div style="font-size:55px;">
+👤
+</div>
+
+
+<h1>
+My Account
+</h1>
+
+
+<p>
+You are currently logged in.
+</p>
+
+
+<div
+    class="account-email"
+    id="account-email"
+>
+Loading...
+</div>
+
+
+<button
+    class="account-button"
+    onclick="window.location.href='orders.html'"
+>
+    📦 View My Orders
+</button>
+
+
+<button
+    class="account-button logout-button"
+    id="logout-button"
+>
+    🚪 Logout
+</button>
+
+
+<p id="account-message"></p>
+
+</div>
+
+</main>
+
+
+
+<script type="module">
+
+import {
+    auth
+} from "./assets/js/firebase.js";
+
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+
+const emailBox =
+    document.getElementById(
+        "account-email"
+    );
+
+
+const message =
+    document.getElementById(
+        "account-message"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logout-button"
+    );
+
+
+
+// =========================================
+// CHECK LOGIN
+// =========================================
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(!user){
+
+            window.location.href =
+                "customer-login.html";
+
+            return;
+
+        }
+
+
+        emailBox.innerText =
+            user.email ||
+            "Customer account";
+
+    }
+);
+
+
+
+// =========================================
+// LOGOUT
+// =========================================
+
+logoutButton.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            await signOut(auth);
+
+
+            message.innerText =
+                "✅ Logged out successfully!";
+
+            message.style.color =
+                "green";
+
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "customer-login.html";
+
+                },
+                1000
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+
+            message.innerText =
+                "❌ Failed to logout.";
+
+            message.style.color =
+                "red";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
+
