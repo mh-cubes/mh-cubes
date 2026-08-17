@@ -1,10 +1,8 @@
-import { auth } from "../../firebase.js";
-
+import { db, auth } from "./firebase.js";
 import {
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import { db } from "./firebase.js";
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js"
 
 import {
     collection,
