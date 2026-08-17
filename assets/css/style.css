@@ -3030,3 +3030,110 @@ transform:rotate(360deg);
     }
 
 }
+/* ============================= */
+/* MOBILE CHECKOUT */
+/* ============================= */
+
+@media (max-width: 768px){
+
+    .checkout{
+        width:100%;
+        box-sizing:border-box;
+        padding:30px 15px;
+    }
+
+    .checkout > h1{
+        font-size:28px;
+        text-align:center;
+        margin-bottom:25px;
+    }
+
+    .checkout-box{
+        width:100%;
+        box-sizing:border-box;
+        padding:20px 15px;
+        border-radius:16px;
+    }
+
+    .checkout-box h2{
+        font-size:21px;
+        margin-top:20px;
+    }
+
+    .checkout-box input,
+    .checkout-box textarea{
+        width:100%;
+        box-sizing:border-box;
+        font-size:16px;
+        padding:13px;
+        margin-bottom:12px;
+    }
+
+    .checkout-box textarea{
+        min-height:120px;
+        resize:vertical;
+    }
+
+    .payment-options{
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .payment-card{
+        width:100%;
+        box-sizing:border-box;
+        padding:15px;
+    }
+
+    #checkout-items{
+        width:100%;
+        overflow:hidden;
+    }
+
+    #checkout-total{
+        font-size:21px;
+        text-align:center;
+        margin:20px 0;
+    }
+
+    .place-order{
+        width:100%;
+        padding:15px;
+        font-size:17px;
+    }
+
+    /* Payment Popup */
+
+    .payment-box{
+        width:calc(100% - 30px);
+        max-width:420px;
+        max-height:90vh;
+        overflow-y:auto;
+        box-sizing:border-box;
+        padding:25px 18px;
+    }
+
+    .payment-box h2{
+        font-size:22px;
+    }
+
+    .payment-box input{
+        width:100%;
+        box-sizing:border-box;
+        padding:13px;
+    }
+
+    .payment-buttons{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        margin-top:20px;
+    }
+
+    .payment-buttons button{
+        width:100%;
+        padding:13px;
+    }
+
+}
