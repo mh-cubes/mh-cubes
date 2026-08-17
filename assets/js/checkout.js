@@ -1,13 +1,13 @@
 import { db, auth } from "./firebase.js";
 
 import {
-    signInAnonymously
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-import {
     collection,
     addDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
 let cart =
@@ -15,21 +15,16 @@ let cart =
 
 
 // =========================================
-// FIREBASE ANONYMOUS LOGIN
+// CUSTOMER AUTHENTICATION
 // =========================================
 
-async function ensureCustomerAuth() {
+let currentUser = null;
 
-    if (auth.currentUser) {
-        return auth.currentUser;
-    }
+onAuthStateChanged(auth, function(user) {
 
-    const result =
-        await signInAnonymously(auth);
+    currentUser = user;
 
-    return result.user;
-
-}
+});
 
 
 // =========================================
@@ -51,15 +46,16 @@ if (phoneInput) {
 
     phoneInput.addEventListener(
         "input",
-        function () {
+        function() {
 
             const phone =
                 phoneInput.value.trim();
 
-
             if (phone === "") {
 
-                phoneMessage.innerText = "";
+                if (phoneMessage) {
+                    phoneMessage.innerText = "";
+                }
 
                 phoneInput.classList.remove(
                     "phone-valid",
@@ -67,17 +63,20 @@ if (phoneInput) {
                 );
 
                 return;
-
             }
 
 
             if (/^03\d{9}$/.test(phone)) {
 
-                phoneMessage.innerText =
-                    "✅ Valid Pakistani phone number";
+                if (phoneMessage) {
 
-                phoneMessage.className =
-                    "valid-phone";
+                    phoneMessage.innerText =
+                        "✅ Valid Pakistani phone number";
+
+                    phoneMessage.className =
+                        "valid-phone";
+
+                }
 
                 phoneInput.classList.add(
                     "phone-valid"
@@ -89,11 +88,15 @@ if (phoneInput) {
 
             } else {
 
-                phoneMessage.innerText =
-                    "❌ Phone number must be 11 digits and start with 03";
+                if (phoneMessage) {
 
-                phoneMessage.className =
-                    "invalid-phone";
+                    phoneMessage.innerText =
+                        "❌ Phone number must be 11 digits and start with 03";
+
+                    phoneMessage.className =
+                        "invalid-phone";
+
+                }
 
                 phoneInput.classList.add(
                     "phone-invalid"
@@ -147,8 +150,7 @@ function loadCheckout() {
                 </p>
 
                 <button
-                    onclick="decreaseQty('${product}')"
-                >
+                    onclick="decreaseQty('${product}')">
                     −
                 </button>
 
@@ -157,8 +159,7 @@ function loadCheckout() {
                 </span>
 
                 <button
-                    onclick="increaseQty('${product}')"
-                >
+                    onclick="increaseQty('${product}')">
                     +
                 </button>
 
@@ -231,7 +232,7 @@ function saveCheckout() {
 
 
 // =========================================
-// TOTAL PRICE
+// TOTAL
 // =========================================
 
 function updateTotal() {
@@ -277,6 +278,24 @@ async function placeOrder() {
         alert(
             "🛒 Your cart is empty."
         );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // REQUIRE CUSTOMER LOGIN
+    // =====================================
+
+    if (!currentUser) {
+
+        alert(
+            "🔐 Please login to your customer account before placing an order."
+        );
+
+        window.location.href =
+            "customer-login.html";
 
         return;
 
@@ -368,7 +387,7 @@ async function placeOrder() {
 
 
     // =====================================
-    // CONFIRM ORDER
+    // CONFIRM
     // =====================================
 
     const confirmed =
@@ -383,14 +402,6 @@ async function placeOrder() {
 
 
     try {
-
-        // =================================
-        // GET ANONYMOUS CUSTOMER ACCOUNT
-        // =================================
-
-        const user =
-            await ensureCustomerAuth();
-
 
         // =================================
         // CALCULATE TOTAL
@@ -418,7 +429,7 @@ async function placeOrder() {
                 "MH" + Date.now(),
 
             customerUID:
-                user.uid,
+                currentUser.uid,
 
             customerName:
                 name,
@@ -477,15 +488,13 @@ async function placeOrder() {
             "Your Order ID:\n" +
             order.orderID +
             "\n\n" +
-            "Please save this Order ID. " +
-            "You will need it to track your order."
+            "Please save this Order ID."
         );
 
 
         localStorage.removeItem(
             "cart"
         );
-
 
         localStorage.removeItem(
             "transactionID"
@@ -515,7 +524,7 @@ async function placeOrder() {
 
 
 // =========================================
-// LOAD SAVED CUSTOMER DETAILS
+// LOAD SAVED DETAILS
 // =========================================
 
 const nameInput =
@@ -571,11 +580,11 @@ const paymentOptions =
 
 
 paymentOptions.forEach(
-    function (option) {
+    function(option) {
 
         option.addEventListener(
             "change",
-            function () {
+            function() {
 
                 const method =
                     this.value;
@@ -651,7 +660,7 @@ function openPaymentPopup(method) {
 
 
     setTimeout(
-        function () {
+        function() {
 
             loading.style.display =
                 "none";
@@ -671,7 +680,6 @@ function openPaymentPopup(method) {
                     "⚠️ <b>IMPORTANT!</b><br><br>" +
                     "EasyPaisa payments are manual.<br>" +
                     "Please send the payment first, then enter your Transaction ID below.";
-
 
             } else {
 
@@ -799,7 +807,7 @@ function confirmPayment() {
 
 window.addEventListener(
     "click",
-    function (event) {
+    function(event) {
 
         const popup =
             document.getElementById(
@@ -821,7 +829,7 @@ window.addEventListener(
 
 
 // =========================================
-// MAKE FUNCTIONS AVAILABLE
+// FUNCTIONS FOR HTML
 // =========================================
 
 window.placeOrder =
