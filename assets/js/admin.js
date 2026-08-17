@@ -316,37 +316,35 @@ async function cancelAdminOrder(id){
 // Owner Logout
 // ------------------------------
 
-function logoutOwner(){
-
+async function logoutOwner(){
 
     let ordersBox = document.querySelector(".orders");
-
 
     if(ordersBox){
 
         ordersBox.innerHTML = `
-
-        <h2>
-        Logging out...
-        </h2>
-
+            <h2>
+            Logging out...
+            </h2>
         `;
 
     }
 
+    try{
 
-
-    setTimeout(function(){
-
+        await signOut(auth);
 
         localStorage.removeItem("adminAccess");
 
-
         window.location.href = "owner-login.html";
 
+    }catch(error){
 
-    },2000);
+        console.error("Logout error:", error);
 
+        alert("Failed to logout.");
+
+    }
 
 }
 
