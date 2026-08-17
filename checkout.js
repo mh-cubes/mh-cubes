@@ -45,39 +45,75 @@ function loadCheckout() {
 
         div.className = "checkout-product";
 
-        div.innerHTML = `
-            <div class="checkout-product-info">
+        const info = document.createElement("div");
 
-                <img
-                    src="${item.image}"
-                    alt="${product}"
-                    class="checkout-image"
-                >
+        info.className = "checkout-product-info";
 
-                <div>
-                    <h3>${product}</h3>
-                    <p>PKR ${price}</p>
-                </div>
+        const image = document.createElement("img");
 
-            </div>
+        image.src = item.image;
+        image.alt = product;
+        image.className = "checkout-image";
 
-            <div class="checkout-controls">
+        const details = document.createElement("div");
 
-                <button onclick="decreaseQty('${product}')">
-                    −
-                </button>
+        const title = document.createElement("h3");
 
-                <span>${quantity}</span>
+        title.textContent = product;
 
-                <button onclick="increaseQty('${product}')">
-                    +
-                </button>
+        const priceText = document.createElement("p");
 
-            </div>
-        `;
+        priceText.textContent = "PKR " + price;
+
+        details.appendChild(title);
+        details.appendChild(priceText);
+
+        info.appendChild(image);
+        info.appendChild(details);
+
+
+        const controls = document.createElement("div");
+
+        controls.className = "checkout-controls";
+
+
+        const decreaseButton =
+            document.createElement("button");
+
+        decreaseButton.textContent = "−";
+
+        decreaseButton.onclick = function () {
+            decreaseQty(product);
+        };
+
+
+        const quantityText =
+            document.createElement("span");
+
+        quantityText.textContent = quantity;
+
+
+        const increaseButton =
+            document.createElement("button");
+
+        increaseButton.textContent = "+";
+
+        increaseButton.onclick = function () {
+            increaseQty(product);
+        };
+
+
+        controls.appendChild(decreaseButton);
+        controls.appendChild(quantityText);
+        controls.appendChild(increaseButton);
+
+
+        div.appendChild(info);
+        div.appendChild(controls);
 
         box.appendChild(div);
     }
+
 
     if (totalElement) {
 
@@ -159,6 +195,7 @@ if (phoneInput) {
         const phone =
             phoneInput.value.trim();
 
+
         if (phone === "") {
 
             phoneMessage.innerText = "";
@@ -169,6 +206,7 @@ if (phoneInput) {
             );
 
             return;
+
         }
 
 
@@ -244,8 +282,6 @@ if (addressInput) {
         localStorage.getItem("customerAddress") || "";
 
 }
-
-
 // ==============================
 // PAYMENT SELECTION
 // ==============================
@@ -262,12 +298,20 @@ paymentOptions.forEach(function (option) {
 
         const method = this.value;
 
+
+        // EasyPaisa and JazzCash
+        // are currently disabled / coming soon.
+
         if (
             method === "EasyPaisa" ||
             method === "JazzCash"
         ) {
 
-            openPaymentPopup(method);
+            this.checked = false;
+
+            alert(
+                "🚧 This payment method is coming soon.\n\nPlease select Cash On Delivery."
+            );
 
         }
 
@@ -282,77 +326,14 @@ paymentOptions.forEach(function (option) {
 
 function openPaymentPopup(method) {
 
-    const loading =
-        document.getElementById("payment-loading");
+    // Payment popup is currently disabled
+    // because only Cash On Delivery is active.
 
-    const popup =
-        document.getElementById("payment-popup");
-
-    const title =
-        document.getElementById("payment-title");
-
-    const message =
-        document.getElementById("payment-message");
-
-    const number =
-        document.getElementById("payment-number");
-
-    const accountName =
-        document.getElementById("payment-name");
-
-
-    if (!loading || !popup) return;
-
-
-    loading.style.display = "flex";
-
-
-    setTimeout(function () {
-
-        loading.style.display = "none";
-
-        popup.style.display = "flex";
-
-
-        if (method === "EasyPaisa") {
-
-            title.innerHTML =
-                "🟢 EasyPaisa Payment";
-
-            message.innerHTML =
-                "⚠️ <b>IMPORTANT!</b><br><br>" +
-                "EasyPaisa payments are manual.<br>" +
-                "Please send the payment first, then enter your Transaction ID below.";
-
-        } else {
-
-            title.innerHTML =
-                "🔴 JazzCash Payment";
-
-            message.innerHTML =
-                "⚠️ <b>IMPORTANT!</b><br><br>" +
-                "JazzCash payments are manual.<br>" +
-                "Please send the payment first, then enter your Transaction ID below.";
-
-        }
-
-
-        if (number) {
-
-            number.innerHTML =
-                "03XXXXXXXXX";
-
-        }
-
-
-        if (accountName) {
-
-            accountName.innerHTML =
-                "Account Name: MH CUBES";
-
-        }
-
-    }, 1200);
+    alert(
+        "🚧 " +
+        method +
+        " payments are coming soon.\n\nPlease select Cash On Delivery."
+    );
 
 }
 
@@ -392,50 +373,23 @@ function closePaymentPopup() {
 
 function confirmPayment() {
 
-    const input =
-        document.getElementById("transaction-id");
-
-    if (!input) return;
-
-    const id =
-        input.value.trim();
-
-
-    if (id === "") {
-
-        alert(
-            "⚠️ Please enter your Transaction ID."
-        );
-
-        return;
-
-    }
-
-
-    localStorage.setItem(
-        "transactionID",
-        id
-    );
-
-
     alert(
-        "✅ Payment details received."
+        "🚧 Online payments are coming soon.\n\nPlease use Cash On Delivery for now."
     );
-
-
-    closePaymentPopup();
 
 }
 
 
 // ==============================
-// PLACE ORDER
+// PLACE ORDER - START
 // ==============================
 
 async function placeOrder() {
 
     cart =
-        JSON.parse(localStorage.getItem("cart")) || {};
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || {};
 
 
     if (Object.keys(cart).length === 0) {
@@ -476,6 +430,10 @@ async function placeOrder() {
             : "";
 
 
+    // ==============================
+    // BASIC VALIDATION
+    // ==============================
+
     if (
         name === "" ||
         phone === "" ||
@@ -492,6 +450,25 @@ async function placeOrder() {
     }
 
 
+    // ==============================
+    // ONLY COD IS ALLOWED
+    // ==============================
+
+    if (payment !== "Cash On Delivery") {
+
+        alert(
+            "🚧 Online payments are coming soon.\n\nPlease select Cash On Delivery."
+        );
+
+        return;
+
+    }
+
+
+    // ==============================
+    // PHONE VALIDATION
+    // ==============================
+
     if (!/^03\d{9}$/.test(phone)) {
 
         alert(
@@ -503,7 +480,9 @@ async function placeOrder() {
     }
 
 
+    // ==============================
     // SAVE CUSTOMER DETAILS
+    // ==============================
 
     localStorage.setItem(
         "customerName",
@@ -521,9 +500,12 @@ async function placeOrder() {
     );
 
 
+    // ==============================
     // CALCULATE TOTAL
+    // ==============================
 
     let total = 0;
+
 
     for (const product in cart) {
 
@@ -534,12 +516,22 @@ async function placeOrder() {
     }
 
 
+    // ==============================
+    // CREATE ORDER ID
+    // ==============================
+
+    const orderID =
+        "MH" + Date.now();
+
+
+    // ==============================
     // CREATE ORDER
+    // ==============================
 
     const order = {
 
         orderID:
-            "MH" + Date.now(),
+            orderID,
 
         customerName:
             name,
@@ -551,7 +543,7 @@ async function placeOrder() {
             address,
 
         payment:
-            payment,
+            "Cash On Delivery",
 
         products:
             cart,
@@ -560,9 +552,7 @@ async function placeOrder() {
             total,
 
         transactionID:
-            localStorage.getItem(
-                "transactionID"
-            ) || "",
+            "",
 
         status:
             "Pending",
@@ -573,57 +563,250 @@ async function placeOrder() {
     };
 
 
+    // ==============================
+    // CONFIRM ORDER
+    // ==============================
+
     const confirmed =
         confirm(
             "Are you sure you want to place this order?"
         );
 
 
-    if (!confirmed) return;
+    if (!confirmed) {
+
+        return;
+
+    }
 
 
     try {
+
+        // ==============================
+        // SAVE TO FIRESTORE
+        // ==============================
 
         await addDoc(
             collection(db, "orders"),
             order
         );
+// ==============================
+// ORDER SUCCESS
+// ==============================
+
+const successBox =
+    document.createElement("div");
+
+successBox.style.position = "fixed";
+successBox.style.inset = "0";
+successBox.style.background = "rgba(0,0,0,0.75)";
+successBox.style.display = "flex";
+successBox.style.alignItems = "center";
+successBox.style.justifyContent = "center";
+successBox.style.zIndex = "99999";
+successBox.style.padding = "20px";
 
 
-        alert(
-            "🎉 Order placed successfully!\n\n" +
-            "Your Order ID:\n" +
-            order.orderID +
-            "\n\n" +
-            "Please save this Order ID."
-        );
+const successCard =
+    document.createElement("div");
+
+successCard.style.background = "#ffffff";
+successCard.style.color = "#111111";
+successCard.style.padding = "30px";
+successCard.style.borderRadius = "18px";
+successCard.style.width = "100%";
+successCard.style.maxWidth = "450px";
+successCard.style.textAlign = "center";
+successCard.style.boxShadow =
+    "0 20px 60px rgba(0,0,0,0.3)";
 
 
-        localStorage.removeItem("cart");
+const successTitle =
+    document.createElement("h2");
 
-        localStorage.removeItem(
-            "transactionID"
-        );
+successTitle.textContent =
+    "🎉 Order Placed Successfully!";
 
+
+const successMessage =
+    document.createElement("p");
+
+successMessage.textContent =
+    "Thank you for ordering from MH CUBES!";
+
+
+const orderLabel =
+    document.createElement("p");
+
+orderLabel.textContent =
+    "Your Order ID:";
+
+
+const orderIdBox =
+    document.createElement("div");
+
+orderIdBox.style.display = "flex";
+orderIdBox.style.alignItems = "center";
+orderIdBox.style.gap = "8px";
+orderIdBox.style.margin = "15px 0";
+
+
+const orderIdInput =
+    document.createElement("input");
+
+orderIdInput.type = "text";
+orderIdInput.value = order.orderID;
+orderIdInput.readOnly = true;
+
+orderIdInput.style.flex = "1";
+orderIdInput.style.padding = "12px";
+orderIdInput.style.border = "1px solid #ccc";
+orderIdInput.style.borderRadius = "8px";
+orderIdInput.style.fontSize = "15px";
+orderIdInput.style.fontWeight = "bold";
+
+
+const copyButton =
+    document.createElement("button");
+
+copyButton.type = "button";
+copyButton.textContent = "📋 Copy";
+
+copyButton.style.padding = "12px 15px";
+copyButton.style.border = "none";
+copyButton.style.borderRadius = "8px";
+copyButton.style.background = "#111111";
+copyButton.style.color = "#ffffff";
+copyButton.style.fontWeight = "bold";
+copyButton.style.cursor = "pointer";
+
+
+copyButton.addEventListener(
+    "click",
+    async function () {
+
+        try {
+
+            await navigator.clipboard.writeText(
+                order.orderID
+            );
+
+            copyButton.textContent =
+                "✅ Copied!";
+
+            setTimeout(function () {
+
+                copyButton.textContent =
+                    "📋 Copy";
+
+            }, 2000);
+
+        } catch (error) {
+
+            orderIdInput.select();
+
+            document.execCommand("copy");
+
+            copyButton.textContent =
+                "✅ Copied!";
+
+            setTimeout(function () {
+
+                copyButton.textContent =
+                    "📋 Copy";
+
+            }, 2000);
+
+        }
+
+    }
+);
+
+
+orderIdBox.appendChild(orderIdInput);
+orderIdBox.appendChild(copyButton);
+
+
+const saveMessage =
+    document.createElement("p");
+
+saveMessage.textContent =
+    "📌 Save this Order ID to track your order later.";
+
+saveMessage.style.fontSize = "14px";
+saveMessage.style.color = "#555555";
+
+
+const continueButton =
+    document.createElement("button");
+
+continueButton.type = "button";
+continueButton.textContent =
+    "Continue Shopping";
+
+continueButton.style.width = "100%";
+continueButton.style.padding = "14px";
+continueButton.style.border = "none";
+continueButton.style.borderRadius = "10px";
+continueButton.style.background = "#ff2020";
+continueButton.style.color = "#ffffff";
+continueButton.style.fontWeight = "bold";
+continueButton.style.fontSize = "16px";
+continueButton.style.cursor = "pointer";
+
+
+continueButton.addEventListener(
+    "click",
+    function () {
 
         window.location.href =
             "index.html";
 
-
-    } catch (error) {
-
-        console.error(
-            "Order error:",
-            error
-        );
-
-
-        alert(
-            "❌ Order could not be placed.\n\n" +
-            "Please try again."
-        );
-
     }
+);
+
+
+successCard.appendChild(successTitle);
+successCard.appendChild(successMessage);
+successCard.appendChild(orderLabel);
+successCard.appendChild(orderIdBox);
+successCard.appendChild(saveMessage);
+successCard.appendChild(continueButton);
+
+successBox.appendChild(successCard);
+
+document.body.appendChild(successBox);
+
+
+// ==============================
+// CLEAR CART
+// ==============================
+
+localStorage.removeItem("cart");
+
+localStorage.removeItem(
+    "transactionID"
+);
+
+
+// ==============================
+// ERROR HANDLING
+// ==============================
+
+} catch (error) {
+
+    console.error(
+        "Order error:",
+        error
+    );
+
+
+    alert(
+        "❌ Order could not be placed.\n\n" +
+        "Please try again."
+    );
+
+}
 
 }
 
@@ -683,3 +866,4 @@ window.confirmPayment =
 // ==============================
 
 loadCheckout();
+    
