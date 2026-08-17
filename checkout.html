@@ -1,566 +1,257 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+```
 <title>Checkout - MH CUBES</title>
 
 <link rel="stylesheet" href="assets/css/style.css">
+```
 
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 
 <header>
 
-    <div class="logo">
-        MH CUBES
-    </div>
+```
+<div class="logo">
+    MH CUBES
+</div>
 
-    <nav>
-
-        <a href="index.html">
-            🏠 Home
-        </a>
-
-        <a href="cart.html">
-            🛒 Cart
-        </a>
-
-    </nav>
+<nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="cart.html">🛒 Cart</a>
+</nav>
+```
 
 </header>
 
-
-<!-- ================= CHECKOUT ================= -->
+<!-- CHECKOUT -->
 
 <div class="checkout">
 
-    <h1>
-        Checkout 🛒
-    </h1>
+```
+<h1>
+    Checkout 🛒
+</h1>
+
+<div class="checkout-box">
+
+    <!-- Customer Details -->
+
+    <h2>
+        Customer Details
+    </h2>
+
+    <input
+        id="customer-name"
+        type="text"
+        placeholder="Full Name"
+    >
+
+    <input
+        id="customer-phone"
+        type="tel"
+        placeholder="03XXXXXXXXX"
+        maxlength="11"
+    >
+
+    <small id="phone-message"></small>
+
+    <textarea
+        id="customer-address"
+        placeholder="Delivery Address"
+    ></textarea>
 
 
-    <div class="checkout-box">
+    <!-- Payment -->
 
-        <!-- Customer Details -->
+    <h2>
+        Choose Payment Method
+    </h2>
 
-        <h2>
-            Customer Details
-        </h2>
+    <div class="payment-options">
 
+        <label class="payment-card">
 
-        <input
-            id="customer-name"
-            type="text"
-            placeholder="Full Name"
-        >
+            <input
+                type="radio"
+                name="payment"
+                value="EasyPaisa"
+            >
 
+            <span>
+                💚 EasyPaisa
+            </span>
 
-        <input
-            id="customer-phone"
-            type="tel"
-            placeholder="03XXXXXXXXX"
-            maxlength="11"
-        >
-
-
-        <small id="phone-message"></small>
+        </label>
 
 
-        <textarea
-            id="customer-address"
-            placeholder="Delivery Address"
-        ></textarea>
+        <label class="payment-card">
+
+            <input
+                type="radio"
+                name="payment"
+                value="JazzCash"
+            >
+
+            <span>
+                ❤️ JazzCash
+            </span>
+
+        </label>
 
 
-        <!-- Payment -->
+        <label class="payment-card">
 
-        <h2>
-            Choose Payment Method
-        </h2>
+            <input
+                type="radio"
+                name="payment"
+                value="Cash On Delivery"
+            >
 
+            <span>
+                💵 Cash On Delivery
+            </span>
 
-        <div class="payment-options">
-
-            <label class="payment-card">
-
-                <input
-                    type="radio"
-                    name="payment"
-                    value="EasyPaisa"
-                >
-
-                <span>
-                    💚 EasyPaisa
-                </span>
-
-            </label>
-
-
-            <label class="payment-card">
-
-                <input
-                    type="radio"
-                    name="payment"
-                    value="JazzCash"
-                >
-
-                <span>
-                    ❤️ JazzCash
-                </span>
-
-            </label>
-
-
-            <label class="payment-card">
-
-                <input
-                    type="radio"
-                    name="payment"
-                    value="Cash On Delivery"
-                >
-
-                <span>
-                    💵 Cash On Delivery
-                </span>
-
-            </label>
-
-        </div>
-
-
-        <!-- Order -->
-
-        <h2>
-            Your Order
-        </h2>
-
-
-        <div id="checkout-items">
-        </div>
-
-
-        <h2 id="checkout-total">
-            Total: PKR 0
-        </h2>
-
-
-        <button
-            class="place-order"
-            onclick="placeOrder()"
-        >
-            Place Order
-        </button>
+        </label>
 
     </div>
 
+
+    <!-- Order -->
+
+    <h2>
+        Your Order
+    </h2>
+
+    <div id="checkout-items"></div>
+
+    <h2 id="checkout-total">
+        Total: PKR 0
+    </h2>
+
+    <button
+        class="place-order"
+        onclick="placeOrder()"
+    >
+        Place Order
+    </button>
+
+</div>
+```
+
 </div>
 
-
-<!-- ================= PAYMENT LOADING ================= -->
+<!-- PAYMENT LOADING -->
 
 <div
     id="payment-loading"
     class="payment-loading"
 >
 
-    <div class="loader"></div>
+```
+<div class="loader"></div>
 
-    <h2>
-        Opening Payment...
-    </h2>
+<h2>
+    Opening Payment...
+</h2>
 
-    <p>
-        Please wait...
-    </p>
+<p>
+    Please wait...
+</p>
+```
 
 </div>
 
-
-<!-- ================= PAYMENT POPUP ================= -->
+<!-- PAYMENT POPUP -->
 
 <div
     id="payment-popup"
     class="payment-popup"
 >
 
-    <div class="payment-box">
-
-
-        <button
-            class="close-payment"
-            onclick="closePaymentPopup()"
-        >
-            ✖
-        </button>
-
-
-        <h2 id="payment-title">
-            Payment Details
-        </h2>
-
-
-        <div class="payment-warning">
-
-            <h3>
-                ⚠️ IMPORTANT
-            </h3>
-
-            <p id="payment-message">
-                Please complete your payment and enter your Transaction ID below.
-            </p>
-
-        </div>
-
-
-        <h3 id="payment-name">
-            Account Name: MH CUBES
-        </h3>
-
-
-        <h3>
-            Account Number
-        </h3>
-
-
-        <p id="payment-number">
-            03XXXXXXXXX
-        </p>
-
-
-        <input
-            id="transaction-id"
-            type="text"
-            placeholder="Enter Transaction ID"
-        >
-
-
-        <div class="payment-buttons">
-
-
-            <button
-                class="confirm-btn"
-                onclick="confirmPayment()"
-            >
-                ✔ Confirm Payment
-            </button>
-
-
-            <button
-                class="cancel-btn"
-                onclick="closePaymentPopup()"
-            >
-                Cancel
-            </button>
-
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= JAVASCRIPT ================= -->
-
-<script
-    type="module"
-    src="assets/js/checkout.js"
-></script>
-
-
-</body>
-
-</html>
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Checkout - MH CUBES</title>
-
-<link rel="stylesheet" href="assets/css/style.css">
-
-</head>
-
-<body>
-
-<!-- ================= HEADER ================= -->
-
-<header>
-
-    <div class="logo">
-        MH CUBES
-    </div>
-
-    <nav>
-
-        <a href="index.html">
-            🏠 Home
-        </a>
-
-        <a href="cart.html">
-            🛒 Cart
-        </a>
-
-    </nav>
-
-</header>
-
-
-<!-- ================= CHECKOUT ================= -->
-
-<div class="checkout">
-
-    <h1>
-        Checkout 🛒
-    </h1>
-
-
-    <div class="checkout-box">
-
-        <!-- Customer Details -->
-
-        <h2>
-            Customer Details
-        </h2>
-
-
-        <input
-            id="customer-name"
-            type="text"
-            placeholder="Full Name"
-        >
-
-
-        <input
-            id="customer-phone"
-            type="tel"
-            placeholder="03XXXXXXXXX"
-            maxlength="11"
-        >
-
-
-        <small id="phone-message"></small>
-
-
-        <textarea
-            id="customer-address"
-            placeholder="Delivery Address"
-        ></textarea>
-
-
-        <!-- Payment -->
-
-        <h2>
-            Choose Payment Method
-        </h2>
-
-
-        <div class="payment-options">
-
-            <label class="payment-card">
-
-                <input
-                    type="radio"
-                    name="payment"
-                    value="EasyPaisa"
-                >
-
-                <span>
-                    💚 EasyPaisa
-                </span>
-
-            </label>
-
-
-            <label class="payment-card">
-
-                <input
-                    type="radio"
-                    name="payment"
-                    value="JazzCash"
-                >
-
-                <span>
-                    ❤️ JazzCash
-                </span>
-
-            </label>
-
-
-            <label class="payment-card">
-
-                <input
-                    type="radio"
-                    name="payment"
-                    value="Cash On Delivery"
-                >
-
-                <span>
-                    💵 Cash On Delivery
-                </span>
-
-            </label>
-
-        </div>
-
-
-        <!-- Order -->
-
-        <h2>
-            Your Order
-        </h2>
-
-
-        <div id="checkout-items">
-        </div>
-
-
-        <h2 id="checkout-total">
-            Total: PKR 0
-        </h2>
-
-
-        <button
-            class="place-order"
-            onclick="placeOrder()"
-        >
-            Place Order
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ================= PAYMENT LOADING ================= -->
-
-<div
-    id="payment-loading"
-    class="payment-loading"
->
-
-    <div class="loader"></div>
-
-    <h2>
-        Opening Payment...
+```
+<div class="payment-box">
+
+    <button
+        class="close-payment"
+        onclick="closePaymentPopup()"
+    >
+        ✖
+    </button>
+
+    <h2 id="payment-title">
+        Payment Details
     </h2>
 
-    <p>
-        Please wait...
-    </p>
-
-</div>
-
-
-<!-- ================= PAYMENT POPUP ================= -->
-
-<div
-    id="payment-popup"
-    class="payment-popup"
->
-
-    <div class="payment-box">
-
-
-        <button
-            class="close-payment"
-            onclick="closePaymentPopup()"
-        >
-            ✖
-        </button>
-
-
-        <h2 id="payment-title">
-            Payment Details
-        </h2>
-
-
-        <div class="payment-warning">
-
-            <h3>
-                ⚠️ IMPORTANT
-            </h3>
-
-            <p id="payment-message">
-                Please complete your payment and enter your Transaction ID below.
-            </p>
-
-        </div>
-
-
-        <h3 id="payment-name">
-            Account Name: MH CUBES
-        </h3>
-
+    <div class="payment-warning">
 
         <h3>
-            Account Number
+            ⚠️ IMPORTANT
         </h3>
 
-
-        <p id="payment-number">
-            03XXXXXXXXX
+        <p id="payment-message">
+            Please complete your payment and enter your Transaction ID below.
         </p>
 
+    </div>
 
-        <input
-            id="transaction-id"
-            type="text"
-            placeholder="Enter Transaction ID"
+    <h3 id="payment-name">
+        Account Name: MH CUBES
+    </h3>
+
+    <h3>
+        Account Number
+    </h3>
+
+    <p id="payment-number">
+        03XXXXXXXXX
+    </p>
+
+    <input
+        id="transaction-id"
+        type="text"
+        placeholder="Enter Transaction ID"
+    >
+
+    <div class="payment-buttons">
+
+        <button
+            class="confirm-btn"
+            onclick="confirmPayment()"
         >
+            ✔ Confirm Payment
+        </button>
 
-
-        <div class="payment-buttons">
-
-
-            <button
-                class="confirm-btn"
-                onclick="confirmPayment()"
-            >
-                ✔ Confirm Payment
-            </button>
-
-
-            <button
-                class="cancel-btn"
-                onclick="closePaymentPopup()"
-            >
-                Cancel
-            </button>
-
-
-        </div>
+        <button
+            class="cancel-btn"
+            onclick="closePaymentPopup()"
+        >
+            Cancel
+        </button>
 
     </div>
 
 </div>
+```
 
+</div>
 
-<!-- ================= JAVASCRIPT ================= -->
+<!-- JAVASCRIPT -->
 
 <script
     type="module"
     src="assets/js/checkout.js"
 ></script>
 
-
 </body>
 
 </html>
-
-
