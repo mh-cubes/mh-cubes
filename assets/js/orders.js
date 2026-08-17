@@ -404,7 +404,10 @@ if (logoutButton) {
 
                 logoutButton.innerText =
                     "⏳ Logging out...";
-
+sessionStorage.setItem(
+    "loggingOut",
+    "true"
+);
 
                 await signOut(auth);
 
