@@ -31,11 +31,13 @@ MH CUBES
 
 </header>
 
+
 <div class="checkout">
 
 <h1>
 📦 My Orders
 </h1>
+
 
 <div class="checkout-box">
 
@@ -43,11 +45,13 @@ MH CUBES
 Enter Your Phone Number
 </h2>
 
+
 <input
 type="tel"
 id="history-phone"
 placeholder="03XXXXXXXXX"
 maxlength="11">
+
 
 <button
 class="place-order"
@@ -57,7 +61,9 @@ View My Orders
 
 </button>
 
+
 <br><br>
+
 
 <div id="history-box">
 
@@ -66,91 +72,195 @@ View My Orders
 </div>
 
 </div>
-<script>
 
-function loadOrderHistory(){
 
-let phone = document.getElementById("history-phone").value.trim();
+<script type="module">
 
-let historyBox = document.getElementById("history-box");
+import { db } from "./assets/js/firebase.js";
 
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-if(phone === ""){
 
-historyBox.innerHTML =
-"<h3 style='color:red;'>❌ Please enter your phone number.</h3>";
+window.loadOrderHistory = async function(){
 
-return;
+    const phone =
+        document.getElementById("history-phone")
+        .value
+        .trim();
 
-}
 
-let customerOrders = orders.filter(function(order){
+    const historyBox =
+        document.getElementById("history-box");
 
-return order.phone === phone;
 
-});
+    if(phone === ""){
 
-if(customerOrders.length === 0){
+        historyBox.innerHTML =
+            "<h3 style='color:red;'>❌ Please enter your phone number.</h3>";
 
-historyBox.innerHTML =
-"<h3 style='color:red;'>❌ No orders found for this phone number.</h3>";
+        return;
 
-return;
+    }
 
-}
 
-historyBox.innerHTML = "";
+    if(!/^03\d{9}$/.test(phone)){
 
-customerOrders.forEach(function(order){
+        historyBox.innerHTML =
+            "<h3 style='color:red;'>❌ Please enter a valid Pakistani phone number.</h3>";
 
-let total = 0;
+        return;
 
-for(let product in order.products){
+    }
 
-total += order.products[product].price * order.products[product].quantity;
 
-}
+    historyBox.innerHTML =
+        "<h3>🔄 Loading your orders...</h3>";
 
-let productsHTML = "";
 
-for(let product in order.products){
+    try{
 
-productsHTML += `
-<p>🧩 ${product} × ${order.products[product].quantity}</p>
-`;
+        const snapshot =
+            await getDocs(
+                collection(db, "orders")
+            );
 
-}
 
-historyBox.innerHTML += `
+        let customerOrders = [];
 
-<div class="admin-order-box">
 
-<h2>📦 Order ID: ${order.orderID}</h2>
+        snapshot.forEach((docSnap) => {
 
-<p><b>Status:</b> ${order.status}</p>
+            const order = docSnap.data();
 
-<p><b>Date:</b> ${order.date}</p>
 
-<p><b>Payment:</b> ${order.payment}</p>
+            if(order.phone === phone){
 
-<p><b>Address:</b> ${order.address}</p>
+                customerOrders.push({
 
-<h3>Products</h3>
+                    id: docSnap.id,
 
-${productsHTML}
+                    ...order
 
-<p><b>Total:</b> PKR ${total}</p>
+                });
 
-</div>
+            }
 
-`;
+        });
 
-});
 
-}
+        if(customerOrders.length === 0){
+
+            historyBox.innerHTML =
+                "<h3 style='color:red;'>❌ No orders found for this phone number.</h3>";
+
+            return;
+
+        }
+
+
+        historyBox.innerHTML = "";
+
+
+        customerOrders.forEach((order) => {
+
+            let total = 0;
+
+
+            let productsHTML = "";
+
+
+            for(let product in order.products){
+
+                total +=
+                    order.products[product].price *
+                    order.products[product].quantity;
+
+
+                productsHTML += `
+
+                    <p>
+                        🧩 ${product}
+                        × ${order.products[product].quantity}
+                    </p>
+
+                `;
+
+            }
+
+
+            historyBox.innerHTML += `
+
+                <div class="admin-order-box">
+
+                    <h2>
+                        📦 Order ID: ${order.orderID}
+                    </h2>
+
+
+                    <p>
+                        <b>Status:</b>
+                        ${order.status || "Pending"}
+                    </p>
+
+
+                    <p>
+                        <b>Date:</b>
+                        ${order.date || "Not available"}
+                    </p>
+
+
+                    <p>
+                        <b>Payment:</b>
+                        ${order.payment || "Not Selected"}
+                    </p>
+
+
+                    <p>
+                        <b>Address:</b>
+                        ${order.address}
+                    </p>
+
+
+                    <h3>
+                        Products
+                    </h3>
+
+
+                    ${productsHTML}
+
+
+                    <p>
+                        <b>Total:</b>
+                        PKR ${total}
+                    </p>
+
+                </div>
+
+            `;
+
+        });
+
+
+    }catch(error){
+
+        console.error(
+            "Error loading orders:",
+            error
+        );
+
+
+        historyBox.innerHTML =
+            "<h3 style='color:red;'>❌ Failed to load orders.</h3>";
+
+    }
+
+};
 
 </script>
+
 
 </body>
 
