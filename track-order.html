@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,57 +17,60 @@
 
 <header>
 
-<div class="logo">
-MH CUBES
-</div>
+    <div class="logo">
+        MH CUBES
+    </div>
 
-<nav>
+    <nav>
 
-<a href="index.html">🏠 Home</a>
+        <a href="index.html">
+            🏠 Home
+        </a>
 
-<a href="cart.html">🛒 Cart</a>
+        <a href="cart.html">
+            🛒 Cart
+        </a>
 
-</nav>
+    </nav>
 
 </header>
-
-
 <div class="checkout">
 
-<h1>
-📦 Track Your Order
-</h1>
+    <h1>
+        📦 Track Your Order
+    </h1>
 
-<div class="checkout-box">
+    <div class="checkout-box">
 
-<h2>
-Enter Your Order ID
-</h2>
+        <h2>
+            Enter Your Order ID
+        </h2>
 
-<input
-type="text"
-id="track-id"
-placeholder="Example: MH1754652345678">
+        <p>
+            Enter the Order ID you received after placing your order.
+        </p>
 
-<button
-class="place-order"
-onclick="trackOrder()">
+        <input
+            type="text"
+            id="track-id"
+            placeholder="Example: MH1754652345678"
+            autocomplete="off"
+        >
 
-Track Order
+        <button
+            class="place-order"
+            id="track-button"
+        >
+            🔍 Track Order
+        </button>
 
-</button>
+        <div id="track-result">
 
-<br><br>
+        </div>
 
-<div id="track-result">
+    </div>
 
 </div>
-
-</div>
-
-</div>
-
-
 <script type="module">
 
 import { db } from "./assets/js/firebase.js";
@@ -79,19 +81,26 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-window.trackOrder = async function(){
+const trackInput =
+    document.getElementById("track-id");
+
+const trackButton =
+    document.getElementById("track-button");
+
+const result =
+    document.getElementById("track-result");
+
+
+async function trackOrder(){
 
     const id =
-        document.getElementById("track-id").value.trim();
-
-    const result =
-        document.getElementById("track-result");
+        trackInput.value.trim();
 
 
     if(id === ""){
 
         result.innerHTML =
-        "<h3 style='color:red;'>❌ Please enter your Order ID.</h3>";
+            "<h3 style='color:red;'>❌ Please enter your Order ID.</h3>";
 
         return;
 
@@ -99,13 +108,15 @@ window.trackOrder = async function(){
 
 
     result.innerHTML =
-    "<h3>🔍 Searching for your order...</h3>";
+        "<h3>🔍 Searching for your order...</h3>";
 
 
     try{
 
         const snapshot =
-            await getDocs(collection(db, "orders"));
+            await getDocs(
+                collection(db, "orders")
+            );
 
 
         let found = null;
@@ -113,7 +124,8 @@ window.trackOrder = async function(){
 
         snapshot.forEach(function(docSnap){
 
-            const order = docSnap.data();
+            const order =
+                docSnap.data();
 
 
             if(order.orderID === id){
@@ -129,67 +141,149 @@ window.trackOrder = async function(){
 
             result.innerHTML = `
 
-            <div class="admin-order-box">
+                <div class="admin-order-box">
 
-                <h2>📦 Order Found</h2>
+                    <h2>
+                        📦 Order Found
+                    </h2>
 
-                <p>
-                    <b>Order ID:</b>
-                    ${found.orderID}
-                </p>
+                    <p>
+                        <strong>Order ID:</strong>
+                        ${found.orderID}
+                    </p>
 
-                <p>
-                    <b>Customer:</b>
-                    ${found.customerName}
-                </p>
+                    <p>
+                        <strong>Customer:</strong>
+                        ${found.customerName || "Not available"}
+                    </p>
 
-                <p>
-                    <b>Phone:</b>
-                    ${found.phone}
-                </p>
+                    <p>
+                        <strong>Phone:</strong>
+                        ${found.phone || "Not available"}
+                    </p>
 
-                <p>
-                    <b>Payment:</b>
-                    ${found.payment}
-                </p>
+                    <p>
+                        <strong>Payment:</strong>
+                        ${found.payment || "Not selected"}
+                    </p>
 
-                <p>
-                    <b>Status:</b>
-                    ${found.status || "Pending"}
-                </p>
+                    <p>
+                        <strong>Status:</strong>
+                        ${found.status || "Pending 🟡"}
+                    </p>
 
-                <p>
-                    <b>Date:</b>
-                    ${found.date}
-                </p>
+                    <p>
+                        <strong>Date:</strong>
+                        ${found.date || "Not available"}
+                    </p>
 
-            </div>
+                    <p>
+                        <strong>Address:</strong>
+                        ${found.address || "Not available"}
+                    </p>
+
+                    <h3>
+                        🚚 Current Order Status
+                    </h3>
+
+                    <div style="
+                        padding:15px;
+                        margin-top:10px;
+                        border-radius:10px;
+                        text-align:center;
+                        font-weight:bold;
+                        font-size:18px;
+                    ">
+
+                        ${found.status || "Pending 🟡"}
+
+                    </div>
+
+                </div>
 
             `;
 
         }else{
 
-            result.innerHTML =
-            "<h3 style='color:red;'>❌ No order found with this Order ID.</h3>";
+            result.innerHTML = `
+
+                <div style="
+                    text-align:center;
+                    padding:20px;
+                ">
+
+                    <h3 style="color:red;">
+                        ❌ Order Not Found
+                    </h3>
+
+                    <p>
+                        No order was found with this Order ID.
+                    </p>
+
+                    <p>
+                        Please check your Order ID and try again.
+                    </p>
+
+                </div>
+
+            `;
 
         }
 
 
     }catch(error){
 
-        console.error("Tracking error:", error);
+        console.error(
+            "Tracking error:",
+            error
+        );
 
-        result.innerHTML =
-        "<h3 style='color:red;'>❌ Unable to check order. Please try again.</h3>";
+
+        result.innerHTML = `
+
+            <div style="
+                text-align:center;
+                padding:20px;
+            ">
+
+                <h3 style="color:red;">
+                    ❌ Unable to check order
+                </h3>
+
+                <p>
+                    Please try again.
+                </p>
+
+            </div>
+
+        `;
 
     }
 
-};
+}
+
+
+trackButton.addEventListener(
+    "click",
+    trackOrder
+);
+
+
+trackInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            trackOrder();
+
+        }
+
+    }
+);
 
 </script>
-
 
 </body>
 
 </html>
-
