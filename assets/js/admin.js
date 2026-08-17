@@ -386,7 +386,7 @@ async function logoutOwner(){
             window.location.href =
                 "owner-login.html";
 
-        }, 2000);
+        }, 5000);
 
 
     }catch(error){
