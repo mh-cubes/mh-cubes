@@ -1,94 +1,189 @@
-import { db } from "./firebase.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-let cart = JSON.parse(localStorage.getItem("cart")) || {};
+import { db, auth } from "./firebase.js";
 
-let phoneInput = document.getElementById("customer-phone");
-let phoneMessage = document.getElementById("phone-message");
+import {
+    signInAnonymously
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-// ------------------------------
-// Phone Validation
-// ------------------------------
+import {
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-phoneInput.addEventListener("input", function(){
 
-    let phone = phoneInput.value.trim();
+let cart =
+    JSON.parse(localStorage.getItem("cart")) || {};
 
-    if(phone === ""){
 
-        phoneMessage.innerText = "";
+// =========================================
+// FIREBASE ANONYMOUS LOGIN
+// =========================================
 
-        phoneInput.classList.remove("phone-valid","phone-invalid");
+async function ensureCustomerAuth() {
 
+    if (auth.currentUser) {
+        return auth.currentUser;
+    }
+
+    const result =
+        await signInAnonymously(auth);
+
+    return result.user;
+
+}
+
+
+// =========================================
+// ELEMENTS
+// =========================================
+
+const phoneInput =
+    document.getElementById("customer-phone");
+
+const phoneMessage =
+    document.getElementById("phone-message");
+
+
+// =========================================
+// PHONE VALIDATION
+// =========================================
+
+if (phoneInput) {
+
+    phoneInput.addEventListener(
+        "input",
+        function () {
+
+            const phone =
+                phoneInput.value.trim();
+
+
+            if (phone === "") {
+
+                phoneMessage.innerText = "";
+
+                phoneInput.classList.remove(
+                    "phone-valid",
+                    "phone-invalid"
+                );
+
+                return;
+
+            }
+
+
+            if (/^03\d{9}$/.test(phone)) {
+
+                phoneMessage.innerText =
+                    "✅ Valid Pakistani phone number";
+
+                phoneMessage.className =
+                    "valid-phone";
+
+                phoneInput.classList.add(
+                    "phone-valid"
+                );
+
+                phoneInput.classList.remove(
+                    "phone-invalid"
+                );
+
+            } else {
+
+                phoneMessage.innerText =
+                    "❌ Phone number must be 11 digits and start with 03";
+
+                phoneMessage.className =
+                    "invalid-phone";
+
+                phoneInput.classList.add(
+                    "phone-invalid"
+                );
+
+                phoneInput.classList.remove(
+                    "phone-valid"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// =========================================
+// LOAD CHECKOUT
+// =========================================
+
+function loadCheckout() {
+
+    const box =
+        document.getElementById("checkout-items");
+
+    if (!box) {
         return;
-
     }
 
-    if(/^03\d{9}$/.test(phone)){
-
-        phoneMessage.innerText = "✅ Valid Pakistani phone number";
-
-        phoneMessage.className = "valid-phone";
-
-        phoneInput.classList.add("phone-valid");
-
-        phoneInput.classList.remove("phone-invalid");
-
-    }else{
-
-        phoneMessage.innerText =
-        "❌ Phone number must be 11 digits and start with 03";
-
-        phoneMessage.className = "invalid-phone";
-
-        phoneInput.classList.add("phone-invalid");
-
-        phoneInput.classList.remove("phone-valid");
-
-    }
-
-});
-
-// ------------------------------
-// Checkout Items
-// ------------------------------
-
-function loadCheckout(){
-
-    let box = document.getElementById("checkout-items");
 
     box.innerHTML = "";
 
-    for(let product in cart){
+
+    for (const product in cart) {
+
+        const item =
+            cart[product];
+
 
         box.innerHTML += `
 
-        <div class="checkout-product">
+            <div class="checkout-product">
 
-            <h3>${product}</h3>
+                <h3>
+                    ${product}
+                </h3>
 
-            <p>PKR ${cart[product].price}</p>
+                <p>
+                    PKR ${item.price}
+                </p>
 
-            <button onclick="decreaseQty('${product}')">−</button>
+                <button
+                    onclick="decreaseQty('${product}')"
+                >
+                    −
+                </button>
 
-            <span>${cart[product].quantity}</span>
+                <span>
+                    ${item.quantity}
+                </span>
 
-            <button onclick="increaseQty('${product}')">+</button>
+                <button
+                    onclick="increaseQty('${product}')"
+                >
+                    +
+                </button>
 
-        </div>
+            </div>
 
         `;
 
     }
 
+
     updateTotal();
 
 }
 
-// ------------------------------
-// Quantity Controls
-// ------------------------------
 
-function increaseQty(product){
+// =========================================
+// QUANTITY CONTROLS
+// =========================================
+
+function increaseQty(product) {
+
+    if (!cart[product]) {
+        return;
+    }
+
 
     cart[product].quantity++;
 
@@ -96,299 +191,660 @@ function increaseQty(product){
 
 }
 
-function decreaseQty(product){
+
+function decreaseQty(product) {
+
+    if (!cart[product]) {
+        return;
+    }
+
 
     cart[product].quantity--;
 
-    if(cart[product].quantity <= 0){
+
+    if (cart[product].quantity <= 0) {
 
         delete cart[product];
 
     }
 
+
     saveCheckout();
 
 }
 
-function saveCheckout(){
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+// =========================================
+// SAVE CART
+// =========================================
+
+function saveCheckout() {
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
 
     loadCheckout();
 
 }
 
-// ------------------------------
-// Total Price
-// ------------------------------
 
-function updateTotal(){
+// =========================================
+// TOTAL PRICE
+// =========================================
+
+function updateTotal() {
 
     let total = 0;
 
-    for(let product in cart){
 
-        total += cart[product].price * cart[product].quantity;
+    for (const product in cart) {
+
+        total +=
+            Number(cart[product].price) *
+            Number(cart[product].quantity);
 
     }
 
-    document.getElementById("checkout-total").innerText =
-    "Total: PKR " + total;
+
+    const totalElement =
+        document.getElementById("checkout-total");
+
+
+    if (totalElement) {
+
+        totalElement.innerText =
+            "Total: PKR " + total;
+
+    }
 
 }
-// ------------------------------
-// Place Order
-// ------------------------------
 
-async function placeOrder(){
 
-    let name = document.getElementById("customer-name").value.trim();
+// =========================================
+// PLACE ORDER
+// =========================================
 
-    let phone = document.getElementById("customer-phone").value.trim();
+async function placeOrder() {
 
-    let address = document.getElementById("customer-address").value.trim();
+    cart =
+        JSON.parse(localStorage.getItem("cart")) || {};
 
-    let payment = document.querySelector('input[name="payment"]:checked');
 
-    if(payment){
+    if (Object.keys(cart).length === 0) {
 
-        payment = payment.value;
-
-    }else{
-
-        payment = "";
-
-    }
-
-    if(name === "" || phone === "" || address === "" || payment === ""){
-
-        alert("Please fill all details and select a payment method.");
+        alert(
+            "🛒 Your cart is empty."
+        );
 
         return;
 
     }
 
-    if(!/^03\d{9}$/.test(phone)){
 
-        alert("Please enter a valid Pakistani phone number.");
+    const name =
+        document
+            .getElementById("customer-name")
+            .value
+            .trim();
 
-        return;
 
-    }
+    const phone =
+        document
+            .getElementById("customer-phone")
+            .value
+            .trim();
 
-    // Save customer details
 
-    localStorage.setItem("customerName",name);
+    const address =
+        document
+            .getElementById("customer-address")
+            .value
+            .trim();
 
-    localStorage.setItem("customerPhone",phone);
 
-    localStorage.setItem("customerAddress",address);
+    const paymentElement =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
 
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-    // Maximum 100 active orders
+    const payment =
+        paymentElement
+            ? paymentElement.value
+            : "";
 
-    if(orders.length >= 100){
 
-        alert("Sorry! We are currently at maximum order capacity (100 active orders). Please try again later.");
+    // =====================================
+    // VALIDATION
+    // =====================================
 
-        return;
+    if (
+        name === "" ||
+        phone === "" ||
+        address === "" ||
+        payment === ""
+    ) {
 
-    }
-
-    let order={
-orderID: "MH" + Date.now(),
-        customerName:name,
-
-        phone:phone,
-
-        address:address,
-
-        payment:payment,
-
-        products:cart,
-
-        transactionID:
-        localStorage.getItem("transactionID") || "",
-
-        status:"Pending",
-
-        date:new Date().toLocaleString()
-
-    };
-
-    let confirmOrder=confirm("Are you sure you want to place this order?");
-
-    if(!confirmOrder){
+        alert(
+            "Please fill all details and select a payment method."
+        );
 
         return;
 
     }
 
-    await addDoc(collection(db, "orders"), order);
 
-    alert(
-"🎉 Order placed successfully!\n\nYour Order ID:\n" +
-order.orderID +
-"\n\nPlease save this Order ID. You will need it to track your order."
+    if (!/^03\d{9}$/.test(phone)) {
+
+        alert(
+            "Please enter a valid Pakistani phone number."
+        );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // SAVE CUSTOMER DETAILS
+    // =====================================
+
+    localStorage.setItem(
+        "customerName",
+        name
+    );
+
+    localStorage.setItem(
+        "customerPhone",
+        phone
+    );
+
+    localStorage.setItem(
+        "customerAddress",
+        address
+    );
+
+
+    // =====================================
+    // CONFIRM ORDER
+    // =====================================
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to place this order?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        // =================================
+        // GET ANONYMOUS CUSTOMER ACCOUNT
+        // =================================
+
+        const user =
+            await ensureCustomerAuth();
+
+
+        // =================================
+        // CALCULATE TOTAL
+        // =================================
+
+        let total = 0;
+
+
+        for (const product in cart) {
+
+            total +=
+                Number(cart[product].price) *
+                Number(cart[product].quantity);
+
+        }
+
+
+        // =================================
+        // CREATE ORDER
+        // =================================
+
+        const order = {
+
+            orderID:
+                "MH" + Date.now(),
+
+            customerUID:
+                user.uid,
+
+            customerName:
+                name,
+
+            phone:
+                phone,
+
+            address:
+                address,
+
+            payment:
+                payment,
+
+            products:
+                cart,
+
+            total:
+                total,
+
+            transactionID:
+                localStorage.getItem(
+                    "transactionID"
+                ) || "",
+
+            status:
+                "Pending",
+
+            notification:
+                "",
+
+            date:
+                new Date().toLocaleString(),
+
+            createdAt:
+                Date.now()
+
+        };
+
+
+        // =================================
+        // SAVE TO FIRESTORE
+        // =================================
+
+        await addDoc(
+            collection(db, "orders"),
+            order
+        );
+
+
+        // =================================
+        // SUCCESS
+        // =================================
+
+        alert(
+            "🎉 Order placed successfully!\n\n" +
+            "Your Order ID:\n" +
+            order.orderID +
+            "\n\n" +
+            "Please save this Order ID. " +
+            "You will need it to track your order."
+        );
+
+
+        localStorage.removeItem(
+            "cart"
+        );
+
+
+        localStorage.removeItem(
+            "transactionID"
+        );
+
+
+        window.location.href =
+            "index.html";
+
+
+    } catch (error) {
+
+        console.error(
+            "Order error:",
+            error
+        );
+
+
+        alert(
+            "❌ Order could not be placed.\n\n" +
+            "Please try again."
+        );
+
+    }
+
+}
+
+
+// =========================================
+// LOAD SAVED CUSTOMER DETAILS
+// =========================================
+
+const nameInput =
+    document.getElementById(
+        "customer-name"
+    );
+
+
+const addressInput =
+    document.getElementById(
+        "customer-address"
+    );
+
+
+if (nameInput) {
+
+    nameInput.value =
+        localStorage.getItem(
+            "customerName"
+        ) || "";
+
+}
+
+
+if (phoneInput) {
+
+    phoneInput.value =
+        localStorage.getItem(
+            "customerPhone"
+        ) || "";
+
+}
+
+
+if (addressInput) {
+
+    addressInput.value =
+        localStorage.getItem(
+            "customerAddress"
+        ) || "";
+
+}
+
+
+// =========================================
+// PAYMENT SELECTION
+// =========================================
+
+const paymentOptions =
+    document.querySelectorAll(
+        'input[name="payment"]'
+    );
+
+
+paymentOptions.forEach(
+    function (option) {
+
+        option.addEventListener(
+            "change",
+            function () {
+
+                const method =
+                    this.value;
+
+
+                if (
+                    method === "EasyPaisa" ||
+                    method === "JazzCash"
+                ) {
+
+                    openPaymentPopup(
+                        method
+                    );
+
+                }
+
+            }
+        );
+
+    }
 );
 
-    localStorage.removeItem("cart");
 
-    localStorage.removeItem("transactionID");
+// =========================================
+// PAYMENT POPUP
+// =========================================
 
-    window.location.href="index.html";
+function openPaymentPopup(method) {
+
+    const loading =
+        document.getElementById(
+            "payment-loading"
+        );
+
+
+    const popup =
+        document.getElementById(
+            "payment-popup"
+        );
+
+
+    const title =
+        document.getElementById(
+            "payment-title"
+        );
+
+
+    const message =
+        document.getElementById(
+            "payment-message"
+        );
+
+
+    const number =
+        document.getElementById(
+            "payment-number"
+        );
+
+
+    const accountName =
+        document.getElementById(
+            "payment-name"
+        );
+
+
+    if (!loading || !popup) {
+        return;
+    }
+
+
+    loading.style.display =
+        "flex";
+
+
+    setTimeout(
+        function () {
+
+            loading.style.display =
+                "none";
+
+
+            popup.style.display =
+                "flex";
+
+
+            if (method === "EasyPaisa") {
+
+                title.innerHTML =
+                    "🟢 EasyPaisa Payment";
+
+
+                message.innerHTML =
+                    "⚠️ <b>IMPORTANT!</b><br><br>" +
+                    "EasyPaisa payments are manual.<br>" +
+                    "Please send the payment first, then enter your Transaction ID below.";
+
+
+            } else {
+
+                title.innerHTML =
+                    "🔴 JazzCash Payment";
+
+
+                message.innerHTML =
+                    "⚠️ <b>IMPORTANT!</b><br><br>" +
+                    "JazzCash payments are manual.<br>" +
+                    "Please send the payment first, then enter your Transaction ID below.";
+
+            }
+
+
+            if (number) {
+
+                number.innerHTML =
+                    "03XXXXXXXXX";
+
+            }
+
+
+            if (accountName) {
+
+                accountName.innerHTML =
+                    "Account Name: MH CUBES";
+
+            }
+
+        },
+        1200
+    );
 
 }
 
-// ------------------------------
-// Load Saved Customer Details
-// ------------------------------
 
-document.getElementById("customer-name").value=
-localStorage.getItem("customerName") || "";
+// =========================================
+// CLOSE PAYMENT POPUP
+// =========================================
 
-document.getElementById("customer-phone").value=
-localStorage.getItem("customerPhone") || "";
+function closePaymentPopup() {
 
-document.getElementById("customer-address").value=
-localStorage.getItem("customerAddress") || "";
+    const popup =
+        document.getElementById(
+            "payment-popup"
+        );
 
-loadCheckout();
 
-// ------------------------------
-// Payment Selection
-// ------------------------------
+    const transaction =
+        document.getElementById(
+            "transaction-id"
+        );
 
-let paymentOptions=document.querySelectorAll('input[name="payment"]');
 
-paymentOptions.forEach(function(option){
+    if (popup) {
 
-    option.addEventListener("change",function(){
+        popup.style.display =
+            "none";
 
-        let method=this.value;
+    }
 
-        if(method==="EasyPaisa" || method==="JazzCash"){
 
-            openPaymentPopup(method);
+    if (transaction) {
 
-        }
+        transaction.value =
+            "";
 
-    });
-
-});
-// ------------------------------
-// Payment Popup
-// ------------------------------
-
-function openPaymentPopup(method){
-
-    let loading = document.getElementById("payment-loading");
-
-    let popup = document.getElementById("payment-popup");
-
-    let title = document.getElementById("payment-title");
-
-    let message = document.getElementById("payment-message");
-
-    let number = document.getElementById("payment-number");
-
-    let name = document.getElementById("payment-name");
-
-    loading.style.display = "flex";
-
-    setTimeout(function(){
-
-        loading.style.display = "none";
-
-        popup.style.display = "flex";
-
-        if(method === "EasyPaisa"){
-
-            title.innerHTML = "🟢 EasyPaisa Payment";
-
-            message.innerHTML =
-            "⚠️ <b>IMPORTANT!</b><br><br>EasyPaisa payments are manual.<br>Please send the payment first, then enter your Transaction ID below.<br><br>We will confirm your order after we receive your payment.";
-
-            number.innerHTML = "03XXXXXXXXX";
-
-            name.innerHTML = "Account Name: MH CUBES";
-
-        }else{
-
-            title.innerHTML = "🔴 JazzCash Payment";
-
-            message.innerHTML =
-            "⚠️ <b>IMPORTANT!</b><br><br>JazzCash payments are manual.<br>Please send the payment first, then enter your Transaction ID below.<br><br>We will confirm your order after we receive your payment.";
-
-            number.innerHTML = "03XXXXXXXXX";
-
-            name.innerHTML = "Account Name: MH CUBES";
-
-        }
-
-    },1200);
+    }
 
 }
 
-// ------------------------------
-// Close Popup
-// ------------------------------
 
-function closePaymentPopup(){
+// =========================================
+// CONFIRM PAYMENT
+// =========================================
 
-    document.getElementById("payment-popup").style.display = "none";
+function confirmPayment() {
 
-    document.getElementById("transaction-id").value = "";
+    const input =
+        document.getElementById(
+            "transaction-id"
+        );
 
-}
 
-// ------------------------------
-// Confirm Payment
-// ------------------------------
+    if (!input) {
+        return;
+    }
 
-function confirmPayment(){
 
-    let id = document.getElementById("transaction-id").value.trim();
+    const id =
+        input.value.trim();
 
-    if(id === ""){
 
-        alert("⚠️ Please enter your Transaction ID.");
+    if (id === "") {
+
+        alert(
+            "⚠️ Please enter your Transaction ID."
+        );
 
         return;
 
     }
 
-    localStorage.setItem("transactionID", id);
 
-    alert("✅ Payment details received.\n\nWe will confirm the order after the payment is received.");
+    localStorage.setItem(
+        "transactionID",
+        id
+    );
+
+
+    alert(
+        "✅ Payment details received."
+    );
+
 
     closePaymentPopup();
 
 }
 
-// ------------------------------
-// Close Popup When Clicking Outside
-// ------------------------------
 
-window.onclick = function(event){
+// =========================================
+// CLOSE POPUP OUTSIDE
+// =========================================
 
-    let popup = document.getElementById("payment-popup");
+window.addEventListener(
+    "click",
+    function (event) {
 
-    if(event.target === popup){
+        const popup =
+            document.getElementById(
+                "payment-popup"
+            );
 
-        closePaymentPopup();
+
+        if (
+            popup &&
+            event.target === popup
+        ) {
+
+            closePaymentPopup();
+
+        }
 
     }
+);
 
-}
-// ------------------------------
-// MAKE FUNCTIONS AVAILABLE TO HTML
-// ------------------------------
 
-window.placeOrder = placeOrder;
-window.increaseQty = increaseQty;
-window.decreaseQty = decreaseQty;
-window.openPaymentPopup = openPaymentPopup;
-window.closePaymentPopup = closePaymentPopup;
-window.confirmPayment = confirmPayment;
+// =========================================
+// MAKE FUNCTIONS AVAILABLE
+// =========================================
+
+window.placeOrder =
+    placeOrder;
+
+window.increaseQty =
+    increaseQty;
+
+window.decreaseQty =
+    decreaseQty;
+
+window.openPaymentPopup =
+    openPaymentPopup;
+
+window.closePaymentPopup =
+    closePaymentPopup;
+
+window.confirmPayment =
+    confirmPayment;
+
+
+// =========================================
+// START
+// =========================================
+
+loadCheckout();
