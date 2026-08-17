@@ -2936,3 +2936,45 @@ transform:rotate(360deg);
     }
 
 }
+/* ============================= */
+/* MOBILE FOOTER */
+/* ============================= */
+
+@media (max-width: 768px){
+
+    .footer{
+        padding:40px 20px 20px;
+        text-align:center;
+    }
+
+    .footer-container{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+
+    .footer-about,
+    .footer-links,
+    .footer-contact,
+    .footer-social{
+        width:100%;
+    }
+
+    .footer-about p{
+        font-size:14px;
+        line-height:1.6;
+    }
+
+    .footer-links a,
+    .footer-social a{
+        display:block;
+        margin:10px 0;
+    }
+
+    .footer-bottom{
+        margin-top:30px;
+        padding-top:15px;
+        font-size:13px;
+    }
+
+}
