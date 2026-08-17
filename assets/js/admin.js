@@ -39,39 +39,58 @@ onAuthStateChanged(auth, (user) => {
 // Load Orders From Firebase
 // ------------------------------
 
-async function loadOrders(){
+async function logoutOwner(){
+
+    const ordersBox =
+        document.querySelector(".orders");
+
+
+    if(ordersBox){
+
+        ordersBox.innerHTML = `
+
+            <h2>
+                Logging out...
+            </h2>
+
+            <div class="loader"></div>
+
+        `;
+
+    }
+
 
     try{
 
-        let orders = [];
+        await signOut(auth);
 
-        const snapshot = await getDocs(
-            collection(db, "orders")
+        localStorage.removeItem(
+            "adminAccess"
         );
 
 
-        snapshot.forEach((docSnap) => {
+        setTimeout(function(){
 
-            orders.push({
+            window.location.href =
+                "owner-login.html";
 
-                id: docSnap.id,
-
-                ...docSnap.data()
-
-            });
-
-        });
+        }, 2000);
 
 
-        if(orders.length === 0){
+    }catch(error){
 
-            box.innerHTML =
-                "<h2>No active orders.</h2>";
+        console.error(
+            "Logout error:",
+            error
+        );
 
-            return;
+        alert(
+            "Failed to logout."
+        );
 
-        }
+    }
 
+}
 
         box.innerHTML = "";
 
