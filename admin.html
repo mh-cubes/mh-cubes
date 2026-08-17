@@ -33,15 +33,22 @@ Home
 
 <div class="orders">
 
-<button class="logout-btn" id="logout-button">
-🚪 Logout
-</button>
+<button
+class="logout-btn"
+id="logout-button"
+
+>
+
+🚪 Logout </button>
 
 <h1>
 Customer Orders 📦
 </h1>
 
-<div id="admin-order-box" class="admin-order-box">
+<div
+    id="admin-order-box"
+    class="admin-order-box"
+>
 🔄 Checking owner access...
 </div>
 
@@ -57,39 +64,79 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
+const OWNER_UID =
+    "vo6y8yMgEsaVmOF20csqbKScw753";
+
+
 const orderBox =
-    document.getElementById("admin-order-box");
+    document.getElementById(
+        "admin-order-box"
+    );
 
 
-onAuthStateChanged(auth, function(user) {
+const logoutButton =
+    document.getElementById(
+        "logout-button"
+    );
 
-    if (!user) {
 
-        window.location.href =
-            "owner-login.html";
+onAuthStateChanged(
+    auth,
+    function(user) {
 
-        return;
+        if (!user) {
+
+            window.location.href =
+                "owner-login.html";
+
+            return;
+
+        }
+
+
+        if (user.uid !== OWNER_UID) {
+
+            alert(
+                "❌ You are not authorized to access the Owner Dashboard."
+            );
+
+
+            signOut(auth)
+                .finally(function() {
+
+                    window.location.href =
+                        "owner-login.html";
+
+                });
+
+            return;
+
+        }
+
+
+        orderBox.innerHTML =
+            "🔄 Loading orders...";
 
     }
-
-    orderBox.innerHTML =
-        "🔄 Loading orders...";
-
-});
+);
 
 
-document
-    .getElementById("logout-button")
-    .addEventListener("click", async function() {
+logoutButton.addEventListener(
+    "click",
+    async function() {
 
         try {
 
             await signOut(auth);
 
-            localStorage.removeItem("adminAccess");
+            localStorage.removeItem(
+                "adminAccess"
+            );
+
 
             window.location.href =
                 "owner-login.html";
+
 
         } catch (error) {
 
@@ -98,17 +145,22 @@ document
                 error
             );
 
+
             alert(
                 "❌ Logout failed. Please try again."
             );
 
         }
 
-    });
+    }
+);
 
 </script>
 
-<script type="module" src="assets/js/admin.js"></script>
+<script
+    type="module"
+    src="assets/js/admin.js"
+></script>
 
 </body>
 
