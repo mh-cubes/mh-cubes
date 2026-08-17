@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+```
 <title>My Orders - MH CUBES</title>
 
 <link rel="stylesheet" href="assets/css/style.css">
+```
 
 </head>
 
@@ -17,62 +18,52 @@
 
 <header>
 
+```
 <div class="logo">
-MH CUBES
+    MH CUBES
 </div>
 
 <nav>
-
-<a href="index.html">🏠 Home</a>
-
-<a href="cart.html">🛒 Cart</a>
-
+    <a href="index.html">🏠 Home</a>
+    <a href="cart.html">🛒 Cart</a>
 </nav>
+```
 
 </header>
 
+<main class="checkout">
 
-<div class="checkout">
-
-<h1>
-📦 My Orders
-</h1>
-
+```
+<h1>📦 My Orders</h1>
 
 <div class="checkout-box">
 
-<h2>
-Enter Your Phone Number
-</h2>
+    <h2>Find Your Orders</h2>
 
+    <p>
+        Enter the phone number you used when placing your order.
+    </p>
 
-<input
-type="tel"
-id="history-phone"
-placeholder="03XXXXXXXXX"
-maxlength="11">
+    <input
+        type="tel"
+        id="history-phone"
+        placeholder="03XXXXXXXXX"
+        maxlength="11"
+    >
 
+    <button
+        class="place-order"
+        id="view-orders-btn"
+    >
+        🔍 View My Orders
+    </button>
 
-<button
-class="place-order"
-onclick="loadOrderHistory()">
-
-View My Orders
-
-</button>
-
-
-<br><br>
-
-
-<div id="history-box">
+    <div id="history-box"></div>
 
 </div>
+```
 
-</div>
-
-</div>
-
+</main>
 
 <script type="module">
 
@@ -84,16 +75,23 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-window.loadOrderHistory = async function(){
+const phoneInput =
+    document.getElementById("history-phone");
+
+const viewButton =
+    document.getElementById("view-orders-btn");
+
+const historyBox =
+    document.getElementById("history-box");
+
+
+viewButton.addEventListener("click", loadOrderHistory);
+
+
+async function loadOrderHistory(){
 
     const phone =
-        document.getElementById("history-phone")
-        .value
-        .trim();
-
-
-    const historyBox =
-        document.getElementById("history-box");
+        phoneInput.value.trim();
 
 
     if(phone === ""){
@@ -116,8 +114,12 @@ window.loadOrderHistory = async function(){
     }
 
 
-    historyBox.innerHTML =
-        "<h3>🔄 Loading your orders...</h3>";
+    historyBox.innerHTML = `
+        <div class="order-loading">
+            <div class="loader"></div>
+            <h3>🔄 Loading your orders...</h3>
+        </div>
+    `;
 
 
     try{
@@ -128,7 +130,7 @@ window.loadOrderHistory = async function(){
             );
 
 
-        let customerOrders = [];
+        const customerOrders = [];
 
 
         snapshot.forEach((docSnap) => {
@@ -168,23 +170,39 @@ window.loadOrderHistory = async function(){
 
             let total = 0;
 
-
             let productsHTML = "";
 
 
-            for(let product in order.products){
+            for(const product in order.products || {}){
 
-                total +=
-                    order.products[product].price *
-                    order.products[product].quantity;
+                const item =
+                    order.products[product];
+
+
+                const price =
+                    Number(item.price) || 0;
+
+
+                const quantity =
+                    Number(item.quantity) || 0;
+
+
+                total += price * quantity;
 
 
                 productsHTML += `
 
-                    <p>
-                        🧩 ${product}
-                        × ${order.products[product].quantity}
-                    </p>
+                    <div class="my-order-product">
+
+                        <span>
+                            🧩 ${product}
+                        </span>
+
+                        <strong>
+                            × ${quantity}
+                        </strong>
+
+                    </div>
 
                 `;
 
@@ -193,49 +211,66 @@ window.loadOrderHistory = async function(){
 
             historyBox.innerHTML += `
 
-                <div class="admin-order-box">
+                <div class="customer-order-card">
 
-                    <h2>
-                        📦 Order ID: ${order.orderID}
-                    </h2>
+                    <div class="order-card-header">
 
+                        <h2>
+                            📦 ${order.orderID || "Order"}
+                        </h2>
 
-                    <p>
-                        <b>Status:</b>
-                        ${order.status || "Pending"}
-                    </p>
+                        <span class="order-status">
+                            ${order.status || "Pending 🟡"}
+                        </span>
 
-
-                    <p>
-                        <b>Date:</b>
-                        ${order.date || "Not available"}
-                    </p>
+                    </div>
 
 
-                    <p>
-                        <b>Payment:</b>
-                        ${order.payment || "Not Selected"}
-                    </p>
+                    <div class="order-details">
+
+                        <p>
+                            <strong>📅 Date:</strong>
+                            ${order.date || "Not available"}
+                        </p>
 
 
-                    <p>
-                        <b>Address:</b>
-                        ${order.address}
-                    </p>
+                        <p>
+                            <strong>💳 Payment:</strong>
+                            ${order.payment || "Not Selected"}
+                        </p>
+
+
+                        <p>
+                            <strong>📍 Address:</strong>
+                            ${order.address || "Not available"}
+                        </p>
+
+                    </div>
 
 
                     <h3>
-                        Products
+                        🧩 Products
                     </h3>
 
 
-                    ${productsHTML}
+                    <div class="my-order-products">
+
+                        ${productsHTML}
+
+                    </div>
 
 
-                    <p>
-                        <b>Total:</b>
-                        PKR ${total}
-                    </p>
+                    <div class="order-total">
+
+                        <strong>
+                            Total
+                        </strong>
+
+                        <strong>
+                            PKR ${total}
+                        </strong>
+
+                    </div>
 
                 </div>
 
@@ -253,14 +288,13 @@ window.loadOrderHistory = async function(){
 
 
         historyBox.innerHTML =
-            "<h3 style='color:red;'>❌ Failed to load orders.</h3>";
+            "<h3 style='color:red;'>❌ Failed to load orders. Please try again.</h3>";
 
     }
 
-};
+}
 
 </script>
-
 
 </body>
 
