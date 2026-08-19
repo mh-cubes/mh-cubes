@@ -4,19 +4,81 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>My Orders - MH CUBES</title>
+<title>My Orders - MH CUBES</title>
 
-    <link
-        rel="stylesheet"
-        href="assets/css/style.css"
-    >
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
+
+<style>
+
+.account-actions {
+    display: none;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.account-action-button {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.home-button {
+    background: #2563eb;
+}
+
+.logout-button {
+    background: #dc2626;
+}
+
+.account-action-button:hover {
+    opacity: 0.9;
+}
+
+.order-loading {
+    text-align: center;
+    padding: 30px;
+}
+
+.loader {
+    width: 45px;
+    height: 45px;
+    border: 5px solid #ddd;
+    border-top: 5px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -24,11 +86,14 @@
 <body>
 
 
+<!-- ================= HEADER ================= -->
+
 <header>
 
     <div class="logo">
         MH CUBES
     </div>
+
 
     <nav>
 
@@ -46,6 +111,8 @@
 
 
 
+<!-- ================= MAIN ================= -->
+
 <main class="checkout">
 
 
@@ -54,11 +121,40 @@
     </h1>
 
 
+    <!-- ================= ACCOUNT BUTTONS ================= -->
+
+    <div
+        id="account-actions"
+        class="account-actions"
+    >
+
+        <a
+            href="index.html"
+            class="account-action-button home-button"
+        >
+            🏠 Home
+        </a>
+
+
+        <button
+            id="logout-button"
+            class="account-action-button logout-button"
+        >
+            🚪 Logout
+        </button>
+
+    </div>
+
+
+
+    <!-- ================= ORDERS BOX ================= -->
+
     <div class="checkout-box">
 
         <h2>
             Your Orders
         </h2>
+
 
         <p>
             Your orders are linked securely to your
@@ -66,7 +162,7 @@
         </p>
 
 
-        <div id="history-box">
+        <div id="order-box">
 
             <div class="order-loading">
 
@@ -87,480 +183,12 @@
 
 
 
-<script type="module">
-
-
-// =========================================
-// FIREBASE
-// =========================================
-
-import {
-    db,
-    auth
-} from "./assets/js/firebase.js";
-
-
-import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-
-import {
-    collection,
-    getDocs,
-    query,
-    where
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-
-// =========================================
-// ELEMENT
-// =========================================
-
-const historyBox =
-    document.getElementById(
-        "history-box"
-    );
-
-
-
-// =========================================
-// LOAD CUSTOMER ORDERS
-// =========================================
-
-async function loadOrderHistory(user) {
-
-
-    historyBox.innerHTML = `
-
-        <div class="order-loading">
-
-            <div class="loader"></div>
-
-            <h3>
-                🔄 Loading your orders...
-            </h3>
-
-        </div>
-
-    `;
-
-
-    try {
-
-
-        // =================================
-        // ONLY GET THIS CUSTOMER'S ORDERS
-        // =================================
-
-        const ordersQuery = query(
-
-            collection(
-                db,
-                "orders"
-            ),
-
-            where(
-                "customerUID",
-                "==",
-                user.uid
-            )
-
-        );
-
-
-        const snapshot =
-            await getDocs(
-                ordersQuery
-            );
-
-
-        const customerOrders = [];
-
-
-        snapshot.forEach(
-            function(docSnap) {
-
-                customerOrders.push({
-
-                    id:
-                        docSnap.id,
-
-                    ...docSnap.data()
-
-                });
-
-            }
-        );
-
-
-
-        // =================================
-        // NO ORDERS
-        // =================================
-
-        if (
-            customerOrders.length === 0
-        ) {
-
-            historyBox.innerHTML = `
-
-                <h3>
-                    📦 No orders found.
-                </h3>
-
-                <p>
-                    You haven't placed any orders
-                    with this account yet.
-                </p>
-
-            `;
-
-            return;
-
-        }
-
-
-
-        // =================================
-        // NEWEST ORDERS FIRST
-        // =================================
-
-        customerOrders.sort(
-            function(a, b) {
-
-                return Number(
-                    b.createdAt || 0
-                )
-                -
-                Number(
-                    a.createdAt || 0
-                );
-
-            }
-        );
-
-
-
-        // =================================
-        // CLEAR LOADING
-        // =================================
-
-        historyBox.innerHTML = "";
-
-
-
-        // =================================
-        // DISPLAY ORDERS
-        // =================================
-
-        customerOrders.forEach(
-            function(order) {
-
-
-                let total = 0;
-
-                let productsHTML = "";
-
-
-
-                // =========================
-                // PRODUCTS
-                // =========================
-
-                for (
-                    const product
-                    in (order.products || {})
-                ) {
-
-
-                    const item =
-                        order.products[
-                            product
-                        ];
-
-
-                    const price =
-                        Number(
-                            item.price
-                        ) || 0;
-
-
-                    const quantity =
-                        Number(
-                            item.quantity
-                        ) || 0;
-
-
-                    total +=
-                        price *
-                        quantity;
-
-
-
-                    productsHTML += `
-
-                        <div class="my-order-product">
-
-                            <span>
-                                🧩 ${product}
-                            </span>
-
-                            <strong>
-                                × ${quantity}
-                            </strong>
-
-                        </div>
-
-                    `;
-
-                }
-
-
-
-                // =========================
-                // STATUS
-                // =========================
-
-                const status =
-                    order.status ||
-                    "Pending 🟡";
-
-
-
-                // =========================
-                // ORDER CARD
-                // =========================
-
-                historyBox.innerHTML += `
-
-                    <div class="customer-order-card">
-
-
-                        <div class="order-card-header">
-
-                            <h2>
-
-                                📦
-                                ${order.orderID || "Order"}
-
-                            </h2>
-
-
-                            <span
-                                class="order-status"
-                            >
-
-                                ${status}
-
-                            </span>
-
-                        </div>
-
-
-
-                        <div class="order-details">
-
-
-                            <p>
-
-                                <strong>
-                                    📅 Date:
-                                </strong>
-
-                                ${order.date || "Not available"}
-
-                            </p>
-
-
-
-                            <p>
-
-                                <strong>
-                                    💳 Payment:
-                                </strong>
-
-                                ${order.payment || "Not Selected"}
-
-                            </p>
-
-
-
-                            <p>
-
-                                <strong>
-                                    📍 Address:
-                                </strong>
-
-                                ${order.address || "Not available"}
-
-                            </p>
-
-
-
-                            <p>
-
-                                <strong>
-                                    📱 Phone:
-                                </strong>
-
-                                ${order.phone || "Not available"}
-
-                            </p>
-
-
-                        </div>
-
-
-
-                        <h3>
-                            🧩 Products
-                        </h3>
-
-
-
-                        <div class="my-order-products">
-
-                            ${productsHTML}
-
-                        </div>
-
-
-
-                        <div class="order-total">
-
-                            <strong>
-                                Total
-                            </strong>
-
-
-                            <strong>
-
-                                PKR
-                                ${order.total || total}
-
-                            </strong>
-
-                        </div>
-
-
-
-                        ${
-                            order.notification
-                            ?
-                            `
-
-                            <div class="order-notification">
-
-                                🔔
-                                ${order.notification}
-
-                            </div>
-
-                            `
-                            :
-                            ""
-                        }
-
-
-                    </div>
-
-                `;
-
-            }
-        );
-
-
-    } catch (error) {
-
-
-        console.error(
-            "Error loading orders:",
-            error
-        );
-
-
-        historyBox.innerHTML = `
-
-            <h3 style="color:red;">
-
-                ❌ Failed to load orders.
-
-            </h3>
-
-
-            <p>
-
-                Please try refreshing the page.
-
-            </p>
-
-        `;
-
-    }
-
-}
-
-
-
-// =========================================
-// CUSTOMER LOGIN CHECK
-// =========================================
-
-onAuthStateChanged(
-
-    auth,
-
-    function(user) {
-
-
-        if (!user) {
-
-
-            historyBox.innerHTML = `
-
-                <h3>
-                    🔐 Login Required
-                </h3>
-
-
-                <p>
-                    Please login to your customer
-                    account to view your orders.
-                </p>
-
-
-                <button
-                    class="place-order"
-                    onclick="
-                        window.location.href =
-                        'customer-login.html'
-                    "
-                >
-
-                    Login / Create Account
-
-                </button>
-
-            `;
-
-
-            return;
-
-        }
-
-
-
-        // User is logged in
-        loadOrderHistory(user);
-
-    }
-
-);
-
-
-</script>
+<!-- ================= JAVASCRIPT ================= -->
+
+<script
+    type="module"
+    src="assets/js/orders.js"
+></script>
 
 
 </body>
