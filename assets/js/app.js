@@ -779,28 +779,29 @@ onAuthStateChanged(auth, (user) => {
     if (!authLink) return;
 
 
-    if (user) {
+   if (user) {
 
-        console.log(
-            "✅ Customer logged in:",
-            user.email
-        );
+    console.log(
+        "✅ Customer logged in:",
+        user.email
+    );
 
-        // Completely remove Sign In
-        authLink.remove();
+    // Show My Account
+    authLink.style.display = "";
+    authLink.innerHTML = "👤 My Account";
+    authLink.href = "customer-account.html";
 
-    } else {
+} else {
 
-        console.log(
-            "❌ Customer is not logged in"
-        );
+    console.log(
+        "❌ Customer is not logged in"
+    );
 
-        // Show Sign In
-        authLink.style.display = "";
-        authLink.innerHTML = "👤 Sign In";
-        authLink.href =
-            "customer-login.html";
+    // Show Sign In
+    authLink.style.display = "";
+    authLink.innerHTML = "👤 Sign In";
+    authLink.href = "customer-login.html";
 
-    }
+}
 
 });
