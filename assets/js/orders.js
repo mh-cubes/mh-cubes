@@ -1,3 +1,4 @@
+
 import { db, auth } from "./firebase.js";
 
 import {
@@ -36,14 +37,13 @@ async function loadCustomerOrders(user) {
 
     orderBox.innerHTML = `
 
-        <div style="
-            text-align:center;
-            padding:30px;
-        ">
+        <div class="order-loading">
 
-            <h2>
+            <div class="loader"></div>
+
+            <h3>
                 🔄 Loading your orders...
-            </h2>
+            </h3>
 
         </div>
 
@@ -53,12 +53,15 @@ async function loadCustomerOrders(user) {
     try {
 
         const ordersQuery = query(
+
             collection(db, "orders"),
+
             where(
                 "customerUID",
                 "==",
                 user.uid
             )
+
         );
 
 
@@ -82,7 +85,9 @@ async function loadCustomerOrders(user) {
         });
 
 
-        // Newest orders first
+        // =====================================
+        // NEWEST ORDERS FIRST
+        // =====================================
 
         orders.sort(function(a, b) {
 
@@ -95,21 +100,22 @@ async function loadCustomerOrders(user) {
         });
 
 
-        // =================================
+        // =====================================
         // NO ORDERS
-        // =================================
+        // =====================================
 
         if (orders.length === 0) {
 
             orderBox.innerHTML = `
 
-                <div style="
-                    text-align:center;
-                    padding:30px;
-                ">
+                <div class="orders-message">
+
+                    <div class="message-icon">
+                        📦
+                    </div>
 
                     <h2>
-                        📦 No orders found.
+                        No Orders Yet
                     </h2>
 
                     <p>
@@ -126,12 +132,16 @@ async function loadCustomerOrders(user) {
         }
 
 
-        // =================================
-        // DISPLAY ORDERS
-        // =================================
+        // =====================================
+        // CLEAR ORDER BOX
+        // =====================================
 
         orderBox.innerHTML = "";
 
+
+        // =====================================
+        // DISPLAY ORDERS
+        // =====================================
 
         orders.forEach(function(order) {
 
@@ -143,17 +153,21 @@ async function loadCustomerOrders(user) {
                 "customer-order-card";
 
 
+            // =================================
+            // PRODUCTS
+            // =================================
+
             let productsHTML = "";
 
-            let total = 0;
+            let calculatedTotal = 0;
 
 
             Object.keys(
                 order.products || {}
-            ).forEach(function(product) {
+            ).forEach(function(productName) {
 
                 const item =
-                    order.products[product];
+                    order.products[productName];
 
 
                 const price =
@@ -164,8 +178,12 @@ async function loadCustomerOrders(user) {
                     Number(item.quantity) || 0;
 
 
-                total +=
+                const subtotal =
                     price * quantity;
+
+
+                calculatedTotal +=
+                    subtotal;
 
 
                 productsHTML += `
@@ -173,13 +191,15 @@ async function loadCustomerOrders(user) {
                     <p>
 
                         <strong>
-                            🧩 ${product}
+                            🧩 ${productName}
                         </strong>
 
                         <br>
 
-                        PKR ${price}
-                        × ${quantity}
+                        <span>
+                            PKR ${price.toLocaleString()}
+                            × ${quantity}
+                        </span>
 
                     </p>
 
@@ -188,10 +208,40 @@ async function loadCustomerOrders(user) {
             });
 
 
+            // =================================
+            // STATUS
+            // =================================
+
             const status =
                 order.status ||
                 "Pending 🟡";
 
+
+            // =================================
+            // TOTAL
+            // =================================
+
+            const total =
+                Number(order.total) ||
+                calculatedTotal;
+
+
+            // =================================
+            // TRACK LINK
+            // =================================
+
+            const orderID =
+                order.orderID || "";
+
+
+            const trackURL =
+                "track-order.html?orderID=" +
+                encodeURIComponent(orderID);
+
+
+            // =================================
+            // ORDER CARD
+            // =================================
 
             card.innerHTML = `
 
@@ -199,72 +249,99 @@ async function loadCustomerOrders(user) {
 
                     <h2>
                         📦
-                        ${order.orderID || "Order"}
+                        ${orderID || "Order"}
                     </h2>
 
+
                     <span class="order-status">
+
                         ${status}
+
                     </span>
 
                 </div>
 
 
+                <!-- ORDER DETAILS -->
+
                 <div class="order-details">
 
                     <p>
+
                         <strong>
-                            👤 Name:
+                            👤 Name
                         </strong>
+
+                        <br>
 
                         ${order.customerName ||
                         "Not available"}
+
                     </p>
 
 
                     <p>
+
                         <strong>
-                            📱 Phone:
+                            📱 Phone
                         </strong>
+
+                        <br>
 
                         ${order.phone ||
                         "Not available"}
+
                     </p>
 
 
                     <p>
+
                         <strong>
-                            📍 Address:
+                            📍 Address
                         </strong>
+
+                        <br>
 
                         ${order.address ||
                         "Not available"}
+
                     </p>
 
 
                     <p>
+
                         <strong>
-                            💳 Payment:
+                            💳 Payment
                         </strong>
+
+                        <br>
 
                         ${order.payment ||
                         "Not selected"}
+
                     </p>
 
 
                     <p>
+
                         <strong>
-                            📅 Date:
+                            📅 Date
                         </strong>
+
+                        <br>
 
                         ${order.date ||
                         "Not available"}
+
                     </p>
 
                 </div>
 
 
+                <!-- PRODUCTS -->
+
                 <h3>
-                    🧩 Products
+                    🧩 Products Ordered
                 </h3>
 
 
@@ -275,39 +352,53 @@ async function loadCustomerOrders(user) {
                 </div>
 
 
+                <!-- TOTAL -->
+
                 <div class="order-total">
 
                     <strong>
-                        Total
+                        💰 Total
                     </strong>
 
+
                     <strong>
-                        PKR ${order.total || total}
+                        PKR ${total.toLocaleString()}
                     </strong>
 
                 </div>
 
 
+                <!-- NOTIFICATION -->
+
                 ${
                     order.notification
                     ?
                     `
+
                     <div class="order-notification">
 
                         🔔
                         ${order.notification}
 
                     </div>
+
                     `
                     :
                     ""
                 }
-<a
-    href="track-order.html?orderID=${encodeURIComponent(order.orderID)}"
-    class="track-order-btn"
->
-    🔍 Track This Order
-</a>
+
+
+                <!-- TRACK ORDER -->
+
+                <a
+                    href="${trackURL}"
+                    class="track-order-btn"
+                >
+
+                    🔍 Track This Order
+
+                </a>
+
             `;
 
 
@@ -326,17 +417,23 @@ async function loadCustomerOrders(user) {
 
         orderBox.innerHTML = `
 
-            <div style="
-                text-align:center;
-                padding:30px;
-            ">
+            <div class="orders-message">
+
+                <div class="message-icon">
+                    ❌
+                </div>
 
                 <h2>
-                    ❌ Failed to load orders.
+                    Failed to Load Orders
                 </h2>
 
                 <p>
-                    Please try again later.
+                    Something went wrong while
+                    loading your orders.
+                </p>
+
+                <p>
+                    Please refresh the page and try again.
                 </p>
 
             </div>
@@ -362,9 +459,6 @@ onAuthStateChanged(
 
         if (!user) {
 
-            // If logout is happening,
-            // stay on this page.
-
             if (
                 sessionStorage.getItem("loggingOut")
                 === "true"
@@ -374,9 +468,6 @@ onAuthStateChanged(
 
             }
 
-
-            // Normal logged-out customer
-            // goes to login page.
 
             window.location.href =
                 "customer-login.html";
@@ -423,9 +514,6 @@ if (logoutButton) {
                     "⏳ Logging out...";
 
 
-                // Tell authentication listener
-                // that logout is intentional.
-
                 sessionStorage.setItem(
                     "loggingOut",
                     "true"
@@ -433,8 +521,7 @@ if (logoutButton) {
 
 
                 // =================================
-                // START 5-SECOND REDIRECT TIMER
-                // BEFORE SIGN OUT
+                // REDIRECT AFTER 5 SECONDS
                 // =================================
 
                 setTimeout(function() {
@@ -457,8 +544,6 @@ if (logoutButton) {
                 await signOut(auth);
 
 
-                // Hide logout button
-
                 if (accountActions) {
 
                     accountActions.style.display =
@@ -468,26 +553,20 @@ if (logoutButton) {
 
 
                 // =================================
-                // SHOW LOGGED OUT MESSAGE
+                // SUCCESS MESSAGE
                 // =================================
 
                 orderBox.innerHTML = `
 
-                    <div style="
-                        text-align:center;
-                        padding:40px;
-                    ">
+                    <div class="orders-message">
 
-                        <div style="
-                            font-size:60px;
-                            margin-bottom:15px;
-                        ">
+                        <div class="message-icon">
                             ✅
                         </div>
 
 
                         <h2>
-                            Logged out successfully!
+                            Logged Out Successfully!
                         </h2>
 
 
@@ -528,14 +607,17 @@ if (logoutButton) {
 
                 orderBox.innerHTML = `
 
-                    <div style="
-                        text-align:center;
-                        padding:30px;
-                    ">
+                    <div class="orders-message">
+
+                        <div class="message-icon">
+                            ❌
+                        </div>
+
 
                         <h2>
-                            ❌ Failed to logout.
+                            Failed to Logout
                         </h2>
+
 
                         <p>
                             Please try again.
@@ -551,3 +633,4 @@ if (logoutButton) {
     );
 
 }
+
