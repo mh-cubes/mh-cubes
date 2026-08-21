@@ -8,16 +8,19 @@ const loadingTitle = document.querySelector("#page-loading h2");
 
 
 /* =========================================
-   HIDE LOADING SCREEN WHEN PAGE OPENS
+   INITIAL PAGE LOAD
+   KEEP LOADING SCREEN FOR 3 SECONDS
 ========================================= */
 
-window.addEventListener("pageshow", function () {
+window.addEventListener("load", function () {
 
-    if (loadingScreen) {
+    if (!loadingScreen) return;
+
+    setTimeout(function () {
 
         loadingScreen.classList.add("hide");
 
-    }
+    }, 3000);
 
 });
 
@@ -39,7 +42,6 @@ function showPageLoading(title, message) {
     }
 
     loadingScreen.classList.remove("hide");
-
 }
 
 
@@ -83,9 +85,7 @@ document.addEventListener("click", function (event) {
 
     /* Ignore same page */
 
-    if (
-        link.href === window.location.href
-    ) {
+    if (link.href === window.location.href) {
         return;
     }
 
@@ -136,7 +136,10 @@ document.addEventListener("click", function (event) {
 
     }
 
-    else if (href.includes("index")) {
+    else if (
+        href === "/" ||
+        href.includes("index")
+    ) {
 
         title = "MH CUBES";
         message = "Welcome back...";
@@ -144,10 +147,14 @@ document.addEventListener("click", function (event) {
     }
 
 
+    /* SHOW LOADING */
+
     showPageLoading(title, message);
 
 
-    /* Navigate after 3.0 seconds */
+    /* =========================================
+       NAVIGATE AFTER 3 SECONDS
+    ========================================= */
 
     setTimeout(function () {
 
@@ -164,13 +171,9 @@ document.addEventListener("click", function (event) {
 
 window.addEventListener("pageshow", function (event) {
 
-    if (event.persisted) {
+    if (event.persisted && loadingScreen) {
 
-        if (loadingScreen) {
-
-            loadingScreen.classList.add("hide");
-
-        }
+        loadingScreen.classList.add("hide");
 
     }
 
