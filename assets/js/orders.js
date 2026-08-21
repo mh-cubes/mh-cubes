@@ -302,7 +302,24 @@ async function loadCustomerOrders(user) {
                     :
                     ""
                 }
-
+<a
+    href="track-order.html?orderID=${encodeURIComponent(order.orderID)}"
+    style="
+        display:block;
+        width:100%;
+        box-sizing:border-box;
+        margin-top:15px;
+        padding:13px;
+        background:#2563eb;
+        color:white;
+        text-align:center;
+        border-radius:10px;
+        text-decoration:none;
+        font-weight:bold;
+    "
+>
+    🔍 Track This Order
+</a>
             `;
 
 
