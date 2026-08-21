@@ -35,7 +35,7 @@ onAuthStateChanged(auth, (user) => {
     }
 
     // OWNER ONLY
-    if (user.email !== "huzaifa81102@gmail.com") {
+    if (user.email !== "huzaifa81102@email.com") {
 
         alert("❌ You are not authorized to access the Owner Dashboard.");
 
