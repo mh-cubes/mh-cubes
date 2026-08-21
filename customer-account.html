@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,54 +19,284 @@
 
 <style>
 
-.account-box{
-    max-width:500px;
-    margin:80px auto;
-    padding:35px;
-    background:#fff;
-    border-radius:20px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.15);
-}
+/* ============================= */
+/* ACCOUNT PAGE */
+/* ============================= */
 
-.account-box h1{
-    margin-bottom:10px;
-}
-
-.account-email{
-    margin:20px 0;
-    font-size:18px;
-}
-
-.account-button{
-    display:block;
-    width:100%;
-    padding:14px;
-    margin-top:15px;
-    border:none;
-    border-radius:10px;
-    background:#2563eb;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-}
-
-.logout-button{
-    background:#dc2626;
-}
-
-.account-button:hover{
-    opacity:0.9;
+body{
+    min-height:100vh;
 }
 
 
 /* ============================= */
-/* LOGOUT LOADING SCREEN */
+/* ACCOUNT CONTAINER */
+/* ============================= */
+
+.account-container{
+
+    max-width:900px;
+
+    margin:60px auto;
+
+    padding:20px;
+
+}
+
+
+/* ============================= */
+/* ACCOUNT HEADER */
+/* ============================= */
+
+.account-header{
+
+    background:linear-gradient(
+        135deg,
+        #111827,
+        #2563eb
+    );
+
+    color:white;
+
+    padding:40px 30px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.2);
+
+}
+
+
+.account-avatar{
+
+    width:90px;
+    height:90px;
+
+    margin:0 auto 15px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:45px;
+
+}
+
+
+.account-header h1{
+
+    margin:10px 0;
+
+    font-size:32px;
+
+}
+
+
+.account-header p{
+
+    margin:5px 0;
+
+    opacity:0.9;
+
+}
+
+
+/* ============================= */
+/* EMAIL */
+/* ============================= */
+
+.account-email{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:10px 18px;
+
+    background:rgba(255,255,255,0.15);
+
+    border-radius:30px;
+
+    font-size:15px;
+
+}
+
+
+/* ============================= */
+/* ACCOUNT CARDS */
+/* ============================= */
+
+.account-actions{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:20px;
+
+    margin-top:25px;
+
+}
+
+
+.account-card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+.account-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,0.18);
+
+}
+
+
+.account-icon{
+
+    font-size:40px;
+
+    margin-bottom:10px;
+
+}
+
+
+.account-card h3{
+
+    margin:8px 0;
+
+}
+
+
+.account-card p{
+
+    color:#666;
+
+    font-size:14px;
+
+    margin-bottom:20px;
+
+}
+
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.account-button{
+
+    display:inline-block;
+
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    box-sizing:border-box;
+
+    transition:
+        background 0.2s ease;
+
+}
+
+
+.account-button:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+.logout-button{
+
+    background:#dc2626;
+
+}
+
+
+.logout-button:hover{
+
+    background:#b91c1c;
+
+}
+
+
+/* ============================= */
+/* SHOP BUTTON */
+/* ============================= */
+
+.shop-button{
+
+    margin-top:25px;
+
+    background:white;
+
+    color:#2563eb;
+
+    border:2px solid #2563eb;
+
+}
+
+
+.shop-button:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+/* ============================= */
+/* LOGOUT LOADING */
 /* ============================= */
 
 #logout-loading{
 
     position:fixed;
+
     inset:0;
 
     background:rgba(0,0,0,0.85);
@@ -75,6 +304,7 @@
     display:none;
 
     justify-content:center;
+
     align-items:center;
 
     flex-direction:column;
@@ -85,9 +315,11 @@
 
 }
 
+
 .loader{
 
     width:60px;
+
     height:60px;
 
     border:6px solid #444;
@@ -102,51 +334,59 @@
 
 }
 
+
 @keyframes spin{
 
     100%{
+
         transform:rotate(360deg);
+
     }
 
 }
 
 
 /* ============================= */
-/* SUCCESS POPUP */
+/* MOBILE */
 /* ============================= */
 
-#logout-popup{
+@media(max-width:600px){
 
-    position:fixed;
+    .account-container{
 
-    top:50%;
-    left:50%;
+        margin:30px auto;
 
-    transform:translate(-50%,-50%);
+        padding:15px;
 
-    background:white;
+    }
 
-    padding:30px;
 
-    width:300px;
+    .account-header{
 
-    border-radius:15px;
+        padding:30px 20px;
 
-    text-align:center;
+    }
 
-    box-shadow:0 10px 40px rgba(0,0,0,0.4);
 
-    display:none;
+    .account-header h1{
 
-    z-index:10000;
+        font-size:26px;
 
-}
+    }
 
-#logout-popup h2{
 
-    color:#16a34a;
+    .account-actions{
 
-    margin-bottom:10px;
+        grid-template-columns:1fr;
+
+    }
+
+
+    .account-card{
+
+        padding:25px;
+
+    }
 
 }
 
@@ -154,8 +394,13 @@
 
 </head>
 
+
 <body>
 
+
+<!-- ============================= -->
+<!-- HEADER -->
+<!-- ============================= -->
 
 <header>
 
@@ -163,11 +408,13 @@
 MH CUBES
 </div>
 
+
 <nav>
 
 <a href="index.html">
 🏠 Home
 </a>
+
 
 <a href="my-orders.html">
 📦 My Orders
@@ -178,21 +425,35 @@ MH CUBES
 </header>
 
 
+
+<!-- ============================= -->
+<!-- ACCOUNT -->
+<!-- ============================= -->
+
 <main>
 
-<div class="account-box">
+<div class="account-container">
 
-<div style="font-size:55px;">
+
+<!-- ACCOUNT HEADER -->
+
+<div class="account-header">
+
+
+<div class="account-avatar">
 👤
 </div>
+
 
 <h1>
 My Account
 </h1>
 
+
 <p>
-You are currently logged in.
+Welcome back to MH CUBES!
 </p>
+
 
 <div
     class="account-email"
@@ -201,12 +462,90 @@ You are currently logged in.
 Loading...
 </div>
 
-<button
+
+</div>
+
+
+
+<!-- ACCOUNT ACTIONS -->
+
+<div class="account-actions">
+
+
+<!-- MY ORDERS -->
+
+<div class="account-card">
+
+<div class="account-icon">
+📦
+</div>
+
+
+<h3>
+My Orders
+</h3>
+
+
+<p>
+View your previous and current orders.
+</p>
+
+
+<a
+    href="my-orders.html"
     class="account-button"
-    onclick="window.location.href='my-orders.html'"
 >
-📦 View My Orders
-</button>
+View My Orders
+</a>
+
+</div>
+
+
+
+<!-- TRACK ORDER -->
+
+<div class="account-card">
+
+<div class="account-icon">
+🔍
+</div>
+
+
+<h3>
+Track Order
+</h3>
+
+
+<p>
+Check the current status of your order.
+</p>
+
+
+<a
+    href="track-order.html"
+    class="account-button"
+>
+Track My Order
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- CONTINUE SHOPPING -->
+
+<a
+    href="index.html"
+    class="account-button shop-button"
+>
+🛍️ Continue Shopping
+</a>
+
+
+
+<!-- LOGOUT -->
 
 <button
     class="account-button logout-button"
@@ -215,61 +554,70 @@ Loading...
 🚪 Logout
 </button>
 
+
 </div>
 
 </main>
 
 
+
+<!-- ============================= -->
 <!-- LOGOUT LOADING -->
+<!-- ============================= -->
 
 <div id="logout-loading">
 
-    <div class="loader"></div>
-
-    <h2>
-        Logging out...
-    </h2>
-
-    <p>
-        Please wait...
-    </p>
-
-</div>
+<div class="loader"></div>
 
 
-<!-- LOGOUT SUCCESS POPUP -->
+<h2>
+Logging out...
+</h2>
 
-<div id="logout-popup">
 
-    <h2>
-        ✅ Logged Out
-    </h2>
-
-    <p>
-        You have been logged out successfully!
-    </p>
+<p>
+Please wait...
+</p>
 
 </div>
 
+
+
+<!-- ============================= -->
+<!-- FIREBASE -->
+<!-- ============================= -->
 
 <script type="module">
 
 import { auth } from "./assets/js/firebase.js";
 
 import {
+
     onAuthStateChanged,
+
     signOut
+
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
+
 const emailBox =
-    document.getElementById("account-email");
+    document.getElementById(
+        "account-email"
+    );
+
 
 const logoutButton =
-    document.getElementById("logout-button");
+    document.getElementById(
+        "logout-button"
+    );
+
 
 const loadingScreen =
-    document.getElementById("logout-loading");
+    document.getElementById(
+        "logout-loading"
+    );
+
 
 
 // =============================
@@ -277,7 +625,9 @@ const loadingScreen =
 // =============================
 
 onAuthStateChanged(
+
     auth,
+
     function(user){
 
         if(!user){
@@ -290,12 +640,15 @@ onAuthStateChanged(
 
         }
 
+
         emailBox.innerText =
             user.email ||
             "Customer account";
 
     }
+
 );
+
 
 
 // =============================
@@ -303,30 +656,28 @@ onAuthStateChanged(
 // =============================
 
 logoutButton.addEventListener(
+
     "click",
+
     async function(){
 
         try{
-
-            // Show loading screen
 
             loadingScreen.style.display =
                 "flex";
 
 
-            // Sign out from Firebase
-
             await signOut(auth);
 
 
-            // Redirect to homepage
-
             window.location.replace(
-                "index.html"
+                "/index.html"
             );
 
 
-        }catch(error){
+        }
+
+        catch(error){
 
             console.error(
                 "Logout error:",
@@ -345,6 +696,7 @@ logoutButton.addEventListener(
         }
 
     }
+
 );
 
 </script>
@@ -353,4 +705,3 @@ logoutButton.addEventListener(
 </body>
 
 </html>
-
