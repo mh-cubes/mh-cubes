@@ -30,11 +30,26 @@ onAuthStateChanged(auth, (user) => {
     if (!user) {
 
         window.location.href = "owner-login.html";
+        return;
+
+    }
+
+    // OWNER ONLY
+    if (user.email !== "huzaifa81102@gmail.com") {
+
+        alert("❌ You are not authorized to access the Owner Dashboard.");
+
+        signOut(auth).then(() => {
+
+            window.location.href = "customer-login.html";
+
+        });
 
         return;
 
     }
 
+    // Authorized owner
     loadOrders();
 
 });
