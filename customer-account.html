@@ -271,9 +271,6 @@ const logoutButton =
 const loadingScreen =
     document.getElementById("logout-loading");
 
-const logoutPopup =
-    document.getElementById("logout-popup");
-
 
 // =============================
 // CHECK LOGIN
@@ -285,8 +282,9 @@ onAuthStateChanged(
 
         if(!user){
 
-            window.location.href =
-                "customer-login.html";
+            window.location.replace(
+                "customer-login.html"
+            );
 
             return;
 
@@ -308,23 +306,24 @@ logoutButton.addEventListener(
     "click",
     async function(){
 
-        // Show loading screen
-
-        loadingScreen.style.display =
-            "flex";
-
-
         try{
 
-            // Firebase logout
+            // Show loading screen
+
+            loadingScreen.style.display =
+                "flex";
+
+
+            // Sign out from Firebase
 
             await signOut(auth);
 
 
             // Redirect to homepage
 
-            window.location.href =
-                "index.html";
+            window.location.replace(
+                "index.html"
+            );
 
 
         }catch(error){
