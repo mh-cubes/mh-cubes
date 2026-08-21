@@ -232,80 +232,195 @@ async function trackOrder(){
             await getDocs(q);
 
 
-        if(!snapshot.empty){
+       if(!snapshot.empty){
 
-            const docSnap =
-                snapshot.docs[0];
+    const docSnap =
+        snapshot.docs[0];
 
-            const found =
-                docSnap.data();
-
-
-            result.innerHTML = `
-
-                <div class="admin-order-box">
-
-                    <h2>
-                        📦 Order Found
-                    </h2>
-
-                    <p>
-                        <strong>Order ID:</strong>
-                        ${found.orderID || "Not available"}
-                    </p>
-
-                    <p>
-                        <strong>Customer:</strong>
-                        ${found.customerName || "Not available"}
-                    </p>
-
-                    <p>
-                        <strong>Phone:</strong>
-                        ${found.phone || "Not available"}
-                    </p>
-
-                    <p>
-                        <strong>Payment:</strong>
-                        ${found.payment || "Not selected"}
-                    </p>
-
-                    <p>
-                        <strong>Status:</strong>
-                        ${found.status || "Pending 🟡"}
-                    </p>
-
-                    <p>
-                        <strong>Date:</strong>
-                        ${found.date || "Not available"}
-                    </p>
-
-                    <p>
-                        <strong>Address:</strong>
-                        ${found.address || "Not available"}
-                    </p>
+    const found =
+        docSnap.data();
 
 
-                    <h3>
-                        🚚 Current Order Status
-                    </h3>
+    // =============================
+    // PRODUCTS
+    // =============================
 
+    let productsHTML = "";
+
+    if(found.products){
+
+        productsHTML = Object.keys(found.products)
+            .map(function(productName){
+
+                const product =
+                    found.products[productName];
+
+                return `
 
                     <div style="
+                        background:#f8fafc;
                         padding:15px;
-                        margin-top:10px;
+                        margin:10px 0;
                         border-radius:10px;
-                        text-align:center;
-                        font-weight:bold;
-                        font-size:18px;
+                        border:1px solid #e5e7eb;
                     ">
 
-                        ${found.status || "Pending 🟡"}
+                        <p style="
+                            margin:0 0 8px;
+                            font-size:17px;
+                        ">
+
+                            <strong>
+                                🧩 ${productName}
+                            </strong>
+
+                        </p>
+
+                        <p style="margin:5px 0;">
+
+                            💰 Price:
+                            PKR ${product.price}
+
+                        </p>
+
+                        <p style="margin:5px 0;">
+
+                            🔢 Quantity:
+                            ${product.quantity}
+
+                        </p>
+
+                        <p style="
+                            margin:5px 0;
+                            font-weight:bold;
+                        ">
+
+                            💵 Subtotal:
+                            PKR ${
+                                Number(product.price) *
+                                Number(product.quantity)
+                            }
+
+                        </p>
 
                     </div>
 
-                </div>
+                `;
 
-            `;
+            })
+            .join("");
+
+    }else{
+
+        productsHTML = `
+
+            <p>
+                No product information available.
+            </p>
+
+        `;
+
+    }
+
+
+    // =============================
+    // SHOW ORDER
+    // =============================
+
+    result.innerHTML = `
+
+        <div class="admin-order-box">
+
+            <h2>
+                📦 Order Found
+            </h2>
+
+
+            <p>
+                <strong>Order ID:</strong>
+                ${found.orderID || "Not available"}
+            </p>
+
+
+            <p>
+                <strong>Customer:</strong>
+                ${found.customerName || "Not available"}
+            </p>
+
+
+            <p>
+                <strong>Phone:</strong>
+                ${found.phone || "Not available"}
+            </p>
+
+
+            <p>
+                <strong>Payment:</strong>
+                ${found.payment || "Not selected"}
+            </p>
+
+
+            <p>
+                <strong>Status:</strong>
+                ${found.status || "Pending 🟡"}
+            </p>
+
+
+            <p>
+                <strong>Date:</strong>
+                ${found.date || "Not available"}
+            </p>
+
+
+            <p>
+                <strong>Address:</strong>
+                ${found.address || "Not available"}
+            </p>
+
+
+            <!-- ============================= -->
+            <!-- PRODUCTS -->
+            <!-- ============================= -->
+
+            <h3>
+                🧩 Products Ordered
+            </h3>
+
+
+            <div>
+
+                ${productsHTML}
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- ORDER STATUS -->
+            <!-- ============================= -->
+
+            <h3>
+                🚚 Current Order Status
+            </h3>
+
+
+            <div style="
+                padding:15px;
+                margin-top:10px;
+                border-radius:10px;
+                text-align:center;
+                font-weight:bold;
+                font-size:18px;
+            ">
+
+                ${found.status || "Pending 🟡"}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
 
         }else{
 
