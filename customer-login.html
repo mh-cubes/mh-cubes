@@ -130,7 +130,11 @@ const passwordInput =
 
 const message =
     document.getElementById("login-message");
-
+// Keep customer signed in
+setPersistence(auth, browserLocalPersistence)
+    .catch((error) => {
+        console.error("Persistence error:", error);
+    });
 
 // =============================
 // LOGIN
