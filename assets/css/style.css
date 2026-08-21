@@ -3305,11 +3305,34 @@ transform:rotate(360deg);
 
 body {
     background:
-        radial-gradient(circle at top left, rgba(255, 0, 0, 0.10), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(255, 183, 3, 0.12), transparent 30%),
-        linear-gradient(135deg, #f8f9ff, #eef2ff);
-}
+        radial-gradient(circle at 15% 20%, rgba(255, 0, 80, 0.35), transparent 25%),
+        radial-gradient(circle at 85% 15%, rgba(0, 255, 255, 0.25), transparent 25%),
+        radial-gradient(circle at 20% 85%, rgba(255, 215, 0, 0.25), transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(150, 0, 255, 0.30), transparent 25%),
+        linear-gradient(135deg, #090909, #180018, #00191c, #12000b);
 
+    background-attachment: fixed;
+
+    min-height: 100vh;
+}
+body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    opacity: 0.18;
+
+    background-image:
+        radial-gradient(circle, #ffffff 1px, transparent 1px);
+
+    background-size: 18px 18px;
+}
 
 /* My Orders heading */
 
