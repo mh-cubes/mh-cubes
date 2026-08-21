@@ -2,14 +2,19 @@
    MH CUBES PAGE LOADING SYSTEM
 ========================================= */
 
-const loadingScreen = document.getElementById("page-loading");
-const loadingText = document.querySelector("#page-loading p");
-const loadingTitle = document.querySelector("#page-loading h2");
+const loadingScreen =
+    document.getElementById("page-loading");
+
+const loadingText =
+    document.querySelector("#page-loading p");
+
+const loadingTitle =
+    document.querySelector("#page-loading h2");
 
 
 /* =========================================
    INITIAL PAGE LOAD
-   KEEP LOADING SCREEN FOR 3 SECONDS
+   KEEP LOADING FOR 3 SECONDS
 ========================================= */
 
 window.addEventListener("load", function () {
@@ -33,15 +38,19 @@ function showPageLoading(title, message) {
 
     if (!loadingScreen) return;
 
+
     if (loadingTitle) {
         loadingTitle.textContent = title;
     }
+
 
     if (loadingText) {
         loadingText.textContent = message;
     }
 
+
     loadingScreen.classList.remove("hide");
+
 }
 
 
@@ -51,11 +60,14 @@ function showPageLoading(title, message) {
 
 document.addEventListener("click", function (event) {
 
-    const link = event.target.closest("a");
+    const link =
+        event.target.closest("a");
 
     if (!link) return;
 
-    const href = link.getAttribute("href");
+
+    const href =
+        link.getAttribute("href");
 
     if (!href) return;
 
@@ -85,25 +97,35 @@ document.addEventListener("click", function (event) {
 
     /* Ignore same page */
 
-    if (link.href === window.location.href) {
+    if (
+        link.href === window.location.href
+    ) {
         return;
     }
 
+
+    /*
+       IMPORTANT:
+       Do not run navigation loading
+       when browser back/forward is being used.
+    */
 
     event.preventDefault();
 
 
     /* =========================================
-       DIFFERENT LOADING MESSAGES
+       LOADING TEXT
     ========================================= */
 
     let title = "MH CUBES";
+
     let message = "Loading...";
 
 
     if (href.includes("my-orders")) {
 
         title = "MY ORDERS";
+
         message = "Fetching your orders...";
 
     }
@@ -111,6 +133,7 @@ document.addEventListener("click", function (event) {
     else if (href.includes("track-order")) {
 
         title = "TRACK ORDER";
+
         message = "Finding your order...";
 
     }
@@ -118,13 +141,31 @@ document.addEventListener("click", function (event) {
     else if (href.includes("settings")) {
 
         title = "SETTINGS";
+
         message = "Opening settings...";
+
+    }
+
+    else if (href.includes("customer-account")) {
+
+        title = "MY ACCOUNT";
+
+        message = "Opening your account...";
+
+    }
+
+    else if (href.includes("customer-login")) {
+
+        title = "SIGN IN";
+
+        message = "Opening your account...";
 
     }
 
     else if (href.includes("cart")) {
 
         title = "YOUR CART";
+
         message = "Loading your cart...";
 
     }
@@ -132,6 +173,7 @@ document.addEventListener("click", function (event) {
     else if (href.includes("checkout")) {
 
         title = "CHECKOUT";
+
         message = "Preparing checkout...";
 
     }
@@ -142,14 +184,20 @@ document.addEventListener("click", function (event) {
     ) {
 
         title = "MH CUBES";
+
         message = "Welcome back...";
 
     }
 
 
-    /* SHOW LOADING */
+    /* =========================================
+       SHOW LOADING
+    ========================================= */
 
-    showPageLoading(title, message);
+    showPageLoading(
+        title,
+        message
+    );
 
 
     /* =========================================
@@ -169,12 +217,23 @@ document.addEventListener("click", function (event) {
    BACK / FORWARD BUTTON FIX
 ========================================= */
 
-window.addEventListener("pageshow", function (event) {
+window.addEventListener(
+    "pageshow",
+    function (event) {
 
-    if (event.persisted && loadingScreen) {
+        if (!loadingScreen) return;
 
-        loadingScreen.classList.add("hide");
+
+        /*
+           If page came from browser cache,
+           immediately hide the loader.
+        */
+
+        if (event.persisted) {
+
+            loadingScreen.classList.add("hide");
+
+        }
 
     }
-
-});
+);
