@@ -3902,3 +3902,213 @@ body {
     }
 
 }
+/* =========================================
+   BEAUTIFUL PAGE TRANSITION LOADING
+========================================= */
+
+#page-loading {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(255, 60, 60, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #120000,
+            #650000,
+            #c40000
+        );
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    z-index: 999999;
+
+    transition:
+        opacity 0.5s ease,
+        visibility 0.5s ease;
+
+}
+
+
+#page-loading.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+}
+
+
+/* Loading content */
+
+.loading-content {
+
+    color: white;
+
+    animation:
+        loadingAppear 0.7s ease;
+
+}
+
+
+/* Logo */
+
+.loading-logo {
+
+    font-size: 65px;
+
+    margin-bottom: 15px;
+
+    animation:
+        loadingFloat 1.5s ease-in-out infinite;
+
+}
+
+
+/* Spinner */
+
+.page-loader {
+
+    width: 58px;
+
+    height: 58px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    border: 6px solid rgba(255,255,255,0.25);
+
+    border-top-color: #ffb703;
+
+    border-right-color: white;
+
+    animation:
+        pageSpin 0.8s linear infinite;
+
+    box-shadow:
+        0 0 25px rgba(255,183,3,0.35);
+
+}
+
+
+/* Title */
+
+.loading-content h2 {
+
+    margin: 8px 0;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+/* Loading text */
+
+.loading-content p {
+
+    margin: 0;
+
+    font-size: 16px;
+
+    color: #ffe4e4;
+
+    animation:
+        loadingPulse 1.2s ease-in-out infinite;
+
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes pageSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+@keyframes loadingFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+}
+
+
+@keyframes loadingPulse {
+
+    0%, 100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes loadingAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .loading-logo {
+        font-size: 55px;
+    }
+
+    .page-loader {
+        width: 50px;
+        height: 50px;
+    }
+
+    .loading-content h2 {
+        font-size: 24px;
+    }
+
+}
