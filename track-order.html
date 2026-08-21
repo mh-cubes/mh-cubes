@@ -95,7 +95,18 @@ const trackButton =
 
 const result =
     document.getElementById("track-result");
+const urlParams =
+    new URLSearchParams(window.location.search);
 
+const orderIDFromURL =
+    urlParams.get("orderID");
+
+if(orderIDFromURL){
+
+    trackInput.value =
+        orderIDFromURL;
+
+}
 
 // =============================
 // CHECK LOGIN
