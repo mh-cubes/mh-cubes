@@ -3137,3 +3137,10 @@ transform:rotate(360deg);
     }
 
 }
+.shop-button{
+    margin-top:25px;
+    background:white;
+    color:#2563eb;
+    border:2px solid #2563eb;
+    text-align:center;
+}
