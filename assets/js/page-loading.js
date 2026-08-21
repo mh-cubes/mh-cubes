@@ -153,7 +153,7 @@ document.addEventListener("click", function (event) {
 
         window.location.href = href;
 
-    }, 1500);
+    }, 3000);
 
 });
 
