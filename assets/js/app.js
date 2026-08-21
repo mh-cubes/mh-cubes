@@ -1,5 +1,14 @@
 import { auth } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+// =========================================
+// DOM LOADED
+// =========================================
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // =========================================
@@ -51,14 +60,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (!productBox) return;
 
-                name = productBox.querySelector("h3")?.innerText;
+                name =
+                    productBox.querySelector("h3")?.innerText;
 
-                price = Number(
-                    productBox.querySelector("p")?.innerText
-                        .replace("PKR ", "")
-                );
+                price =
+                    Number(
+                        productBox
+                            .querySelector("p")
+                            ?.innerText
+                            .replace("PKR ", "")
+                    );
 
-                image = productBox.querySelector("img")?.src;
+                image =
+                    productBox.querySelector("img")?.src;
 
             }
 
@@ -66,14 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
             // SAFETY CHECK
             if (!name || !price) {
 
-                console.error("Product information missing:", {
-                    name,
-                    price,
-                    image
-                });
+                console.error(
+                    "Product information missing:",
+                    {
+                        name,
+                        price,
+                        image
+                    }
+                );
 
                 return;
-
             }
 
 
@@ -108,7 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             // TOAST
-            const toast = document.getElementById("toast");
+            const toast =
+                document.getElementById("toast");
 
             if (toast) {
 
@@ -131,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-
     // =========================================
     // SHOP NOW BUTTON
     // =========================================
@@ -140,7 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         button.addEventListener("click", function() {
 
-            const productBox = button.closest(".product");
+            const productBox =
+                button.closest(".product");
 
             if (!productBox) return;
 
@@ -148,11 +165,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const name =
                 productBox.querySelector("h3")?.innerText;
 
+
             const price =
                 Number(
-                    productBox.querySelector("p")?.innerText
+                    productBox
+                        .querySelector("p")
+                        ?.innerText
                         .replace("PKR ", "")
                 );
+
 
             const image =
                 productBox.querySelector("img")?.src;
@@ -162,7 +183,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             let cart =
-                JSON.parse(localStorage.getItem("cart")) || {};
+                JSON.parse(
+                    localStorage.getItem("cart")
+                ) || {};
 
 
             if (cart[name]) {
@@ -195,13 +218,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (loading) {
+
                 loading.classList.add("show");
+
             }
 
 
             setTimeout(function() {
 
-                window.location.href = "checkout.html";
+                window.location.href =
+                    "checkout.html";
 
             }, 1500);
 
@@ -210,11 +236,65 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    // =========================================
     // UPDATE CART COUNT
+    // =========================================
+
     updateCartCount();
 
-});
 
+    // =========================================
+    // PRODUCT SEARCH
+    // =========================================
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const products =
+        document.querySelectorAll(".product");
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            function() {
+
+                const searchText =
+                    searchInput.value
+                        .toLowerCase()
+                        .trim();
+
+
+                products.forEach(function(product) {
+
+                    const productName =
+                        product.innerText
+                            .toLowerCase();
+
+
+                    if (
+                        productName.includes(
+                            searchText
+                        )
+                    ) {
+
+                        product.style.display = "";
+
+                    } else {
+
+                        product.style.display = "none";
+
+                    }
+
+                });
+
+            }
+        );
+
+    }
+
+});
 
 
 // =========================================
@@ -224,14 +304,18 @@ document.addEventListener("DOMContentLoaded", () => {
 function updateCartCount() {
 
     const cart =
-        JSON.parse(localStorage.getItem("cart")) || {};
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || {};
+
 
     let count = 0;
 
 
     for (const product in cart) {
 
-        count += Number(cart[product].quantity) || 0;
+        count +=
+            Number(cart[product].quantity) || 0;
 
     }
 
@@ -247,7 +331,6 @@ function updateCartCount() {
     }
 
 }
-
 
 
 // =========================================
@@ -271,7 +354,6 @@ function scrollToProducts() {
 }
 
 
-
 // =========================================
 // WHY CHOOSE MH CUBES
 // =========================================
@@ -286,11 +368,13 @@ function showWhy(type, element) {
 
 
     // REMOVE ACTIVE
-    document.querySelectorAll(".why-box").forEach(card => {
+    document
+        .querySelectorAll(".why-box")
+        .forEach(card => {
 
-        card.classList.remove("active");
+            card.classList.remove("active");
 
-    });
+        });
 
 
     // ADD ACTIVE
@@ -308,7 +392,6 @@ function showWhy(type, element) {
 
     details.style.animation =
         "detailsAppear 0.45s ease";
-
 
 
     // =========================================
@@ -357,7 +440,6 @@ function showWhy(type, element) {
         `;
 
     }
-
 
 
     // =========================================
@@ -409,7 +491,6 @@ function showWhy(type, element) {
     }
 
 
-
     // =========================================
     // PRICE
     // =========================================
@@ -456,7 +537,6 @@ function showWhy(type, element) {
         `;
 
     }
-
 
 
     // =========================================
@@ -509,7 +589,6 @@ function showWhy(type, element) {
 }
 
 
-
 // =========================================
 // CONTACT POPUP
 // =========================================
@@ -527,7 +606,6 @@ function openContactPopup() {
     }
 
 }
-
 
 
 function closeContactPopup() {
@@ -551,7 +629,6 @@ function closeContactPopup() {
     }, 300);
 
 }
-
 
 
 // =========================================
@@ -581,7 +658,9 @@ function toggleDarkMode() {
 
 
         if (
-            document.body.classList.contains("dark-mode")
+            document.body.classList.contains(
+                "dark-mode"
+            )
         ) {
 
             localStorage.setItem(
@@ -624,93 +703,103 @@ function toggleDarkMode() {
     }, 2000);
 
 }
-function toggleMobileMenu(){
-
-    const nav = document.getElementById("main-nav");
-
-    const menuBtn = document.getElementById("menu-btn");
 
 
-    nav.classList.toggle("mobile-open");
+// =========================================
+// MOBILE MENU
+// =========================================
+
+function toggleMobileMenu() {
+
+    const nav =
+        document.getElementById("main-nav");
+
+    const menuBtn =
+        document.getElementById("menu-btn");
 
 
-    if(nav.classList.contains("mobile-open")){
+    if (!nav || !menuBtn) return;
+
+
+    nav.classList.toggle(
+        "mobile-open"
+    );
+
+
+    if (
+        nav.classList.contains(
+            "mobile-open"
+        )
+    ) {
 
         menuBtn.innerText = "✕";
 
-    }else{
+    } else {
 
         menuBtn.innerText = "☰";
 
     }
 
 }
+
+
 // =========================================
-// PRODUCT SEARCH
+// MAKE INLINE HTML FUNCTIONS AVAILABLE
 // =========================================
 
-document.addEventListener("DOMContentLoaded", function(){
+window.scrollToProducts =
+    scrollToProducts;
 
-    const searchInput =
-        document.getElementById("searchInput");
+window.showWhy =
+    showWhy;
 
-    const products =
-        document.querySelectorAll(".product");
+window.openContactPopup =
+    openContactPopup;
 
+window.closeContactPopup =
+    closeContactPopup;
 
-    if(!searchInput) return;
+window.toggleDarkMode =
+    toggleDarkMode;
 
-
-    searchInput.addEventListener("input", function(){
-
-        const searchText =
-            searchInput.value
-                .toLowerCase()
-                .trim();
-
-
-        products.forEach(function(product){
-
-            const productName =
-                product.innerText.toLowerCase();
+window.toggleMobileMenu =
+    toggleMobileMenu;
 
 
-            if(productName.includes(searchText)){
-
-                product.style.display = "";
-
-            }else{
-
-                product.style.display = "none";
-
-            }
-
-        });
-
-    });
-
-});
 // =========================================
-// CUSTOMER AUTH BUTTON
+// CUSTOMER AUTHENTICATION
 // =========================================
 
 onAuthStateChanged(auth, (user) => {
 
-    const authLink = document.getElementById("auth-link");
+    const authLink =
+        document.getElementById("auth-link");
+
 
     if (!authLink) return;
 
+
     if (user) {
 
-        // Completely remove Sign In button
+        console.log(
+            "✅ Customer logged in:",
+            user.email
+        );
+
+        // Completely remove Sign In
         authLink.remove();
 
     } else {
 
-        // Show Sign In when logged out
+        console.log(
+            "❌ Customer is not logged in"
+        );
+
+        // Show Sign In
         authLink.style.display = "";
         authLink.innerHTML = "👤 Sign In";
-        authLink.href = "customer-login.html";
+        authLink.href =
+            "customer-login.html";
 
     }
 
