@@ -1,17 +1,16 @@
-const loadingScreen =
-    document.getElementById("page-loading");
+const loadingScreen = document.getElementById("page-loading");
 
 
-/* Hide loading screen after page loads */
+// =========================================
+// HIDE LOADING SCREEN WHEN PAGE IS READY
+// =========================================
 
 window.addEventListener("load", function () {
 
     setTimeout(function () {
 
         if (loadingScreen) {
-
             loadingScreen.classList.add("hide");
-
         }
 
     }, 700);
@@ -19,28 +18,26 @@ window.addEventListener("load", function () {
 });
 
 
-/* Show loading screen when navigating */
+// =========================================
+// SHOW LOADING WHEN CLICKING A PAGE LINK
+// =========================================
 
 document.addEventListener("click", function (event) {
 
-    const link =
-        event.target.closest("a");
+    const link = event.target.closest("a");
 
-    if (!link) {
+    if (!link || !loadingScreen) {
         return;
     }
 
-
-    const href =
-        link.getAttribute("href");
-
+    const href = link.getAttribute("href");
 
     if (!href) {
         return;
     }
 
 
-    /* Ignore special links */
+    // Ignore special links
 
     if (
         href.startsWith("#") ||
@@ -49,25 +46,26 @@ document.addEventListener("click", function (event) {
         href.startsWith("tel:") ||
         link.target === "_blank"
     ) {
-
         return;
-
     }
 
 
-    /* Ignore external websites */
+    // Ignore external websites
 
     if (
         link.hostname &&
         link.hostname !== window.location.hostname
     ) {
-
         return;
-
     }
 
 
-    if (!loadingScreen) {
+    // Ignore same page
+
+    if (
+        href === window.location.pathname ||
+        href === window.location.href
+    ) {
         return;
     }
 
@@ -75,18 +73,65 @@ document.addEventListener("click", function (event) {
     event.preventDefault();
 
 
+    // Show loading screen
+
     loadingScreen.classList.remove("hide");
 
 
-    /*
-       Keep loading screen visible
-       for around 2.5 seconds
-    */
+    // Save that navigation is happening
+
+    sessionStorage.setItem(
+        "pageNavigating",
+        "true"
+    );
+
+
+    // Navigate after 2.5 seconds
 
     setTimeout(function () {
 
         window.location.href = href;
 
     }, 2500);
+
+});
+
+
+// =========================================
+// FIX BROWSER BACK / FORWARD BUTTON
+// =========================================
+
+window.addEventListener("pageshow", function (event) {
+
+    /*
+       pageshow also fires when the browser
+       restores a page from its back/forward cache.
+    */
+
+    if (loadingScreen) {
+
+        loadingScreen.classList.add("hide");
+
+    }
+
+
+    sessionStorage.removeItem(
+        "pageNavigating"
+    );
+
+});
+
+
+// =========================================
+// EXTRA BACK BUTTON SAFETY
+// =========================================
+
+window.addEventListener("popstate", function () {
+
+    if (loadingScreen) {
+
+        loadingScreen.classList.add("hide");
+
+    }
 
 });
