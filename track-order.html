@@ -73,12 +73,18 @@
 </div>
 <script type="module">
 
-import { db } from "./assets/js/firebase.js";
+import { db, auth } from "./assets/js/firebase.js";
 
 import {
     collection,
+    query,
+    where,
     getDocs
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
 const trackInput =
@@ -90,6 +96,74 @@ const trackButton =
 const result =
     document.getElementById("track-result");
 
+
+// =============================
+// CHECK LOGIN
+// =============================
+
+let currentUser = null;
+
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(!user){
+
+            currentUser = null;
+
+            result.innerHTML = `
+
+                <div style="
+                    text-align:center;
+                    padding:20px;
+                ">
+
+                    <h3 style="color:red;">
+                        🔒 Please Sign In
+                    </h3>
+
+                    <p>
+                        You must be logged in to track your order.
+                    </p>
+
+                    <a
+                        href="customer-login.html"
+                        style="
+                            display:inline-block;
+                            margin-top:10px;
+                            padding:12px 20px;
+                            background:#2563eb;
+                            color:white;
+                            border-radius:8px;
+                            text-decoration:none;
+                        "
+                    >
+                        👤 Sign In
+                    </a>
+
+                </div>
+
+            `;
+
+            trackButton.disabled = true;
+
+            return;
+
+        }
+
+
+        currentUser = user;
+
+        trackButton.disabled = false;
+
+    }
+);
+
+
+// =============================
+// TRACK ORDER
+// =============================
 
 async function trackOrder(){
 
@@ -107,37 +181,65 @@ async function trackOrder(){
     }
 
 
+    if(!currentUser){
+
+        result.innerHTML = `
+
+            <h3 style="color:red;">
+                🔒 Please sign in first.
+            </h3>
+
+        `;
+
+        return;
+
+    }
+
+
     result.innerHTML =
         "<h3>🔍 Searching for your order...</h3>";
 
 
     try{
 
-        const snapshot =
-            await getDocs(
-                collection(db, "orders")
+        // =============================
+        // SEARCH ONLY CUSTOMER'S ORDERS
+        // =============================
+
+        const ordersRef =
+            collection(db, "orders");
+
+
+        const q =
+            query(
+                ordersRef,
+
+                where(
+                    "customerUID",
+                    "==",
+                    currentUser.uid
+                ),
+
+                where(
+                    "orderID",
+                    "==",
+                    id
+                )
             );
 
 
-        let found = null;
+        const snapshot =
+            await getDocs(q);
 
 
-        snapshot.forEach(function(docSnap){
+        if(!snapshot.empty){
 
-            const order =
+            const docSnap =
+                snapshot.docs[0];
+
+            const found =
                 docSnap.data();
 
-
-            if(order.orderID === id){
-
-                found = order;
-
-            }
-
-        });
-
-
-        if(found){
 
             result.innerHTML = `
 
@@ -149,7 +251,7 @@ async function trackOrder(){
 
                     <p>
                         <strong>Order ID:</strong>
-                        ${found.orderID}
+                        ${found.orderID || "Not available"}
                     </p>
 
                     <p>
@@ -182,9 +284,11 @@ async function trackOrder(){
                         ${found.address || "Not available"}
                     </p>
 
+
                     <h3>
                         🚚 Current Order Status
                     </h3>
+
 
                     <div style="
                         padding:15px;
@@ -217,7 +321,8 @@ async function trackOrder(){
                     </h3>
 
                     <p>
-                        No order was found with this Order ID.
+                        No order was found with this Order ID
+                        on your account.
                     </p>
 
                     <p>
@@ -263,11 +368,19 @@ async function trackOrder(){
 }
 
 
+// =============================
+// TRACK BUTTON
+// =============================
+
 trackButton.addEventListener(
     "click",
     trackOrder
 );
 
+
+// =============================
+// ENTER KEY
+// =============================
 
 trackInput.addEventListener(
     "keydown",
