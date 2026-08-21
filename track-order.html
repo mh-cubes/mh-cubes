@@ -1,15 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Track Order - MH CUBES</title>
+    <title>Track Order - MH CUBES</title>
 
-<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
@@ -34,11 +35,14 @@
     </nav>
 
 </header>
+
+
 <div class="checkout">
 
     <h1>
         📦 Track Your Order
     </h1>
+
 
     <div class="checkout-box">
 
@@ -50,6 +54,7 @@
             Enter the Order ID you received after placing your order.
         </p>
 
+
         <input
             type="text"
             id="track-id"
@@ -57,20 +62,23 @@
             autocomplete="off"
         >
 
+
         <button
             class="place-order"
             id="track-button"
+            type="button"
         >
             🔍 Track Order
         </button>
 
-        <div id="track-result">
 
-        </div>
+        <div id="track-result"></div>
 
     </div>
 
 </div>
+
+
 <script type="module">
 
 import { db, auth } from "./assets/js/firebase.js";
@@ -87,41 +95,465 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
-const trackInput =
-    document.getElementById("track-id");
+// ==========================================
+// ELEMENTS
+// ==========================================
 
-const trackButton =
-    document.getElementById("track-button");
+const trackInput = document.getElementById("track-id");
 
-const result =
-    document.getElementById("track-result");
-const urlParams =
-    new URLSearchParams(window.location.search);
+const trackButton = document.getElementById("track-button");
 
-const orderIDFromURL =
-    urlParams.get("orderID");
+const result = document.getElementById("track-result");
 
-if(orderIDFromURL){
 
-    trackInput.value =
-        orderIDFromURL;
+// ==========================================
+// GET ORDER ID FROM URL
+// ==========================================
+//
+// Example:
+// track-order.html?orderID=MH1787337628255
+//
+// This automatically puts:
+// MH1787337628255
+//
+// inside the Order ID input.
+//
+
+const urlParams = new URLSearchParams(
+    window.location.search
+);
+
+const orderIDFromURL = urlParams.get("orderID");
+
+
+// ==========================================
+// AUTO-FILL ORDER ID
+// ==========================================
+
+if (orderIDFromURL) {
+
+    trackInput.value = orderIDFromURL.trim();
 
 }
 
-// =============================
-// CHECK LOGIN
-// =============================
+
+// ==========================================
+// CURRENT USER
+// ==========================================
 
 let currentUser = null;
 
 
+// ==========================================
+// TRACK ORDER FUNCTION
+// ==========================================
+
+async function trackOrder() {
+
+    const id = trackInput.value.trim();
+
+
+    // --------------------------------------
+    // CHECK ORDER ID
+    // --------------------------------------
+
+    if (id === "") {
+
+        result.innerHTML = `
+
+            <div style="
+                text-align:center;
+                padding:20px;
+            ">
+
+                <h3 style="color:red;">
+                    ❌ Please enter your Order ID.
+                </h3>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    // --------------------------------------
+    // CHECK LOGIN
+    // --------------------------------------
+
+    if (!currentUser) {
+
+        result.innerHTML = `
+
+            <div style="
+                text-align:center;
+                padding:20px;
+            ">
+
+                <h3 style="color:red;">
+                    🔒 Please sign in first.
+                </h3>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    // --------------------------------------
+    // LOADING
+    // --------------------------------------
+
+    result.innerHTML = `
+
+        <div style="
+            text-align:center;
+            padding:20px;
+        ">
+
+            <h3>
+                🔍 Searching for your order...
+            </h3>
+
+        </div>
+
+    `;
+
+
+    try {
+
+        // --------------------------------------
+        // FIRESTORE ORDERS
+        // --------------------------------------
+
+        const ordersRef = collection(
+            db,
+            "orders"
+        );
+
+
+        // --------------------------------------
+        // ONLY FIND THIS CUSTOMER'S ORDER
+        // --------------------------------------
+
+        const q = query(
+
+            ordersRef,
+
+            where(
+                "customerUID",
+                "==",
+                currentUser.uid
+            ),
+
+            where(
+                "orderID",
+                "==",
+                id
+            )
+
+        );
+
+
+        const snapshot = await getDocs(q);
+
+
+        // ======================================
+        // ORDER FOUND
+        // ======================================
+
+        if (!snapshot.empty) {
+
+            const docSnap = snapshot.docs[0];
+
+            const found = docSnap.data();
+
+
+            // ==================================
+            // PRODUCTS
+            // ==================================
+
+            let productsHTML = "";
+
+
+            if (
+                found.products &&
+                typeof found.products === "object"
+            ) {
+
+                productsHTML = Object.keys(
+                    found.products
+                )
+                .map(function(productName) {
+
+                    const product =
+                        found.products[productName];
+
+
+                    const price =
+                        Number(product.price) || 0;
+
+
+                    const quantity =
+                        Number(product.quantity) || 0;
+
+
+                    const subtotal =
+                        price * quantity;
+
+
+                    return `
+
+                        <div style="
+                            background:#f8fafc;
+                            padding:15px;
+                            margin:10px 0;
+                            border-radius:10px;
+                            border:1px solid #e5e7eb;
+                        ">
+
+                            <p style="
+                                margin:0 0 8px;
+                                font-size:17px;
+                            ">
+
+                                <strong>
+                                    🧩 ${productName}
+                                </strong>
+
+                            </p>
+
+
+                            <p style="
+                                margin:5px 0;
+                            ">
+
+                                💰 Price:
+                                PKR ${price}
+
+                            </p>
+
+
+                            <p style="
+                                margin:5px 0;
+                            ">
+
+                                🔢 Quantity:
+                                ${quantity}
+
+                            </p>
+
+
+                            <p style="
+                                margin:5px 0;
+                                font-weight:bold;
+                            ">
+
+                                💵 Subtotal:
+                                PKR ${subtotal}
+
+                            </p>
+
+                        </div>
+
+                    `;
+
+                })
+                .join("");
+
+            } else {
+
+                productsHTML = `
+
+                    <p>
+                        No product information available.
+                    </p>
+
+                `;
+
+            }
+
+
+            // ==================================
+            // SHOW ORDER
+            // ==================================
+
+            result.innerHTML = `
+
+                <div class="admin-order-box">
+
+                    <h2>
+                        📦 Order Found
+                    </h2>
+
+
+                    <p>
+                        <strong>Order ID:</strong>
+                        ${found.orderID || id}
+                    </p>
+
+
+                    <p>
+                        <strong>Customer:</strong>
+                        ${found.customerName || "Not available"}
+                    </p>
+
+
+                    <p>
+                        <strong>Phone:</strong>
+                        ${found.phone || "Not available"}
+                    </p>
+
+
+                    <p>
+                        <strong>Payment:</strong>
+                        ${found.payment || "Not selected"}
+                    </p>
+
+
+                    <p>
+                        <strong>Status:</strong>
+                        ${found.status || "Pending 🟡"}
+                    </p>
+
+
+                    <p>
+                        <strong>Date:</strong>
+                        ${found.date || "Not available"}
+                    </p>
+
+
+                    <p>
+                        <strong>Address:</strong>
+                        ${found.address || "Not available"}
+                    </p>
+
+
+                    <h3>
+                        🧩 Products Ordered
+                    </h3>
+
+
+                    <div>
+
+                        ${productsHTML}
+
+                    </div>
+
+
+                    <h3>
+                        🚚 Current Order Status
+                    </h3>
+
+
+                    <div style="
+                        padding:15px;
+                        margin-top:10px;
+                        border-radius:10px;
+                        text-align:center;
+                        font-weight:bold;
+                        font-size:18px;
+                        background:#f8fafc;
+                    ">
+
+                        ${found.status || "Pending 🟡"}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        // ======================================
+        // ORDER NOT FOUND
+        // ======================================
+
+        else {
+
+            result.innerHTML = `
+
+                <div style="
+                    text-align:center;
+                    padding:20px;
+                ">
+
+                    <h3 style="color:red;">
+                        ❌ Order Not Found
+                    </h3>
+
+
+                    <p>
+                        No order was found with this Order ID
+                        on your account.
+                    </p>
+
+
+                    <p>
+                        Please check your Order ID and try again.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Tracking error:",
+            error
+        );
+
+
+        result.innerHTML = `
+
+            <div style="
+                text-align:center;
+                padding:20px;
+            ">
+
+                <h3 style="color:red;">
+                    ❌ Unable to check order
+                </h3>
+
+
+                <p>
+                    Please try again.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// ==========================================
+// CHECK FIREBASE LOGIN
+// ==========================================
+
 onAuthStateChanged(
     auth,
-    function(user){
+    function(user) {
 
-        if(!user){
+        if (!user) {
 
             currentUser = null;
+
+            trackButton.disabled = true;
+
 
             result.innerHTML = `
 
@@ -134,9 +566,11 @@ onAuthStateChanged(
                         🔒 Please Sign In
                     </h3>
 
+
                     <p>
                         You must be logged in to track your order.
                     </p>
+
 
                     <a
                         href="customer-login.html"
@@ -157,351 +591,37 @@ onAuthStateChanged(
 
             `;
 
-            trackButton.disabled = true;
-
             return;
 
         }
 
 
-       currentUser = user;
+        // --------------------------------------
+        // USER LOGGED IN
+        // --------------------------------------
 
-trackButton.disabled = false;
+        currentUser = user;
 
-// Automatically track order if Order ID came from My Orders
-if (orderIDFromURL) {
-    trackOrder();
-}
+        trackButton.disabled = false;
+
+
+        // --------------------------------------
+        // AUTOMATICALLY TRACK URL ORDER
+        // --------------------------------------
+
+        if (orderIDFromURL) {
+
+            trackOrder();
+
+        }
 
     }
 );
 
 
-// =============================
-// TRACK ORDER
-// =============================
-
-async function trackOrder(){
-
-    const id =
-        trackInput.value.trim();
-
-
-    if(id === ""){
-
-        result.innerHTML =
-            "<h3 style='color:red;'>❌ Please enter your Order ID.</h3>";
-
-        return;
-
-    }
-
-
-    if(!currentUser){
-
-        result.innerHTML = `
-
-            <h3 style="color:red;">
-                🔒 Please sign in first.
-            </h3>
-
-        `;
-
-        return;
-
-    }
-
-
-    result.innerHTML =
-        "<h3>🔍 Searching for your order...</h3>";
-
-
-    try{
-
-        // =============================
-        // SEARCH ONLY CUSTOMER'S ORDERS
-        // =============================
-
-        const ordersRef =
-            collection(db, "orders");
-
-
-        const q =
-            query(
-                ordersRef,
-
-                where(
-                    "customerUID",
-                    "==",
-                    currentUser.uid
-                ),
-
-                where(
-                    "orderID",
-                    "==",
-                    id
-                )
-            );
-
-
-        const snapshot =
-            await getDocs(q);
-
-
-       if(!snapshot.empty){
-
-    const docSnap =
-        snapshot.docs[0];
-
-    const found =
-        docSnap.data();
-
-
-    // =============================
-    // PRODUCTS
-    // =============================
-
-    let productsHTML = "";
-
-    if(found.products){
-
-        productsHTML = Object.keys(found.products)
-            .map(function(productName){
-
-                const product =
-                    found.products[productName];
-
-                return `
-
-                    <div style="
-                        background:#f8fafc;
-                        padding:15px;
-                        margin:10px 0;
-                        border-radius:10px;
-                        border:1px solid #e5e7eb;
-                    ">
-
-                        <p style="
-                            margin:0 0 8px;
-                            font-size:17px;
-                        ">
-
-                            <strong>
-                                🧩 ${productName}
-                            </strong>
-
-                        </p>
-
-                        <p style="margin:5px 0;">
-
-                            💰 Price:
-                            PKR ${product.price}
-
-                        </p>
-
-                        <p style="margin:5px 0;">
-
-                            🔢 Quantity:
-                            ${product.quantity}
-
-                        </p>
-
-                        <p style="
-                            margin:5px 0;
-                            font-weight:bold;
-                        ">
-
-                            💵 Subtotal:
-                            PKR ${
-                                Number(product.price) *
-                                Number(product.quantity)
-                            }
-
-                        </p>
-
-                    </div>
-
-                `;
-
-            })
-            .join("");
-
-    }else{
-
-        productsHTML = `
-
-            <p>
-                No product information available.
-            </p>
-
-        `;
-
-    }
-
-
-    // =============================
-    // SHOW ORDER
-    // =============================
-
-    result.innerHTML = `
-
-        <div class="admin-order-box">
-
-            <h2>
-                📦 Order Found
-            </h2>
-
-
-            <p>
-                <strong>Order ID:</strong>
-                ${found.orderID || "Not available"}
-            </p>
-
-
-            <p>
-                <strong>Customer:</strong>
-                ${found.customerName || "Not available"}
-            </p>
-
-
-            <p>
-                <strong>Phone:</strong>
-                ${found.phone || "Not available"}
-            </p>
-
-
-            <p>
-                <strong>Payment:</strong>
-                ${found.payment || "Not selected"}
-            </p>
-
-
-            <p>
-                <strong>Status:</strong>
-                ${found.status || "Pending 🟡"}
-            </p>
-
-
-            <p>
-                <strong>Date:</strong>
-                ${found.date || "Not available"}
-            </p>
-
-
-            <p>
-                <strong>Address:</strong>
-                ${found.address || "Not available"}
-            </p>
-
-
-            <!-- ============================= -->
-            <!-- PRODUCTS -->
-            <!-- ============================= -->
-
-            <h3>
-                🧩 Products Ordered
-            </h3>
-
-
-            <div>
-
-                ${productsHTML}
-
-            </div>
-
-
-            <!-- ============================= -->
-            <!-- ORDER STATUS -->
-            <!-- ============================= -->
-
-            <h3>
-                🚚 Current Order Status
-            </h3>
-
-
-            <div style="
-                padding:15px;
-                margin-top:10px;
-                border-radius:10px;
-                text-align:center;
-                font-weight:bold;
-                font-size:18px;
-            ">
-
-                ${found.status || "Pending 🟡"}
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-        }else{
-
-            result.innerHTML = `
-
-                <div style="
-                    text-align:center;
-                    padding:20px;
-                ">
-
-                    <h3 style="color:red;">
-                        ❌ Order Not Found
-                    </h3>
-
-                    <p>
-                        No order was found with this Order ID
-                        on your account.
-                    </p>
-
-                    <p>
-                        Please check your Order ID and try again.
-                    </p>
-
-                </div>
-
-            `;
-
-        }
-
-
-    }catch(error){
-
-        console.error(
-            "Tracking error:",
-            error
-        );
-
-
-        result.innerHTML = `
-
-            <div style="
-                text-align:center;
-                padding:20px;
-            ">
-
-                <h3 style="color:red;">
-                    ❌ Unable to check order
-                </h3>
-
-                <p>
-                    Please try again.
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-// =============================
+// ==========================================
 // TRACK BUTTON
-// =============================
+// ==========================================
 
 trackButton.addEventListener(
     "click",
@@ -509,15 +629,15 @@ trackButton.addEventListener(
 );
 
 
-// =============================
+// ==========================================
 // ENTER KEY
-// =============================
+// ==========================================
 
 trackInput.addEventListener(
     "keydown",
-    function(event){
+    function(event) {
 
-        if(event.key === "Enter"){
+        if (event.key === "Enter") {
 
             trackOrder();
 
@@ -531,3 +651,4 @@ trackInput.addEventListener(
 </body>
 
 </html>
+
