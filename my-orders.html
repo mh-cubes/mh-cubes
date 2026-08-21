@@ -20,51 +20,470 @@
 
 <style>
 
+/* =========================================
+   MY ORDERS PAGE
+========================================= */
+
+body {
+    background:
+        radial-gradient(
+            circle at top,
+            #3b0000 0%,
+            #160000 35%,
+            #050505 75%
+        );
+}
+
+
+/* =========================================
+   MAIN AREA
+========================================= */
+
+.orders-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px 70px;
+}
+
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+.orders-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.orders-title h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 900;
+    color: #ffd700;
+    text-shadow:
+        0 0 10px rgba(255, 215, 0, 0.25);
+}
+
+.orders-title p {
+    margin-top: 10px;
+    color: #ddd;
+    font-size: 16px;
+}
+
+
+/* =========================================
+   ACCOUNT BUTTONS
+========================================= */
+
 .account-actions {
     display: none;
     justify-content: center;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
-    margin: 20px 0;
+    margin-bottom: 35px;
 }
 
 .account-action-button {
     border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
+    padding: 13px 22px;
+    border-radius: 12px;
     color: white;
     font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 .home-button {
-    background: #2563eb;
+    background: #dc2626;
+    box-shadow:
+        0 5px 15px rgba(220, 38, 38, 0.25);
 }
 
 .logout-button {
-    background: #dc2626;
+    background: #333;
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .account-action-button:hover {
-    opacity: 0.9;
+    transform: translateY(-2px);
 }
+
+.home-button:hover {
+    background: #ff3030;
+}
+
+.logout-button:hover {
+    background: #555;
+}
+
+
+/* =========================================
+   ORDERS CONTAINER
+========================================= */
+
+.orders-container {
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(255, 215, 0, 0.18);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.orders-container > h2 {
+    margin-top: 0;
+    color: white;
+    text-align: center;
+    font-size: 26px;
+}
+
+.orders-container > p {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 28px;
+}
+
+
+/* =========================================
+   ORDER CARD
+========================================= */
+
+.customer-order-card {
+    position: relative;
+    background:
+        linear-gradient(
+            145deg,
+            #1c1c1c,
+            #101010
+        );
+
+    border: 1px solid #333;
+    border-left: 5px solid #ffd700;
+
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.customer-order-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #ffd700;
+
+    box-shadow:
+        0 15px 40px rgba(255, 215, 0, 0.12);
+}
+
+
+/* =========================================
+   ORDER HEADER
+========================================= */
+
+.order-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+
+    border-bottom: 1px solid #333;
+}
+
+.order-card-header h2 {
+    margin: 0;
+    color: #ffd700;
+    font-size: 22px;
+    word-break: break-word;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.order-status {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    background: #ffd700;
+    color: #111;
+
+    font-size: 13px;
+    font-weight: 900;
+
+    box-shadow:
+        0 4px 12px rgba(255, 215, 0, 0.18);
+}
+
+
+/* =========================================
+   ORDER DETAILS
+========================================= */
+
+.order-details {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px 20px;
+
+    margin-bottom: 22px;
+}
+
+.order-details p {
+    margin: 0;
+
+    padding: 12px;
+
+    background: #181818;
+
+    border-radius: 10px;
+
+    color: #ddd;
+
+    border: 1px solid #292929;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+.order-details strong {
+    color: #ffd700;
+}
+
+
+/* =========================================
+   PRODUCTS TITLE
+========================================= */
+
+.customer-order-card h3 {
+    color: white;
+    margin: 20px 0 12px;
+}
+
+
+/* =========================================
+   PRODUCTS
+========================================= */
+
+.my-order-products {
+    display: grid;
+    gap: 10px;
+}
+
+.my-order-products p {
+    margin: 0;
+
+    padding: 13px 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #240000,
+            #171717
+        );
+
+    border: 1px solid #3b1a1a;
+
+    border-radius: 10px;
+
+    color: #ddd;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.my-order-products p:hover {
+    transform: translateX(3px);
+    border-color: #ffd700;
+}
+
+.my-order-products strong {
+    color: #ffd700;
+}
+
+
+/* =========================================
+   TOTAL
+========================================= */
+
+.order-total {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 22px;
+    padding: 16px 18px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffd700,
+            #ffb700
+        );
+
+    border-radius: 12px;
+
+    color: #111;
+
+    font-size: 18px;
+
+    box-shadow:
+        0 7px 20px rgba(255, 215, 0, 0.15);
+}
+
+
+/* =========================================
+   NOTIFICATION
+========================================= */
+
+.order-notification {
+    margin-top: 15px;
+
+    padding: 14px 16px;
+
+    background: #2b1f00;
+
+    border: 1px solid #806500;
+
+    border-radius: 10px;
+
+    color: #ffd700;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   TRACK BUTTON
+========================================= */
+
+.track-order-btn {
+    display: block;
+
+    margin-top: 18px;
+
+    padding: 14px 18px;
+
+    text-align: center;
+
+    background: #ffd700;
+
+    color: #111;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: 900;
+
+    font-size: 16px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    box-shadow:
+        0 6px 18px rgba(255, 215, 0, 0.15);
+}
+
+.track-order-btn:hover {
+    background: #555;
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
 
 .order-loading {
     text-align: center;
-    padding: 30px;
+    padding: 50px 20px;
+    color: white;
 }
 
 .loader {
-    width: 45px;
-    height: 45px;
-    border: 5px solid #ddd;
-    border-top: 5px solid #2563eb;
+    width: 48px;
+    height: 48px;
+
+    border: 5px solid #333;
+
+    border-top: 5px solid #ffd700;
+
     border-radius: 50%;
+
     animation: spin 1s linear infinite;
-    margin: 0 auto 15px;
+
+    margin: 0 auto 18px;
 }
+
+.order-loading h3 {
+    color: #ddd;
+}
+
+
+/* =========================================
+   EMPTY / ERROR STATE
+========================================= */
+
+.orders-message {
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.orders-message .message-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.orders-message h2 {
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+.orders-message p {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   ANIMATION
+========================================= */
 
 @keyframes spin {
 
@@ -78,6 +497,57 @@
 
 }
 
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .orders-page {
+        padding: 28px 12px 50px;
+    }
+
+
+    .orders-title h1 {
+        font-size: 32px;
+    }
+
+
+    .orders-container {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+
+    .customer-order-card {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+
+    .order-details {
+        grid-template-columns: 1fr;
+    }
+
+
+    .order-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
+    .order-card-header h2 {
+        font-size: 18px;
+    }
+
+
+    .order-total {
+        font-size: 16px;
+    }
+
+}
+
 </style>
 
 </head>
@@ -86,7 +556,9 @@
 <body>
 
 
-<!-- ================= HEADER ================= -->
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header>
 
@@ -111,17 +583,30 @@
 
 
 
-<!-- ================= MAIN ================= -->
+<!-- =========================================
+     MAIN
+========================================= -->
 
-<main class="checkout">
-
-
-    <h1>
-        📦 My Orders
-    </h1>
+<main class="orders-page">
 
 
-    <!-- ================= ACCOUNT BUTTONS ================= -->
+    <div class="orders-title">
+
+        <h1>
+            📦 My Orders
+        </h1>
+
+        <p>
+            View and track all your MH CUBES orders
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================
+         ACCOUNT BUTTONS
+    ====================================== -->
 
     <div
         id="account-actions"
@@ -132,13 +617,14 @@
             href="index.html"
             class="account-action-button home-button"
         >
-            🏠 Home
+            🏠 Continue Shopping
         </a>
 
 
         <button
             id="logout-button"
             class="account-action-button logout-button"
+            type="button"
         >
             🚪 Logout
         </button>
@@ -147,9 +633,12 @@
 
 
 
-    <!-- ================= ORDERS BOX ================= -->
+    <!-- =====================================
+         ORDERS CONTAINER
+    ====================================== -->
 
-    <div class="checkout-box">
+    <div class="orders-container">
+
 
         <h2>
             Your Orders
@@ -157,7 +646,7 @@
 
 
         <p>
-            Your orders are linked securely to your
+            Your orders are securely linked to your
             customer account.
         </p>
 
@@ -176,6 +665,7 @@
 
         </div>
 
+
     </div>
 
 
@@ -183,7 +673,9 @@
 
 
 
-<!-- ================= JAVASCRIPT ================= -->
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
 
 <script
     type="module"
