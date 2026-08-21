@@ -702,10 +702,13 @@ onAuthStateChanged(auth, (user) => {
 
     if (user) {
 
-        authLink.innerHTML = "👤 My Account";
-        authLink.href = "customer-account.html";
+        // Hide Sign In after login
+        authLink.style.display = "none";
 
     } else {
+
+        // Show Sign In when logged out
+        authLink.style.display = "";
 
         authLink.innerHTML = "👤 Sign In";
         authLink.href = "customer-login.html";
