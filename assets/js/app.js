@@ -11,20 +11,33 @@ import {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+
     // =========================================
-    // LOAD DARK MODE
+    // LOAD SAVED DARK MODE
     // =========================================
 
     const savedTheme = localStorage.getItem("theme");
 
+    const darkModeButton =
+        document.getElementById("darkModeBtn");
+
+
     if (savedTheme === "dark") {
+
         document.body.classList.add("dark-mode");
-    }
 
-    const button = document.getElementById("darkModeBtn");
+        if (darkModeButton) {
+            darkModeButton.innerHTML = "☀️ Light Mode";
+        }
 
-    if (button && savedTheme === "dark") {
-        button.innerHTML = "☀️ Light Mode";
+    } else {
+
+        document.body.classList.remove("dark-mode");
+
+        if (darkModeButton) {
+            darkModeButton.innerHTML = "🌙 Dark Mode";
+        }
+
     }
 
 
@@ -32,7 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // CART SYSTEM
     // =========================================
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || {};
+    let cart =
+        JSON.parse(localStorage.getItem("cart")) || {};
+
 
     document.querySelectorAll(".cart-btn").forEach(function(button) {
 
@@ -44,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             // PRODUCT PAGE BUTTON
+
             if (button.dataset.name) {
 
                 name = button.dataset.name;
@@ -54,14 +70,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             // HOMEPAGE PRODUCT CARD
+
             else {
 
-                const productBox = button.closest(".product");
+                const productBox =
+                    button.closest(".product");
 
                 if (!productBox) return;
 
+
                 name =
-                    productBox.querySelector("h3")?.innerText;
+                    productBox
+                        .querySelector("h3")
+                        ?.innerText;
+
 
                 price =
                     Number(
@@ -71,13 +93,17 @@ document.addEventListener("DOMContentLoaded", () => {
                             .replace("PKR ", "")
                     );
 
+
                 image =
-                    productBox.querySelector("img")?.src;
+                    productBox
+                        .querySelector("img")
+                        ?.src;
 
             }
 
 
             // SAFETY CHECK
+
             if (!name || !price) {
 
                 console.error(
@@ -90,10 +116,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
+
             }
 
 
             // ADD TO CART
+
             if (cart[name]) {
 
                 cart[name].quantity++;
@@ -114,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             // SAVE CART
+
             localStorage.setItem(
                 "cart",
                 JSON.stringify(cart)
@@ -124,8 +153,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             // TOAST
+
             const toast =
                 document.getElementById("toast");
+
 
             if (toast) {
 
@@ -163,7 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             const name =
-                productBox.querySelector("h3")?.innerText;
+                productBox
+                    .querySelector("h3")
+                    ?.innerText;
 
 
             const price =
@@ -176,7 +209,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             const image =
-                productBox.querySelector("img")?.src;
+                productBox
+                    .querySelector("img")
+                    ?.src;
 
 
             if (!name || !price) return;
@@ -249,6 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const searchInput =
         document.getElementById("searchInput");
+
 
     const products =
         document.querySelectorAll(".product");
@@ -367,7 +403,6 @@ function showWhy(type, element) {
     if (!details) return;
 
 
-    // REMOVE ACTIVE
     document
         .querySelectorAll(".why-box")
         .forEach(card => {
@@ -377,7 +412,6 @@ function showWhy(type, element) {
         });
 
 
-    // ADD ACTIVE
     if (element) {
 
         element.classList.add("active");
@@ -385,7 +419,6 @@ function showWhy(type, element) {
     }
 
 
-    // RESTART ANIMATION
     details.style.animation = "none";
 
     void details.offsetWidth;
@@ -394,9 +427,7 @@ function showWhy(type, element) {
         "detailsAppear 0.45s ease";
 
 
-    // =========================================
     // DELIVERY
-    // =========================================
 
     if (type === "delivery") {
 
@@ -442,9 +473,7 @@ function showWhy(type, element) {
     }
 
 
-    // =========================================
     // ORIGINAL
-    // =========================================
 
     else if (type === "original") {
 
@@ -491,9 +520,7 @@ function showWhy(type, element) {
     }
 
 
-    // =========================================
     // PRICE
-    // =========================================
 
     else if (type === "price") {
 
@@ -539,9 +566,7 @@ function showWhy(type, element) {
     }
 
 
-    // =========================================
     // TRUSTED
-    // =========================================
 
     else if (type === "trusted") {
 
@@ -650,18 +675,19 @@ function toggleDarkMode() {
 
     setTimeout(function() {
 
-        document.body.classList.toggle("dark-mode");
+        const isDark =
+            document.body.classList.toggle(
+                "dark-mode"
+            );
 
 
         const button =
             document.getElementById("darkModeBtn");
 
 
-        if (
-            document.body.classList.contains(
-                "dark-mode"
-            )
-        ) {
+        if (isDark) {
+
+            // SAVE DARK MODE
 
             localStorage.setItem(
                 "theme",
@@ -677,6 +703,8 @@ function toggleDarkMode() {
             }
 
         } else {
+
+            // SAVE LIGHT MODE
 
             localStorage.setItem(
                 "theme",
@@ -714,6 +742,7 @@ function toggleMobileMenu() {
     const nav =
         document.getElementById("main-nav");
 
+
     const menuBtn =
         document.getElementById("menu-btn");
 
@@ -744,7 +773,7 @@ function toggleMobileMenu() {
 
 
 // =========================================
-// MAKE INLINE HTML FUNCTIONS AVAILABLE
+// MAKE INLINE FUNCTIONS AVAILABLE
 // =========================================
 
 window.scrollToProducts =
@@ -779,29 +808,37 @@ onAuthStateChanged(auth, (user) => {
     if (!authLink) return;
 
 
-   if (user) {
+    if (user) {
 
-    console.log(
-        "✅ Customer logged in:",
-        user.email
-    );
+        console.log(
+            "✅ Customer logged in:",
+            user.email
+        );
 
-    // Show My Account
-    authLink.style.display = "";
-    authLink.innerHTML = "👤 My Account";
-    authLink.href = "customer-account.html";
 
-} else {
+        authLink.style.display = "";
 
-    console.log(
-        "❌ Customer is not logged in"
-    );
+        authLink.innerHTML =
+            "👤 My Account";
 
-    // Show Sign In
-    authLink.style.display = "";
-    authLink.innerHTML = "👤 Sign In";
-    authLink.href = "customer-login.html";
+        authLink.href =
+            "customer-account.html";
 
-}
+    } else {
+
+        console.log(
+            "❌ Customer is not logged in"
+        );
+
+
+        authLink.style.display = "";
+
+        authLink.innerHTML =
+            "👤 Sign In";
+
+        authLink.href =
+            "customer-login.html";
+
+    }
 
 });
