@@ -3259,3 +3259,34 @@ transform:rotate(360deg);
     }
 
 }
+/* ============================= */
+/* TRACK ORDER BUTTON */
+/* ============================= */
+
+.track-order-btn {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-top: 15px;
+    padding: 13px;
+
+    background: #ffb703;
+    color: black;
+
+    text-align: center;
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.3s ease;
+}
+
+.track-order-btn:hover {
+    background: #777;
+    color: white;
+
+    transform: translateY(-2px);
+}
