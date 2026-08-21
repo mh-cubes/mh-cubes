@@ -163,13 +163,15 @@ document
     }
 
 
-    try{
+  try{
 
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+    await setPersistence(auth, browserLocalPersistence);
+
+    await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+    );
 
 
         message.innerText =
@@ -242,13 +244,15 @@ document
     }
 
 
-    try{
+   try{
 
-        await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+    await setPersistence(auth, browserLocalPersistence);
+
+    await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+    );
 
 
         message.innerText =
