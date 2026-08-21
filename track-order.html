@@ -164,9 +164,14 @@ onAuthStateChanged(
         }
 
 
-        currentUser = user;
+       currentUser = user;
 
-        trackButton.disabled = false;
+trackButton.disabled = false;
+
+// Automatically track order if Order ID came from My Orders
+if (orderIDFromURL) {
+    trackOrder();
+}
 
     }
 );
