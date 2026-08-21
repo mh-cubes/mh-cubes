@@ -862,7 +862,18 @@ logoutButton.addEventListener(
     }
 
 );
+setTimeout(function(){
 
+    const loading =
+        document.getElementById("account-loading");
+
+    if(loading){
+
+        loading.classList.add("hide");
+
+    }
+
+}, 2500);
 </script>
 
 
