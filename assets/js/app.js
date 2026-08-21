@@ -1,3 +1,5 @@
+import { auth } from "../../firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 document.addEventListener("DOMContentLoaded", () => {
 
     // =========================================
@@ -686,5 +688,28 @@ document.addEventListener("DOMContentLoaded", function(){
         });
 
     });
+
+});
+// =========================================
+// CUSTOMER AUTH BUTTON
+// =========================================
+
+onAuthStateChanged(auth, (user) => {
+
+    const authLink = document.getElementById("auth-link");
+
+    if (!authLink) return;
+
+    if (user) {
+
+        authLink.innerHTML = "👤 My Account";
+        authLink.href = "customer-account.html";
+
+    } else {
+
+        authLink.innerHTML = "👤 Sign In";
+        authLink.href = "customer-login.html";
+
+    }
 
 });
