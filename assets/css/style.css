@@ -3305,35 +3305,81 @@ transform:rotate(360deg);
 
 body {
     background:
-        radial-gradient(circle at 15% 20%, rgba(255, 0, 80, 0.35), transparent 25%),
-        radial-gradient(circle at 85% 15%, rgba(0, 255, 255, 0.25), transparent 25%),
-        radial-gradient(circle at 20% 85%, rgba(255, 215, 0, 0.25), transparent 25%),
-        radial-gradient(circle at 80% 80%, rgba(150, 0, 255, 0.30), transparent 25%),
-        linear-gradient(135deg, #090909, #180018, #00191c, #12000b);
+        radial-gradient(circle at 10% 20%, rgba(255, 0, 80, 0.35), transparent 25%),
+        radial-gradient(circle at 90% 15%, rgba(0, 255, 255, 0.30), transparent 25%),
+        radial-gradient(circle at 20% 85%, rgba(255, 215, 0, 0.30), transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(150, 0, 255, 0.35), transparent 25%),
+        linear-gradient(135deg, #050505, #160016, #001619, #100006);
 
     background-attachment: fixed;
 
     min-height: 100vh;
+
+    position: relative;
+
+    overflow-x: hidden;
 }
+
+
 body::before {
-    content: "";
+    content: "MH CUBES";
 
     position: fixed;
 
-    inset: 0;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%) rotate(-12deg);
+
+    font-size: clamp(100px, 18vw, 260px);
+
+    font-weight: 900;
+
+    font-family:
+        Impact,
+        Haettenschweiler,
+        "Arial Black",
+        sans-serif;
+
+    letter-spacing: 12px;
+
+    white-space: nowrap;
+
+    color: transparent;
+
+    -webkit-text-stroke: 5px rgba(255, 255, 255, 0.12);
+
+    background: linear-gradient(
+        90deg,
+        #ff1744,
+        #ffea00,
+        #00ff88,
+        #00e5ff,
+        #8a2be2,
+        #ff1493,
+        #ff1744
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    opacity: 0.22;
+
+    filter:
+        drop-shadow(0 0 12px rgba(255, 0, 80, 0.35))
+        drop-shadow(0 0 20px rgba(0, 255, 255, 0.25));
 
     pointer-events: none;
 
-    z-index: -1;
-
-    opacity: 0.18;
-
-    background-image:
-        radial-gradient(circle, #ffffff 1px, transparent 1px);
-
-    background-size: 18px 18px;
+    z-index: 0;
 }
 
+
+header,
+.orders-page {
+    position: relative;
+    z-index: 1;
+}
 /* My Orders heading */
 
 .checkout > h1 {
