@@ -147,7 +147,7 @@ document.addEventListener("click", function (event) {
     showPageLoading(title, message);
 
 
-    /* Navigate after 1.5 seconds */
+    /* Navigate after 3.0 seconds */
 
     setTimeout(function () {
 
