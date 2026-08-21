@@ -34,7 +34,7 @@ body{
 
 .account-container{
 
-    max-width:900px;
+    max-width:1000px;
 
     margin:60px auto;
 
@@ -140,7 +140,7 @@ body{
     display:grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(3,1fr);
 
     gap:20px;
 
@@ -209,6 +209,34 @@ body{
 
 
 /* ============================= */
+/* TOTAL ORDERS NUMBER */
+/* ============================= */
+
+.order-count{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    color:#2563eb;
+
+    margin:10px 0;
+
+}
+
+
+.order-count-text{
+
+    color:#666;
+
+    font-size:14px;
+
+    margin-bottom:20px;
+
+}
+
+
+/* ============================= */
 /* BUTTONS */
 /* ============================= */
 
@@ -252,6 +280,8 @@ body{
 .logout-button{
 
     background:#dc2626;
+
+    margin-top:15px;
 
 }
 
@@ -350,7 +380,7 @@ body{
 /* MOBILE */
 /* ============================= */
 
-@media(max-width:600px){
+@media(max-width:700px){
 
     .account-container{
 
@@ -435,7 +465,9 @@ MH CUBES
 <div class="account-container">
 
 
+<!-- ============================= -->
 <!-- ACCOUNT HEADER -->
+<!-- ============================= -->
 
 <div class="account-header">
 
@@ -467,12 +499,16 @@ Loading...
 
 
 
+<!-- ============================= -->
 <!-- ACCOUNT ACTIONS -->
+<!-- ============================= -->
 
 <div class="account-actions">
 
 
+<!-- ============================= -->
 <!-- MY ORDERS -->
+<!-- ============================= -->
 
 <div class="account-card">
 
@@ -502,7 +538,9 @@ View My Orders
 
 
 
+<!-- ============================= -->
 <!-- TRACK ORDER -->
+<!-- ============================= -->
 
 <div class="account-card">
 
@@ -530,11 +568,47 @@ Track My Order
 
 </div>
 
+
+
+<!-- ============================= -->
+<!-- TOTAL ORDERS -->
+<!-- ============================= -->
+
+<div class="account-card">
+
+<div class="account-icon">
+📊
+</div>
+
+
+<h3>
+Total Orders
+</h3>
+
+
+<div
+    class="order-count"
+    id="order-count"
+>
+...
+</div>
+
+
+<div class="order-count-text">
+Orders you've placed with MH CUBES
+</div>
+
+
+</div>
+
+
 </div>
 
 
 
+<!-- ============================= -->
 <!-- CONTINUE SHOPPING -->
+<!-- ============================= -->
 
 <a
     href="index.html"
@@ -545,7 +619,9 @@ Track My Order
 
 
 
+<!-- ============================= -->
 <!-- LOGOUT -->
+<!-- ============================= -->
 
 <button
     class="account-button logout-button"
@@ -589,7 +665,8 @@ Please wait...
 
 <script type="module">
 
-import { auth } from "./assets/js/firebase.js";
+import { auth, db } from "./assets/js/firebase.js";
+
 
 import {
 
@@ -600,10 +677,29 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
+import {
+
+    collection,
+
+    query,
+
+    where,
+
+    getDocs
+
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
 
 const emailBox =
     document.getElementById(
         "account-email"
+    );
+
+
+const orderCount =
+    document.getElementById(
+        "order-count"
     );
 
 
@@ -628,7 +724,7 @@ onAuthStateChanged(
 
     auth,
 
-    function(user){
+    async function(user){
 
         if(!user){
 
@@ -641,9 +737,67 @@ onAuthStateChanged(
         }
 
 
+        // =============================
+        // CUSTOMER EMAIL
+        // =============================
+
         emailBox.innerText =
             user.email ||
             "Customer account";
+
+
+
+        // =============================
+        // LOAD TOTAL ORDERS
+        // =============================
+
+        try{
+
+            const ordersRef =
+                collection(
+                    db,
+                    "orders"
+                );
+
+
+            const ordersQuery =
+                query(
+
+                    ordersRef,
+
+                    where(
+                        "customerUID",
+                        "==",
+                        user.uid
+                    )
+
+                );
+
+
+            const snapshot =
+                await getDocs(
+                    ordersQuery
+                );
+
+
+            orderCount.innerText =
+                snapshot.size;
+
+        }
+
+
+        catch(error){
+
+            console.error(
+                "Order count error:",
+                error
+            );
+
+
+            orderCount.innerText =
+                "0";
+
+        }
 
     }
 
