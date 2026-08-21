@@ -321,38 +321,10 @@ logoutButton.addEventListener(
             await signOut(auth);
 
 
-            // Wait 5 seconds
+            // Redirect to homepage
 
-            setTimeout(
-                function(){
-
-                    // Hide loading
-
-                    loadingScreen.style.display =
-                        "none";
-
-
-                    // Show popup
-
-                    logoutPopup.style.display =
-                        "block";
-
-
-                    // Redirect after popup
-
-                    setTimeout(
-                        function(){
-
-                            window.location.href =
-                                "customer-login.html";
-
-                        },
-                        1500
-                    );
-
-                },
-                5000
-            );
+            window.location.href =
+                "index.html";
 
 
         }catch(error){
