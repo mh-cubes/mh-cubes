@@ -16,30 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // LOAD SAVED DARK MODE
     // =========================================
 
-    const savedTheme = localStorage.getItem("theme");
+  
+const savedTheme = localStorage.getItem("theme");
 
-    const darkModeButton =
-        document.getElementById("darkModeBtn");
-
-
-    if (savedTheme === "dark") {
-
-        document.body.classList.add("dark-mode");
-
-        if (darkModeButton) {
-            darkModeButton.innerHTML = "☀️ Light Mode";
-        }
-
-    } else {
-
-        document.body.classList.remove("dark-mode");
-
-        if (darkModeButton) {
-            darkModeButton.innerHTML = "🌙 Dark Mode";
-        }
-
-    }
-
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+}
 
     // =========================================
     // CART SYSTEM
