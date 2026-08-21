@@ -1,14 +1,21 @@
+
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Settings - MH CUBES</title>
+
     <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 
+
 <body>
-<!-- ============================= -->
-<!-- BEAUTIFUL PAGE LOADING SCREEN -->
-<!-- ============================= -->
+
+<!-- ========================================= -->
+<!-- PAGE LOADING SCREEN -->
+<!-- ========================================= -->
 
 <div id="page-loading">
 
@@ -31,101 +38,164 @@
     </div>
 
 </div>
+
+
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
+
 <header>
-    <div class="logo">MH CUBES</div>
+
+    <div class="logo">
+        MH CUBES
+    </div>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="products.html">Products</a>
-        <a href="cart.html">🛒 Cart</a>
-        <a href="my-orders.html">📦 My Orders</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Products
+        </a>
+
+        <a href="cart.html">
+            🛒 Cart
+        </a>
+
+        <a href="my-orders.html">
+            📦 My Orders
+        </a>
+
     </nav>
+
 </header>
 
 
+<!-- ========================================= -->
+<!-- SETTINGS PAGE -->
+<!-- ========================================= -->
+
 <section class="settings-page">
 
-<h1>⚙️ Settings</h1>
+    <h1>
+        ⚙️ Settings
+    </h1>
 
 
-<div class="settings-box">
-    <h2>Account Settings</h2>
-    <p>Manage your MH CUBES account.</p>
+    <!-- ACCOUNT SETTINGS -->
 
-    <button onclick="openAccount()">👤 Open Account</button>
+    <div class="settings-box">
 
-    <div id="account-panel" style="display:none; margin-top:20px;">
+        <h2>
+            Account Settings
+        </h2>
 
-        <input id="username" placeholder="Your Name">
-        <br><br>
+        <p>
+            Manage your MH CUBES account.
+        </p>
 
-        <input id="email" placeholder="Your Email">
-        <br><br>
 
-        <button onclick="saveAccount()">Save Account</button>
+        <button onclick="openAccount()">
+            👤 Open Account
+        </button>
+
+
+        <div
+            id="account-panel"
+            style="display:none; margin-top:20px;"
+        >
+
+            <input
+                id="username"
+                placeholder="Your Name"
+            >
+
+            <br><br>
+
+
+            <input
+                id="email"
+                placeholder="Your Email"
+            >
+
+            <br><br>
+
+
+            <button onclick="saveAccount()">
+                Save Account
+            </button>
+
+        </div>
 
     </div>
-</div>
 
 
-<div class="settings-box">
-    <h2>Notifications</h2>
-    <p>Order updates and alerts.</p>
-</div>
+    <!-- NOTIFICATIONS -->
+
+    <div class="settings-box">
+
+        <h2>
+            Notifications
+        </h2>
+
+        <p>
+            Order updates and alerts.
+        </p>
+
+    </div>
 
 
-<div class="settings-box">
-    <h2>Theme</h2>
-    <button id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
-</div>
+    <!-- THEME -->
+
+    <div class="settings-box">
+
+        <h2>
+            Theme
+        </h2>
+
+        <button
+            id="darkModeBtn"
+            onclick="toggleDarkMode()"
+        >
+            🌙 Dark Mode
+        </button>
+
+    </div>
 
 
 </section>
 
 
-<!-- Loading Screen -->
-
-<div id="loader">
-    <div class="spinner"></div>
-</div>
-
-
+<!-- ========================================= -->
+<!-- ACCOUNT FUNCTIONS -->
+<!-- ========================================= -->
 
 <script>
 
-function toggleDarkMode() {
+function openAccount() {
 
-    document.getElementById("loader").style.display = "flex";
+    const panel =
+        document.getElementById("account-panel");
 
-    setTimeout(function(){
-
-        document.body.classList.toggle("dark-mode");
-
-        document.getElementById("loader").style.display = "none";
-
-    }, 2000);
-
-}
+    if (!panel) return;
 
 
-
-function openAccount(){
-
-    document.getElementById("account-panel").style.display="block";
+    panel.style.display = "block";
 
 
     document.getElementById("username").value =
-    localStorage.getItem("username") || "";
+        localStorage.getItem("username") || "";
 
 
     document.getElementById("email").value =
-    localStorage.getItem("email") || "";
+        localStorage.getItem("email") || "";
 
 }
 
 
-
-function saveAccount(){
+function saveAccount() {
 
     localStorage.setItem(
         "username",
@@ -139,13 +209,30 @@ function saveAccount(){
     );
 
 
-    alert("Account saved successfully ✅");
+    alert(
+        "Account saved successfully ✅"
+    );
 
 }
 
-
 </script>
-<script type="module" src="assets/js/app.js"></script>
-<script src="assets/js/page-loading.js"></script>
+
+
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
+
+<script
+    type="module"
+    src="assets/js/app.js"
+></script>
+
+
+<script
+    src="assets/js/page-loading.js"
+></script>
+
+
 </body>
+
 </html>
