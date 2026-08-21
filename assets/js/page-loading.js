@@ -1,43 +1,64 @@
+/* =========================================
+   MH CUBES PAGE LOADING SYSTEM
+========================================= */
+
 const loadingScreen = document.getElementById("page-loading");
+const loadingText = document.querySelector("#page-loading p");
+const loadingTitle = document.querySelector("#page-loading h2");
 
 
-// =========================================
-// HIDE LOADING SCREEN WHEN PAGE IS READY
-// =========================================
+/* =========================================
+   HIDE LOADING SCREEN WHEN PAGE OPENS
+========================================= */
 
-window.addEventListener("load", function () {
+window.addEventListener("pageshow", function () {
 
-    setTimeout(function () {
+    if (loadingScreen) {
 
-        if (loadingScreen) {
-            loadingScreen.classList.add("hide");
-        }
+        loadingScreen.classList.add("hide");
 
-    }, 700);
+    }
 
 });
 
 
-// =========================================
-// SHOW LOADING WHEN CLICKING A PAGE LINK
-// =========================================
+/* =========================================
+   SHOW LOADING SCREEN
+========================================= */
+
+function showPageLoading(title, message) {
+
+    if (!loadingScreen) return;
+
+    if (loadingTitle) {
+        loadingTitle.textContent = title;
+    }
+
+    if (loadingText) {
+        loadingText.textContent = message;
+    }
+
+    loadingScreen.classList.remove("hide");
+
+}
+
+
+/* =========================================
+   PAGE NAVIGATION
+========================================= */
 
 document.addEventListener("click", function (event) {
 
     const link = event.target.closest("a");
 
-    if (!link || !loadingScreen) {
-        return;
-    }
+    if (!link) return;
 
     const href = link.getAttribute("href");
 
-    if (!href) {
-        return;
-    }
+    if (!href) return;
 
 
-    // Ignore special links
+    /* Ignore special links */
 
     if (
         href.startsWith("#") ||
@@ -50,7 +71,7 @@ document.addEventListener("click", function (event) {
     }
 
 
-    // Ignore external websites
+    /* Ignore external websites */
 
     if (
         link.hostname &&
@@ -60,11 +81,10 @@ document.addEventListener("click", function (event) {
     }
 
 
-    // Ignore same page
+    /* Ignore same page */
 
     if (
-        href === window.location.pathname ||
-        href === window.location.href
+        link.href === window.location.href
     ) {
         return;
     }
@@ -73,64 +93,84 @@ document.addEventListener("click", function (event) {
     event.preventDefault();
 
 
-    // Show loading screen
+    /* =========================================
+       DIFFERENT LOADING MESSAGES
+    ========================================= */
 
-    loadingScreen.classList.remove("hide");
-
-
-    // Save that navigation is happening
-
-    sessionStorage.setItem(
-        "pageNavigating",
-        "true"
-    );
+    let title = "MH CUBES";
+    let message = "Loading...";
 
 
-    // Navigate after 2.5 seconds
+    if (href.includes("my-orders")) {
+
+        title = "MY ORDERS";
+        message = "Fetching your orders...";
+
+    }
+
+    else if (href.includes("track-order")) {
+
+        title = "TRACK ORDER";
+        message = "Finding your order...";
+
+    }
+
+    else if (href.includes("settings")) {
+
+        title = "SETTINGS";
+        message = "Opening settings...";
+
+    }
+
+    else if (href.includes("cart")) {
+
+        title = "YOUR CART";
+        message = "Loading your cart...";
+
+    }
+
+    else if (href.includes("checkout")) {
+
+        title = "CHECKOUT";
+        message = "Preparing checkout...";
+
+    }
+
+    else if (href.includes("index")) {
+
+        title = "MH CUBES";
+        message = "Welcome back...";
+
+    }
+
+
+    showPageLoading(title, message);
+
+
+    /* Navigate after 1.5 seconds */
 
     setTimeout(function () {
 
         window.location.href = href;
 
-    }, 2500);
+    }, 1500);
 
 });
 
 
-// =========================================
-// FIX BROWSER BACK / FORWARD BUTTON
-// =========================================
+/* =========================================
+   BACK / FORWARD BUTTON FIX
+========================================= */
 
 window.addEventListener("pageshow", function (event) {
 
-    /*
-       pageshow also fires when the browser
-       restores a page from its back/forward cache.
-    */
+    if (event.persisted) {
 
-    if (loadingScreen) {
+        if (loadingScreen) {
 
-        loadingScreen.classList.add("hide");
+            loadingScreen.classList.add("hide");
 
-    }
-
-
-    sessionStorage.removeItem(
-        "pageNavigating"
-    );
-
-});
-
-
-// =========================================
-// EXTRA BACK BUTTON SAFETY
-// =========================================
-
-window.addEventListener("popstate", function () {
-
-    if (loadingScreen) {
-
-        loadingScreen.classList.add("hide");
+        }
 
     }
 
