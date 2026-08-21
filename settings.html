@@ -1,176 +1,203 @@
-
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
 
-    <title>Settings - MH CUBES</title>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Settings - MH CUBES</title>
+
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
+
 
 </head>
 
-
 <body>
 
-<!-- ========================================= -->
-<!-- PAGE LOADING SCREEN -->
-<!-- ========================================= -->
+<!-- =========================================
+     PAGE LOADING SCREEN
+========================================= -->
 
 <div id="page-loading">
 
-    <div class="loading-content">
+<div class="loading-content">
 
-        <div class="loading-logo">
-            🧩
-        </div>
+    <div class="loading-logo">
+        🧩
+    </div>
 
-        <div class="page-loader"></div>
+    <div class="page-loader"></div>
 
-        <h2>
-            MH CUBES
-        </h2>
+    <h2>
+        SETTINGS
+    </h2>
 
-        <p>
-            Loading...
-        </p>
+    <p>
+        Opening settings...
+    </p>
+
+</div>
+
+
+</div>
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+
+<div class="logo">
+    MH CUBES
+</div>
+
+
+<nav>
+
+    <a href="index.html">
+        🏠 Home
+    </a>
+
+    <a href="products.html">
+        🧩 Products
+    </a>
+
+    <a href="cart.html">
+        🛒 Cart
+    </a>
+
+    <a href="my-orders.html">
+        📦 My Orders
+    </a>
+
+</nav>
+
+
+</header>
+
+<!-- =========================================
+     SETTINGS PAGE
+========================================= -->
+
+<section class="settings-page">
+
+
+<h1>
+    ⚙️ Settings
+</h1>
+
+
+<!-- =====================================
+     ACCOUNT SETTINGS
+====================================== -->
+
+<div class="settings-box">
+
+    <h2>
+        Account Settings
+    </h2>
+
+    <p>
+        Manage your MH CUBES account.
+    </p>
+
+
+    <button
+        type="button"
+        onclick="openAccount()"
+    >
+        👤 Open Account
+    </button>
+
+
+    <div
+        id="account-panel"
+        style="display:none; margin-top:20px;"
+    >
+
+        <input
+            id="username"
+            placeholder="Your Name"
+        >
+
+        <br><br>
+
+
+        <input
+            id="email"
+            placeholder="Your Email"
+        >
+
+        <br><br>
+
+
+        <button
+            type="button"
+            onclick="saveAccount()"
+        >
+            Save Account
+        </button>
 
     </div>
 
 </div>
 
 
-<!-- ========================================= -->
-<!-- HEADER -->
-<!-- ========================================= -->
+<!-- =====================================
+     NOTIFICATIONS
+====================================== -->
 
-<header>
+<div class="settings-box">
 
-    <div class="logo">
-        MH CUBES
-    </div>
+    <h2>
+        Notifications
+    </h2>
 
-    <nav>
+    <p>
+        Order updates and alerts.
+    </p>
 
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="products.html">
-            Products
-        </a>
-
-        <a href="cart.html">
-            🛒 Cart
-        </a>
-
-        <a href="my-orders.html">
-            📦 My Orders
-        </a>
-
-    </nav>
-
-</header>
+</div>
 
 
-<!-- ========================================= -->
-<!-- SETTINGS PAGE -->
-<!-- ========================================= -->
+<!-- =====================================
+     THEME
+====================================== -->
 
-<section class="settings-page">
+<div class="settings-box">
 
-    <h1>
-        ⚙️ Settings
-    </h1>
-
-
-    <!-- ACCOUNT SETTINGS -->
-
-    <div class="settings-box">
-
-        <h2>
-            Account Settings
-        </h2>
-
-        <p>
-            Manage your MH CUBES account.
-        </p>
+    <h2>
+        Theme
+    </h2>
 
 
-        <button onclick="openAccount()">
-            👤 Open Account
-        </button>
+    <button
+        id="darkModeBtn"
+        type="button"
+        onclick="toggleDarkMode()"
+    >
+        🌙 Dark Mode
+    </button>
 
-
-        <div
-            id="account-panel"
-            style="display:none; margin-top:20px;"
-        >
-
-            <input
-                id="username"
-                placeholder="Your Name"
-            >
-
-            <br><br>
-
-
-            <input
-                id="email"
-                placeholder="Your Email"
-            >
-
-            <br><br>
-
-
-            <button onclick="saveAccount()">
-                Save Account
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- NOTIFICATIONS -->
-
-    <div class="settings-box">
-
-        <h2>
-            Notifications
-        </h2>
-
-        <p>
-            Order updates and alerts.
-        </p>
-
-    </div>
-
-
-    <!-- THEME -->
-
-    <div class="settings-box">
-
-        <h2>
-            Theme
-        </h2>
-
-        <button
-            id="darkModeBtn"
-            onclick="toggleDarkMode()"
-        >
-            🌙 Dark Mode
-        </button>
-
-    </div>
+</div>
 
 
 </section>
 
-
-<!-- ========================================= -->
-<!-- ACCOUNT FUNCTIONS -->
-<!-- ========================================= -->
+<!-- =========================================
+     ACCOUNT FUNCTIONS
+========================================= -->
 
 <script>
 
@@ -179,33 +206,59 @@ function openAccount() {
     const panel =
         document.getElementById("account-panel");
 
+
     if (!panel) return;
 
 
-    panel.style.display = "block";
+    panel.style.display =
+        "block";
 
 
-    document.getElementById("username").value =
-        localStorage.getItem("username") || "";
+    const username =
+        document.getElementById("username");
 
 
-    document.getElementById("email").value =
-        localStorage.getItem("email") || "";
+    const email =
+        document.getElementById("email");
+
+
+    if (username) {
+
+        username.value =
+            localStorage.getItem("username") || "";
+
+    }
+
+
+    if (email) {
+
+        email.value =
+            localStorage.getItem("email") || "";
+
+    }
 
 }
 
 
 function saveAccount() {
 
+    const username =
+        document.getElementById("username");
+
+
+    const email =
+        document.getElementById("email");
+
+
     localStorage.setItem(
         "username",
-        document.getElementById("username").value
+        username.value
     );
 
 
     localStorage.setItem(
         "email",
-        document.getElementById("email").value
+        email.value
     );
 
 
@@ -217,21 +270,22 @@ function saveAccount() {
 
 </script>
 
-
-<!-- ========================================= -->
-<!-- JAVASCRIPT -->
-<!-- ========================================= -->
+<!-- =========================================
+     APP.JS
+========================================= -->
 
 <script
     type="module"
     src="assets/js/app.js"
 ></script>
 
+<!-- =========================================
+     PAGE LOADING SYSTEM
+========================================= -->
 
 <script
     src="assets/js/page-loading.js"
 ></script>
-
 
 </body>
 
