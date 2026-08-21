@@ -13,16 +13,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
-    // LOAD SAVED DARK MODE
-    // =========================================
+// LOAD SAVED DARK MODE
+// =========================================
 
-  
-const savedTheme = localStorage.getItem("theme");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-}
+    const savedTheme = localStorage.getItem("theme");
+    const button = document.getElementById("darkModeBtn");
 
+    if (savedTheme === "dark") {
+
+        document.body.classList.add("dark-mode");
+
+        if (button) {
+            button.innerHTML = "☀️ Light Mode";
+        }
+
+    } else {
+
+        document.body.classList.remove("dark-mode");
+
+        if (button) {
+            button.innerHTML = "🌙 Dark Mode";
+        }
+
+    }
+
+});
     // =========================================
     // CART SYSTEM
     // =========================================
@@ -642,27 +659,27 @@ function closeContactPopup() {
 // DARK MODE
 // =========================================
 
-// =========================================
-// DARK MODE
-// =========================================
-
 function toggleDarkMode() {
 
-    const body = document.body;
-    const button = document.getElementById("darkModeBtn");
+    const button =
+        document.getElementById("darkModeBtn");
 
-    body.classList.toggle("dark-mode");
+    document.body.classList.toggle("dark-mode");
 
     const isDark =
-        body.classList.contains("dark-mode");
+        document.body.classList.contains("dark-mode");
+
 
     // SAVE THEME
+
     localStorage.setItem(
         "theme",
         isDark ? "dark" : "light"
     );
 
-    // UPDATE BUTTON
+
+    // CHANGE BUTTON TEXT
+
     if (button) {
 
         button.innerHTML =
@@ -671,6 +688,7 @@ function toggleDarkMode() {
                 : "🌙 Dark Mode";
 
     }
+
 }
 
 // =========================================
