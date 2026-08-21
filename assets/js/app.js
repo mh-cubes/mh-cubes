@@ -642,78 +642,36 @@ function closeContactPopup() {
 // DARK MODE
 // =========================================
 
+// =========================================
+// DARK MODE
+// =========================================
+
 function toggleDarkMode() {
 
-    const loading =
-        document.getElementById("shop-loading");
+    const body = document.body;
+    const button = document.getElementById("darkModeBtn");
 
+    body.classList.toggle("dark-mode");
 
-    if (loading) {
+    const isDark =
+        body.classList.contains("dark-mode");
 
-        loading.classList.add("show");
+    // SAVE THEME
+    localStorage.setItem(
+        "theme",
+        isDark ? "dark" : "light"
+    );
+
+    // UPDATE BUTTON
+    if (button) {
+
+        button.innerHTML =
+            isDark
+                ? "☀️ Light Mode"
+                : "🌙 Dark Mode";
 
     }
-
-
-    setTimeout(function() {
-
-        const isDark =
-            document.body.classList.toggle(
-                "dark-mode"
-            );
-
-
-        const button =
-            document.getElementById("darkModeBtn");
-
-
-        if (isDark) {
-
-            // SAVE DARK MODE
-
-            localStorage.setItem(
-                "theme",
-                "dark"
-            );
-
-
-            if (button) {
-
-                button.innerHTML =
-                    "☀️ Light Mode";
-
-            }
-
-        } else {
-
-            // SAVE LIGHT MODE
-
-            localStorage.setItem(
-                "theme",
-                "light"
-            );
-
-
-            if (button) {
-
-                button.innerHTML =
-                    "🌙 Dark Mode";
-
-            }
-
-        }
-
-
-        if (loading) {
-
-            loading.classList.remove("show");
-
-        }
-
-    }, 2000);
-
 }
-
 
 // =========================================
 // MOBILE MENU
