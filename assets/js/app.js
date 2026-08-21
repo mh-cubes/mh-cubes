@@ -702,14 +702,13 @@ onAuthStateChanged(auth, (user) => {
 
     if (user) {
 
-        // Hide Sign In after login
-        authLink.style.display = "none";
+        // Completely remove Sign In button
+        authLink.remove();
 
     } else {
 
         // Show Sign In when logged out
         authLink.style.display = "";
-
         authLink.innerHTML = "👤 Sign In";
         authLink.href = "customer-login.html";
 
