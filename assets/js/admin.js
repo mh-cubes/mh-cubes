@@ -25,6 +25,14 @@ let box = document.getElementById("admin-order-box");
 // Firebase Authentication Check
 // ------------------------------
 
+
+
+    // ------------------------------
+// OWNER AUTHENTICATION
+// ------------------------------
+
+const OWNER_UID = "vo6y8yMgEsaVmOF20csqbKScw753";
+
 onAuthStateChanged(auth, (user) => {
 
     if (!user) {
@@ -35,13 +43,13 @@ onAuthStateChanged(auth, (user) => {
     }
 
     // OWNER ONLY
-    if (user.email !== "huzaifa81102@email.com") {
+    if (user.uid !== OWNER_UID) {
 
         alert("❌ You are not authorized to access the Owner Dashboard.");
 
         signOut(auth).then(() => {
 
-            window.location.href = "customer-login.html";
+            window.location.href = "owner-login.html";
 
         });
 
