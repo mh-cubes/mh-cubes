@@ -3348,58 +3348,6 @@ body {
 }
 
 
-body::before {
-    content: "MH CUBES";
-
-    position: fixed;
-
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -50%) rotate(-12deg);
-
-    font-size: clamp(55px, 16vw, 260px);
-
-    font-weight: 900;
-
-    font-family:
-        Impact,
-        Haettenschweiler,
-        "Arial Black",
-        sans-serif;
-
-   letter-spacing: 4px;
-
-    white-space: nowrap;
-
-    color: transparent;
-
-    -webkit-text-stroke: 5px rgba(255, 255, 255, 0.12);
-
-    background: linear-gradient(
-        90deg,
-        #ff1744,
-        #ffea00,
-        #00ff88,
-        #00e5ff,
-        #8a2be2,
-        #ff1493,
-        #ff1744
-    );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    opacity: 0.22;
-
-    filter:
-        drop-shadow(0 0 12px rgba(255, 0, 80, 0.35))
-        drop-shadow(0 0 20px rgba(0, 255, 255, 0.25));
-
-    pointer-events: none;
-
-    z-index: 0;
-}
 
 
 header,
