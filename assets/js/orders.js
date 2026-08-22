@@ -153,80 +153,115 @@ async function loadCustomerOrders(user) {
                 "customer-order-card";
 
 
-           // =================================
-// PRODUCTS
-// =================================
+            // =================================
+            // PRODUCTS
+            // =================================
 
-let productsHTML = "";
+            let productsHTML = "";
 
-let calculatedTotal = 0;
-
-
-Object.keys(
-    order.products || {}
-).forEach(function(productName) {
-
-    const item =
-        order.products[productName];
+            let calculatedTotal = 0;
 
 
-    const price =
-        Number(item.price) || 0;
+            Object.keys(
+                order.products || {}
+            ).forEach(function(productName) {
+
+                const item =
+                    order.products[productName];
 
 
-    const quantity =
-        Number(item.quantity) || 0;
+                const price =
+                    Number(item.price) || 0;
 
 
-    const subtotal =
-        price * quantity;
+                const quantity =
+                    Number(item.quantity) || 0;
 
 
-    calculatedTotal +=
-        subtotal;
+                const subtotal =
+                    price * quantity;
 
 
-    // PRODUCT IMAGE
-
-    const productImage =
-        item.image ||
-        item.img ||
-        "assets/images/placeholder.png";
+                calculatedTotal +=
+                    subtotal;
 
 
-    productsHTML += `
+                // =================================
+                // PRODUCT IMAGE
+                // =================================
 
-        <div class="my-order-product-item">
-
-            <div class="my-order-product-image">
-
-                <img
-                    src="${productImage}"
-                    alt="${productName}"
-                    onerror="this.style.display='none';"
-                >
-
-            </div>
+                const productImage =
+                    item.image ||
+                    item.img ||
+                    "assets/images/placeholder.png";
 
 
-            <div class="my-order-product-info">
+                productsHTML += `
 
-                <strong>
-                    🧩 ${productName}
-                </strong>
+                    <div
+                        class="my-order-product-item"
+                    >
 
-                <span>
-                    PKR ${price.toLocaleString()}
-                    × ${quantity}
-                </span>
+                        <div
+                            class="my-order-product-image"
+                            style="
+                                width:50px;
+                                height:50px;
+                                min-width:50px;
+                                max-width:50px;
+                                min-height:50px;
+                                max-height:50px;
+                                flex:0 0 50px;
+                                overflow:hidden;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                background:#ffffff;
+                                border-radius:8px;
+                                box-sizing:border-box;
+                            "
+                        >
 
-            </div>
+                            <img
+                                src="${productImage}"
+                                alt="${productName}"
+                                style="
+                                    width:100%;
+                                    height:100%;
+                                    max-width:100%;
+                                    max-height:100%;
+                                    object-fit:contain;
+                                    display:block;
+                                "
+                                onerror="
+                                    this.style.display='none';
+                                "
+                            >
 
-        </div>
+                        </div>
 
-    `;
 
-});
+                        <div
+                            class="my-order-product-info"
+                        >
+
+                            <strong>
+                                🧩 ${productName}
+                            </strong>
+
+                            <span>
+                                PKR ${price.toLocaleString()}
+                                × ${quantity}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
 
             // =================================
             // STATUS
@@ -272,11 +307,8 @@ Object.keys(
                         ${orderID || "Order"}
                     </h2>
 
-
                     <span class="order-status">
-
                         ${status}
-
                     </span>
 
                 </div>
@@ -380,7 +412,6 @@ Object.keys(
                         💰 Total
                     </strong>
 
-
                     <strong>
                         PKR ${total.toLocaleString()}
                     </strong>
@@ -425,6 +456,35 @@ Object.keys(
             orderBox.appendChild(card);
 
         });
+
+
+        // =====================================
+        // MOBILE IMAGE SIZE
+        // =====================================
+
+        if (window.innerWidth <= 700) {
+
+            document
+                .querySelectorAll(
+                    ".my-order-product-image"
+                )
+                .forEach(function(imageBox) {
+
+                    imageBox.style.width = "42px";
+                    imageBox.style.height = "42px";
+
+                    imageBox.style.minWidth = "42px";
+                    imageBox.style.minHeight = "42px";
+
+                    imageBox.style.maxWidth = "42px";
+                    imageBox.style.maxHeight = "42px";
+
+                    imageBox.style.flex =
+                        "0 0 42px";
+
+                });
+
+        }
 
 
     } catch (error) {
@@ -473,10 +533,6 @@ onAuthStateChanged(
     auth,
     function(user) {
 
-        // =================================
-        // NOT LOGGED IN
-        // =================================
-
         if (!user) {
 
             if (
@@ -496,10 +552,6 @@ onAuthStateChanged(
 
         }
 
-
-        // =================================
-        // LOGGED IN
-        // =================================
 
         if (accountActions) {
 
@@ -540,10 +592,6 @@ if (logoutButton) {
                 );
 
 
-                // =================================
-                // REDIRECT AFTER 5 SECONDS
-                // =================================
-
                 setTimeout(function() {
 
                     sessionStorage.removeItem(
@@ -557,10 +605,6 @@ if (logoutButton) {
                 }, 5000);
 
 
-                // =================================
-                // SIGN OUT
-                // =================================
-
                 await signOut(auth);
 
 
@@ -572,10 +616,6 @@ if (logoutButton) {
                 }
 
 
-                // =================================
-                // SUCCESS MESSAGE
-                // =================================
-
                 orderBox.innerHTML = `
 
                     <div class="orders-message">
@@ -584,16 +624,13 @@ if (logoutButton) {
                             ✅
                         </div>
 
-
                         <h2>
                             Logged Out Successfully!
                         </h2>
 
-
                         <p>
                             Redirecting to MH CUBES...
                         </p>
-
 
                         <p>
                             ⏳ Please wait 5 seconds
@@ -633,11 +670,9 @@ if (logoutButton) {
                             ❌
                         </div>
 
-
                         <h2>
                             Failed to Logout
                         </h2>
-
 
                         <p>
                             Please try again.
