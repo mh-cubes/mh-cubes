@@ -31,7 +31,7 @@ let box = document.getElementById("admin-order-box");
 // OWNER AUTHENTICATION
 // ------------------------------
 
-const OWNER_UID = "vo6y8yMgEsaVmOF20csqbKScw753";
+const OWNER_UID = "UPdmuwyLEcdEyMxFENPGRlAhxwa2";
 
 onAuthStateChanged(auth, (user) => {
 
