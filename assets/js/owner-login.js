@@ -1,3 +1,4 @@
+```js
 import {
     signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
@@ -5,18 +6,37 @@ import {
 import { auth } from "./firebase.js";
 
 
-function ownerLogin() {
+const loginButton =
+    document.getElementById("login-button");
 
-   const email =
-    document.getElementById("owner-email").value.trim();
+const emailInput =
+    document.getElementById("owner-email");
+
+const passwordInput =
+    document.getElementById("owner-password");
+
+const errorMessage =
+    document.getElementById("login-error");
+
+
+// =========================================
+// OWNER LOGIN
+// =========================================
+
+async function ownerLogin() {
+
+    const email =
+        emailInput.value.trim();
 
     const password =
-        document.getElementById("owner-password").value;
+        passwordInput.value;
 
+
+    // Empty fields
 
     if (!email || !password) {
 
-        document.getElementById("login-error").innerText =
+        errorMessage.innerText =
             "❌ Please enter your email and password.";
 
         return;
@@ -24,52 +44,65 @@ function ownerLogin() {
     }
 
 
-    signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-    )
+    // Loading state
 
-   .then(function (result) {
+    loginButton.disabled = true;
 
-    console.log("OWNER UID:", result.user.uid);
-    console.log("OWNER EMAIL:", result.user.email);
+    loginButton.innerText =
+        "🔄 Signing in...";
 
-    alert(
-        "Owner UID:\n" +
-        result.user.uid +
-        "\n\nEmail:\n" +
-        result.user.email
-    );
+    errorMessage.innerText = "";
 
-    localStorage.setItem(
-        "adminAccess",
-        "granted"
-    );
 
+    try {
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        localStorage.setItem(
+            "adminAccess",
+            "granted"
+        );
+
+
+        // Success screen
 
         document.querySelector(".login-box").innerHTML = `
 
-            <h1>🔐</h1>
+            <div class="success-icon">
+                ✓
+            </div>
 
-            <h2>Access Granted</h2>
+            <h2>
+                Welcome, Owner!
+            </h2>
 
-            <p>Opening Admin Dashboard...</p>
+            <p>
+                Login successful.
+            </p>
 
             <div class="loader"></div>
+
+            <small>
+                Opening your dashboard...
+            </small>
 
         `;
 
 
         setTimeout(function () {
 
-            window.location.href = "admin.html";
+            window.location.href =
+                "admin.html";
 
-        }, 2000);
+        }, 1200);
 
-    })
 
-    .catch(function (error) {
+    } catch (error) {
 
         console.error(
             "Firebase login error:",
@@ -77,12 +110,50 @@ function ownerLogin() {
         );
 
 
-        document.getElementById("login-error").innerText =
-            "❌ Invalid email or password.";
+        loginButton.disabled = false;
 
-    });
+        loginButton.innerText =
+            "🔐 Login to Dashboard";
+
+
+        errorMessage.innerText =
+            "❌ Invalid owner email or password.";
+
+    }
 
 }
 
 
-document.getElementById("login-button").addEventListener("click", ownerLogin);
+// =========================================
+// LOGIN BUTTON
+// =========================================
+
+loginButton.addEventListener(
+    "click",
+    ownerLogin
+);
+
+
+// =========================================
+// ENTER KEY LOGIN
+// =========================================
+
+[emailInput, passwordInput].forEach(
+    function (input) {
+
+        input.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    ownerLogin();
+
+                }
+
+            }
+        );
+
+    }
+);
+```
