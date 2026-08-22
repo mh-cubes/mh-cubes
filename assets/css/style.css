@@ -2885,23 +2885,24 @@ header nav.mobile-open{
     overflow:hidden;
 }
 
-    /* ================================
-       PRODUCT IMAGE
-    ================================= */
+   /* ================================
+   PRODUCT IMAGE
+================================ */
 
-    .product img{
-        width:100%;
+.product img{
+    width:100%;
 
-        max-width:150px;
+    max-width:140px;
+    height:140px;
 
-        height:150px;
+    object-fit:contain;
 
-        object-fit:contain;
+    display:block;
 
-        display:block;
+    margin:0 auto 12px;
 
-        margin:0 auto 10px;
-    }
+    flex-shrink:0;
+}
 
 
     /* ================================
