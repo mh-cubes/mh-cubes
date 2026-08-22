@@ -206,17 +206,19 @@ async function loadOrders(){
         });
 
 
-    }catch(error){
+  } catch (error) {
 
-        console.error(
-            "Error loading orders:",
-            error
-        );
+    console.error("🔥 FIRESTORE ERROR:", error);
+    console.error("Error code:", error.code);
+    console.error("Error message:", error.message);
 
-        box.innerHTML =
-            "<h2>Error loading orders.</h2>";
-
-    }
+    box.innerHTML = `
+        <div style="padding:20px;">
+            <h2>❌ Error loading orders</h2>
+            <p><strong>Code:</strong> ${error.code || "Unknown"}</p>
+            <p><strong>Message:</strong> ${error.message || "Unknown error"}</p>
+        </div>
+    `;
 
 }
 
