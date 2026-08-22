@@ -6128,7 +6128,7 @@ body.owner-login-page {
 
 /* ================= HERO ================= */
 
-.hero {
+body .hero {
     position: relative;
     min-height: 520px;
     width: 100%;
