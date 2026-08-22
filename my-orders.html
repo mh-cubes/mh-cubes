@@ -325,14 +325,26 @@ body {
 
 .my-order-products {
     display: grid;
-
-    gap: 10px;
+    gap: 12px;
 }
 
-.my-order-products p {
-    margin: 0;
 
-    padding: 13px 15px;
+/* =========================================
+   PRODUCT ITEM
+========================================= */
+
+.my-order-product-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 15px;
 
     background:
         linear-gradient(
@@ -341,11 +353,10 @@ body {
             #111111
         );
 
-    border: 1px solid rgba(0, 255, 255, 0.12);
+    border: 1px solid
+        rgba(0, 255, 255, 0.12);
 
-    border-radius: 10px;
-
-    color: #ddd;
+    border-radius: 12px;
 
     transition:
         transform 0.2s ease,
@@ -353,19 +364,111 @@ body {
         box-shadow 0.2s ease;
 }
 
-.my-order-products p:hover {
+
+.my-order-product-item:hover {
     transform: translateX(3px);
 
     border-color: #00ffff;
 
     box-shadow:
-        0 0 12px rgba(0, 255, 255, 0.1);
+        0 0 12px
+        rgba(0, 255, 255, 0.12);
 }
 
-.my-order-products strong {
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+.my-order-product-image {
+    width: 75px;
+    height: 75px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.my-order-product-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* =========================================
+   PRODUCT INFO
+========================================= */
+
+.my-order-product-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    min-width: 0;
+}
+
+
+.my-order-product-info strong {
     color: #00ffff;
+
+    font-size: 16px;
+
+    word-break: break-word;
 }
 
+
+.my-order-product-info span {
+    color: #ddd;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .my-order-product-item {
+        gap: 12px;
+
+        padding: 10px;
+    }
+
+
+    .my-order-product-image {
+        width: 65px;
+        height: 65px;
+    }
+
+
+    .my-order-product-info strong {
+        font-size: 14px;
+    }
+
+
+    .my-order-product-info span {
+        font-size: 13px;
+    }
+
+}
 
 /* =========================================
    TOTAL
