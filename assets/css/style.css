@@ -7043,3 +7043,29 @@ body section.hero .hero-content button {
     margin-left: auto !important;
     margin-right: auto !important;
 }
+/* ===== MH CUBES HERO FINAL OVERRIDE ===== */
+
+section.hero {
+    display: block !important;
+    width: 100% !important;
+    min-height: 520px !important;
+    padding: 90px 20px !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+}
+
+section.hero .hero-content {
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+}
+
+section.hero .hero-content h1,
+section.hero .hero-content p,
+section.hero .hero-content button {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+}
