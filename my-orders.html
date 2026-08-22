@@ -157,30 +157,34 @@ body {
 
 .customer-order-card {
     position: relative;
+
     background:
         linear-gradient(
             145deg,
-            #1c1c1c,
-            #101010
+            #071a1d,
+            #101010,
+            #06151a
         );
 
-    border: 1px solid #333;
-    border-left: 5px solid #ffd700;
+    border: 1px solid rgba(0, 255, 255, 0.25);
+
+    border-left: 5px solid #00ffff;
 
     border-radius: 18px;
+
     padding: 22px;
+
     margin-bottom: 22px;
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.35);
+        0 10px 30px rgba(0, 0, 0, 0.35),
+        0 0 18px rgba(0, 255, 255, 0.08);
 
     transition:
         transform 0.25s ease,
         border-color 0.25s ease,
         box-shadow 0.25s ease;
 }
-
-.customer-order-card:hover {
     transform: translateY(-4px);
 
     border-color: #ffd700;
