@@ -5135,3 +5135,453 @@ body:has(.admin-order-box) .orders > h1 {
     position: relative;
     z-index: 10;
 }
+```css
+/* =========================================
+   🔐 MH CUBES ADMIN DASHBOARD
+========================================= */
+
+body:has(.admin-order-box){
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(37,99,235,.12),
+            transparent 35%
+        ),
+        #f4f6fb;
+
+}
+
+
+/* ADMIN HEADER */
+
+body:has(.admin-order-box) header{
+
+    position:relative;
+
+    min-height:75px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #080b12,
+            #111827,
+            #1e3a8a
+        );
+
+    color:white;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.2);
+
+}
+
+
+/* ADMIN LOGO */
+
+body:has(.admin-order-box) header .logo{
+
+    color:white;
+
+    font-size:25px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+}
+
+
+/* ADMIN NAV */
+
+body:has(.admin-order-box) header nav a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    transition:.25s ease;
+
+}
+
+
+body:has(.admin-order-box) header nav a:hover{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+
+/* ORDERS AREA */
+
+body:has(.admin-order-box) .orders{
+
+    width:min(1100px, calc(100% - 30px));
+
+    margin:35px auto 60px;
+
+}
+
+
+/* LOGOUT */
+
+body:has(.admin-order-box) .logout-btn{
+
+    display:block;
+
+    margin:0 0 25px auto;
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #b91c1c
+        );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 7px 18px rgba(185,28,28,.25);
+
+    transition:.25s ease;
+
+}
+
+
+body:has(.admin-order-box) .logout-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(185,28,28,.35);
+
+}
+
+
+/* MAIN TITLE */
+
+body:has(.admin-order-box) .orders > h1{
+
+    margin:0 0 25px;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:white;
+
+    color:#111827;
+
+    font-size:30px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+/* ORDER CONTAINER */
+
+.admin-order-box{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap:22px;
+
+}
+
+
+/* ORDER CARD */
+
+.admin-order-card{
+
+    position:relative;
+
+    padding:25px;
+
+    background:white;
+
+    border-radius:20px;
+
+    border:1px solid #e5e7eb;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+    overflow:hidden;
+
+    transition:.3s ease;
+
+}
+
+
+.admin-order-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:5px;
+    height:100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #2563eb,
+            #ffb703
+        );
+
+}
+
+
+.admin-order-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(37,99,235,.15);
+
+}
+
+
+/* ORDER ID */
+
+.admin-order-card h2{
+
+    margin:0 0 20px;
+
+    color:#1d4ed8;
+
+    font-size:22px;
+
+}
+
+
+/* DETAILS */
+
+.admin-order-card p{
+
+    margin:9px 0;
+
+    padding:11px 13px;
+
+    background:#f8fafc;
+
+    border-radius:10px;
+
+    color:#374151;
+
+    font-size:14px;
+
+}
+
+
+.admin-order-card p strong{
+
+    color:#111827;
+
+}
+
+
+/* PRODUCTS TITLE */
+
+.admin-order-card h3{
+
+    margin:22px 0 10px;
+
+    color:#111827;
+
+    font-size:18px;
+
+}
+
+
+/* ACTION BUTTONS */
+
+.admin-order-card button{
+
+    border:none;
+
+    padding:10px 13px;
+
+    margin:6px 4px 0 0;
+
+    border-radius:9px;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+
+}
+
+
+/* BUTTON COLORS */
+
+.admin-order-card button:nth-of-type(1){
+
+    background:#16a34a;
+
+}
+
+
+.admin-order-card button:nth-of-type(2){
+
+    background:#2563eb;
+
+}
+
+
+.admin-order-card button:nth-of-type(3){
+
+    background:#7c3aed;
+
+}
+
+
+.admin-order-card button:nth-of-type(4){
+
+    background:#059669;
+
+}
+
+
+.admin-order-card button:nth-of-type(5){
+
+    background:#dc2626;
+
+}
+
+
+.admin-order-card button:hover{
+
+    transform:translateY(-2px);
+
+    filter:brightness(.95);
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    body:has(.admin-order-box) header{
+
+        padding:15px 18px;
+
+        flex-direction:column;
+
+        gap:12px;
+
+        text-align:center;
+
+    }
+
+
+    body:has(.admin-order-box) header .logo{
+
+        font-size:22px;
+
+    }
+
+
+    body:has(.admin-order-box) .orders{
+
+        width:calc(100% - 24px);
+
+        margin-top:25px;
+
+    }
+
+
+    body:has(.admin-order-box) .logout-btn{
+
+        width:100%;
+
+        margin:0 0 20px;
+
+    }
+
+
+    body:has(.admin-order-box) .orders > h1{
+
+        font-size:24px;
+
+        text-align:center;
+
+        padding:20px;
+
+    }
+
+
+    .admin-order-box{
+
+        grid-template-columns:1fr;
+
+        gap:16px;
+
+    }
+
+
+    .admin-order-card{
+
+        padding:20px 16px;
+
+    }
+
+
+    .admin-order-card h2{
+
+        font-size:19px;
+
+    }
+
+
+    .admin-order-card button{
+
+        width:100%;
+
+        margin:5px 0;
+
+        padding:12px;
+
+    }
+
+}
+```
