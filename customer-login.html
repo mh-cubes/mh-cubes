@@ -192,6 +192,30 @@ const passwordInput =
 
 const message =
     document.getElementById("login-message");
+    // =============================
+// SHOW / HIDE PASSWORD
+// =============================
+
+const togglePassword =
+    document.getElementById("toggle-password");
+
+togglePassword.addEventListener("click", function(){
+
+    if(passwordInput.type === "password"){
+
+        passwordInput.type = "text";
+
+        togglePassword.innerText = "🙈 Hide";
+
+    }else{
+
+        passwordInput.type = "password";
+
+        togglePassword.innerText = "👁️ Show";
+
+    }
+
+});
 // Keep customer signed in
 setPersistence(auth, browserLocalPersistence)
     .catch((error) => {
