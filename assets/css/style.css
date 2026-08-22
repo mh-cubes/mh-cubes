@@ -974,12 +974,7 @@ footer p {
 .stars span:hover {
     transform: scale(1.2);
 }
-.hero{
-    text-align:center;
-    padding:120px 20px;
-    background:linear-gradient(135deg,#ff0000,#990000);
-    color:white;
-}
+
 /* WHY CHOOSE MH CUBES */
 
 .why-choose{
