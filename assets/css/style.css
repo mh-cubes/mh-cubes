@@ -7007,3 +7007,26 @@ body .hero {
 
     text-align: center !important;
 }
+/* ===== FINAL HOMEPAGE HERO FIX ===== */
+
+body section.hero {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+body section.hero h1,
+body section.hero p,
+body section.hero button {
+    text-align: center !important;
+}
+
+body section.hero h1 {
+    width: 100% !important;
+}
+
+body section.hero p {
+    width: 100% !important;
+}
