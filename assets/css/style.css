@@ -4217,5 +4217,18 @@ header,
 
 }
 @media (max-width: 700px) {
+/* =========================================
+   MOBILE ORDER ID FIX
+========================================= */
 
+@media (max-width: 700px) {
+
+    .order-card-header h2 {
+        max-width: 100%;
+        font-size: 17px;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+}
    
