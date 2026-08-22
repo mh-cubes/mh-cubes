@@ -3331,7 +3331,7 @@ body::before {
 
     transform: translate(-50%, -50%) rotate(-12deg);
 
-    font-size: clamp(100px, 18vw, 260px);
+    font-size: clamp(55px, 16vw, 260px);
 
     font-weight: 900;
 
