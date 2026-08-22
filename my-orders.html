@@ -581,33 +581,78 @@ body {
 @media (max-width: 700px) {
 
     .orders-page {
-        padding: 28px 12px 50px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 22px 10px 45px;
+    }
+
+
+    /* ================================
+       TITLE
+    ================================= */
+
+    .orders-title {
+        margin-bottom: 22px;
     }
 
 
     .orders-title h1 {
-        font-size: 32px;
+        font-size: 30px;
+        line-height: 1.2;
     }
 
 
     .orders-title p {
-        font-size: 14px;
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 0 8px;
     }
 
 
+    /* ================================
+       ORDERS CONTAINER
+    ================================= */
+
     .orders-container {
-        padding: 16px;
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 12px;
 
         border-radius: 16px;
     }
 
 
+    .orders-container > h2 {
+        font-size: 21px;
+    }
+
+
+    .orders-container > p {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+
+    /* ================================
+       ORDER CARD
+    ================================= */
+
     .customer-order-card {
-        padding: 16px;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 14px;
+
+        margin-bottom: 16px;
 
         border-radius: 14px;
 
-        border-left-width: 4px;
+        border-left: 4px solid #00ffff;
+
+        overflow: hidden;
     }
 
 
@@ -616,36 +661,218 @@ body {
     }
 
 
-    .order-details {
-        grid-template-columns: 1fr;
-    }
-
+    /* ================================
+       ORDER HEADER
+    ================================= */
 
     .order-card-header {
-        align-items: flex-start;
+
+        display: flex;
 
         flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+
+        padding-bottom: 14px;
+
+        margin-bottom: 14px;
     }
 
 
     .order-card-header h2 {
-        font-size: 18px;
+
+        font-size: 17px;
+
+        line-height: 1.4;
+
+        word-break: break-all;
     }
 
 
     .order-status {
-        font-size: 12px;
 
-        padding: 7px 12px;
+        width: fit-content;
+
+        font-size: 11px;
+
+        padding: 6px 10px;
     }
 
 
+    /* ================================
+       ORDER DETAILS
+    ================================= */
+
+    .order-details {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .order-details p {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+        padding: 10px;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .order-details strong {
+        color: #00ffff;
+    }
+
+
+    /* ================================
+       PRODUCT SECTION
+    ================================= */
+
+    .customer-order-card h3 {
+
+        font-size: 17px;
+
+        margin: 18px 0 10px;
+    }
+
+
+    .my-order-products {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+
+    .my-order-products p {
+
+        padding: 11px;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    /* ================================
+       TOTAL
+    ================================= */
+
     .order-total {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 5px;
+
+        margin-top: 18px;
+
+        padding: 13px;
+
+        font-size: 15px;
+
+        line-height: 1.4;
+
+        border-radius: 10px;
+    }
+
+
+    /* ================================
+       TRACK BUTTON
+    ================================= */
+
+    .track-order-btn {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+        padding: 13px;
+
+        margin-top: 14px;
+
+        font-size: 14px;
+
+        border-radius: 10px;
+    }
+
+
+    /* ================================
+       NOTIFICATION
+    ================================= */
+
+    .order-notification {
+
+        padding: 11px;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* ================================
+       LOADING
+    ================================= */
+
+    .order-loading {
+
+        padding: 40px 10px;
+    }
+
+
+    .order-loading h3 {
+
         font-size: 16px;
+    }
 
-        gap: 10px;
 
-        flex-wrap: wrap;
+    /* ================================
+       EMPTY / ERROR
+    ================================= */
+
+    .orders-message {
+
+        padding: 40px 10px;
+    }
+
+
+    .orders-message .message-icon {
+
+        font-size: 50px;
+    }
+
+
+    .orders-message h2 {
+
+        font-size: 20px;
+    }
+
+
+    .orders-message p {
+
+        font-size: 14px;
     }
 
 }
