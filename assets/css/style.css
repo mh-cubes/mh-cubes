@@ -6134,12 +6134,12 @@ body .hero {
     width: 100%;
     padding: 90px 30px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
 
-    text-align: center;
+    text-align: center !important;
 
     background:
         radial-gradient(
