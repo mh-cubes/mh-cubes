@@ -3432,24 +3432,10 @@ header nav.mobile-open{
 ========================================= */
 
 /* Orders page background */
-
 body {
-    background:
-        radial-gradient(circle at 10% 20%, rgba(255, 0, 80, 0.35), transparent 25%),
-        radial-gradient(circle at 90% 15%, rgba(0, 255, 255, 0.30), transparent 25%),
-        radial-gradient(circle at 20% 85%, rgba(255, 215, 0, 0.30), transparent 25%),
-        radial-gradient(circle at 80% 80%, rgba(150, 0, 255, 0.35), transparent 25%),
-        linear-gradient(135deg, #050505, #160016, #001619, #100006);
-
-    background-attachment: fixed;
-
-    min-height: 100vh;
-
-    position: relative;
-
-    overflow-x: hidden;
+    background: #ffffff !important;
+    color: #222222;
 }
-
 
 
 
