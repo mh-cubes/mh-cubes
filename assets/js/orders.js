@@ -153,60 +153,80 @@ async function loadCustomerOrders(user) {
                 "customer-order-card";
 
 
-            // =================================
-            // PRODUCTS
-            // =================================
+           // =================================
+// PRODUCTS
+// =================================
 
-            let productsHTML = "";
+let productsHTML = "";
 
-            let calculatedTotal = 0;
-
-
-            Object.keys(
-                order.products || {}
-            ).forEach(function(productName) {
-
-                const item =
-                    order.products[productName];
+let calculatedTotal = 0;
 
 
-                const price =
-                    Number(item.price) || 0;
+Object.keys(
+    order.products || {}
+).forEach(function(productName) {
+
+    const item =
+        order.products[productName];
 
 
-                const quantity =
-                    Number(item.quantity) || 0;
+    const price =
+        Number(item.price) || 0;
 
 
-                const subtotal =
-                    price * quantity;
+    const quantity =
+        Number(item.quantity) || 0;
 
 
-                calculatedTotal +=
-                    subtotal;
+    const subtotal =
+        price * quantity;
 
 
-                productsHTML += `
+    calculatedTotal +=
+        subtotal;
 
-                    <p>
 
-                        <strong>
-                            🧩 ${productName}
-                        </strong>
+    // PRODUCT IMAGE
 
-                        <br>
+    const productImage =
+        item.image ||
+        item.img ||
+        "assets/images/placeholder.png";
 
-                        <span>
-                            PKR ${price.toLocaleString()}
-                            × ${quantity}
-                        </span>
 
-                    </p>
+    productsHTML += `
 
-                `;
+        <div class="my-order-product-item">
 
-            });
+            <div class="my-order-product-image">
 
+                <img
+                    src="${productImage}"
+                    alt="${productName}"
+                    onerror="this.style.display='none';"
+                >
+
+            </div>
+
+
+            <div class="my-order-product-info">
+
+                <strong>
+                    🧩 ${productName}
+                </strong>
+
+                <span>
+                    PKR ${price.toLocaleString()}
+                    × ${quantity}
+                </span>
+
+            </div>
+
+        </div>
+
+    `;
+
+});
 
             // =================================
             // STATUS
