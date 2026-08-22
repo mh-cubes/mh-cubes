@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,17 +6,11 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>My Orders - MH CUBES</title>
 
-<link
-    rel="stylesheet"
-    href="assets/css/style.css"
->
+<link rel="stylesheet" href="assets/css/style.css">
 
 <style>
 
@@ -27,14 +22,17 @@ body {
     background: #ffffff;
 }
 
+
 /* =========================================
    MAIN AREA
 ========================================= */
 
 .orders-page {
+    width: 100%;
     max-width: 1100px;
     margin: 0 auto;
     padding: 40px 20px 70px;
+    box-sizing: border-box;
 }
 
 
@@ -60,7 +58,7 @@ body {
 
 .orders-title p {
     margin-top: 10px;
-    color: #ddd;
+    color: #555;
     font-size: 16px;
 }
 
@@ -88,36 +86,19 @@ body {
     text-decoration: none;
     display: inline-block;
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    transition: 0.2s ease;
 }
 
 .home-button {
     background: #dc2626;
-
-    box-shadow:
-        0 5px 15px rgba(220, 38, 38, 0.25);
 }
 
 .logout-button {
     background: #333;
-
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .account-action-button:hover {
     transform: translateY(-2px);
-}
-
-.home-button:hover {
-    background: #ff3030;
-}
-
-.logout-button:hover {
-    background: #555;
 }
 
 
@@ -126,7 +107,10 @@ body {
 ========================================= */
 
 .orders-container {
-    background: rgba(5, 10, 15, 0.92);
+    width: 100%;
+    box-sizing: border-box;
+
+    background: rgba(5, 10, 15, 0.95);
 
     border: 1px solid rgba(0, 255, 255, 0.18);
 
@@ -135,28 +119,20 @@ body {
     padding: 28px;
 
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.55),
+        0 20px 60px rgba(0, 0, 0, 0.35),
         0 0 30px rgba(0, 255, 255, 0.05);
 }
 
 .orders-container > h2 {
     margin-top: 0;
-
     color: #00ffff;
-
     text-align: center;
-
     font-size: 26px;
-
-    text-shadow:
-        0 0 10px rgba(0, 255, 255, 0.3);
 }
 
 .orders-container > p {
     text-align: center;
-
     color: #aaa;
-
     margin-bottom: 28px;
 }
 
@@ -166,7 +142,8 @@ body {
 ========================================= */
 
 .customer-order-card {
-    position: relative;
+    width: 100%;
+    box-sizing: border-box;
 
     background:
         linear-gradient(
@@ -177,33 +154,20 @@ body {
         );
 
     border: 1px solid rgba(0, 255, 255, 0.25);
-
     border-left: 5px solid #00ffff;
 
     border-radius: 18px;
 
     padding: 22px;
-
     margin-bottom: 22px;
+
+    overflow: hidden;
 
     box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.35),
         0 0 18px rgba(0, 255, 255, 0.08);
 
-    transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.customer-order-card:hover {
-    transform: translateY(-4px);
-
-    border-color: #00ffff;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.45),
-        0 0 25px rgba(0, 255, 255, 0.18);
+    box-sizing: border-box;
 }
 
 
@@ -213,17 +177,13 @@ body {
 
 .order-card-header {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
     gap: 15px;
-
     flex-wrap: wrap;
 
     padding-bottom: 18px;
-
     margin-bottom: 18px;
 
     border-bottom: 1px solid rgba(0, 255, 255, 0.15);
@@ -238,8 +198,7 @@ body {
 
     word-break: break-word;
 
-    text-shadow:
-        0 0 8px rgba(0, 255, 255, 0.25);
+    max-width: 100%;
 }
 
 
@@ -259,11 +218,9 @@ body {
     color: #031014;
 
     font-size: 13px;
-
     font-weight: 900;
 
-    box-shadow:
-        0 4px 15px rgba(0, 255, 255, 0.2);
+    white-space: nowrap;
 }
 
 
@@ -298,6 +255,8 @@ body {
     font-size: 14px;
 
     word-break: break-word;
+
+    overflow-wrap: anywhere;
 }
 
 .order-details strong {
@@ -314,18 +273,23 @@ body {
 
     margin: 20px 0 12px;
 
-    text-shadow:
-        0 0 8px rgba(0, 255, 255, 0.2);
+    font-size: 18px;
 }
 
 
 /* =========================================
-   PRODUCTS
+   PRODUCTS CONTAINER
 ========================================= */
 
 .my-order-products {
-    display: grid;
-    gap: 12px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    box-sizing: border-box;
 }
 
 
@@ -334,17 +298,17 @@ body {
 ========================================= */
 
 .my-order-product-item {
+    width: 100%;
+
     display: flex;
 
     align-items: center;
 
-    gap: 15px;
+    gap: 12px;
 
-    width: 100%;
+    padding: 10px;
 
     box-sizing: border-box;
-
-    padding: 12px 15px;
 
     background:
         linear-gradient(
@@ -353,26 +317,42 @@ body {
             #111111
         );
 
-    border: 1px solid
-        rgba(0, 255, 255, 0.12);
+    border: 1px solid rgba(0, 255, 255, 0.12);
 
     border-radius: 12px;
 
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    overflow: hidden;
 }
 
 
-.my-order-product-item:hover {
-    transform: translateX(3px);
+/* =========================================
+   PRODUCT IMAGE BOX
+========================================= */
 
-    border-color: #00ffff;
+.my-order-product-image {
+    width: 50px !important;
+    height: 50px !important;
 
-    box-shadow:
-        0 0 12px
-        rgba(0, 255, 255, 0.12);
+    min-width: 50px !important;
+    min-height: 50px !important;
+
+    max-width: 50px !important;
+    max-height: 50px !important;
+
+    flex: 0 0 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
 }
 
 
@@ -380,117 +360,60 @@ body {
    PRODUCT IMAGE
 ========================================= */
 
-.my-order-product-image {
-    width: 55px;
-    height: 55px;
+.my-order-product-image img,
+.my-order-product-item img {
+    width: 100% !important;
+    height: 100% !important;
 
-    min-width: 55px;
-    min-height: 55px;
+    max-width: 100% !important;
+    max-height: 100% !important;
 
-    max-width: 55px;
-    max-height: 55px;
+    object-fit: contain !important;
 
-    flex-shrink: 0;
+    display: block;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #ffffff;
-
-    border-radius: 10px;
-
-    overflow: hidden;
+    margin: 0;
 
     box-sizing: border-box;
 }
 
-.my-order-product-image img {
-    width: 100%;
-    height: 100%;
-
-    max-width: 100%;
-    max-height: 100%;
-
-    object-fit: contain;
-
-    display: block;
-}
 
 /* =========================================
    PRODUCT INFO
 ========================================= */
 
 .my-order-product-info {
+    min-width: 0;
+
+    flex: 1;
+
     display: flex;
 
     flex-direction: column;
 
-    gap: 6px;
+    gap: 5px;
 
-    min-width: 0;
+    overflow: hidden;
 }
-
 
 .my-order-product-info strong {
     color: #00ffff;
 
-    font-size: 16px;
+    font-size: 15px;
 
     word-break: break-word;
-}
 
+    overflow-wrap: anywhere;
+}
 
 .my-order-product-info span {
     color: #ddd;
 
-    font-size: 14px;
+    font-size: 13px;
+
+    word-break: break-word;
 }
 
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 700px) {
-
-    .my-order-product-item {
-        gap: 12px;
-
-        padding: 10px;
-    }
-
-
-   .my-order-product-image {
-    width: 55px;
-    height: 55px;
-
-    min-width: 55px;
-    min-height: 55px;
-
-    max-width: 55px;
-    max-height: 55px;
-}
-
-.my-order-product-image img {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-}
-
-    .my-order-product-info strong {
-        font-size: 14px;
-    }
-
-
-    .my-order-product-info span {
-        font-size: 13px;
-    }
-
-}
 
 /* =========================================
    TOTAL
@@ -502,6 +425,8 @@ body {
     justify-content: space-between;
 
     align-items: center;
+
+    gap: 10px;
 
     margin-top: 22px;
 
@@ -522,8 +447,7 @@ body {
 
     font-weight: 900;
 
-    box-shadow:
-        0 7px 20px rgba(0, 255, 255, 0.15);
+    box-sizing: border-box;
 }
 
 
@@ -545,6 +469,8 @@ body {
     color: #00ffff;
 
     font-weight: 700;
+
+    word-break: break-word;
 }
 
 
@@ -554,6 +480,10 @@ body {
 
 .track-order-btn {
     display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
 
     margin-top: 18px;
 
@@ -572,26 +502,6 @@ body {
     font-weight: 900;
 
     font-size: 16px;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-
-    box-shadow:
-        0 6px 18px rgba(0, 255, 255, 0.15);
-}
-
-.track-order-btn:hover {
-    background: #008cff;
-
-    color: white;
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 22px rgba(0, 140, 255, 0.3);
 }
 
 
@@ -609,7 +519,6 @@ body {
 
 .loader {
     width: 48px;
-
     height: 48px;
 
     border: 5px solid #333;
@@ -629,7 +538,7 @@ body {
 
 
 /* =========================================
-   EMPTY / ERROR STATE
+   EMPTY / ERROR
 ========================================= */
 
 .orders-message {
@@ -640,14 +549,10 @@ body {
 
 .orders-message .message-icon {
     font-size: 60px;
-
-    margin-bottom: 15px;
 }
 
 .orders-message h2 {
     color: #00ffff;
-
-    margin-bottom: 10px;
 }
 
 .orders-message p {
@@ -682,51 +587,40 @@ body {
 
     .orders-page {
         width: 100%;
-        box-sizing: border-box;
-        padding: 22px 10px 45px;
+
+        padding: 20px 8px 45px;
     }
 
 
-    /* ================================
-       TITLE
-    ================================= */
+    /* TITLE */
 
     .orders-title {
-        margin-bottom: 22px;
+        margin-bottom: 20px;
     }
-
 
     .orders-title h1 {
         font-size: 30px;
-        line-height: 1.2;
     }
-
 
     .orders-title p {
         font-size: 13px;
         line-height: 1.5;
-        padding: 0 8px;
     }
 
 
-    /* ================================
-       ORDERS CONTAINER
-    ================================= */
+    /* CONTAINER */
 
     .orders-container {
         width: 100%;
-        box-sizing: border-box;
 
-        padding: 12px;
+        padding: 10px;
 
-        border-radius: 16px;
+        border-radius: 15px;
     }
-
 
     .orders-container > h2 {
         font-size: 21px;
     }
-
 
     .orders-container > p {
         font-size: 13px;
@@ -735,239 +629,219 @@ body {
     }
 
 
-    /* ================================
-       ORDER CARD
-    ================================= */
+    /* ORDER CARD */
 
     .customer-order-card {
-
         width: 100%;
-        box-sizing: border-box;
 
-        padding: 14px;
+        padding: 12px;
 
-        margin-bottom: 16px;
+        margin-bottom: 15px;
 
-        border-radius: 14px;
+        border-radius: 13px;
 
         border-left: 4px solid #00ffff;
-
-        overflow: hidden;
     }
 
 
-    .customer-order-card:hover {
-        transform: none;
-    }
-
-
-    /* ================================
-       ORDER HEADER
-    ================================= */
+    /* ORDER HEADER */
 
     .order-card-header {
-
         display: flex;
 
         flex-direction: column;
 
-        align-items: stretch;
-
-        gap: 10px;
-
-        padding-bottom: 14px;
-
-        margin-bottom: 14px;
-    }
-
-
-  .order-card-header h2 {
-    font-size: 15px;
-    line-height: 1.3;
-    word-break: break-all;
-}
-    .order-status {
-
-        width: fit-content;
-
-        font-size: 11px;
-
-        padding: 6px 10px;
-    }
-
-
-    /* ================================
-       ORDER DETAILS
-    ================================= */
-
-    .order-details {
-
-        display: flex;
-
-        flex-direction: column;
+        align-items: flex-start;
 
         gap: 8px;
 
-        margin-bottom: 18px;
+        padding-bottom: 12px;
+
+        margin-bottom: 12px;
     }
 
 
-    .order-details p {
-
+    .order-card-header h2 {
         width: 100%;
-
-        box-sizing: border-box;
-
-        padding: 10px;
 
         font-size: 13px;
 
-        line-height: 1.5;
+        line-height: 1.3;
+
+        word-break: break-all;
 
         overflow-wrap: anywhere;
     }
 
 
-    .order-details strong {
-        color: #00ffff;
+    .order-status {
+        font-size: 10px;
+
+        padding: 5px 9px;
     }
 
 
-    /* ================================
-       PRODUCT SECTION
-    ================================= */
+    /* DETAILS */
+
+    .order-details {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 7px;
+
+        margin-bottom: 16px;
+    }
+
+    .order-details p {
+        width: 100%;
+
+        padding: 9px;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+    }
+
+
+    /* PRODUCTS */
 
     .customer-order-card h3 {
+        font-size: 16px;
 
-        font-size: 17px;
-
-        margin: 18px 0 10px;
+        margin: 16px 0 9px;
     }
 
 
     .my-order-products {
+        width: 100%;
 
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 8px;
+        gap: 7px;
     }
 
 
-    .my-order-products p {
+    /* PRODUCT ITEM */
 
-        padding: 11px;
+    .my-order-product-item {
+        width: 100%;
 
+        gap: 9px;
+
+        padding: 8px;
+
+        border-radius: 9px;
+    }
+
+
+    /* SMALL MOBILE IMAGE */
+
+    .my-order-product-image {
+        width: 42px !important;
+        height: 42px !important;
+
+        min-width: 42px !important;
+        min-height: 42px !important;
+
+        max-width: 42px !important;
+        max-height: 42px !important;
+
+        flex: 0 0 42px;
+    }
+
+
+    .my-order-product-image img,
+    .my-order-product-item img {
+        width: 100% !important;
+        height: 100% !important;
+
+        max-width: 100% !important;
+        max-height: 100% !important;
+
+        object-fit: contain !important;
+    }
+
+
+    /* PRODUCT TEXT */
+
+    .my-order-product-info {
+        min-width: 0;
+
+        flex: 1;
+    }
+
+    .my-order-product-info strong {
         font-size: 13px;
+    }
 
-        line-height: 1.5;
-
-        overflow-wrap: anywhere;
+    .my-order-product-info span {
+        font-size: 11px;
     }
 
 
-    /* ================================
-       TOTAL
-    ================================= */
+    /* TOTAL */
 
     .order-total {
-
-        display: flex;
-
         flex-direction: column;
 
         align-items: stretch;
 
-        gap: 5px;
+        gap: 4px;
 
-        margin-top: 18px;
+        margin-top: 16px;
 
-        padding: 13px;
-
-        font-size: 15px;
-
-        line-height: 1.4;
-
-        border-radius: 10px;
-    }
-
-
-    /* ================================
-       TRACK BUTTON
-    ================================= */
-
-    .track-order-btn {
-
-        width: 100%;
-
-        box-sizing: border-box;
-
-        padding: 13px;
-
-        margin-top: 14px;
+        padding: 12px;
 
         font-size: 14px;
-
-        border-radius: 10px;
     }
 
 
-    /* ================================
-       NOTIFICATION
-    ================================= */
+    /* NOTIFICATION */
 
     .order-notification {
+        padding: 10px;
 
-        padding: 11px;
-
-        font-size: 13px;
+        font-size: 12px;
 
         line-height: 1.5;
     }
 
 
-    /* ================================
-       LOADING
-    ================================= */
+    /* TRACK BUTTON */
+
+    .track-order-btn {
+        padding: 12px;
+
+        margin-top: 13px;
+
+        font-size: 13px;
+
+        border-radius: 9px;
+    }
+
+
+    /* LOADING */
 
     .order-loading {
-
         padding: 40px 10px;
     }
 
 
-    .order-loading h3 {
-
-        font-size: 16px;
-    }
-
-
-    /* ================================
-       EMPTY / ERROR
-    ================================= */
+    /* EMPTY */
 
     .orders-message {
-
         padding: 40px 10px;
     }
 
-
     .orders-message .message-icon {
-
         font-size: 50px;
     }
 
-
     .orders-message h2 {
-
         font-size: 20px;
     }
 
-
     .orders-message p {
-
-        font-size: 14px;
+        font-size: 13px;
     }
 
 }
@@ -981,7 +855,7 @@ body {
 
 
 <!-- =========================================
-     BEAUTIFUL PAGE LOADING SCREEN
+     PAGE LOADING
 ========================================= -->
 
 <div id="page-loading">
@@ -994,13 +868,9 @@ body {
 
         <div class="page-loader"></div>
 
-        <h2>
-            MY ORDERS
-        </h2>
+        <h2>MY ORDERS</h2>
 
-        <p>
-            Fetching your orders...
-        </p>
+        <p>Fetching your orders...</p>
 
     </div>
 
@@ -1016,7 +886,6 @@ body {
     <div class="logo">
         MH CUBES
     </div>
-
 
     <nav>
 
@@ -1053,9 +922,7 @@ body {
     </div>
 
 
-    <!-- =====================================
-         ACCOUNT BUTTONS
-    ====================================== -->
+    <!-- ACCOUNT BUTTONS -->
 
     <div
         id="account-actions"
@@ -1081,9 +948,7 @@ body {
     </div>
 
 
-    <!-- =====================================
-         ORDERS CONTAINER
-    ====================================== -->
+    <!-- ORDERS -->
 
     <div class="orders-container">
 
@@ -1091,12 +956,10 @@ body {
             Your Orders
         </h2>
 
-
         <p>
             Your orders are securely linked to your
             customer account.
         </p>
-
 
         <div id="order-box"></div>
 
@@ -1123,3 +986,4 @@ body {
 </body>
 
 </html>
+
