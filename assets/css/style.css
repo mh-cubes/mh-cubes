@@ -6981,3 +6981,18 @@ body .hero button:hover {
     }
 
 }
+/* FINAL HERO ALIGNMENT FIX */
+
+body .hero,
+body .hero h1,
+body .hero p,
+body .hero button {
+    text-align: center !important;
+}
+
+body .hero {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
