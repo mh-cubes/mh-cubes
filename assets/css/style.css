@@ -7090,3 +7090,24 @@ section.hero .hero-content button {
     margin-right: auto !important;
     text-align: center !important;
 }
+/* ===== PERMANENT HERO CENTER ===== */
+
+.hero-content {
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.hero-content h1,
+.hero-content p,
+.hero-content button {
+    width: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+}
