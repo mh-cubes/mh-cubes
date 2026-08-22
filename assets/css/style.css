@@ -4152,3 +4152,13 @@ header,
     }
 
 }
+@media (max-width: 700px) {
+
+    body::before {
+        font-size: 58px;
+        letter-spacing: 3px;
+        transform: translate(-50%, -50%) rotate(-12deg);
+        white-space: nowrap;
+    }
+
+}
