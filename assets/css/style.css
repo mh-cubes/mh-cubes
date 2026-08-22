@@ -4253,3 +4253,877 @@ header,
     }
 
 }
+```css
+/* =========================================================
+   🔐 MH CUBES OWNER LOGIN — PREMIUM DESIGN
+========================================================= */
+
+body:has(.login-box) {
+    min-height: 100vh;
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(255, 60, 60, 0.25),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(255, 183, 3, 0.15),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #080000,
+            #3b0000,
+            #a80000
+        );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+body:has(.login-box)::before {
+
+    content: "MH CUBES";
+
+    position: fixed;
+
+    top: 25px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: rgba(255,255,255,0.12);
+
+    font-size: 55px;
+    font-weight: 900;
+
+    letter-spacing: 8px;
+
+    pointer-events: none;
+
+}
+
+
+/* Login Card */
+
+.login-box {
+
+    position: relative;
+
+    width: 390px !important;
+
+    padding: 45px 35px !important;
+
+    border-radius: 28px !important;
+
+    background:
+        rgba(255,255,255,0.97) !important;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.45),
+        0 0 50px rgba(255,40,40,0.15);
+
+    text-align: center;
+
+    animation:
+        ownerLoginAppear 0.7s ease;
+
+}
+
+
+.login-box::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 6px;
+
+    border-radius: 28px 28px 0 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff0000,
+            #ffb703,
+            #ff0000
+        );
+
+}
+
+
+.login-box .logo {
+
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 38px;
+
+    box-shadow:
+        0 12px 25px rgba(196,0,0,0.30);
+
+}
+
+
+.login-box h1 {
+
+    margin: 0 0 8px;
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    color: #b30000 !important;
+
+    letter-spacing: 1px;
+
+}
+
+
+.login-box > p {
+
+    color: #777;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* Inputs */
+
+.login-box input {
+
+    width: 100% !important;
+
+    box-sizing: border-box;
+
+    padding: 15px 16px !important;
+
+    margin: 9px 0 !important;
+
+    border: 2px solid #eeeeee !important;
+
+    border-radius: 13px !important;
+
+    background: #fafafa;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.25s ease;
+
+}
+
+
+.login-box input:focus {
+
+    border-color: #d00000 !important;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(208,0,0,0.08);
+
+}
+
+
+/* Login Button */
+
+.login-box button {
+
+    width: 100% !important;
+
+    margin-top: 18px !important;
+
+    padding: 15px !important;
+
+    border: none !important;
+
+    border-radius: 13px !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d00000,
+            #ff2b2b
+        ) !important;
+
+    color: white !important;
+
+    font-size: 17px !important;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 22px rgba(208,0,0,0.25);
+
+    transition: 0.25s ease;
+
+}
+
+
+.login-box button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 30px rgba(208,0,0,0.32);
+
+}
+
+
+.login-box button:disabled {
+
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* Error */
+
+#login-error {
+
+    min-height: 22px;
+
+    margin-top: 15px !important;
+
+    color: #dc2626 !important;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+/* Success */
+
+.success-icon {
+
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #22c55e
+        );
+
+    color: white;
+
+    font-size: 40px;
+    font-weight: 900;
+
+    box-shadow:
+        0 12px 30px rgba(22,163,74,0.25);
+
+}
+
+
+.login-box .loader {
+
+    width: 35px;
+    height: 35px;
+
+    margin: 20px auto;
+
+    border: 4px solid #eeeeee;
+
+    border-top-color: #d00000;
+
+    border-radius: 50%;
+
+    animation:
+        adminSpin 0.8s linear infinite;
+
+}
+
+
+/* =========================================================
+   📦 ADMIN DASHBOARD
+========================================================= */
+
+body:has(.admin-order-box) {
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(255,0,0,0.08),
+            transparent 30%
+        ),
+        #f5f7fb;
+
+}
+
+
+/* Admin Header */
+
+body:has(.admin-order-box) header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b0000,
+            #d00000,
+            #ff2b2b
+        );
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.18);
+
+}
+
+
+body:has(.admin-order-box) header .logo {
+
+    color: white;
+
+    font-weight: 900;
+
+}
+
+
+body:has(.admin-order-box) header nav a {
+
+    color: white;
+
+    font-weight: 700;
+
+}
+
+
+/* Orders Main Area */
+
+body:has(.admin-order-box) .orders {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 45px 20px 70px;
+
+}
+
+
+body:has(.admin-order-box) .orders > h1 {
+
+    margin: 15px 0 30px;
+
+    color: #a80000;
+
+    font-size: 38px;
+
+    font-weight: 900;
+
+}
+
+
+/* Admin Order Box */
+
+.admin-order-box {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 25px;
+
+}
+
+
+/* Order Card */
+
+.admin-order-card {
+
+    position: relative;
+
+    padding: 28px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff8f8
+        );
+
+    border: 1px solid rgba(180,0,0,0.12);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.08);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+.admin-order-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d00000,
+            #ffb703,
+            #d00000
+        );
+
+}
+
+
+.admin-order-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 20px 45px rgba(150,0,0,0.14);
+
+}
+
+
+/* Order Number */
+
+.admin-order-card h2 {
+
+    margin: 0 0 22px;
+
+    padding-bottom: 15px;
+
+    border-bottom:
+        2px solid #f1dada;
+
+    color: #a80000;
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+}
+
+
+/* Customer Details */
+
+.admin-order-card > p {
+
+    margin: 9px 0;
+
+    padding: 11px 13px;
+
+    border-radius: 10px;
+
+    background: #fafafa;
+
+    color: #444;
+
+    font-size: 14px;
+
+}
+
+
+.admin-order-card > p strong {
+
+    color: #a80000;
+
+}
+
+
+/* Products Heading */
+
+.admin-order-card h3 {
+
+    margin:
+        22px 0 10px;
+
+    color: #222;
+
+    font-size: 18px;
+
+}
+
+
+/* Product Rows */
+
+.admin-order-card h3 + p,
+.admin-order-card h3 ~ p {
+
+    border-left:
+        4px solid #ffb703;
+
+}
+
+
+/* Status */
+
+.admin-order-card p strong:first-child {
+
+    font-weight: 800;
+
+}
+
+
+/* Admin Buttons */
+
+.admin-order-card button {
+
+    border: none;
+
+    padding: 11px 14px;
+
+    margin:
+        6px 4px 0 0;
+
+    border-radius: 10px;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+/* Confirm */
+
+.admin-order-card button:nth-last-child(5) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #22c55e
+        );
+
+}
+
+
+/* Processing */
+
+.admin-order-card button:nth-last-child(4) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+}
+
+
+/* Ship */
+
+.admin-order-card button:nth-last-child(3) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0891b2,
+            #06b6d4
+        );
+
+}
+
+
+/* Deliver */
+
+.admin-order-card button:nth-last-child(2) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #16a34a
+        );
+
+}
+
+
+/* Cancel */
+
+.admin-order-card button:last-child {
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #991b1b
+        );
+
+}
+
+
+.admin-order-card button:hover {
+
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+}
+
+
+/* Logout */
+
+.logout-btn {
+
+    float: right;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #991b1b
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(180,0,0,0.18);
+
+    transition: 0.25s ease;
+
+}
+
+
+.logout-btn:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+/* Empty Orders */
+
+.admin-order-box > h2 {
+
+    grid-column: 1 / -1;
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+    background: white;
+
+    border-radius: 22px;
+
+    color: #777;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.07);
+
+}
+
+
+/* =========================================================
+   📱 MOBILE ADMIN
+========================================================= */
+
+@media (max-width: 800px) {
+
+    body:has(.admin-order-box) .orders {
+
+        padding:
+            30px 12px 50px;
+
+    }
+
+
+    body:has(.admin-order-box) .orders > h1 {
+
+        font-size: 28px;
+
+        margin-top: 25px;
+
+    }
+
+
+    .admin-order-box {
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+
+    }
+
+
+    .admin-order-card {
+
+        padding: 22px 17px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .admin-order-card h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .admin-order-card button {
+
+        width: 100%;
+
+        margin:
+            5px 0;
+
+        padding: 13px;
+
+    }
+
+
+    .logout-btn {
+
+        float: none;
+
+        width: 100%;
+
+        margin-bottom: 10px;
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .login-box {
+
+        width:
+            calc(100% - 30px) !important;
+
+        padding:
+            40px 22px !important;
+
+    }
+
+
+    body:has(.login-box)::before {
+
+        font-size: 35px;
+
+        letter-spacing: 4px;
+
+    }
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes ownerLoginAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.96);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+@keyframes adminSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+```
