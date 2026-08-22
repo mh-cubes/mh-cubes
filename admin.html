@@ -1,35 +1,539 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Admin - MH CUBES</title>
 
-<link rel="stylesheet" href="assets/css/style.css">
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
+
+<style>
+
+/* =========================================
+   MH CUBES ADMIN PANEL
+========================================= */
+
+body.admin-page {
+
+    margin: 0;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(255,183,3,0.15),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #fff,
+            #fff5f5
+        );
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.admin-page header {
+
+    position: relative;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #120000,
+            #650000,
+            #c40000
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.25);
+
+}
+
+
+/* LOGO */
+
+.admin-page header .logo {
+
+    color: white;
+
+    font-size: 24px;
+    font-weight: 800;
+
+}
+
+
+/* HOME */
+
+.admin-page header nav a {
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    padding: 9px 15px;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+
+}
+
+
+.admin-page header nav a:hover {
+
+    background: rgba(255,255,255,0.15);
+
+}
+
+
+/* =========================================
+   LOGOUT AREA
+========================================= */
+
+.admin-actions {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    padding: 18px 30px 0;
+
+}
+
+
+/* LOGOUT BUTTON */
+
+.admin-logout-btn {
+
+    position: relative !important;
+
+    top: auto !important;
+    right: auto !important;
+
+    margin: 0 !important;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #b91c1c
+        );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(185,28,28,0.25);
+
+    transition: 0.3s;
+
+}
+
+
+.admin-logout-btn:hover {
+
+    transform: translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #991b1b
+        );
+
+}
+
+
+/* =========================================
+   ORDERS SECTION
+========================================= */
+
+.admin-page .orders {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    box-sizing: border-box;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+}
+
+
+/* TITLE */
+
+.admin-page .orders > h1 {
+
+    text-align: center;
+
+    color: #b30000;
+
+    font-size: 38px;
+
+    font-weight: 800;
+
+    margin: 15px 0 30px;
+
+    text-shadow:
+        0 3px 10px rgba(179,0,0,0.15);
+
+}
+
+
+/* =========================================
+   ORDER BOX
+========================================= */
+
+.admin-order-box {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =========================================
+   ORDER CARD
+========================================= */
+
+.admin-order-card {
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff5f5
+        );
+
+    border: 1px solid rgba(196,0,0,0.15);
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    margin: 25px 0;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.10);
+
+    overflow: hidden;
+
+    transition: 0.3s ease;
+
+}
+
+
+.admin-order-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 6px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ff0000,
+            #c40000,
+            #ffb703
+        );
+
+}
+
+
+.admin-order-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(196,0,0,0.18);
+
+}
+
+
+/* ORDER TITLE */
+
+.admin-order-card h2 {
+
+    margin-top: 0;
+
+    color: #b30000;
+
+    font-size: 24px;
+
+}
+
+
+/* PRODUCTS TITLE */
+
+.admin-order-card h3 {
+
+    color: #222;
+
+    margin-top: 25px;
+
+}
+
+
+/* DETAILS */
+
+.admin-order-card p {
+
+    margin: 8px 0;
+
+    padding: 12px 14px;
+
+    background: white;
+
+    border: 1px solid #eee;
+
+    border-radius: 10px;
+
+    color: #444;
+
+}
+
+
+.admin-order-card strong {
+
+    color: #c40000;
+
+}
+
+
+/* =========================================
+   ADMIN BUTTONS
+========================================= */
+
+.admin-order-card button {
+
+    padding: 11px 15px;
+
+    margin: 8px 5px 0 0;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+
+}
+
+
+.admin-order-card button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(37,99,235,0.25);
+
+}
+
+
+/* CANCEL BUTTON */
+
+.admin-order-card button:last-child {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #b91c1c
+        );
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .admin-page header {
+
+        padding: 16px;
+
+    }
+
+
+    .admin-page header .logo {
+
+        font-size: 19px;
+
+    }
+
+
+    .admin-page header nav a {
+
+        font-size: 14px;
+
+        padding: 8px 10px;
+
+    }
+
+
+    .admin-actions {
+
+        padding: 15px 15px 0;
+
+    }
+
+
+    .admin-logout-btn {
+
+        width: 100%;
+
+        padding: 13px;
+
+    }
+
+
+    .admin-page .orders {
+
+        padding: 15px 12px;
+
+    }
+
+
+    .admin-page .orders > h1 {
+
+        font-size: 28px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .admin-order-card {
+
+        padding: 20px 16px;
+
+        margin: 20px 0;
+
+    }
+
+
+    .admin-order-card h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .admin-order-card button {
+
+        width: 100%;
+
+        margin: 6px 0;
+
+    }
+
+}
+
+</style>
 
 </head>
 
+
 <body class="admin-page">
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header>
 
-<div class="logo">
-MH CUBES ADMIN
-</div>
+    <div class="logo">
+        MH CUBES ADMIN
+    </div>
 
-<nav>
+    <nav>
 
-<a href="index.html">
-Home
-</a>
+        <a href="index.html">
+            🏠 Home
+        </a>
 
-</nav>
+    </nav>
 
 </header>
+
+
+<!-- =========================================
+     LOGOUT
+========================================= -->
 
 <div class="admin-actions">
 
@@ -42,20 +546,31 @@ Home
 
 </div>
 
+
+<!-- =========================================
+     ORDERS
+========================================= -->
+
 <div class="orders">
 
     <h1>
         Customer Orders 📦
     </h1>
 
-<div
-    id="admin-order-box"
-    class="admin-order-box"
->
-🔄 Checking owner access...
-</div>
+
+    <div
+        id="admin-order-box"
+        class="admin-order-box"
+    >
+        🔄 Checking owner access...
+    </div>
 
 </div>
+
+
+<!-- =========================================
+     OWNER AUTHENTICATION
+========================================= -->
 
 <script type="module">
 
@@ -82,6 +597,10 @@ const logoutButton =
         "logout-button"
     );
 
+
+/* =========================================
+   CHECK OWNER
+========================================= */
 
 onAuthStateChanged(
     auth,
@@ -117,6 +636,12 @@ onAuthStateChanged(
         }
 
 
+        console.log(
+            "✅ Owner authenticated:",
+            user.email
+        );
+
+
         orderBox.innerHTML =
             "🔄 Loading orders...";
 
@@ -124,13 +649,24 @@ onAuthStateChanged(
 );
 
 
+/* =========================================
+   LOGOUT
+========================================= */
+
 logoutButton.addEventListener(
     "click",
     async function() {
 
         try {
 
+            logoutButton.disabled = true;
+
+            logoutButton.innerText =
+                "🚪 Logging out...";
+
+
             await signOut(auth);
+
 
             localStorage.removeItem(
                 "adminAccess"
@@ -149,6 +685,12 @@ logoutButton.addEventListener(
             );
 
 
+            logoutButton.disabled = false;
+
+            logoutButton.innerText =
+                "🚪 Logout";
+
+
             alert(
                 "❌ Logout failed. Please try again."
             );
@@ -160,10 +702,16 @@ logoutButton.addEventListener(
 
 </script>
 
+
+<!-- =========================================
+     ADMIN JAVASCRIPT
+========================================= -->
+
 <script
     type="module"
     src="assets/js/admin.js"
 ></script>
+
 
 </body>
 
