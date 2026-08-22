@@ -4253,7 +4253,6 @@ header,
     }
 
 }
-```css
 /* =========================================================
    🔐 MH CUBES OWNER LOGIN — PREMIUM DESIGN
 ========================================================= */
@@ -5126,4 +5125,13 @@ body:has(.admin-order-box) .orders > h1 {
     }
 
 }
-```
+/* =========================================
+   ADMIN LOGOUT BUTTON
+========================================= */
+
+.logout-btn {
+    display: block;
+    margin: 20px auto 0;
+    position: relative;
+    z-index: 10;
+}
