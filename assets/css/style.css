@@ -4189,8 +4189,3 @@ header,
     }
 
 }
-/* MY ORDERS LOADING TITLE */
-#page-loading h2 {
-    color: #00ffff;
-    text-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
-}
