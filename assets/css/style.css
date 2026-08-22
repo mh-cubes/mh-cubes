@@ -7030,3 +7030,16 @@ body section.hero h1 {
 body section.hero p {
     width: 100% !important;
 }
+body section.hero .hero-content {
+    width: 100% !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+}
+
+body section.hero .hero-content h1,
+body section.hero .hero-content p,
+body section.hero .hero-content button {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
