@@ -4011,19 +4011,7 @@ header,
 
     inset: 0;
 
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(255, 60, 60, 0.25),
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #120000,
-            #650000,
-            #c40000
-        );
-
+   background: lime !important;
     display: flex;
 
     justify-content: center;
