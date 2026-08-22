@@ -2715,26 +2715,53 @@ transform:rotate(360deg);
     }
 
 
-    header nav{
+   header nav{
 
-        display:none;
+    width:100%;
 
-        width:100%;
+    flex-direction:column;
 
-        flex-direction:column;
+    gap:0;
 
-        gap:0;
+    margin-top:15px;
 
-        margin-top:15px;
+    padding:10px 0;
 
-        padding:10px 0;
+    border-radius:12px;
 
-        border-radius:12px;
+    background:inherit;
 
-        background:inherit;
+    display:flex;
 
-    }
+    max-height:0;
 
+    opacity:0;
+
+    overflow:hidden;
+
+    transform:translateY(-10px);
+
+    pointer-events:none;
+
+    transition:
+        max-height 0.35s ease,
+        opacity 0.25s ease,
+        transform 0.35s ease;
+
+}
+
+
+header nav.mobile-open{
+
+    max-height:500px;
+
+    opacity:1;
+
+    transform:translateY(0);
+
+    pointer-events:auto;
+
+}
 
     header nav.mobile-open{
 
