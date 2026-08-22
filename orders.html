@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
+
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -12,225 +12,20 @@
 
 <title>My Orders - MH CUBES</title>
 
-<link
-    rel="stylesheet"
-    href="assets/css/style.css"
->
+<script>
 
-<style>
-
-.account-actions{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:15px;
-}
-
-.account-actions a,
-.account-actions button{
-    padding:10px 16px;
-    border:none;
-    border-radius:8px;
-    background:#2563eb;
-    color:white;
-    text-decoration:none;
-    cursor:pointer;
-    font-size:15px;
-}
-
-.account-actions .logout{
-    background:#dc2626;
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-<header>
-
-<div class="logo">
-MH CUBES
-</div>
-
-
-<nav>
-
-<a href="index.html">
-🏠 Home
-</a>
-
-<a href="customer-account.html">
-👤 My Account
-</a>
-
-</nav>
-
-</header>
-
-
-<main class="orders">
-
-<h1>
-📦 My Orders
-</h1>
-
-
-<!-- ACCOUNT BUTTONS -->
-
-<div
-    id="account-actions"
-    class="account-actions"
-    style="display:none;"
->
-
-<a href="customer-account.html">
-👤 My Account
-</a>
-
-<button
-    id="logout-button"
-    class="logout"
->
-🚪 Logout
-</button>
-
-</div>
-
-
-<div id="order-box">
-
-🔄 Checking login...
-
-</div>
-
-
-</main>
-
-
-<div id="order-toast" class="toast"></div>
-
-
-<script type="module">
-
-import {
-    auth
-} from "./assets/js/firebase.js";
-
-
-import {
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-
-const accountActions =
-    document.getElementById(
-        "account-actions"
-    );
-
-
-const logoutButton =
-    document.getElementById(
-        "logout-button"
-    );
-
-
-const orderBox =
-    document.getElementById(
-        "order-box"
-    );
-
-
-// =========================================
-// CHECK LOGIN
-// =========================================
-
-onAuthStateChanged(
-    auth,
-    function(user){
-
-        if(!user){
-
-            accountActions.style.display =
-                "none";
-
-            window.location.href =
-                "customer-login.html";
-
-            return;
-
-        }
-
-
-        // CUSTOMER IS LOGGED IN
-
-        accountActions.style.display =
-            "flex";
-
-    }
-);
-
-
-// =========================================
-// LOGOUT
-// =========================================
-
-logoutButton.addEventListener(
-    "click",
-    async function(){
-
-        try{
-
-            logoutButton.disabled =
-                true;
-
-            logoutButton.innerText =
-                "⏳ Logging out...";
-
-
-            await signOut(auth);
-
-
-            // Auth listener will redirect
-            // to customer login.
-
-        }catch(error){
-
-            console.error(
-                "Logout error:",
-                error
-            );
-
-
-            logoutButton.disabled =
-                false;
-
-            logoutButton.innerText =
-                "🚪 Logout";
-
-            alert(
-                "❌ Failed to logout. Please try again."
-            );
-
-        }
-
-    }
-);
+    window.location.replace("my-orders.html");
 
 </script>
 
+</head>
 
-<script
-    type="module"
-    src="assets/js/orders.js"
-></script>
+<body>
 
+<p>
+    Opening My Orders...
+</p>
 
 </body>
 
 </html>
-
