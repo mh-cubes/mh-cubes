@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,11 +26,29 @@
 body {
     background:
         radial-gradient(
-            circle at top,
-            #3b0000 0%,
-            #160000 35%,
-            #050505 75%
+            circle at 15% 20%,
+            rgba(0, 255, 255, 0.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(0, 120, 255, 0.15),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 20% 85%,
+            rgba(150, 0, 255, 0.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #050505,
+            #07151a,
+            #080014,
+            #050505
         );
+
+    background-attachment: fixed;
 }
 
 
@@ -59,9 +76,11 @@ body {
     margin: 0;
     font-size: 42px;
     font-weight: 900;
-   color: #00ff66;
+    color: #00ffff;
+
     text-shadow:
-        0 0 10px rgba(255, 215, 0, 0.25);
+        0 0 10px rgba(0, 255, 255, 0.5),
+        0 0 25px rgba(0, 255, 255, 0.25);
 }
 
 .orders-title p {
@@ -93,6 +112,7 @@ body {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease,
@@ -101,12 +121,14 @@ body {
 
 .home-button {
     background: #dc2626;
+
     box-shadow:
         0 5px 15px rgba(220, 38, 38, 0.25);
 }
 
 .logout-button {
     background: #333;
+
     box-shadow:
         0 5px 15px rgba(0, 0, 0, 0.3);
 }
@@ -129,24 +151,37 @@ body {
 ========================================= */
 
 .orders-container {
-    background: rgba(15, 15, 15, 0.95);
-    border: 1px solid rgba(255, 215, 0, 0.18);
+    background: rgba(5, 10, 15, 0.92);
+
+    border: 1px solid rgba(0, 255, 255, 0.18);
+
     border-radius: 22px;
+
     padding: 28px;
+
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.55);
+        0 20px 60px rgba(0, 0, 0, 0.55),
+        0 0 30px rgba(0, 255, 255, 0.05);
 }
 
 .orders-container > h2 {
     margin-top: 0;
-    color: white;
+
+    color: #00ffff;
+
     text-align: center;
+
     font-size: 26px;
+
+    text-shadow:
+        0 0 10px rgba(0, 255, 255, 0.3);
 }
 
 .orders-container > p {
     text-align: center;
+
     color: #aaa;
+
     margin-bottom: 28px;
 }
 
@@ -185,12 +220,15 @@ body {
         border-color 0.25s ease,
         box-shadow 0.25s ease;
 }
+
+.customer-order-card:hover {
     transform: translateY(-4px);
 
-    border-color: #ffd700;
+    border-color: #00ffff;
 
     box-shadow:
-        0 15px 40px rgba(255, 215, 0, 0.12);
+        0 15px 40px rgba(0, 0, 0, 0.45),
+        0 0 25px rgba(0, 255, 255, 0.18);
 }
 
 
@@ -200,22 +238,33 @@ body {
 
 .order-card-header {
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     gap: 15px;
+
     flex-wrap: wrap;
 
     padding-bottom: 18px;
+
     margin-bottom: 18px;
 
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.15);
 }
 
 .order-card-header h2 {
     margin: 0;
-    color: #ffd700;
+
+    color: #00ffff;
+
     font-size: 22px;
+
     word-break: break-word;
+
+    text-shadow:
+        0 0 8px rgba(0, 255, 255, 0.25);
 }
 
 
@@ -230,14 +279,16 @@ body {
 
     border-radius: 999px;
 
-    background: #ffd700;
-    color: #111;
+    background: #00ffff;
+
+    color: #031014;
 
     font-size: 13px;
+
     font-weight: 900;
 
     box-shadow:
-        0 4px 12px rgba(255, 215, 0, 0.18);
+        0 4px 15px rgba(0, 255, 255, 0.2);
 }
 
 
@@ -261,13 +312,13 @@ body {
 
     padding: 12px;
 
-    background: #181818;
+    background: rgba(255, 255, 255, 0.035);
 
     border-radius: 10px;
 
     color: #ddd;
 
-    border: 1px solid #292929;
+    border: 1px solid rgba(0, 255, 255, 0.08);
 
     font-size: 14px;
 
@@ -275,7 +326,7 @@ body {
 }
 
 .order-details strong {
-    color: #ffd700;
+    color: #00ffff;
 }
 
 
@@ -284,8 +335,12 @@ body {
 ========================================= */
 
 .customer-order-card h3 {
-    color: white;
+    color: #00ffff;
+
     margin: 20px 0 12px;
+
+    text-shadow:
+        0 0 8px rgba(0, 255, 255, 0.2);
 }
 
 
@@ -295,6 +350,7 @@ body {
 
 .my-order-products {
     display: grid;
+
     gap: 10px;
 }
 
@@ -306,11 +362,11 @@ body {
     background:
         linear-gradient(
             90deg,
-            #240000,
-            #171717
+            #071c20,
+            #111111
         );
 
-    border: 1px solid #3b1a1a;
+    border: 1px solid rgba(0, 255, 255, 0.12);
 
     border-radius: 10px;
 
@@ -318,16 +374,21 @@ body {
 
     transition:
         transform 0.2s ease,
-        border-color 0.2s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .my-order-products p:hover {
     transform: translateX(3px);
-    border-color: #ffd700;
+
+    border-color: #00ffff;
+
+    box-shadow:
+        0 0 12px rgba(0, 255, 255, 0.1);
 }
 
 .my-order-products strong {
-    color: #ffd700;
+    color: #00ffff;
 }
 
 
@@ -339,26 +400,30 @@ body {
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
     margin-top: 22px;
+
     padding: 16px 18px;
 
     background:
         linear-gradient(
             90deg,
-            #ffd700,
-            #ffb700
+            #00ffff,
+            #008cff
         );
 
     border-radius: 12px;
 
-    color: #111;
+    color: #031014;
 
     font-size: 18px;
 
+    font-weight: 900;
+
     box-shadow:
-        0 7px 20px rgba(255, 215, 0, 0.15);
+        0 7px 20px rgba(0, 255, 255, 0.15);
 }
 
 
@@ -371,13 +436,13 @@ body {
 
     padding: 14px 16px;
 
-    background: #2b1f00;
+    background: rgba(0, 255, 255, 0.06);
 
-    border: 1px solid #806500;
+    border: 1px solid rgba(0, 255, 255, 0.3);
 
     border-radius: 10px;
 
-    color: #ffd700;
+    color: #00ffff;
 
     font-weight: 700;
 }
@@ -396,9 +461,9 @@ body {
 
     text-align: center;
 
-    background: #ffd700;
+    background: #00ffff;
 
-    color: #111;
+    color: #031014;
 
     border-radius: 12px;
 
@@ -415,18 +480,18 @@ body {
         box-shadow 0.2s ease;
 
     box-shadow:
-        0 6px 18px rgba(255, 215, 0, 0.15);
+        0 6px 18px rgba(0, 255, 255, 0.15);
 }
 
 .track-order-btn:hover {
-    background: #555;
+    background: #008cff;
 
     color: white;
 
     transform: translateY(-2px);
 
     box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.35);
+        0 8px 22px rgba(0, 140, 255, 0.3);
 }
 
 
@@ -436,17 +501,20 @@ body {
 
 .order-loading {
     text-align: center;
+
     padding: 50px 20px;
+
     color: white;
 }
 
 .loader {
     width: 48px;
+
     height: 48px;
 
     border: 5px solid #333;
 
-    border-top: 5px solid #ffd700;
+    border-top: 5px solid #00ffff;
 
     border-radius: 50%;
 
@@ -456,7 +524,7 @@ body {
 }
 
 .order-loading h3 {
-    color: #ddd;
+    color: #00ffff;
 }
 
 
@@ -466,21 +534,25 @@ body {
 
 .orders-message {
     text-align: center;
+
     padding: 55px 20px;
 }
 
 .orders-message .message-icon {
     font-size: 60px;
+
     margin-bottom: 15px;
 }
 
 .orders-message h2 {
-    color: #ffd700;
+    color: #00ffff;
+
     margin-bottom: 10px;
 }
 
 .orders-message p {
     color: #aaa;
+
     line-height: 1.6;
 }
 
@@ -518,15 +590,29 @@ body {
     }
 
 
+    .orders-title p {
+        font-size: 14px;
+    }
+
+
     .orders-container {
         padding: 16px;
+
         border-radius: 16px;
     }
 
 
     .customer-order-card {
         padding: 16px;
+
         border-radius: 14px;
+
+        border-left-width: 4px;
+    }
+
+
+    .customer-order-card:hover {
+        transform: none;
     }
 
 
@@ -537,6 +623,7 @@ body {
 
     .order-card-header {
         align-items: flex-start;
+
         flex-direction: column;
     }
 
@@ -546,8 +633,19 @@ body {
     }
 
 
+    .order-status {
+        font-size: 12px;
+
+        padding: 7px 12px;
+    }
+
+
     .order-total {
         font-size: 16px;
+
+        gap: 10px;
+
+        flex-wrap: wrap;
     }
 
 }
@@ -558,9 +656,11 @@ body {
 
 
 <body>
-<!-- ============================= -->
-<!-- BEAUTIFUL PAGE LOADING SCREEN -->
-<!-- ============================= -->
+
+
+<!-- =========================================
+     BEAUTIFUL PAGE LOADING SCREEN
+========================================= -->
 
 <div id="page-loading">
 
@@ -573,16 +673,17 @@ body {
         <div class="page-loader"></div>
 
         <h2>
-            MH CUBES
+            MY ORDERS
         </h2>
 
         <p>
-            Loading...
+            Fetching your orders...
         </p>
 
     </div>
 
 </div>
+
 
 <!-- =========================================
      HEADER
@@ -610,7 +711,6 @@ body {
 </header>
 
 
-
 <!-- =========================================
      MAIN
 ========================================= -->
@@ -629,7 +729,6 @@ body {
         </p>
 
     </div>
-
 
 
     <!-- =====================================
@@ -660,13 +759,11 @@ body {
     </div>
 
 
-
     <!-- =====================================
          ORDERS CONTAINER
     ====================================== -->
 
     <div class="orders-container">
-
 
         <h2>
             Your Orders
@@ -679,17 +776,12 @@ body {
         </p>
 
 
-        <div id="order-box">
-
-          
-        </div>
-
+        <div id="order-box"></div>
 
     </div>
 
 
 </main>
-
 
 
 <!-- =========================================
@@ -701,8 +793,11 @@ body {
     src="assets/js/orders.js"
 ></script>
 
-<script src="assets/js/page-loading.js"></script>
+<script
+    src="assets/js/page-loading.js"
+></script>
+
+
 </body>
 
 </html>
-
