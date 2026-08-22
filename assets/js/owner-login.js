@@ -30,12 +30,22 @@ function ownerLogin() {
         password
     )
 
-    .then(function () {
+   .then(function (result) {
 
-        localStorage.setItem(
-            "adminAccess",
-            "granted"
-        );
+    console.log("OWNER UID:", result.user.uid);
+    console.log("OWNER EMAIL:", result.user.email);
+
+    alert(
+        "Owner UID:\n" +
+        result.user.uid +
+        "\n\nEmail:\n" +
+        result.user.email
+    );
+
+    localStorage.setItem(
+        "adminAccess",
+        "granted"
+    );
 
 
         document.querySelector(".login-box").innerHTML = `
