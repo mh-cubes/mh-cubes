@@ -759,44 +759,27 @@ window.toggleMobileMenu =
 
 onAuthStateChanged(auth, (user) => {
 
-    const authLink =
-        document.getElementById("auth-link");
-
+    const authLink = document.getElementById("auth-link");
 
     if (!authLink) return;
 
-
     if (user) {
 
-        console.log(
-            "✅ Customer logged in:",
-            user.email
-        );
+        // User is logged in
+        console.log("✅ Customer logged in:", user.email);
 
-
-        authLink.style.display = "";
-
-        authLink.innerHTML =
-            "👤 My Account";
-
-        authLink.href =
-            "customer-account.html";
+        authLink.innerHTML = "👤 My Account";
+        authLink.href = "customer-account.html";
 
     } else {
 
-        console.log(
-            "❌ Customer is not logged in"
-        );
+        // User is NOT logged in
+        console.log("❌ Customer is not logged in");
 
-
-        authLink.style.display = "";
-
-        authLink.innerHTML =
-            "👤 Sign In";
-
-        authLink.href =
-            "customer-login.html";
+        authLink.innerHTML = "👤 Sign In";
+        authLink.href = "customer-login.html";
 
     }
 
 });
+
