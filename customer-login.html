@@ -12,7 +12,57 @@
 <link rel="stylesheet" href="assets/css/style.css">
 
 <style>
+.password-wrapper{
+    position:relative;
+    width:90%;
+    margin:10px auto;
+}
 
+.password-wrapper input{
+    width:100%;
+    box-sizing:border-box;
+    margin:0;
+    padding:14px 85px 14px 14px;
+}
+
+.show-password-btn{
+    position:absolute !important;
+    right:8px;
+    top:50%;
+    transform:translateY(-50%);
+
+    width:auto !important;
+
+    margin:0 !important;
+    padding:7px 9px !important;
+
+    background:transparent !important;
+    color:#2563eb !important;
+
+    font-size:13px !important;
+    font-weight:bold;
+
+    border:none !important;
+}
+
+.show-password-btn:hover{
+    background:transparent !important;
+    color:#1d4ed8 !important;
+    transform:translateY(-50%);
+}
+
+@media (max-width:600px){
+
+    .login-box{
+        width:calc(100% - 30px);
+        padding:30px 20px;
+    }
+
+    .password-wrapper{
+        width:90%;
+    }
+
+}
 body{
     min-height:100vh;
     display:flex;
