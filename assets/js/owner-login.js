@@ -1,10 +1,22 @@
-
 import {
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import { auth } from "./firebase.js";
 
+
+// =========================================
+// OWNER ACCOUNT
+// =========================================
+
+const OWNER_UID =
+    "UPdmuwyLEcdEyMxFENPGRlAhxwa2";
+
+
+// =========================================
+// DOM ELEMENTS
+// =========================================
 
 const loginButton =
     document.getElementById("login-button");
@@ -44,7 +56,7 @@ async function ownerLogin() {
     }
 
 
-    // Loading state
+    // Loading
 
     loginButton.disabled = true;
 
@@ -56,12 +68,55 @@ async function ownerLogin() {
 
     try {
 
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
+        // Firebase login
+
+        const result =
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+        const user =
+            result.user;
+
+
+        console.log(
+            "Logged in email:",
+            user.email
         );
 
+        console.log(
+            "Logged in UID:",
+            user.uid
+        );
+
+
+        // =========================================
+        // OWNER UID CHECK
+        // =========================================
+
+        if (user.uid !== OWNER_UID) {
+
+            await signOut(auth);
+
+            loginButton.disabled = false;
+
+            loginButton.innerText =
+                "🔐 Login to Dashboard";
+
+            errorMessage.innerText =
+                "❌ This account is not authorized as the owner.";
+
+            return;
+
+        }
+
+
+        // =========================================
+        // OWNER LOGIN SUCCESS
+        // =========================================
 
         localStorage.setItem(
             "adminAccess",
@@ -69,9 +124,7 @@ async function ownerLogin() {
         );
 
 
-        // Success screen
-
-        document.querySelector(".login-box").innerHTML = `
+        document.querySelector(".owner-login-box").innerHTML = `
 
             <div class="success-icon">
                 ✓
@@ -93,6 +146,8 @@ async function ownerLogin() {
 
         `;
 
+
+        // Open admin panel
 
         setTimeout(function () {
 
@@ -116,8 +171,20 @@ async function ownerLogin() {
             "🔐 Login to Dashboard";
 
 
-        errorMessage.innerText =
-            "❌ Invalid owner email or password.";
+        if (
+            error.code ===
+            "auth/invalid-credential"
+        ) {
+
+            errorMessage.innerText =
+                "❌ Incorrect email or password.";
+
+        } else {
+
+            errorMessage.innerText =
+                "❌ Login failed. Please try again.";
+
+        }
 
     }
 
@@ -156,4 +223,3 @@ loginButton.addEventListener(
 
     }
 );
-
