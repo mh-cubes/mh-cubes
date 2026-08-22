@@ -4231,4 +4231,16 @@ header,
     }
 
 }
-   
+   /* MOBILE ORDER ID - ONE LINE */
+
+@media (max-width: 700px) {
+
+    .order-card-header h2 {
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+}
