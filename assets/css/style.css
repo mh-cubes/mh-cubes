@@ -4231,16 +4231,16 @@ header,
     }
 
 }
-   /* MOBILE ORDER ID - ONE LINE */
+  /* MOBILE ORDER ID - SMALL & ONE LINE */
 
 @media (max-width: 700px) {
 
     .order-card-header h2 {
-        font-size: 13px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
+        font-size: 12px !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+        max-width: none !important;
+        flex-shrink: 1;
     }
 
 }
