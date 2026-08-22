@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MH CUBES Owner Login</title>
 
@@ -9,89 +13,374 @@
 
 <style>
 
-body{
+/* =========================================
+   OWNER LOGIN PAGE
+========================================= */
+
+.owner-login-page{
+
     min-height:100vh;
+
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#111827,#2563eb);
-    font-family:Arial, sans-serif;
+
+    padding:20px;
+
+    box-sizing:border-box;
+
+    font-family:Arial,sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #ef4444,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            #2563eb,
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #111827,
+            #1e3a8a
+        );
+
 }
 
 
-.login-box{
+/* =========================================
+   LOGIN CARD
+========================================= */
 
-    background:white;
-    width:350px;
-    padding:35px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+.owner-login-box{
+
+    width:100%;
+    max-width:400px;
+
+    padding:40px 32px;
+
+    box-sizing:border-box;
+
     text-align:center;
 
-}
+    background:rgba(255,255,255,0.97);
 
+    border-radius:24px;
 
-.login-box h1{
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.35);
 
-    margin-bottom:10px;
-    color:#2563eb;
+    border:1px solid rgba(255,255,255,0.5);
 
-}
-
-
-.login-box p{
-
-    color:#666;
-    margin-bottom:25px;
+    animation:ownerLoginAppear .5s ease;
 
 }
 
 
-.login-box input{
+/* =========================================
+   LOCK ICON
+========================================= */
 
-    width:90%;
-    padding:14px;
-    margin:10px 0;
-    border:1px solid #ccc;
-    border-radius:10px;
+.owner-login-box .owner-icon{
+
+    width:75px;
+    height:75px;
+
+    margin:0 auto 18px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    font-size:36px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #2563eb
+        );
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,0.3);
+
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.owner-login-box h1{
+
+    margin:0;
+
+    font-size:30px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ef4444,
+            #2563eb
+        );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+}
+
+
+.owner-login-box .subtitle{
+
+    margin:8px 0 28px;
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.owner-input{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    margin:8px 0;
+
+    box-sizing:border-box;
+
+    border:2px solid #e5e7eb;
+
+    border-radius:12px;
+
+    outline:none;
+
     font-size:16px;
 
+    background:#f9fafb;
+
+    transition:.25s;
+
 }
 
 
-.login-box button{
+.owner-input:focus{
 
-    width:95%;
-    padding:14px;
-    margin-top:15px;
+    border-color:#2563eb;
+
+    background:white;
+
+    box-shadow:
+        0 0 0 4px rgba(37,99,235,0.1);
+
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
+
+#login-button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:18px;
+
     border:none;
-    border-radius:10px;
-    background:#2563eb;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #2563eb
+        );
+
     color:white;
+
     font-size:17px;
+
+    font-weight:bold;
+
     cursor:pointer;
 
-}
+    box-shadow:
+        0 8px 20px rgba(37,99,235,0.3);
 
-
-.login-box button:hover{
-
-    background:#1d4ed8;
+    transition:.25s;
 
 }
 
+
+#login-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(37,99,235,0.4);
+
+}
+
+
+#login-button:active{
+
+    transform:scale(.98);
+
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
 
 #login-error{
 
-    color:red;
+    min-height:22px;
+
     margin-top:15px;
+
+    color:#dc2626;
+
+    font-size:14px;
+
+    font-weight:bold;
 
 }
 
 
-.logo{
+/* =========================================
+   SECURITY TEXT
+========================================= */
 
-    font-size:45px;
+.owner-security{
+
+    margin-top:20px;
+
+    padding-top:16px;
+
+    border-top:1px solid #e5e7eb;
+
+    color:#9ca3af;
+
+    font-size:12px;
+
+}
+
+
+/* =========================================
+   LOADER
+========================================= */
+
+.owner-login-box .loader{
+
+    width:25px;
+    height:25px;
+
+    margin:15px auto;
+
+    border:3px solid #e5e7eb;
+
+    border-top-color:#2563eb;
+
+    border-radius:50%;
+
+    animation:ownerSpin .8s linear infinite;
+
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes ownerLoginAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(20px)
+            scale(.97);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+@keyframes ownerSpin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:600px){
+
+    .owner-login-page{
+
+        padding:15px;
+
+    }
+
+
+    .owner-login-box{
+
+        padding:32px 22px;
+
+        border-radius:20px;
+
+    }
+
+
+    .owner-login-box h1{
+
+        font-size:27px;
+
+    }
+
+
+    .owner-input{
+
+        font-size:16px;
+
+        padding:14px;
+
+    }
 
 }
 
@@ -99,40 +388,63 @@ body{
 
 </head>
 
-
 <body class="owner-login-page">
-
 
 <div class="owner-login-box">
 
-<div class="logo">
-🔐
+
+<div class="owner-icon">
+    🔐
 </div>
 
 
-<h1>MH CUBES</h1>
+<h1>
+    MH CUBES
+</h1>
 
-<p>Owner Dashboard Login</p>
+
+<p class="subtitle">
+    Owner Dashboard Login
+</p>
 
 
-<input id="owner-email" type="email" placeholder="Enter Owner Email">
+<input
+    id="owner-email"
+    class="owner-input"
+    type="email"
+    placeholder="Enter Owner Email"
+    autocomplete="username"
+>
 
-<input id="owner-password" type="password" placeholder="Enter Password">
+
+<input
+    id="owner-password"
+    class="owner-input"
+    type="password"
+    placeholder="Enter Password"
+    autocomplete="current-password"
+>
 
 
 <button id="login-button">
-Login
+    🔐 Login to Dashboard
 </button>
 
 
 <p id="login-error"></p>
 
 
+<div class="owner-security">
+    🔒 Secure MH CUBES Owner Access
 </div>
 
 
-<script type="module" src="assets/js/owner-login.js"></script>
+</div>
 
+<script
+    type="module"
+    src="assets/js/owner-login.js"
+></script>
 
 </body>
 
