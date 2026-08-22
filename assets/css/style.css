@@ -4244,3 +4244,12 @@ header,
     }
 
 }
+@media (max-width: 768px) {
+
+    header nav.mobile-open #auth-link {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+}
