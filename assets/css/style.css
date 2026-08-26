@@ -4351,3 +4351,1009 @@ body.owner-login-page {
     }
 
 }
+/* =========================================================
+   MH CUBES — CLEAN STYLE.CSS
+   PART 5/5
+   Admin Panel • Owner Login • Loading • Responsive • Animations
+========================================================= */
+
+
+/* =========================================================
+   🔐 OWNER LOGIN
+========================================================= */
+
+body.owner-login-page {
+
+    min-height: 100vh;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(255,183,3,.25),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 85%,
+            rgba(37,99,235,.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #120000,
+            #650000,
+            #c40000
+        );
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+.owner-login-box {
+
+    width: 350px;
+    max-width: calc(100% - 30px);
+
+    padding: 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff5f5
+        );
+
+    border-radius: 22px;
+
+    text-align: center;
+
+    border: 2px solid rgba(255,183,3,.35);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        0 0 30px rgba(255,183,3,.12);
+
+    animation:
+        ownerLoginAppear .6s ease;
+
+}
+
+
+.owner-login-box .logo {
+
+    font-size: 48px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.owner-login-box h1 {
+
+    margin: 0 0 10px;
+
+    color: #b30000;
+
+    font-size: 30px;
+
+}
+
+
+.owner-login-box p {
+
+    color: #666;
+
+    margin-bottom: 25px;
+
+}
+
+
+.owner-login-box input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px;
+
+    margin: 9px 0;
+
+    border: 2px solid #ddd;
+
+    border-radius: 11px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: .25s ease;
+
+}
+
+
+.owner-login-box input:focus {
+
+    border-color: #ffb703;
+
+    box-shadow:
+        0 0 0 3px rgba(255,183,3,.15);
+
+}
+
+
+.owner-login-box button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 15px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(196,0,0,.25);
+
+    transition: .25s ease;
+
+}
+
+
+.owner-login-box button:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+.owner-login-box button:disabled {
+
+    opacity: .65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+#login-error {
+
+    min-height: 20px;
+
+    margin-top: 15px;
+
+    color: #dc2626;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   📦 ADMIN PAGE
+========================================================= */
+
+.admin-page {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(255,183,3,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fff5f5
+        );
+
+}
+
+
+/* Admin Header */
+
+.admin-page header {
+
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #120000,
+            #650000,
+            #c40000
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25);
+
+}
+
+
+.admin-page header .logo {
+
+    color: white;
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+}
+
+
+.admin-page header nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.admin-page header nav a {
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    padding: 10px 15px;
+
+    border-radius: 9px;
+
+    transition: .25s ease;
+
+}
+
+
+.admin-page header nav a:hover {
+
+    background:
+        rgba(255,255,255,.12);
+
+}
+
+
+/* Admin Actions */
+
+.admin-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    padding: 20px 30px 0;
+
+}
+
+
+.admin-logout-btn {
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #b91c1c
+        );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(185,28,28,.25);
+
+    transition: .25s ease;
+
+}
+
+
+.admin-logout-btn:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+/* Admin Content */
+
+.admin-page .orders {
+
+    max-width: 1100px;
+
+    margin: 25px auto 60px;
+
+    padding: 0 20px;
+
+}
+
+
+.admin-page .orders > h1 {
+
+    margin: 20px 0 30px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background: white;
+
+    color: #b30000;
+
+    font-size: 36px;
+
+    font-weight: 900;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+/* =========================================================
+   ORDER GRID
+========================================================= */
+
+.admin-order-box {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 22px;
+
+}
+
+
+/* =========================================================
+   ORDER CARD
+========================================================= */
+
+.admin-order-card {
+
+    position: relative;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff8f8
+        );
+
+    border: 1px solid rgba(196,0,0,.15);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+    overflow: hidden;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+.admin-order-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 6px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ff0000,
+            #c40000,
+            #ffb703
+        );
+
+}
+
+
+.admin-order-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(196,0,0,.15);
+
+}
+
+
+.admin-order-card h2 {
+
+    margin: 0 0 20px;
+
+    padding-bottom: 15px;
+
+    border-bottom:
+        2px solid #f1dada;
+
+    color: #b30000;
+
+    font-size: 22px;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+.admin-order-card h3 {
+
+    margin: 22px 0 10px;
+
+    color: #222;
+
+    font-size: 18px;
+
+}
+
+
+.admin-order-card p {
+
+    margin: 8px 0;
+
+    padding: 11px 13px;
+
+    background: #fff;
+
+    border-radius: 10px;
+
+    border: 1px solid #eee;
+
+    color: #444;
+
+    font-size: 14px;
+
+}
+
+
+.admin-order-card strong {
+
+    color: #c40000;
+
+}
+
+
+/* =========================================================
+   ADMIN BUTTONS
+========================================================= */
+
+.admin-order-card button {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 11px 15px;
+
+    margin: 7px 5px 0 0;
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+
+}
+
+
+.admin-order-card button:nth-of-type(1) {
+
+    background: #16a34a;
+
+}
+
+
+.admin-order-card button:nth-of-type(2) {
+
+    background: #2563eb;
+
+}
+
+
+.admin-order-card button:nth-of-type(3) {
+
+    background: #7c3aed;
+
+}
+
+
+.admin-order-card button:nth-of-type(4) {
+
+    background: #059669;
+
+}
+
+
+.admin-order-card button:nth-of-type(5) {
+
+    background: #dc2626;
+
+}
+
+
+.admin-order-card button:hover {
+
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+
+}
+
+
+/* Empty Orders */
+
+.admin-order-box > h2 {
+
+    grid-column: 1 / -1;
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+    background: white;
+
+    border-radius: 20px;
+
+    color: #777;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.07);
+
+}
+
+
+/* =========================================================
+   ⏳ PAGE LOADING
+========================================================= */
+
+#page-loading {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #090000,
+            #650000,
+            #c40000
+        );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    z-index: 999999;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transition:
+        opacity .5s ease,
+        visibility .5s ease;
+
+}
+
+
+#page-loading.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+}
+
+
+.loading-content {
+
+    color: white;
+
+    animation:
+        loadingAppear .7s ease;
+
+}
+
+
+.loading-logo {
+
+    font-size: 65px;
+
+    margin-bottom: 15px;
+
+    animation:
+        loadingFloat 1.5s ease-in-out infinite;
+
+}
+
+
+.page-loader {
+
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    border:
+        6px solid rgba(255,255,255,.25);
+
+    border-top-color: #ffb703;
+
+    border-right-color: white;
+
+    animation:
+        pageSpin .8s linear infinite;
+
+    box-shadow:
+        0 0 25px rgba(255,183,3,.35);
+
+}
+
+
+.loading-content h2 {
+
+    margin: 8px 0;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+}
+
+
+.loading-content p {
+
+    margin: 0;
+
+    color: #ffe4e4;
+
+    font-size: 16px;
+
+    animation:
+        loadingPulse 1.2s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   📱 MOBILE ADMIN
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .admin-page header {
+
+        padding: 15px 18px;
+
+        flex-direction: column;
+
+        gap: 12px;
+
+        text-align: center;
+
+    }
+
+
+    .admin-page header .logo {
+
+        font-size: 22px;
+
+    }
+
+
+    .admin-page header nav {
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+    }
+
+
+    .admin-actions {
+
+        padding: 15px 15px 0;
+
+    }
+
+
+    .admin-logout-btn {
+
+        width: 100%;
+
+    }
+
+
+    .admin-page .orders {
+
+        width: calc(100% - 24px);
+
+        padding: 0;
+
+        margin-top: 25px;
+
+    }
+
+
+    .admin-page .orders > h1 {
+
+        font-size: 27px;
+
+        padding: 20px;
+
+    }
+
+
+    .admin-order-box {
+
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+
+    }
+
+
+    .admin-order-card {
+
+        padding: 20px 16px;
+
+    }
+
+
+    .admin-order-card h2 {
+
+        font-size: 19px;
+
+    }
+
+
+    .admin-order-card button {
+
+        width: 100%;
+
+        margin: 5px 0;
+
+        padding: 12px;
+
+    }
+
+
+    .owner-login-box {
+
+        width: calc(100% - 30px);
+
+        padding: 30px 20px;
+
+    }
+
+
+    .loading-logo {
+
+        font-size: 55px;
+
+    }
+
+
+    .page-loader {
+
+        width: 50px;
+
+        height: 50px;
+
+    }
+
+
+    .loading-content h2 {
+
+        font-size: 24px;
+
+    }
+
+}
+
+
+/* =========================================================
+   📱 SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .loading-content h2 {
+
+        font-size: 22px;
+
+    }
+
+
+    .loading-content p {
+
+        font-size: 14px;
+
+    }
+
+
+    .admin-page .orders > h1 {
+
+        font-size: 24px;
+
+    }
+
+}
+
+
+/* =========================================================
+   ✨ ANIMATIONS
+========================================================= */
+
+@keyframes ownerLoginAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.96);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+@keyframes pageSpin {
+
+    from {
+
+        transform: rotate(0deg);
+
+    }
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+@keyframes loadingFloat {
+
+    0%, 100% {
+
+        transform: translateY(0);
+
+    }
+
+    50% {
+
+        transform: translateY(-10px);
+
+    }
+
+}
+
+
+@keyframes loadingPulse {
+
+    0%, 100% {
+
+        opacity: .5;
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+    }
+
+}
+
+
+@keyframes loadingAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: scale(.85);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
