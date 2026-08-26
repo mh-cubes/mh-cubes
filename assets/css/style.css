@@ -8839,3 +8839,598 @@ color: white !important;
     }
 
 }
+/* =========================================================
+   MH CUBES — NEW PREMIUM HOMEPAGE HERO
+========================================================= */
+
+.hero {
+
+    position: relative;
+
+    min-height: 570px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(220, 38, 38, 0.28),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(153, 27, 27, 0.30),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #080808,
+            #170707 45%,
+            #450909 100%
+        );
+
+    color: white;
+
+    isolation: isolate;
+
+}
+
+
+/* =========================================================
+   GEOMETRIC PATTERN
+========================================================= */
+
+.hero-pattern {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -2;
+
+    opacity: 0.22;
+
+    background-image:
+
+        linear-gradient(
+            30deg,
+            transparent 48%,
+            rgba(255,255,255,0.12) 49%,
+            rgba(255,255,255,0.12) 51%,
+            transparent 52%
+        ),
+
+        linear-gradient(
+            150deg,
+            transparent 48%,
+            rgba(255,255,255,0.08) 49%,
+            rgba(255,255,255,0.08) 51%,
+            transparent 52%
+        );
+
+    background-size:
+        90px 90px,
+        90px 90px;
+
+    transform:
+        perspective(600px)
+        rotateX(55deg)
+        scale(1.5);
+
+}
+
+
+/* =========================================================
+   CUBE PATTERN BLOCKS
+========================================================= */
+
+.hero-pattern span {
+
+    position: absolute;
+
+    width: 90px;
+
+    height: 90px;
+
+    border: 1px solid
+        rgba(255,255,255,0.14);
+
+    transform:
+        rotate(45deg);
+
+    box-shadow:
+        0 0 30px
+        rgba(220,38,38,0.08);
+
+}
+
+
+.hero-pattern span:nth-child(1) {
+    top: 12%;
+    left: 8%;
+}
+
+.hero-pattern span:nth-child(2) {
+    top: 30%;
+    left: 25%;
+}
+
+.hero-pattern span:nth-child(3) {
+    top: 8%;
+    right: 15%;
+}
+
+.hero-pattern span:nth-child(4) {
+    top: 55%;
+    right: 8%;
+}
+
+.hero-pattern span:nth-child(5) {
+    bottom: 10%;
+    left: 14%;
+}
+
+.hero-pattern span:nth-child(6) {
+    bottom: 22%;
+    left: 45%;
+}
+
+.hero-pattern span:nth-child(7) {
+    top: 42%;
+    left: 5%;
+}
+
+.hero-pattern span:nth-child(8) {
+    bottom: 8%;
+    right: 30%;
+}
+
+.hero-pattern span:nth-child(9) {
+    top: 20%;
+    right: 42%;
+}
+
+
+/* =========================================================
+   RED GLOW
+========================================================= */
+
+.hero-glow {
+
+    position: absolute;
+
+    width: 300px;
+
+    height: 300px;
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    opacity: 0.25;
+
+    z-index: -1;
+
+}
+
+
+.hero-glow-one {
+
+    background: #dc2626;
+
+    top: -100px;
+
+    left: -80px;
+
+}
+
+
+.hero-glow-two {
+
+    background: #991b1b;
+
+    bottom: -120px;
+
+    right: -80px;
+
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: min(850px, 90%);
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+}
+
+
+.hero-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 9px 18px;
+
+    margin-bottom: 20px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(220,38,38,0.15);
+
+    border:
+        1px solid
+        rgba(239,68,68,0.45);
+
+    color: #fecaca;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.hero-content h1 {
+
+    margin: 0;
+
+    font-size: clamp(42px, 7vw, 76px);
+
+    line-height: 1.05;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    text-shadow:
+        0 8px 30px
+        rgba(0,0,0,0.45);
+
+}
+
+
+.hero-content h1 span {
+
+    display: block;
+
+    margin-top: 8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #f87171,
+            #dc2626
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.hero-content p {
+
+    max-width: 600px;
+
+    margin: 22px auto 30px;
+
+    color: #e5e7eb;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.hero-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.hero-shop-btn {
+
+    border: none;
+
+    padding: 15px 28px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #991b1b
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(220,38,38,0.35);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+.hero-shop-btn:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 16px 35px
+        rgba(220,38,38,0.5);
+
+}
+
+
+.hero-explore-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 14px 25px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+    background:
+        rgba(255,255,255,0.07);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+
+}
+
+
+.hero-explore-btn:hover {
+
+    background:
+        rgba(255,255,255,0.14);
+
+    transform:
+        translateY(-3px);
+
+}
+
+
+/* =========================================================
+   FLOATING CUBES
+========================================================= */
+
+.floating-cube {
+
+    position: absolute;
+
+    width: 75px;
+
+    height: 75px;
+
+    border: 2px solid
+        rgba(255,255,255,0.18);
+
+    transform:
+        rotate(45deg);
+
+    opacity: 0.35;
+
+    animation:
+        cubeFloat 6s ease-in-out infinite;
+
+}
+
+
+.floating-cube div {
+
+    width: 100%;
+
+    height: 100%;
+
+    border:
+        2px solid
+        rgba(220,38,38,0.45);
+
+    transform:
+        rotate(15deg)
+        scale(0.7);
+
+}
+
+
+.cube-one {
+
+    left: 8%;
+
+    top: 30%;
+
+}
+
+
+.cube-two {
+
+    right: 10%;
+
+    top: 22%;
+
+    width: 55px;
+
+    height: 55px;
+
+    animation-delay: 1.5s;
+
+}
+
+
+.cube-three {
+
+    right: 18%;
+
+    bottom: 15%;
+
+    width: 90px;
+
+    height: 90px;
+
+    animation-delay: 3s;
+
+}
+
+
+@keyframes cubeFloat {
+
+    0%,
+    100% {
+
+        transform:
+            rotate(45deg)
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            rotate(55deg)
+            translateY(-18px);
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE HERO
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .hero {
+
+        min-height: 540px;
+
+    }
+
+
+    .hero-content {
+
+        padding: 45px 15px;
+
+    }
+
+
+    .hero-content h1 {
+
+        font-size: 43px;
+
+        letter-spacing: -1px;
+
+    }
+
+
+    .hero-content p {
+
+        font-size: 16px;
+
+    }
+
+
+    .hero-badge {
+
+        font-size: 11px;
+
+        letter-spacing: 1px;
+
+    }
+
+
+    .hero-buttons {
+
+        flex-direction: column;
+
+        width: 100%;
+
+    }
+
+
+    .hero-shop-btn,
+    .hero-explore-btn {
+
+        width: min(320px, 100%);
+
+    }
+
+
+    .floating-cube {
+
+        opacity: 0.18;
+
+    }
+
+}
