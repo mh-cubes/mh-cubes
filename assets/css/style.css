@@ -6243,3 +6243,20 @@ color: white !important;
     }
 
 }
+.contact-popup.closing .contact-box {
+    animation: contactPopupClose .3s ease forwards;
+}
+
+@keyframes contactPopupClose {
+
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(20px) scale(.94);
+    }
+
+}
