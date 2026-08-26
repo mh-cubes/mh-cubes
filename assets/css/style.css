@@ -5958,9 +5958,8 @@ body:has(.hero) #cartBox {
 
     border-radius: 10px;
 
-    background: white;
-
-    color: #222 !important;
+    background: #000;
+color: white !important;;
 
     text-decoration: none;
 
@@ -5982,7 +5981,4 @@ body:has(.hero) #cartBox {
     box-shadow:
         0 8px 20px rgba(221,42,123,.30);
 }
-.instagram-btn {
-    background: #000 !important;
-    color: #fff !important;
-}
+
