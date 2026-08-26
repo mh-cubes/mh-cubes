@@ -5364,3 +5364,18 @@ body.owner-login-page {
 body:has(.hero) #cartBox {
     display: none !important;
 }
+/* =========================================
+   🔒 HIDE UI ELEMENTS UNTIL JAVASCRIPT OPENS THEM
+========================================= */
+
+#toast {
+    display: none;
+}
+
+#shop-loading {
+    display: none;
+}
+
+#contact-popup {
+    display: none;
+}
