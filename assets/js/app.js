@@ -11,22 +11,24 @@ import {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
     // =========================================
-// LOAD SAVED DARK MODE
-// =========================================
+    // LOAD SAVED DARK MODE
+    // =========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme =
+        localStorage.getItem("theme");
 
-    const savedTheme = localStorage.getItem("theme");
-    const button = document.getElementById("darkModeBtn");
+    const button =
+        document.getElementById("darkModeBtn");
+
 
     if (savedTheme === "dark") {
 
         document.body.classList.add("dark-mode");
 
         if (button) {
-            button.innerHTML = "☀️ Light Mode";
+            button.innerHTML =
+                "☀️ Light Mode";
         }
 
     } else {
@@ -34,12 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.remove("dark-mode");
 
         if (button) {
-            button.innerHTML = "🌙 Dark Mode";
+            button.innerHTML =
+                "🌙 Dark Mode";
         }
 
     }
 
-});
+
     // =========================================
     // CART SYSTEM
     // =========================================
