@@ -468,9 +468,8 @@ header .cart-btn:hover {
     border: 2px solid #eeeeee;
     border-radius: 16px;
 
-    background: white;
-
-    color: #222222;
+  background: #000;
+color: white !important;
 
     font-size: 16px;
 
