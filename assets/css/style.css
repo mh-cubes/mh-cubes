@@ -8466,3 +8466,376 @@ color: white !important;
     }
 
 }
+/* =========================================================
+   📦 MH CUBES — PREMIUM TRACK ORDER PAGE
+========================================================= */
+
+.checkout:has(#track-id) {
+    max-width: 900px;
+    margin: 45px auto 70px;
+    padding: 0 20px;
+}
+
+
+/* PAGE TITLE */
+
+.checkout:has(#track-id) > h1 {
+    margin: 0 0 30px;
+    padding: 28px 20px;
+
+    text-align: center;
+
+    color: #b30000;
+    font-size: 36px;
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff5f5
+        );
+
+    border: 1px solid rgba(196, 0, 0, .12);
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .08);
+}
+
+
+/* MAIN TRACKING BOX */
+
+.checkout:has(#track-id) .checkout-box {
+    position: relative;
+
+    padding: 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border: 1px solid rgba(196, 0, 0, .12);
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, .08);
+
+    overflow: hidden;
+}
+
+
+/* GOLD TOP LINE */
+
+.checkout:has(#track-id) .checkout-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 30px;
+    right: 30px;
+
+    height: 4px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #c40000,
+            #ffb703,
+            #c40000
+        );
+}
+
+
+/* HEADING */
+
+.checkout:has(#track-id) .checkout-box > h2 {
+    margin: 0 0 8px;
+
+    color: #b30000;
+
+    font-size: 23px;
+    font-weight: 900;
+}
+
+
+.checkout:has(#track-id) .checkout-box > p {
+    margin: 0 0 22px;
+
+    color: #666;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* ORDER ID INPUT */
+
+#track-id {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 15px 16px;
+
+    border: 2px solid #eadada;
+    border-radius: 12px;
+
+    background: #fff;
+
+    color: #222;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+
+#track-id:focus {
+    border-color: #ffb703;
+
+    box-shadow:
+        0 0 0 4px rgba(255, 183, 3, .13);
+}
+
+
+#track-id::placeholder {
+    color: #aaa;
+}
+
+
+/* TRACK BUTTON */
+
+#track-button {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 9px 22px rgba(196, 0, 0, .22);
+
+    transition:
+        transform .2s ease,
+        filter .2s ease;
+}
+
+
+#track-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+}
+
+
+#track-button:disabled {
+    opacity: .55;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   📦 TRACKING RESULT
+========================================================= */
+
+#track-result {
+    margin-top: 25px;
+}
+
+
+/* RESULT ORDER CARD */
+
+#track-result .admin-order-box {
+    display: block;
+
+    padding: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border: 1px solid rgba(196, 0, 0, .12);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, .08);
+}
+
+
+/* ORDER FOUND */
+
+#track-result .admin-order-box > h2 {
+    margin: 0 0 20px;
+
+    padding: 15px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    border-radius: 13px;
+
+    font-size: 21px;
+}
+
+
+/* ORDER DETAILS */
+
+#track-result .admin-order-box > p {
+    margin: 8px 0;
+
+    padding: 12px 14px;
+
+    background: #fff;
+
+    border: 1px solid #eee;
+
+    border-radius: 10px;
+
+    color: #444;
+
+    font-size: 14px;
+}
+
+
+#track-result .admin-order-box > p strong {
+    color: #b30000;
+}
+
+
+/* SECTION HEADINGS */
+
+#track-result .admin-order-box > h3 {
+    margin: 25px 0 12px;
+
+    padding-bottom: 9px;
+
+    border-bottom: 2px solid #f1dada;
+
+    color: #b30000;
+
+    font-size: 19px;
+}
+
+
+/* PRODUCT CARDS */
+
+#track-result .admin-order-box > div > div {
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff8f8
+        ) !important;
+
+    border:
+        1px solid rgba(196, 0, 0, .12) !important;
+
+    border-left:
+        4px solid #ffb703 !important;
+
+    border-radius: 13px !important;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, .05);
+}
+
+
+/* CURRENT STATUS */
+
+#track-result .admin-order-box > div:last-child {
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8e1,
+            #fff3cd
+        ) !important;
+
+    border:
+        1px solid rgba(255, 183, 3, .35);
+
+    color: #8a5700;
+
+    box-shadow:
+        0 7px 20px rgba(255, 183, 3, .10);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .checkout:has(#track-id) {
+        width: calc(100% - 24px);
+
+        padding: 0;
+
+        margin-top: 25px;
+    }
+
+
+    .checkout:has(#track-id) > h1 {
+        padding: 22px 15px;
+
+        font-size: 28px;
+    }
+
+
+    .checkout:has(#track-id) .checkout-box {
+        padding: 25px 18px;
+    }
+
+
+    #track-result .admin-order-box {
+        padding: 20px 15px;
+    }
+
+
+    #track-result .admin-order-box > h2 {
+        font-size: 18px;
+    }
+
+}
