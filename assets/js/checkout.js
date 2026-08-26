@@ -118,6 +118,10 @@ if (phoneInput) {
 // LOAD CHECKOUT
 // =========================================
 
+// =========================================
+// LOAD CHECKOUT
+// =========================================
+
 function loadCheckout() {
 
     const box =
@@ -127,53 +131,72 @@ function loadCheckout() {
         return;
     }
 
-
     box.innerHTML = "";
-
 
     for (const product in cart) {
 
-        const item =
-            cart[product];
-
+        const item = cart[product];
 
         box.innerHTML += `
 
             <div class="checkout-product">
 
-                <h3>
-                    ${product}
-                </h3>
+                <div class="checkout-product-image">
 
-                <p>
-                    PKR ${item.price}
-                </p>
+                    <img
+                        src="${item.image}"
+                        alt="${product}"
+                    >
 
-                <button
-                    onclick="decreaseQty('${product}')">
-                    −
-                </button>
+                </div>
 
-                <span>
-                    ${item.quantity}
-                </span>
+                <div class="checkout-product-info">
 
-                <button
-                    onclick="increaseQty('${product}')">
-                    +
-                </button>
+                    <h3>
+                        ${product}
+                    </h3>
+
+                    <p class="checkout-product-price">
+                        PKR ${item.price}
+                    </p>
+
+                    <div class="checkout-quantity">
+
+                        <button
+                            onclick="decreaseQty('${product}')">
+                            −
+                        </button>
+
+                        <span>
+                            ${item.quantity}
+                        </span>
+
+                        <button
+                            onclick="increaseQty('${product}')">
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="checkout-product-total">
+
+                    <span>Subtotal</span>
+
+                    <strong>
+                        PKR ${Number(item.price) * Number(item.quantity)}
+                    </strong>
+
+                </div>
 
             </div>
 
         `;
-
     }
 
-
     updateTotal();
-
 }
-
 
 // =========================================
 // QUANTITY CONTROLS
