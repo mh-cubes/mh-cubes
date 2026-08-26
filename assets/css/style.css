@@ -8245,3 +8245,224 @@ color: white !important;
     }
 
 }
+/* =========================================================
+   ⚙️ MH CUBES — PREMIUM SETTINGS PAGE
+========================================================= */
+
+.settings-page {
+    max-width: 900px;
+    margin: 45px auto 70px;
+    padding: 0 20px;
+}
+
+.settings-page > h1 {
+    margin: 0 0 30px;
+    padding: 28px;
+
+    text-align: center;
+
+    color: #b30000;
+    font-size: 36px;
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff5f5
+        );
+
+    border: 1px solid rgba(196, 0, 0, .12);
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .08);
+}
+
+
+/* SETTINGS BOX */
+
+.settings-box {
+    position: relative;
+
+    margin-bottom: 20px;
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border: 1px solid rgba(196, 0, 0, .12);
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .07);
+
+    overflow: hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+
+/* GOLD/RED ACCENT */
+
+.settings-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 5px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #c40000,
+            #ffb703
+        );
+}
+
+
+.settings-box:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 16px 35px rgba(196, 0, 0, .12);
+}
+
+
+/* HEADINGS */
+
+.settings-box h2 {
+    margin: 0 0 8px;
+
+    color: #b30000;
+
+    font-size: 21px;
+    font-weight: 900;
+}
+
+
+.settings-box p {
+    margin: 0 0 18px;
+
+    color: #666;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* SETTINGS BUTTONS */
+
+.settings-box button {
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(196, 0, 0, .20);
+
+    transition: .25s ease;
+}
+
+
+.settings-box button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+}
+
+
+/* ACCOUNT INPUTS */
+
+.settings-box input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 14px;
+
+    border: 2px solid #eadada;
+    border-radius: 11px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: .25s ease;
+}
+
+
+.settings-box input:focus {
+    border-color: #ffb703;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 183, 3, .14);
+}
+
+
+/* ACCOUNT PANEL */
+
+#account-panel {
+    padding-top: 5px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .settings-page {
+        width: calc(100% - 24px);
+
+        padding: 0;
+        margin-top: 25px;
+    }
+
+    .settings-page > h1 {
+        padding: 22px 15px;
+
+        font-size: 28px;
+    }
+
+    .settings-box {
+        padding: 22px 18px;
+    }
+
+    .settings-box h2 {
+        font-size: 19px;
+    }
+
+    .settings-box button {
+        width: 100%;
+    }
+
+}
