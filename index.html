@@ -4,33 +4,34 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>MH CUBES</title>
+    <title>MH CUBES</title>
 
-<link
-    rel="icon"
-    type="image/png"
-    href="assets/images/mh-logo.png"
->
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/images/mh-logo.png"
+    >
 
-<link
-    rel="stylesheet"
-    href="assets/css/style.css"
->
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
 
 </head>
 
 
 <body>
-<!-- ============================= -->
-<!-- BEAUTIFUL PAGE LOADING SCREEN -->
-<!-- ============================= -->
+
+<!-- =========================================================
+     PAGE LOADING SCREEN
+========================================================= -->
 
 <div id="page-loading">
 
@@ -54,108 +55,122 @@
 
 </div>
 
-<!-- ================= HEADER ================= -->
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
 <header>
 
-<div class="logo">
-    MH CUBES
-</div>
+    <div class="logo">
+        MH CUBES
+    </div>
 
 
-<nav id="main-nav">
+    <nav id="main-nav">
 
-<a href="index.html">
-    Home
-</a>
+        <a href="index.html">
+            Home
+        </a>
 
-<a href="#products">
-    Products
-</a>
+        <a href="#products">
+            Products
+        </a>
 
-<a href="#categories">
-    Categories
-</a>
+        <a href="#categories">
+            Categories
+        </a>
 
-<a href="#contact">
-    Contact
-</a>
+        <a href="#contact">
+            Contact
+        </a>
 
-<a href="orders.html">
-    📦 My Orders
-</a>
+        <a href="orders.html">
+            📦 My Orders
+        </a>
 
-<a href="track-order.html">
-    🔍 Track Order
-</a>
+        <a href="track-order.html">
+            🔍 Track Order
+        </a>
 
-<a href="settings.html">
-    ⚙️ Settings
-</a>
-<a href="customer-login.html" id="auth-link">
-    👤 Sign In
-</a>
-</nav>
+        <a href="settings.html">
+            ⚙️ Settings
+        </a>
 
+        <a
+            href="customer-login.html"
+            id="auth-link"
+        >
+            👤 Sign In
+        </a>
 
-<!-- CART -->
-
-<a href="cart.html">
-
-<button class="cart-btn">
-
-    🛒 Cart
-
-    <span id="cart-count">
-        0
-    </span>
-
-</button>
-
-</a>
+    </nav>
 
 
-<!-- MOBILE MENU -->
+    <!-- CART -->
 
-<button
-    class="menu-btn"
-    id="menu-btn"
-    onclick="toggleMobileMenu()"
->
-    ☰
-</button>
+    <a href="cart.html">
+
+        <button class="cart-btn">
+
+            🛒 Cart
+
+            <span id="cart-count">
+                0
+            </span>
+
+        </button>
+
+    </a>
+
+
+    <!-- MOBILE MENU -->
+
+    <button
+        class="menu-btn"
+        id="menu-btn"
+        onclick="toggleMobileMenu()"
+    >
+        ☰
+    </button>
 
 </header>
 
 
-
-<!-- ================= CART BOX ================= -->
+<!-- =========================================================
+     CART BOX
+========================================================= -->
 
 <div id="cartBox">
 
-<h3>
-    Your Cart
-</h3>
+    <h3>
+        Your Cart
+    </h3>
 
-<div id="cartItems"></div>
+    <div id="cartItems"></div>
 
-<p id="cartTotal">
-    Total: PKR 0
-</p>
+    <p id="cartTotal">
+        Total: PKR 0
+    </p>
 
 </div>
 
 
-
-<!-- ================= HERO ================= -->
+<!-- =========================================================
+     HERO
+========================================================= -->
 
 <section class="hero">
 
     <div class="hero-content">
 
-        <h1>Welcome to MH CUBES</h1>
+        <h1>
+            Welcome to MH CUBES
+        </h1>
 
-        <p>Buy the best products at the best prices.</p>
+        <p>
+            Buy the best products at the best prices.
+        </p>
 
         <button onclick="scrollToProducts()">
             Shop Now
@@ -166,487 +181,526 @@
 </section>
 
 
-<!-- ================= PRODUCTS ================= -->
+<!-- =========================================================
+     PRODUCTS
+========================================================= -->
 
 <section
     class="products"
     id="products"
 >
 
-<div class="search-box">
+    <div class="search-box">
 
-<input
-    type="text"
-    id="searchInput"
-    placeholder="🔍 Search cubes..."
->
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search cubes..."
+        >
 
-</div>
+    </div>
 
 
-<div id="categories"></div>
+    <div id="categories"></div>
 
 
-<div class="product-box">
+    <div class="product-box">
 
 
-<!-- 3x3 -->
+        <!-- 3x3 -->
 
-<div class="product">
+        <div class="product">
 
-<a href="product.html">
+            <a href="product.html">
 
-<img
-    src="assets/images/3x3.jpg"
-    alt="3x3 Cube"
->
+                <img
+                    src="assets/images/3x3.jpg"
+                    alt="3x3 Cube"
+                >
 
-</a>
+            </a>
 
 
-<h3>
+            <h3>
 
-<a href="product.html">
-    3x3 Speed Cube
-</a>
+                <a href="product.html">
+                    3x3 Speed Cube
+                </a>
 
-</h3>
+            </h3>
 
 
-<p>
-    PKR 999
-</p>
+            <p>
+                PKR 999
+            </p>
 
 
-<div class="product-buttons">
+            <div class="product-buttons">
 
-<button class="cart-btn">
-    Add to Cart 🛒
-</button>
+                <button class="cart-btn">
+                    Add to Cart 🛒
+                </button>
 
-<button class="shop-btn">
-    Shop Now ⚡
-</button>
+                <button class="shop-btn">
+                    Shop Now ⚡
+                </button>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
 
+        <!-- 2x2 -->
 
-<!-- 2x2 -->
+        <div class="product">
 
-<div class="product">
+            <a href="2x2.html">
 
-<a href="2x2.html">
+                <img
+                    src="assets/images/2x2.jpg"
+                    alt="2x2 Cube"
+                >
 
-<img
-    src="assets/images/2x2.jpg"
-    alt="2x2 Cube"
->
+            </a>
 
-</a>
 
+            <h3>
 
-<h3>
+                <a href="2x2.html">
+                    2x2 Speed Cube
+                </a>
 
-<a href="2x2.html">
-    2x2 Speed Cube
-</a>
+            </h3>
 
-</h3>
 
+            <p>
+                PKR 699
+            </p>
 
-<p>
-    PKR 699
-</p>
 
+            <div class="product-buttons">
 
-<div class="product-buttons">
+                <button class="cart-btn">
+                    Add to Cart 🛒
+                </button>
 
-<button class="cart-btn">
-    Add to Cart 🛒
-</button>
+                <button class="shop-btn">
+                    Shop Now ⚡
+                </button>
 
-<button class="shop-btn">
-    Shop Now ⚡
-</button>
+            </div>
 
-</div>
+        </div>
 
-</div>
 
+        <!-- 4x4 -->
 
+        <div class="product">
 
-<!-- 4x4 -->
+            <a href="4x4.html">
 
-<div class="product">
+                <img
+                    src="assets/images/4x4.jpg"
+                    alt="4x4 Cube"
+                >
 
-<a href="4x4.html">
+            </a>
 
-<img
-    src="assets/images/4x4.jpg"
-    alt="4x4 Cube"
->
 
-</a>
+            <h3>
 
+                <a href="4x4.html">
+                    4x4 Speed Cube
+                </a>
 
-<h3>
+            </h3>
 
-<a href="4x4.html">
-    4x4 Speed Cube
-</a>
 
-</h3>
+            <p>
+                PKR 1499
+            </p>
 
 
-<p>
-    PKR 1499
-</p>
+            <div class="product-buttons">
 
+                <button class="cart-btn">
+                    Add to Cart 🛒
+                </button>
 
-<div class="product-buttons">
+                <button class="shop-btn">
+                    Shop Now ⚡
+                </button>
 
-<button class="cart-btn">
-    Add to Cart 🛒
-</button>
+            </div>
 
-<button class="shop-btn">
-    Shop Now ⚡
-</button>
+        </div>
 
-</div>
-
-</div>
-
-
-</div>
+    </div>
 
 </section>
 
 
-
-<!-- ================= WHY CHOOSE MH CUBES ================= -->
+<!-- =========================================================
+     WHY CHOOSE MH CUBES
+========================================================= -->
 
 <section class="why-choose">
 
-<div class="section-title">
+    <div class="section-title">
 
-<h2>
-    Why Choose MH CUBES?
-</h2>
+        <h2>
+            Why Choose MH CUBES?
+        </h2>
 
-<p>
-    Everything you need for a better cubing experience.
-</p>
+        <p>
+            Everything you need for a better cubing experience.
+        </p>
 
-</div>
-
-
-<div class="why-container">
+    </div>
 
 
-<div
-    class="why-box"
-    onclick="showWhy('delivery', this)"
->
-
-<div class="why-icon">
-    🚚
-</div>
-
-<h3>
-    Fast Delivery
-</h3>
-
-<p>
-    Fast and reliable delivery throughout Islamabad.
-</p>
-
-</div>
+    <div class="why-container">
 
 
+        <div
+            class="why-box"
+            onclick="showWhy('delivery', this)"
+        >
 
-<div
-    class="why-box"
-    onclick="showWhy('original', this)"
->
+            <div class="why-icon">
+                🚚
+            </div>
 
-<div class="why-icon">
-    💯
-</div>
+            <h3>
+                Fast Delivery
+            </h3>
 
-<h3>
-    Original Cubes
-</h3>
+            <p>
+                Fast and reliable delivery throughout Islamabad.
+            </p>
 
-<p>
-    Genuine speed cubes from trusted brands.
-</p>
-
-</div>
-
+        </div>
 
 
-<div
-    class="why-box"
-    onclick="showWhy('price', this)"
->
+        <div
+            class="why-box"
+            onclick="showWhy('original', this)"
+        >
 
-<div class="why-icon">
-    💰
-</div>
+            <div class="why-icon">
+                💯
+            </div>
 
-<h3>
-    Best Prices
-</h3>
+            <h3>
+                Original Cubes
+            </h3>
 
-<p>
-    Premium cubes at affordable prices.
-</p>
+            <p>
+                Genuine speed cubes from trusted brands.
+            </p>
 
-</div>
-
-
-
-<div
-    class="why-box"
-    onclick="showWhy('trusted', this)"
->
-
-<div class="why-icon">
-    ⭐
-</div>
-
-<h3>
-    Trusted by Cubers
-</h3>
-
-<p>
-    Quality products and excellent customer service.
-</p>
-
-</div>
+        </div>
 
 
-</div>
+        <div
+            class="why-box"
+            onclick="showWhy('price', this)"
+        >
+
+            <div class="why-icon">
+                💰
+            </div>
+
+            <h3>
+                Best Prices
+            </h3>
+
+            <p>
+                Premium cubes at affordable prices.
+            </p>
+
+        </div>
 
 
-<div
-    id="why-details"
-    class="why-details"
->
+        <div
+            class="why-box"
+            onclick="showWhy('trusted', this)"
+        >
 
-<h3>
-    ⭐ Why MH CUBES?
-</h3>
+            <div class="why-icon">
+                ⭐
+            </div>
 
-<p>
-    Click one of the options above to learn more.
-</p>
+            <h3>
+                Trusted by Cubers
+            </h3>
 
-</div>
+            <p>
+                Quality products and excellent customer service.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="why-details"
+        class="why-details"
+    >
+
+        <h3>
+            ⭐ Why MH CUBES?
+        </h3>
+
+        <p>
+            Click one of the options above to learn more.
+        </p>
+
+    </div>
 
 </section>
 
 
-
-<!-- ================= TOAST ================= -->
+<!-- =========================================================
+     TOAST
+========================================================= -->
 
 <div id="toast">
     Product added to cart!
 </div>
 
 
-
-<!-- ================= SHOP LOADING ================= -->
+<!-- =========================================================
+     SHOP LOADING
+========================================================= -->
 
 <div id="shop-loading">
     Preparing your order...
 </div>
 
 
-
-<!-- ================= FOOTER ================= -->
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
 <footer
     class="footer"
     id="contact"
 >
 
-<div class="footer-container">
+    <div class="footer-container">
 
 
-<!-- ABOUT -->
+        <!-- ABOUT -->
 
-<div class="footer-about">
+        <div class="footer-about">
 
-<h2>
-    MH CUBES
-</h2>
+            <h2>
+                MH CUBES
+            </h2>
 
-<p>
-    Your trusted cube store for high-quality speed cubes.
-    We provide original cubes, great prices, and fast delivery.
-</p>
+            <p>
+                Your trusted cube store for high-quality speed cubes.
+                We provide original cubes, great prices, and fast delivery.
+            </p>
 
-</div>
-
-
-
-<!-- LINKS -->
-
-<div class="footer-links">
-
-<h3>
-    Quick Links
-</h3>
-
-<a href="index.html">
-    Home
-</a>
-
-<a href="#products">
-    Shop
-</a>
-
-<a href="cart.html">
-    Cart
-</a>
-
-<a href="orders.html">
-    📦 My Orders
-</a>
-
-</div>
+        </div>
 
 
+        <!-- QUICK LINKS -->
 
-<!-- CONTACT -->
+        <div class="footer-links">
 
-<div class="footer-contact">
+            <h3>
+                Quick Links
+            </h3>
 
-<h3>
-    Contact
-</h3>
+            <a href="index.html">
+                Home
+            </a>
 
+            <a href="#products">
+                Shop
+            </a>
 
-<p>
+            <a href="cart.html">
+                Cart
+            </a>
 
-📧
+            <a href="orders.html">
+                📦 My Orders
+            </a>
 
-<a
-    href="mailto:huzaifa81102@gmail.com"
-    style="color:inherit;text-decoration:none;"
->
-    huzaifa81102@gmail.com
-</a>
-
-</p>
-
-
-<p
-    class="phone-number"
-    onclick="openContactPopup()"
->
-    📞 +92 331 5120323
-</p>
-
-</div>
+        </div>
 
 
+        <!-- CONTACT -->
 
-<!-- SOCIAL -->
+        <div class="footer-contact">
 
-<div class="footer-social">
+            <h3>
+                Contact
+            </h3>
 
-<h3>
-    Follow Us
-</h3>
+            <p>
 
+                📧
 
-<a
-    href="https://www.instagram.com/mhcubes.pk/"
-    target="_blank"
->
-    <i class="fa-brands fa-instagram"></i>
-    Instagram
-</a>
+                <a
+                    href="mailto:huzaifa81102@gmail.com"
+                    style="color:inherit;text-decoration:none;"
+                >
+                    huzaifa81102@gmail.com
+                </a>
 
-</div>
-
-
-</div>
+            </p>
 
 
+            <p
+                class="phone-number"
+                onclick="openContactPopup()"
+            >
+                📞 +92 331 5120323
+            </p>
 
-<!-- FOOTER BOTTOM -->
+        </div>
 
-<div class="footer-bottom">
 
-<p>
-    © 2026 MH CUBES. All Rights Reserved.
-</p>
+        <!-- SOCIAL -->
 
-</div>
+        <div class="footer-social">
+
+            <h3>
+                Follow Us
+            </h3>
+
+
+            <a
+                href="https://www.instagram.com/mhcubes.pk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="instagram-btn"
+                aria-label="MH CUBES on Instagram"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+
+                    <rect
+                        x="3"
+                        y="3"
+                        width="18"
+                        height="18"
+                        rx="5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="4"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+
+                    <circle
+                        cx="17.5"
+                        cy="6.5"
+                        r="1"
+                        fill="currentColor"
+                    />
+
+                </svg>
+
+                Instagram
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER BOTTOM -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 MH CUBES. All Rights Reserved.
+        </p>
+
+    </div>
 
 </footer>
 
 
-
-<!-- ================= CONTACT POPUP ================= -->
+<!-- =========================================================
+     CONTACT POPUP
+========================================================= -->
 
 <div
     id="contact-popup"
     class="contact-popup"
 >
 
-<div class="contact-box">
+    <div class="contact-box">
 
-<h2>
-    Contact MH CUBES
-</h2>
+        <h2>
+            Contact MH CUBES
+        </h2>
 
-<p>
-    How would you like to contact us?
-</p>
-
-
-<a
-    href="sms:+923315120323"
-    class="popup-btn"
->
-    💬 Text
-</a>
+        <p>
+            How would you like to contact us?
+        </p>
 
 
-<a
-    href="tel:+923315120323"
-    class="popup-btn"
->
-    📞 Call
-</a>
+        <a
+            href="sms:+923315120323"
+            class="popup-btn"
+        >
+            💬 Text
+        </a>
 
 
-<button
-    onclick="closeContactPopup()"
-    class="close-popup"
->
-    ❌ Close
-</button>
+        <a
+            href="tel:+923315120323"
+            class="popup-btn"
+        >
+            📞 Call
+        </a>
+
+
+        <button
+            onclick="closeContactPopup()"
+            class="close-popup"
+        >
+            ❌ Close
+        </button>
+
+    </div>
 
 </div>
 
-</div>
 
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
+<script
+    type="module"
+    src="assets/js/app.js"
+></script>
 
-<!-- ================= JAVASCRIPT ================= -->
+<script
+    src="assets/js/page-loading.js"
+></script>
 
-<script type="module" src="assets/js/app.js"></script>
-
-<script src="assets/js/page-loading.js"></script>
 </body>
 
 </html>
