@@ -89,7 +89,20 @@ function getPageLoadingInfo() {
 
         return {
             title: "SIGN IN",
-            message: "Opening your account..."
+            message: "Opening sign in..."
+        };
+
+    }
+
+
+    if (
+        page === "" ||
+        page === "index.html"
+    ) {
+
+        return {
+            title: "MH CUBES",
+            message: "Welcome back..."
         };
 
     }
@@ -97,7 +110,7 @@ function getPageLoadingInfo() {
 
     return {
         title: "MH CUBES",
-        message: "Welcome back..."
+        message: "Loading..."
     };
 
 }
@@ -111,16 +124,14 @@ function setLoadingText(title, message) {
 
     if (loadingTitle) {
 
-        loadingTitle.textContent =
-            title;
+        loadingTitle.textContent = title;
 
     }
 
 
     if (loadingText) {
 
-        loadingText.textContent =
-            message;
+        loadingText.textContent = message;
 
     }
 
@@ -141,28 +152,7 @@ function hidePageLoading() {
 
 
 /* =========================================
-   SHOW LOADING
-========================================= */
-
-function showPageLoading(title, message) {
-
-    if (!loadingScreen) return;
-
-
-    setLoadingText(
-        title,
-        message
-    );
-
-
-    loadingScreen.classList.remove("hide");
-
-}
-
-
-/* =========================================
    INITIAL PAGE LOAD
-   KEEP LOADING FOR 3 SECONDS
 ========================================= */
 
 window.addEventListener(
@@ -186,233 +176,6 @@ window.addEventListener(
             function () {
 
                 hidePageLoading();
-
-            },
-            3000
-        );
-
-    }
-);
-
-
-/* =========================================
-   PAGE NAVIGATION
-========================================= */
-
-document.addEventListener(
-    "click",
-    function (event) {
-
-        const link =
-            event.target.closest("a");
-
-
-        if (!link) return;
-
-
-        const href =
-            link.getAttribute("href");
-
-
-        if (!href) return;
-
-
-        /* Ignore special links */
-
-        if (
-            href.startsWith("#") ||
-            href.startsWith("javascript:") ||
-            href.startsWith("mailto:") ||
-            href.startsWith("tel:") ||
-            link.target === "_blank"
-        ) {
-
-            return;
-
-        }
-
-
-        /* Ignore external websites */
-
-        if (
-            link.hostname &&
-            link.hostname !==
-                window.location.hostname
-        ) {
-
-            return;
-
-        }
-
-
-        /* Ignore same page */
-
-        if (
-            link.href ===
-            window.location.href
-        ) {
-
-            return;
-
-        }
-
-
-        /*
-           Stop normal navigation
-           temporarily.
-        */
-
-        event.preventDefault();
-
-
-        /* =========================================
-           DETECT DESTINATION
-        ========================================= */
-
-        const destination =
-            new URL(
-                link.href,
-                window.location.href
-            );
-
-
-        const page =
-            destination.pathname
-                .split("/")
-                .pop()
-                .toLowerCase();
-
-
-        let title = "MH CUBES";
-
-        let message = "Loading...";
-
-
-        if (
-            page ===
-            "customer-account.html"
-        ) {
-
-            title = "MY ACCOUNT";
-
-            message =
-                "Opening your account...";
-
-        }
-
-
-        else if (
-            page ===
-            "my-orders.html"
-        ) {
-
-            title = "MY ORDERS";
-
-            message =
-                "Fetching your orders...";
-
-        }
-
-
-        else if (
-            page ===
-            "track-order.html"
-        ) {
-
-            title = "TRACK ORDER";
-
-            message =
-                "Finding your order...";
-
-        }
-
-
-        else if (
-            page ===
-            "settings.html"
-        ) {
-
-            title = "SETTINGS";
-
-            message =
-                "Opening settings...";
-
-        }
-
-
-        else if (
-            page ===
-            "cart.html"
-        ) {
-
-            title = "YOUR CART";
-
-            message =
-                "Loading your cart...";
-
-        }
-
-
-        else if (
-            page ===
-            "checkout.html"
-        ) {
-
-            title = "CHECKOUT";
-
-            message =
-                "Preparing checkout...";
-
-        }
-
-
-        else if (
-            page ===
-            "customer-login.html"
-        ) {
-
-            title = "SIGN IN";
-
-            message =
-                "Opening your account...";
-
-        }
-
-
-        else if (
-            page ===
-            "" ||
-            page ===
-            "index.html"
-        ) {
-
-            title = "MH CUBES";
-
-            message =
-                "Welcome back...";
-
-        }
-
-
-        /* =========================================
-           SHOW LOADING
-        ========================================= */
-
-        showPageLoading(
-            title,
-            message
-        );
-
-
-        /* =========================================
-           NAVIGATE AFTER 3 SECONDS
-        ========================================= */
-
-        setTimeout(
-            function () {
-
-                window.location.href =
-                    link.href;
 
             },
             3000
@@ -448,15 +211,18 @@ window.addEventListener(
 
 
         /*
-           If page was opened through
-           browser history, don't leave
-           an old loader visible.
+           Browser history navigation
         */
 
-        if (
+        const navigation =
             performance.getEntriesByType(
                 "navigation"
-            )[0]?.type === "back_forward"
+            )[0];
+
+
+        if (
+            navigation &&
+            navigation.type === "back_forward"
         ) {
 
             hidePageLoading();
