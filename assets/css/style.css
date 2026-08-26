@@ -5357,3 +5357,10 @@ body.owner-login-page {
     }
 
 }
+/* =========================================
+   🛒 HIDE MINI CART BOX ON HOMEPAGE
+========================================= */
+
+body:has(.hero) #cartBox {
+    display: none !important;
+}
