@@ -10072,3 +10072,8 @@ body.dark-mode .product-buttons .cart-btn {
     }
 
 }
+/* WHY CHOOSE SECTION BACKGROUND */
+
+.why-choose {
+    background: #000 !important;
+}
