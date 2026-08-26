@@ -5379,3 +5379,284 @@ body:has(.hero) #cartBox {
 #contact-popup {
     display: none;
 }
+/* =========================================================
+   🟥 MH CUBES — PREMIUM FOOTER CARDS
+========================================================= */
+
+.footer {
+    position: relative;
+    padding: 65px 30px 0;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255,45,45,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(255,183,3,.10),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #090000,
+            #350000,
+            #850000
+        );
+
+    color: white;
+}
+
+
+/* FOOTER CONTAINER */
+
+.footer-container {
+    max-width: 1150px;
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+/* FOOTER CARDS */
+
+.footer-about,
+.footer-links,
+.footer-contact,
+.footer-social {
+
+    position: relative;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border: 1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.20);
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+
+/* GOLD TOP LINE */
+
+.footer-about::before,
+.footer-links::before,
+.footer-contact::before,
+.footer-social::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 20px;
+    right: 20px;
+
+    height: 3px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff0000,
+            #ffb703,
+            #ff0000
+        );
+}
+
+
+/* HOVER */
+
+.footer-about:hover,
+.footer-links:hover,
+.footer-contact:hover,
+.footer-social:hover {
+
+    transform:
+        translateY(-6px);
+
+    background:
+        rgba(255,255,255,.10);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.30);
+}
+
+
+/* HEADINGS */
+
+.footer h2,
+.footer h3 {
+
+    margin-top: 0;
+
+    color: white;
+
+    font-weight: 900;
+}
+
+
+.footer h2 {
+    font-size: 24px;
+}
+
+
+.footer h3 {
+    font-size: 18px;
+}
+
+
+/* TEXT */
+
+.footer p {
+
+    color: #f3dede;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+
+/* LINKS */
+
+.footer a {
+
+    display: block;
+
+    width: fit-content;
+
+    margin: 9px 0;
+
+    color: #ffecec;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition:
+        color .25s ease,
+        transform .25s ease;
+}
+
+
+.footer a:hover {
+
+    color: #ffb703;
+
+    transform:
+        translateX(5px);
+}
+
+
+/* CONTACT PHONE */
+
+.footer .phone-number {
+
+    cursor: pointer;
+
+    transition:
+        color .25s ease,
+        transform .25s ease;
+}
+
+
+.footer .phone-number:hover {
+
+    color: #ffb703;
+
+    transform:
+        translateX(5px);
+}
+
+
+/* FOOTER BOTTOM */
+
+.footer-bottom {
+
+    max-width: 1150px;
+
+    margin: 40px auto 0;
+
+    padding: 20px 0;
+
+    text-align: center;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.12);
+}
+
+
+.footer-bottom p {
+
+    margin: 0;
+
+    color: #d9bcbc;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   📱 MOBILE FOOTER
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .footer-container {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .footer {
+
+        padding:
+            50px 15px 0;
+
+    }
+
+    .footer-container {
+
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+
+    }
+
+    .footer-about,
+    .footer-links,
+    .footer-contact,
+    .footer-social {
+
+        padding: 22px;
+
+    }
+
+}
