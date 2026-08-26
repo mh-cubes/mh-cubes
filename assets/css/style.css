@@ -6285,3 +6285,114 @@ color: white !important;
 .gmail-icon {
     font-size: 17px;
 }
+/* =========================================================
+   🛒 MH CUBES — PREMIUM CART SUCCESS TOAST
+========================================================= */
+
+#toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 30px;
+
+    transform: translateX(-50%) translateY(25px) scale(.95);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 15px 24px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #090000,
+            #5c0000,
+            #c40000
+        );
+
+    color: white;
+
+    border: 1px solid rgba(255,183,3,.35);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.40),
+        0 0 20px rgba(255,183,3,.15);
+
+    font-size: 15px;
+    font-weight: 800;
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    z-index: 99999;
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        visibility .3s ease;
+}
+
+
+/* GOLD TOP LINE */
+
+#toast::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 18px;
+    right: 18px;
+
+    height: 3px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff0000,
+            #ffb703,
+            #ff0000
+        );
+}
+
+
+/* SHOW */
+
+#toast.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateX(-50%)
+        translateY(0)
+        scale(1);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    #toast {
+        width: calc(100% - 40px);
+
+        justify-content: center;
+
+        box-sizing: border-box;
+
+        bottom: 20px;
+
+        font-size: 14px;
+
+        text-align: center;
+    }
+
+}
