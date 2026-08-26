@@ -2959,3 +2959,1395 @@ footer hr {
     }
 
 }
+/* =========================================================
+   MH CUBES — CLEAN STYLE.CSS
+   PART 4/5
+   Customer Login • My Account • My Orders
+   Owner Login • Admin Panel
+========================================================= */
+
+
+/* =========================================================
+   35. CUSTOMER LOGIN PAGE
+========================================================= */
+
+body:has(.customer-login-box) {
+    min-height: 100vh;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 0, 0, 0.20),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(255, 183, 3, 0.15),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #100000,
+            #650000,
+            #c40000
+        );
+}
+
+
+/* Customer login card */
+
+.customer-login-box {
+    width: 390px;
+    max-width: calc(100% - 30px);
+
+    padding: 40px 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(196, 0, 0, 0.12);
+
+    box-shadow:
+        0 25px 65px rgba(0, 0, 0, 0.35);
+
+    text-align: center;
+
+    animation:
+        ownerLoginAppear 0.6s ease;
+}
+
+
+/* Customer login logo */
+
+.customer-login-box .logo {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 34px;
+
+    box-shadow:
+        0 10px 25px rgba(196, 0, 0, 0.25);
+}
+
+
+/* Customer login title */
+
+.customer-login-box h1 {
+    margin: 0 0 8px;
+
+    color: #b30000;
+
+    font-size: 30px;
+
+    font-weight: 900;
+}
+
+.customer-login-box > p {
+    margin-bottom: 25px;
+
+    color: #666666;
+}
+
+
+/* Customer login inputs */
+
+.customer-login-box input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 15px;
+
+    margin: 9px 0;
+
+    border: 2px solid #eeeeee;
+
+    border-radius: 11px;
+
+    background: #fafafa;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.25s ease;
+}
+
+.customer-login-box input:focus {
+    border-color: #c40000;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(196, 0, 0, 0.07);
+}
+
+
+/* Customer login buttons */
+
+.customer-login-box button {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 14px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.customer-login-box button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(196, 0, 0, 0.25);
+}
+
+
+/* Login error */
+
+#login-error,
+#auth-error {
+    min-height: 20px;
+
+    margin-top: 12px;
+
+    color: #dc2626;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   36. CUSTOMER ACCOUNT PAGE
+========================================================= */
+
+.account-page {
+    width: min(900px, calc(100% - 30px));
+
+    margin: 45px auto 70px;
+}
+
+
+/* Account card */
+
+.account-card {
+    padding: 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border-radius: 22px;
+
+    border: 1px solid #eeeeee;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+
+/* Account icon */
+
+.account-icon {
+    width: 85px;
+    height: 85px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 38px;
+
+    box-shadow:
+        0 12px 30px rgba(196, 0, 0, 0.25);
+}
+
+
+/* Account heading */
+
+.account-card h1 {
+    margin: 0 0 10px;
+
+    color: #b30000;
+
+    font-size: 32px;
+
+    font-weight: 900;
+}
+
+.account-card p {
+    color: #666666;
+}
+
+
+/* Account information */
+
+.account-info {
+    margin: 25px 0;
+
+    text-align: left;
+}
+
+.account-info-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 14px 16px;
+
+    margin: 8px 0;
+
+    border-radius: 11px;
+
+    background: #fafafa;
+
+    border: 1px solid #eeeeee;
+}
+
+.account-info-row strong {
+    color: #333333;
+}
+
+.account-info-row span {
+    color: #666666;
+
+    text-align: right;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* Account buttons */
+
+.account-actions {
+    display: flex;
+
+    gap: 12px;
+}
+
+.account-actions a,
+.account-actions button {
+    flex: 1;
+
+    padding: 13px 18px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.account-actions a {
+    background: #111111;
+
+    color: white;
+}
+
+.account-actions button {
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #991b1b
+        );
+
+    color: white;
+}
+
+.account-actions a:hover,
+.account-actions button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   37. MY ORDERS PAGE
+========================================================= */
+
+.my-orders-page {
+    width: min(1100px, calc(100% - 30px));
+
+    margin: 40px auto 70px;
+}
+
+
+/* Orders heading */
+
+.my-orders-page > h1 {
+    margin: 0 0 30px;
+
+    color: #b30000;
+
+    font-size: 36px;
+
+    font-weight: 900;
+
+    text-align: center;
+}
+
+
+/* Orders container */
+
+#orders-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+/* Order card */
+
+.order-card {
+    position: relative;
+
+    padding: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff8f8
+        );
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.07);
+
+    overflow: hidden;
+
+    transition: 0.3s ease;
+}
+
+.order-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 5px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #c40000,
+            #ffb703
+        );
+}
+
+.order-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 17px 38px rgba(196, 0, 0, 0.12);
+}
+
+
+/* Order header */
+
+.order-card-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+
+    padding-bottom: 14px;
+
+    border-bottom: 2px solid #f1dada;
+}
+
+.order-card-header h2 {
+    margin: 0;
+
+    color: #b30000;
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* Order details */
+
+.order-card p {
+    margin: 8px 0;
+
+    padding: 10px 12px;
+
+    border-radius: 9px;
+
+    background: #fafafa;
+
+    color: #444444;
+
+    font-size: 14px;
+}
+
+.order-card p strong {
+    color: #222222;
+}
+
+
+/* Order products */
+
+.order-products {
+    margin-top: 20px;
+}
+
+.order-products h3 {
+    margin: 0 0 10px;
+
+    color: #222222;
+
+    font-size: 18px;
+}
+
+.order-product {
+    margin: 7px 0;
+
+    padding: 10px 12px;
+
+    border-left: 4px solid #ffb703;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #444444;
+}
+
+
+/* Order status */
+
+.order-status-badge {
+    display: inline-block;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    background: #fff3cd;
+
+    color: #92400e;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    white-space: nowrap;
+}
+
+
+/* Cancel order */
+
+.cancel-order-btn {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 11px 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #991b1b
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.cancel-order-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(220, 38, 38, 0.22);
+}
+
+
+/* No orders */
+
+.no-orders {
+    grid-column: 1 / -1;
+
+    padding: 60px 20px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    color: #777777;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================================
+   38. OWNER LOGIN PAGE
+========================================================= */
+
+body.owner-login-page {
+    min-height: 100vh;
+
+    margin: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(255, 183, 3, 0.22),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 85%,
+            rgba(37, 99, 235, 0.22),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #120000,
+            #650000,
+            #c40000
+        );
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* Owner login box */
+
+.owner-login-box {
+    position: relative;
+
+    width: 350px;
+
+    max-width: calc(100% - 30px);
+
+    padding: 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff5f5
+        );
+
+    border: 2px solid rgba(255, 183, 3, 0.35);
+
+    border-radius: 22px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.35),
+        0 0 30px rgba(255, 183, 3, 0.12);
+
+    animation:
+        ownerLoginAppear 0.6s ease;
+}
+
+
+/* Owner logo */
+
+.owner-login-box .logo {
+    font-size: 48px;
+
+    margin-bottom: 8px;
+}
+
+
+/* Owner title */
+
+.owner-login-box h1 {
+    margin: 0 0 10px;
+
+    color: #b30000;
+
+    font-size: 30px;
+
+    font-weight: 900;
+}
+
+.owner-login-box p {
+    margin-bottom: 25px;
+
+    color: #666666;
+}
+
+
+/* Owner inputs */
+
+.owner-login-box input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px;
+
+    margin: 9px 0;
+
+    border: 2px solid #dddddd;
+
+    border-radius: 10px;
+
+    background: #fafafa;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.25s ease;
+}
+
+.owner-login-box input:focus {
+    border-color: #ffb703;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 183, 3, 0.15);
+}
+
+
+/* Owner button */
+
+.owner-login-box button {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(196, 0, 0, 0.25);
+
+    transition: 0.3s ease;
+}
+
+.owner-login-box button:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #a80000,
+            #e60000
+        );
+}
+
+
+/* =========================================================
+   39. ADMIN PAGE
+========================================================= */
+
+.admin-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(255, 183, 3, 0.10),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fff5f5
+        );
+}
+
+
+/* Admin header */
+
+.admin-page header {
+    position: relative;
+
+    z-index: 10;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 18px 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #120000,
+            #650000,
+            #c40000
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Admin logo */
+
+.admin-page header .logo {
+    color: white;
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+/* Admin navigation */
+
+.admin-page header nav {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.admin-page header nav a {
+    padding: 9px 13px;
+
+    border-radius: 9px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.admin-page header nav a:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+
+/* Admin actions */
+
+.admin-actions {
+    position: relative;
+
+    z-index: 20;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    padding: 20px 30px 0;
+}
+
+
+/* Admin logout */
+
+.admin-logout-btn {
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #b91c1c
+        );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(185, 28, 28, 0.25);
+
+    transition: 0.25s ease;
+}
+
+.admin-logout-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(185, 28, 28, 0.35);
+}
+
+
+/* Admin content */
+
+.admin-page .orders {
+    width: min(1100px, calc(100% - 30px));
+
+    margin: 25px auto 60px;
+}
+
+.admin-page .orders > h1 {
+    margin: 20px 0 30px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background: white;
+
+    color: #b30000;
+
+    font-size: 36px;
+
+    font-weight: 900;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Admin order grid */
+
+.admin-order-box {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+/* Admin order card */
+
+.admin-order-card {
+    position: relative;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border: 1px solid rgba(196, 0, 0, 0.14);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+
+    overflow: hidden;
+
+    transition: 0.3s ease;
+}
+
+.admin-order-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 6px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ff0000,
+            #c40000,
+            #ffb703
+        );
+}
+
+.admin-order-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(196, 0, 0, 0.14);
+}
+
+
+/* Admin order ID */
+
+.admin-order-card h2 {
+    margin: 0 0 20px;
+
+    padding-bottom: 14px;
+
+    border-bottom:
+        2px solid #f1dada;
+
+    color: #b30000;
+
+    font-size: 22px;
+
+    font-weight: 900;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* Admin details */
+
+.admin-order-card p {
+    margin: 8px 0;
+
+    padding: 11px 13px;
+
+    border-radius: 10px;
+
+    background: #fafafa;
+
+    color: #444444;
+
+    font-size: 14px;
+}
+
+.admin-order-card p strong {
+    color: #b30000;
+}
+
+
+/* Admin products */
+
+.admin-order-card h3 {
+    margin: 22px 0 10px;
+
+    color: #222222;
+
+    font-size: 18px;
+}
+
+.admin-order-card h3 + p,
+.admin-order-card h3 ~ p {
+    border-left:
+        4px solid #ffb703;
+}
+
+
+/* Admin action buttons */
+
+.admin-order-card button {
+    padding: 11px 14px;
+
+    margin: 6px 5px 0 0;
+
+    border: none;
+
+    border-radius: 10px;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* Confirm */
+
+.admin-order-card button:nth-of-type(1) {
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #22c55e
+        );
+}
+
+
+/* Processing */
+
+.admin-order-card button:nth-of-type(2) {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+}
+
+
+/* Shipped */
+
+.admin-order-card button:nth-of-type(3) {
+    background:
+        linear-gradient(
+            135deg,
+            #0891b2,
+            #06b6d4
+        );
+}
+
+
+/* Delivered */
+
+.admin-order-card button:nth-of-type(4) {
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #16a34a
+        );
+}
+
+
+/* Cancel */
+
+.admin-order-card button:nth-of-type(5) {
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #991b1b
+        );
+}
+
+
+.admin-order-card button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.06);
+}
+
+
+/* Empty admin orders */
+
+.admin-order-box > h2 {
+    grid-column: 1 / -1;
+
+    padding: 60px 20px;
+
+    margin: 0;
+
+    border-radius: 20px;
+
+    background: white;
+
+    color: #777777;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================================================
+   40. ADMIN MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .admin-page header {
+        flex-direction: column;
+
+        gap: 12px;
+
+        padding: 15px 18px;
+
+        text-align: center;
+    }
+
+    .admin-page header .logo {
+        font-size: 22px;
+    }
+
+    .admin-page header nav {
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .admin-actions {
+        padding: 15px 12px 0;
+    }
+
+    .admin-logout-btn {
+        width: 100%;
+    }
+
+    .admin-page .orders {
+        width: calc(100% - 24px);
+
+        margin-top: 20px;
+    }
+
+    .admin-page .orders > h1 {
+        padding: 20px;
+
+        font-size: 28px;
+    }
+
+    .admin-order-box {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .admin-order-card {
+        padding: 20px 16px;
+    }
+
+    .admin-order-card h2 {
+        font-size: 19px;
+    }
+
+    .admin-order-card button {
+        width: 100%;
+
+        margin: 5px 0;
+
+        padding: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   41. CUSTOMER / ORDERS MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .customer-login-box {
+        padding: 32px 20px;
+    }
+
+    .account-page {
+        width: calc(100% - 24px);
+
+        margin-top: 25px;
+    }
+
+    .account-card {
+        padding: 25px 17px;
+    }
+
+    .account-card h1 {
+        font-size: 27px;
+    }
+
+    .account-info-row {
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+    .account-info-row span {
+        text-align: left;
+    }
+
+    .account-actions {
+        flex-direction: column;
+    }
+
+    .my-orders-page {
+        width: calc(100% - 24px);
+
+        margin-top: 25px;
+    }
+
+    .my-orders-page > h1 {
+        font-size: 28px;
+    }
+
+    #orders-container {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .order-card {
+        padding: 20px 16px;
+    }
+
+    .order-card-header {
+        align-items: flex-start;
+    }
+
+    .order-card-header h2 {
+        max-width: 100%;
+
+        font-size: 15px;
+
+        white-space: nowrap;
+
+        overflow: visible;
+
+        flex-shrink: 1;
+    }
+
+}
+
+
+/* =========================================================
+   42. OWNER LOGIN MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .owner-login-box {
+        width: calc(100% - 30px);
+
+        padding: 30px 20px;
+    }
+
+    .owner-login-box .logo {
+        font-size: 42px;
+    }
+
+    .owner-login-box h1 {
+        font-size: 27px;
+    }
+
+}
