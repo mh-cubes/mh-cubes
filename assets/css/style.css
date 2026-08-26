@@ -7176,3 +7176,60 @@ section.hero .hero-content button {
 
     text-align: center;
 }
+/* ===== DESKTOP HERO FIX ===== */
+
+@media (min-width: 769px) {
+
+    body .hero {
+        min-height: 520px !important;
+        width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+
+        padding: 90px 30px !important;
+        text-align: center !important;
+
+        background:
+            radial-gradient(
+                circle at 20% 30%,
+                rgba(255, 45, 45, 0.30),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 80% 70%,
+                rgba(255, 183, 3, 0.15),
+                transparent 30%
+            ),
+            linear-gradient(
+                135deg,
+                #090000,
+                #350000,
+                #850000,
+                #c40000
+            ) !important;
+
+        color: white !important;
+    }
+
+    body .hero .hero-content {
+        width: 100% !important;
+        max-width: 900px !important;
+        margin: 0 auto !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+
+        text-align: center !important;
+    }
+
+    body .hero h1,
+    body .hero p,
+    body .hero button {
+        text-align: center !important;
+    }
+
+}
