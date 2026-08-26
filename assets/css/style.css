@@ -1786,3 +1786,1176 @@ footer hr {
     }
 
 }
+/* =========================================================
+   MH CUBES — CLEAN STYLE.CSS
+   PART 3/5
+   Cart • Product Details • Checkout • Forms • Order Tracking
+========================================================= */
+
+
+/* =========================================================
+   21. GENERAL PAGE CONTAINER
+========================================================= */
+
+.container {
+    width: min(1100px, calc(100% - 30px));
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   22. PAGE TITLE
+========================================================= */
+
+.page-title {
+    padding: 45px 20px 25px;
+
+    text-align: center;
+}
+
+.page-title h1 {
+    margin: 0;
+
+    color: #b30000;
+
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.page-title p {
+    max-width: 650px;
+
+    margin: 10px auto 0;
+
+    color: #666;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   23. PRODUCT DETAIL PAGE
+========================================================= */
+
+.product-detail {
+    width: min(1100px, calc(100% - 30px));
+
+    margin: 45px auto 70px;
+
+    padding: 35px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 50px;
+
+    align-items: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Product image area */
+
+.product-detail-image {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 400px;
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffffff,
+            #fff3f3
+        );
+}
+
+.product-detail-image img {
+    width: 100%;
+    max-width: 380px;
+
+    max-height: 380px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 20px 25px rgba(0, 0, 0, 0.15)
+        );
+
+    transition: transform 0.4s ease;
+}
+
+.product-detail-image img:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+
+/* Product information */
+
+.product-detail-info h1 {
+    margin: 0 0 12px;
+
+    color: #222222;
+
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.product-detail-info .price {
+    margin: 10px 0 20px;
+
+    color: #c40000;
+
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.product-detail-info > p {
+    margin: 0 0 25px;
+
+    color: #666666;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* Product features */
+
+.product-features {
+    margin: 25px 0;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+.product-features li {
+    margin: 10px 0;
+
+    padding: 11px 14px;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    border: 1px solid #eeeeee;
+
+    color: #444444;
+}
+
+.product-features li::before {
+    content: "✓";
+
+    margin-right: 10px;
+
+    color: #16a34a;
+
+    font-weight: 900;
+}
+
+
+/* Detail buttons */
+
+.product-detail-buttons {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.product-detail-buttons button,
+.product-detail-buttons a {
+    flex: 1;
+
+    padding: 14px 18px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.product-detail-buttons .cart-btn {
+    background: #111111;
+
+    color: white;
+}
+
+.product-detail-buttons .cart-btn:hover {
+    background: #c40000;
+
+    transform: translateY(-2px);
+}
+
+.product-detail-buttons .buy-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #ffb703,
+            #ff9500
+        );
+
+    color: #111111;
+}
+
+.product-detail-buttons .buy-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   24. CART PAGE
+========================================================= */
+
+.cart-page {
+    width: min(1100px, calc(100% - 30px));
+
+    margin: 40px auto 70px;
+}
+
+
+/* Cart container */
+
+.cart-container {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(280px, 1fr);
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+
+/* Cart items */
+
+.cart-items {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+/* Cart item */
+
+.cart-item {
+    display: grid;
+
+    grid-template-columns:
+        90px
+        minmax(0, 1fr)
+        auto;
+
+    gap: 18px;
+
+    align-items: center;
+
+    padding: 18px;
+
+    background: white;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.06);
+
+    transition: 0.25s ease;
+}
+
+.cart-item:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.09);
+}
+
+
+/* Cart image */
+
+.cart-item img {
+    width: 90px;
+    height: 90px;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    background: #fff7f7;
+}
+
+
+/* Cart information */
+
+.cart-item h3 {
+    margin: 0 0 6px;
+
+    color: #222222;
+
+    font-size: 18px;
+}
+
+.cart-item p {
+    margin: 4px 0;
+
+    color: #c40000;
+
+    font-weight: 800;
+}
+
+
+/* Quantity */
+
+.quantity-controls {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.quantity-controls button {
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #111111;
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    transition: 0.2s ease;
+}
+
+.quantity-controls button:hover {
+    background: #c40000;
+}
+
+.quantity-controls span {
+    min-width: 25px;
+
+    text-align: center;
+
+    font-weight: 800;
+}
+
+
+/* Remove */
+
+.remove-btn {
+    padding: 9px 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #dc2626;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    transition: 0.2s ease;
+}
+
+.remove-btn:hover {
+    background: #991b1b;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   25. CART SUMMARY
+========================================================= */
+
+.cart-summary {
+    position: sticky;
+
+    top: 20px;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.cart-summary h2 {
+    margin: 0 0 20px;
+
+    color: #b30000;
+
+    font-size: 23px;
+}
+
+
+/* Summary rows */
+
+.cart-summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 11px 0;
+
+    border-bottom:
+        1px solid #eeeeee;
+
+    color: #555555;
+}
+
+.cart-summary-row strong {
+    color: #222222;
+}
+
+
+/* Total */
+
+.cart-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 15px;
+
+    padding-top: 15px;
+
+    border-top:
+        2px solid #dddddd;
+
+    color: #222222;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.cart-total span:last-child {
+    color: #c40000;
+}
+
+
+/* Checkout button */
+
+.checkout-btn {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: 900;
+
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(196, 0, 0, 0.22);
+
+    transition: 0.25s ease;
+}
+
+.checkout-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 13px 28px rgba(196, 0, 0, 0.30);
+}
+
+
+/* Continue shopping */
+
+.continue-shopping {
+    display: block;
+
+    margin: 18px auto 0;
+
+    color: #2563eb;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+.continue-shopping:hover {
+    color: #1d4ed8;
+
+    text-decoration: underline;
+}
+
+
+/* Empty cart */
+
+.empty-cart {
+    padding: 60px 20px;
+
+    background: white;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    color: #777777;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.empty-cart h2 {
+    margin: 0 0 10px;
+
+    color: #444444;
+}
+
+
+/* =========================================================
+   26. CHECKOUT PAGE
+========================================================= */
+
+.checkout-page {
+    width: min(900px, calc(100% - 30px));
+
+    margin: 40px auto 70px;
+}
+
+
+/* Checkout form */
+
+.checkout-form {
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff8f8
+        );
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Form sections */
+
+.form-section {
+    margin-bottom: 30px;
+
+    padding-bottom: 25px;
+
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+.form-section:last-child {
+    margin-bottom: 0;
+
+    padding-bottom: 0;
+
+    border-bottom: none;
+}
+
+.form-section h2 {
+    margin: 0 0 20px;
+
+    color: #b30000;
+
+    font-size: 22px;
+}
+
+
+/* Form group */
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #333333;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+/* Inputs */
+
+.checkout-form input,
+.checkout-form textarea,
+.checkout-form select {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border: 2px solid #eeeeee;
+
+    border-radius: 11px;
+
+    background: #fafafa;
+
+    color: #222222;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.checkout-form input:focus,
+.checkout-form textarea:focus,
+.checkout-form select:focus {
+    border-color: #c40000;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(196, 0, 0, 0.07);
+}
+
+
+/* =========================================================
+   27. PAYMENT OPTIONS
+========================================================= */
+
+.payment-options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.payment-option {
+    position: relative;
+
+    padding: 15px;
+
+    border: 2px solid #eeeeee;
+
+    border-radius: 12px;
+
+    background: white;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.payment-option:hover {
+    border-color: #c40000;
+
+    background: #fff8f8;
+}
+
+.payment-option input {
+    width: auto;
+
+    margin-right: 8px;
+}
+
+.payment-option label {
+    cursor: pointer;
+
+    font-weight: 700;
+}
+
+
+/* Transaction ID */
+
+.transaction-box {
+    margin-top: 15px;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background: #fff8f8;
+
+    border: 1px solid #f1dada;
+}
+
+
+/* Place order */
+
+.place-order-btn {
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(196, 0, 0, 0.22);
+
+    transition: 0.25s ease;
+}
+
+.place-order-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 32px rgba(196, 0, 0, 0.30);
+}
+
+.place-order-btn:disabled {
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   28. VALIDATION MESSAGES
+========================================================= */
+
+.error-message {
+    margin-top: 6px;
+
+    color: #dc2626;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.success-message {
+    margin-top: 6px;
+
+    color: #16a34a;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   29. ORDER TRACKING
+========================================================= */
+
+.track-order-page {
+    width: min(800px, calc(100% - 30px));
+
+    margin: 45px auto 70px;
+}
+
+
+/* Tracking box */
+
+.track-box {
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+}
+
+.track-box h1 {
+    margin: 0 0 10px;
+
+    color: #b30000;
+
+    font-size: 30px;
+}
+
+.track-box p {
+    color: #666666;
+}
+
+
+/* Tracking input */
+
+.track-box input {
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 15px;
+
+    margin: 20px auto 12px;
+
+    display: block;
+
+    border: 2px solid #eeeeee;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    transition: 0.25s ease;
+}
+
+.track-box input:focus {
+    border-color: #c40000;
+
+    box-shadow:
+        0 0 0 4px rgba(196, 0, 0, 0.07);
+}
+
+
+/* Track button */
+
+.track-btn {
+    padding: 13px 25px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.track-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Tracking result */
+
+.track-result {
+    margin-top: 25px;
+
+    text-align: left;
+}
+
+
+/* =========================================================
+   30. ORDER STATUS
+========================================================= */
+
+.order-status {
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.order-status h2 {
+    margin: 0 0 18px;
+
+    color: #b30000;
+}
+
+.status {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    background: #fff3cd;
+
+    color: #92400e;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   31. MOBILE PRODUCT DETAILS
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .page-title {
+        padding: 35px 15px 20px;
+    }
+
+    .page-title h1 {
+        font-size: 30px;
+    }
+
+    .product-detail {
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        margin-top: 25px;
+
+        padding: 20px;
+
+        border-radius: 20px;
+    }
+
+    .product-detail-image {
+        min-height: 280px;
+
+        padding: 15px;
+    }
+
+    .product-detail-image img {
+        max-width: 280px;
+
+        max-height: 280px;
+    }
+
+    .product-detail-info h1 {
+        font-size: 29px;
+    }
+
+    .product-detail-info .price {
+        font-size: 25px;
+    }
+
+    .product-detail-buttons {
+        flex-direction: column;
+    }
+
+}
+
+
+/* =========================================================
+   32. MOBILE CART
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .cart-page {
+        margin-top: 25px;
+    }
+
+    .cart-container {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .cart-summary {
+        position: static;
+    }
+
+    .cart-item {
+        grid-template-columns:
+            70px
+            minmax(0, 1fr);
+
+        gap: 12px;
+
+        padding: 14px;
+    }
+
+    .cart-item img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .cart-item h3 {
+        font-size: 16px;
+    }
+
+    .cart-item > .remove-btn {
+        grid-column: 1 / -1;
+
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   33. MOBILE CHECKOUT
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .checkout-page {
+        width: calc(100% - 24px);
+
+        margin-top: 25px;
+    }
+
+    .checkout-form {
+        padding: 20px 16px;
+
+        border-radius: 18px;
+    }
+
+    .payment-options {
+        grid-template-columns: 1fr;
+    }
+
+    .form-section h2 {
+        font-size: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   34. MOBILE TRACKING
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .track-order-page {
+        width: calc(100% - 24px);
+
+        margin-top: 25px;
+    }
+
+    .track-box {
+        padding: 22px 16px;
+    }
+
+    .track-box h1 {
+        font-size: 26px;
+    }
+
+    .track-box input {
+        font-size: 15px;
+    }
+
+}
