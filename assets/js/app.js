@@ -622,13 +622,13 @@ function openContactPopup() {
     const popup =
         document.getElementById("contact-popup");
 
+    if (!popup) return;
 
-    if (popup) {
+    popup.classList.remove("closing");
 
-        popup.style.display = "flex";
+    popup.classList.add("show");
 
-    }
-
+    document.body.style.overflow = "hidden";
 }
 
 
@@ -637,23 +637,20 @@ function closeContactPopup() {
     const popup =
         document.getElementById("contact-popup");
 
-
     if (!popup) return;
-
 
     popup.classList.add("closing");
 
-
     setTimeout(function() {
 
-        popup.style.display = "none";
-
+        popup.classList.remove("show");
         popup.classList.remove("closing");
+
+        document.body.style.overflow = "";
 
     }, 300);
 
 }
-
 
 // =========================================
 // DARK MODE
