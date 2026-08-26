@@ -7930,3 +7930,318 @@ color: white !important;
     }
 
 }
+/* =========================================================
+   🛒 MH CUBES — PREMIUM CHECKOUT PRODUCTS
+========================================================= */
+
+.checkout-product {
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 18px;
+
+    margin-bottom: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff7f7
+        );
+
+    border: 1px solid rgba(196, 0, 0, .12);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, .06);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+
+.checkout-product:hover {
+
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(196, 0, 0, .25);
+
+    box-shadow:
+        0 14px 30px rgba(196, 0, 0, .12);
+}
+
+
+/* PRODUCT IMAGE */
+
+.checkout-product-image {
+
+    width: 95px;
+    height: 95px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8eeee
+        );
+
+    border: 1px solid #ead5d5;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, .08);
+}
+
+
+.checkout-product-image img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 8px;
+
+    box-sizing: border-box;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.checkout-product:hover
+.checkout-product-image img {
+
+    transform: scale(1.08);
+}
+
+
+/* PRODUCT INFORMATION */
+
+.checkout-product-info {
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.checkout-product-info h3 {
+
+    margin: 0 0 7px;
+
+    color: #222;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    overflow-wrap: anywhere;
+}
+
+
+.checkout-product-price {
+
+    margin: 0 0 12px;
+
+    color: #c40000;
+
+    font-size: 15px;
+
+    font-weight: 800;
+}
+
+
+/* QUANTITY */
+
+.checkout-quantity {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.checkout-quantity button {
+
+    width: 34px;
+    height: 34px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.checkout-quantity button:hover {
+
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+}
+
+
+.checkout-quantity span {
+
+    min-width: 25px;
+
+    text-align: center;
+
+    color: #222;
+
+    font-size: 16px;
+
+    font-weight: 900;
+}
+
+
+/* SUBTOTAL */
+
+.checkout-product-total {
+
+    min-width: 105px;
+
+    text-align: right;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.checkout-product-total span {
+
+    color: #888;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+}
+
+
+.checkout-product-total strong {
+
+    color: #b30000;
+
+    font-size: 16px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   📱 CHECKOUT MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .checkout-product {
+
+        align-items: flex-start;
+
+        gap: 13px;
+
+        padding: 14px;
+    }
+
+
+    .checkout-product-image {
+
+        width: 75px;
+        height: 75px;
+    }
+
+
+    .checkout-product-info h3 {
+
+        font-size: 16px;
+    }
+
+
+    .checkout-product-price {
+
+        font-size: 14px;
+    }
+
+
+    .checkout-quantity button {
+
+        width: 31px;
+        height: 31px;
+
+        font-size: 18px;
+    }
+
+
+    .checkout-product-total {
+
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .checkout-product-image {
+
+        width: 65px;
+        height: 65px;
+    }
+
+
+    .checkout-product {
+
+        gap: 10px;
+    }
+
+
+    .checkout-product-info h3 {
+
+        font-size: 15px;
+    }
+
+}
