@@ -5425,7 +5425,7 @@ body:has(.hero) #cartBox {
 }
 
 
-/* REMOVE CARD/BOX LOOK */
+/* NO CARD / BOX */
 
 .footer-about,
 .footer-links,
@@ -5447,15 +5447,12 @@ body:has(.hero) #cartBox {
     margin-bottom: 15px;
 
     color: white;
-
     font-weight: 900;
 }
-
 
 .footer h2 {
     font-size: 24px;
 }
-
 
 .footer h3 {
     font-size: 18px;
@@ -5466,22 +5463,25 @@ body:has(.hero) #cartBox {
 
 .footer p {
     color: #f3dede;
-
     line-height: 1.7;
-
     font-size: 14px;
 }
 
 
-/* LINKS */
+/* QUICK LINKS — VERTICAL */
 
-.footer-links a,
-.footer-social a {
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-links a {
     display: block;
 
     width: fit-content;
 
-    margin: 10px 0;
+    margin: 8px 0;
 
     color: #ffecec;
 
@@ -5494,12 +5494,18 @@ body:has(.hero) #cartBox {
         transform .25s ease;
 }
 
-
-.footer-links a:hover,
-.footer-social a:hover {
+.footer-links a:hover {
     color: #ffb703;
-
     transform: translateX(5px);
+}
+
+
+/* CONTACT */
+
+.footer-contact a {
+    color: #ffecec;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 
@@ -5513,15 +5519,75 @@ body:has(.hero) #cartBox {
         transform .25s ease;
 }
 
-
 .footer .phone-number:hover {
     color: #ffb703;
-
     transform: translateX(5px);
 }
 
 
-/* FOOTER BOTTOM */
+/* =========================================================
+   📷 INSTAGRAM
+========================================================= */
+
+.footer-social {
+    text-align: center;
+}
+
+.footer-social h3 {
+    margin-bottom: 18px;
+}
+
+
+/* INSTAGRAM BUTTON */
+
+.footer-social a {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 11px 20px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f58529,
+            #dd2a7b,
+            #8134af,
+            #515bd4
+        );
+
+    color: white !important;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.25);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.footer-social a:hover {
+    color: white !important;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.35);
+}
+
+
+/* =========================================================
+   FOOTER BOTTOM
+========================================================= */
 
 .footer-bottom {
     max-width: 1150px;
@@ -5536,7 +5602,6 @@ body:has(.hero) #cartBox {
         1px solid
         rgba(255,255,255,.12);
 }
-
 
 .footer-bottom p {
     margin: 0;
@@ -5562,21 +5627,10 @@ body:has(.hero) #cartBox {
         gap: 35px;
     }
 
-}
-/* =========================================
-   🔗 FOOTER QUICK LINKS — VERTICAL
-========================================= */
+    .footer-social {
+        text-align: center;
+    }
 
-.footer-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.footer-links a {
-    display: block !important;
-    width: fit-content !important;
-    margin: 8px 0 !important;
 }
 /* =========================================================
    ⭐ MH CUBES — PREMIUM WHY CHOOSE SECTION
