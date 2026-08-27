@@ -64,19 +64,13 @@ function getPageLoadingInfo(page) {
         };
     }
 
-    if (
-        page === "index.html" ||
-        page === ""
-    ) {
-        return {
-            title: "MH CUBES",
-            message: "Welcome back..."
-        };
-    }
-
+   if (
+    page === "index.html" ||
+    page === ""
+) {
     return {
         title: "MH CUBES",
-        message: "Loading page..."
+        message: "Loading..."
     };
 }
 
@@ -273,3 +267,50 @@ window.addEventListener("pageshow", function (event) {
     }
 
 });
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const phone = document.querySelector(".phone-number");
+    const popup = document.getElementById("contact-popup");
+    const closeButton = document.getElementById("close-contact-popup");
+
+    if (!phone || !popup || !closeButton) return;
+
+
+    /* OPEN ONLY WHEN PHONE IS CLICKED */
+
+    phone.addEventListener("click", function () {
+        popup.classList.add("show");
+    });
+
+
+    /* CLOSE BUTTON */
+
+    closeButton.addEventListener("click", function () {
+        popup.classList.remove("show");
+    });
+
+
+    /* CLICK OUTSIDE POPUP TO CLOSE */
+
+    popup.addEventListener("click", function (event) {
+
+        if (event.target === popup) {
+            popup.classList.remove("show");
+        }
+
+    });
+
+
+    /* ESCAPE KEY */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+            popup.classList.remove("show");
+        }
+
+    });
+
+});
+</script>
