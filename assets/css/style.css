@@ -3850,3 +3850,9 @@ body {
     font-weight: 700;
     line-height: 1.6;
 }
+@media (max-width: 600px) {
+    .why-choose .section-title p {
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
