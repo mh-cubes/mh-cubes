@@ -4369,3 +4369,40 @@ body:has(.why-choose) .section-title p {
     }
 
 }
+/* =========================================
+   WHY CHOOSE — DETAILS TEXT
+========================================= */
+
+body:has(.why-choose) #why-details {
+    text-align: center !important;
+}
+
+body:has(.why-choose) #why-details h3 {
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    color: #ffd700 !important;
+    text-align: center !important;
+}
+
+body:has(.why-choose) #why-details p {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: #ffd700 !important;
+    text-align: center !important;
+    line-height: 1.5;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    body:has(.why-choose) #why-details h3 {
+        font-size: 22px !important;
+    }
+
+    body:has(.why-choose) #why-details p {
+        font-size: 17px !important;
+    }
+
+}
