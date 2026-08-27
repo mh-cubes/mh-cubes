@@ -1248,3 +1248,826 @@ body.dark-mode .product-buttons .cart-btn {
     border-color:
         #dc2626;
 }
+/* =========================================================
+   MH CUBES — PART 2
+   HOMEPAGE CONTINUED + WHY CHOOSE + FOOTER
+========================================================= */
+
+
+/* =========================================================
+   WHY CHOOSE MH CUBES
+========================================================= */
+
+.why-choose {
+
+    position: relative;
+
+    padding: 85px 25px 95px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(220, 38, 38, .12),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(153, 27, 27, .12),
+            transparent 32%
+        ),
+        #050505;
+
+    color: white;
+
+}
+
+
+/* BACKGROUND GLOW */
+
+.why-choose::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    top: -220px;
+    right: -180px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    box-shadow:
+        0 0 0 40px rgba(220,38,38,.025),
+        0 0 0 80px rgba(220,38,38,.02);
+
+}
+
+
+.why-choose::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    bottom: -180px;
+    left: -130px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.06);
+
+}
+
+
+/* SECTION TITLE */
+
+.why-choose h2 {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin: 0 auto 15px;
+
+    text-align: center;
+
+    color: white;
+
+    font-size: clamp(32px, 5vw, 48px);
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+}
+
+
+.why-choose h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 65px;
+    height: 4px;
+
+    margin: 16px auto 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #dc2626,
+            #ffb703
+        );
+
+}
+
+
+.why-choose > p {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 650px;
+
+    margin: 0 auto 45px;
+
+    text-align: center;
+
+    color: #bdbdbd;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   WHY CHOOSE GRID
+========================================================= */
+
+.why-choose-container {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 22px;
+
+}
+
+
+/* =========================================================
+   WHY CHOOSE CARD
+========================================================= */
+
+.why-box {
+
+    position: relative;
+
+    padding: 30px 25px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.25);
+
+    backdrop-filter: blur(12px);
+
+    overflow: hidden;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+
+.why-box::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 15%;
+
+    width: 70%;
+    height: 3px;
+
+    border-radius: 0 0 10px 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #dc2626,
+            transparent
+        );
+
+    opacity: 0;
+
+    transition:
+        opacity .3s ease;
+
+}
+
+
+.why-box:hover {
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(220,38,38,.35);
+
+    box-shadow:
+        0 22px 50px rgba(0,0,0,.4);
+
+}
+
+
+.why-box:hover::before {
+
+    opacity: 1;
+
+}
+
+
+/* =========================================================
+   WHY CHOOSE ICON
+========================================================= */
+
+.why-box .why-icon {
+
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(220,38,38,.20),
+            rgba(153,27,27,.10)
+        );
+
+    border:
+        1px solid rgba(239,68,68,.25);
+
+    color: #f87171;
+
+    font-size: 28px;
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
+}
+
+
+.why-box:hover .why-icon {
+
+    transform:
+        scale(1.08)
+        rotate(-3deg);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(220,38,38,.30),
+            rgba(153,27,27,.18)
+        );
+
+}
+
+
+/* =========================================================
+   WHY CHOOSE HEADINGS
+========================================================= */
+
+.why-box h3 {
+
+    margin: 0 0 10px;
+
+    color: white;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+}
+
+
+.why-box p {
+
+    margin: 0;
+
+    color: #a7a7a7;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    position: relative;
+
+    padding: 55px 25px 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #080808,
+            #160606
+        );
+
+    color: white;
+
+    border-top:
+        1px solid rgba(220,38,38,.18);
+
+    overflow: hidden;
+
+}
+
+
+/* FOOTER GLOW */
+
+footer::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    top: -220px;
+    right: -100px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(220,38,38,.10);
+
+    filter: blur(80px);
+
+}
+
+
+footer::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    bottom: -180px;
+    left: -80px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(153,27,27,.08);
+
+    filter: blur(70px);
+
+}
+
+
+/* FOOTER CONTAINER */
+
+.footer-container {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr;
+
+    gap: 45px;
+
+}
+
+
+/* FOOTER BRAND */
+
+.footer-brand h2 {
+
+    margin: 0 0 12px;
+
+    color: white;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+}
+
+
+.footer-brand h2 span {
+
+    color: #dc2626;
+
+}
+
+
+.footer-brand p {
+
+    max-width: 380px;
+
+    margin: 0;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+/* FOOTER HEADINGS */
+
+footer h3 {
+
+    margin: 0 0 17px;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+}
+
+
+footer h3::after {
+
+    content: "";
+
+    display: block;
+
+    width: 35px;
+    height: 3px;
+
+    margin-top: 8px;
+
+    border-radius: 10px;
+
+    background: #dc2626;
+
+}
+
+
+/* FOOTER LINKS */
+
+footer a {
+
+    display: block;
+
+    width: fit-content;
+
+    margin-bottom: 9px;
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition:
+        color .2s ease,
+        transform .2s ease;
+}
+
+
+footer a:hover {
+
+    color: #f87171;
+
+    transform:
+        translateX(4px);
+
+}
+
+
+/* FOOTER CONTACT */
+
+.footer-contact p {
+
+    margin: 0 0 10px;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================================
+   FOOTER BOTTOM
+========================================================= */
+
+.footer-bottom {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 1200px;
+
+    margin: 40px auto 0;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+
+.footer-bottom p {
+
+    margin: 0;
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+.footer-bottom a {
+
+    margin: 0;
+
+    color: #999;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   HOMEPAGE SECTION SPACING
+========================================================= */
+
+.hero,
+.products,
+.why-choose,
+footer {
+
+    scroll-margin-top: 80px;
+
+}
+
+
+/* =========================================================
+   SMOOTH GLOBAL ANIMATIONS
+========================================================= */
+
+.hero-content,
+.product,
+.why-box,
+.search-box {
+
+    animation:
+        sectionFade .7s ease both;
+
+}
+
+
+@keyframes sectionFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(18px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .why-choose-container {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .footer-container {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 35px;
+
+    }
+
+
+    .footer-brand {
+
+        grid-column:
+            1 / -1;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .why-choose {
+
+        padding:
+            65px 15px 75px;
+
+    }
+
+
+    .why-choose h2 {
+
+        font-size: 32px;
+
+    }
+
+
+    .why-choose > p {
+
+        font-size: 14px;
+
+        margin-bottom: 32px;
+
+    }
+
+
+    .why-choose-container {
+
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+
+    }
+
+
+    .why-box {
+
+        padding:
+            25px 20px;
+
+    }
+
+
+    .why-box h3 {
+
+        font-size: 19px;
+
+    }
+
+
+    footer {
+
+        padding:
+            45px 18px 22px;
+
+    }
+
+
+    .footer-container {
+
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+    }
+
+
+    .footer-brand {
+
+        grid-column: auto;
+
+    }
+
+
+    .footer-bottom {
+
+        margin-top: 30px;
+
+        flex-direction: column;
+
+        text-align: center;
+
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL DEVICES
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .why-choose h2 {
+
+        font-size: 28px;
+
+    }
+
+
+    .why-box {
+
+        padding: 22px 17px;
+
+    }
+
+
+    .why-box .why-icon {
+
+        width: 58px;
+        height: 58px;
+
+        font-size: 25px;
+
+    }
+
+
+    footer {
+
+        padding-left: 15px;
+        padding-right: 15px;
+
+    }
+
+}
