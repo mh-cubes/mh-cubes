@@ -3807,3 +3807,17 @@ header .logo {
     }
 
 }
+/* =========================================
+   MH CUBES — HIDDEN UI ELEMENTS FIX
+========================================= */
+
+/* Cart preview must stay hidden */
+#cartBox {
+    display: none !important;
+}
+
+
+/* Shop loading must stay hidden */
+#shop-loading {
+    display: none !important;
+}
