@@ -3579,3 +3579,231 @@ body.dark-mode nav a.active {
         white;
 
 }
+/* =========================================================
+   MH CUBES — HEADER FIX
+========================================================= */
+
+header {
+    position: relative;
+    z-index: 1000;
+}
+
+header .logo {
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   CONTACT POPUP — HIDDEN BY DEFAULT
+========================================================= */
+
+#contact-popup {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, .65);
+
+    backdrop-filter: blur(7px);
+}
+
+
+/* SHOW POPUP */
+
+#contact-popup.show {
+    display: flex;
+}
+
+
+/* POPUP BOX */
+
+#contact-popup .contact-box {
+    position: relative;
+
+    width: min(420px, 100%);
+
+    padding: 35px 25px 25px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff5f5
+        );
+
+    border: 1px solid rgba(196, 0, 0, .15);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, .25);
+
+    animation:
+        contactPopupIn .25s ease;
+}
+
+
+@keyframes contactPopupIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* POPUP TITLE */
+
+#contact-popup h2 {
+    margin: 0 0 10px;
+
+    color: #b30000;
+
+    font-size: 25px;
+
+    font-weight: 900;
+}
+
+
+#contact-popup p {
+    margin: 0 0 22px;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+/* POPUP BUTTONS */
+
+#contact-popup .popup-btn {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 10px;
+
+    padding: 13px 16px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    transition:
+        transform .2s ease,
+        filter .2s ease;
+}
+
+
+#contact-popup .popup-btn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.07);
+}
+
+
+/* CLOSE BUTTON */
+
+#close-contact-popup {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 34px;
+    height: 34px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f1f1f1;
+
+    color: #555;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+
+#close-contact-popup:hover {
+    background: #c40000;
+
+    color: white;
+
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   CONTACT PHONE
+========================================================= */
+
+.phone-number {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   MOBILE POPUP
+========================================================= */
+
+@media (max-width: 600px) {
+
+    #contact-popup {
+        padding: 15px;
+    }
+
+    #contact-popup .contact-box {
+        padding: 32px 18px 20px;
+        border-radius: 18px;
+    }
+
+}
