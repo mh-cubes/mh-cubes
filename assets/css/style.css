@@ -4741,3 +4741,53 @@ header {
     }
 
 }
+/* =================================
+   PRODUCT PAGE - BLACK WHY SECTION
+================================= */
+
+.why-choose {
+    background: #000000 !important;
+    color: #ffffff !important;
+    padding: 60px 20px;
+}
+
+.why-choose h2,
+.why-choose h3 {
+    color: #ffffff !important;
+}
+
+.why-choose p {
+    color: #cccccc !important;
+}
+
+.why-details {
+    background: #111111 !important;
+    color: #ffffff !important;
+}
+
+.why-details h3 {
+    color: #ffffff !important;
+}
+
+.why-details p {
+    color: #cccccc !important;
+}
+
+
+/* =================================
+   PRODUCT PAGE HEADER
+================================= */
+
+body > header {
+    background: #000000 !important;
+}
+
+body > header nav a {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+body > header nav a:hover {
+    background: #222222 !important;
+    color: #ffffff !important;
+}
