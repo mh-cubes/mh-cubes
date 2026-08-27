@@ -1,106 +1,133 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <title>Track Order - MH CUBES</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+<title>Track Order - MH CUBES</title>
+
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
+
 
 </head>
 
 <body>
-<!-- ============================= -->
-<!-- BEAUTIFUL PAGE LOADING SCREEN -->
-<!-- ============================= -->
+
+<!-- =========================================
+     PAGE LOADING SCREEN
+========================================= -->
 
 <div id="page-loading">
 
-    <div class="loading-content">
 
-        <div class="loading-logo">
-            🧩
-        </div>
+<div class="loading-content">
 
-        <div class="page-loader"></div>
-
-      <h2>
-    TRACK ORDER
-</h2>
-
-<p>
-    Finding your order...
-</p>
+    <div class="loading-logo">
+        🧩
     </div>
+
+    <div class="page-loader"></div>
+
+    <h2>
+        TRACK ORDER
+    </h2>
+
+    <p>
+        Finding your order...
+    </p>
 
 </div>
+
+
+</div>
+
+<!-- =========================================
+     CLEAN HEADER
+========================================= -->
+
 <header>
 
-    <div class="logo">
-        MH CUBES
-    </div>
 
-    <nav>
+<div class="logo">
+    MH CUBES
+</div>
 
-        <a href="index.html">
-            🏠 Home
-        </a>
+<nav>
 
-        <a href="cart.html">
-            🛒 Cart
-        </a>
+    <a href="index.html">
+        🏠 Home
+    </a>
 
-    </nav>
+    <a href="cart.html">
+        🛒 Cart
+    </a>
+
+</nav>
+
 
 </header>
 
+<!-- =========================================
+     TRACK ORDER PAGE
+========================================= -->
 
-<div class="checkout">
-
-    <h1>
-        📦 Track Your Order
-    </h1>
-
-
-    <div class="checkout-box">
-
-        <h2>
-            Enter Your Order ID
-        </h2>
-
-        <p>
-            Enter the Order ID you received after placing your order.
-        </p>
+<main class="checkout">
 
 
-        <input
-            type="text"
-            id="track-id"
-            placeholder="Example: MH1754652345678"
-            autocomplete="off"
-        >
+<h1>
+    📦 Track Your Order
+</h1>
 
 
-        <button
-            class="place-order"
-            id="track-button"
-            type="button"
-        >
-            🔍 Track Order
-        </button>
+<div class="checkout-box">
+
+    <h2>
+        Enter Your Order ID
+    </h2>
+
+    <p>
+        Enter the Order ID you received after placing your order.
+    </p>
 
 
-        <div id="track-result"></div>
+    <input
+        type="text"
+        id="track-id"
+        placeholder="Example: MH1754652345678"
+        autocomplete="off"
+    >
 
-    </div>
+
+    <button
+        class="place-order"
+        id="track-button"
+        type="button"
+    >
+        🔍 Track Order
+    </button>
+
+
+    <div id="track-result"></div>
 
 </div>
 
+
+</main>
+
+<!-- =========================================
+     FIREBASE TRACKING
+========================================= -->
 
 <script type="module">
 
@@ -118,78 +145,73 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
-// ==========================================
-// ELEMENTS
-// ==========================================
+/* =========================================
+   ELEMENTS
+========================================= */
 
-const trackInput = document.getElementById("track-id");
+const trackInput =
+    document.getElementById("track-id");
 
-const trackButton = document.getElementById("track-button");
+const trackButton =
+    document.getElementById("track-button");
 
-const result = document.getElementById("track-result");
-
-
-// ==========================================
-// GET ORDER ID FROM URL
-// ==========================================
-//
-// Example:
-// track-order.html?orderID=MH1787337628255
-//
-// This automatically puts:
-// MH1787337628255
-//
-// inside the Order ID input.
-//
-
-const urlParams = new URLSearchParams(
-    window.location.search
-);
-
-const orderIDFromURL = urlParams.get("orderID");
+const result =
+    document.getElementById("track-result");
 
 
-// ==========================================
-// AUTO-FILL ORDER ID
-// ==========================================
+/* =========================================
+   ORDER ID FROM URL
+========================================= */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const orderIDFromURL =
+    urlParams.get("orderID");
+
+
+/* =========================================
+   AUTO-FILL ORDER ID
+========================================= */
 
 if (orderIDFromURL) {
 
-    trackInput.value = orderIDFromURL.trim();
+    trackInput.value =
+        orderIDFromURL.trim();
 
 }
 
 
-// ==========================================
-// CURRENT USER
-// ==========================================
+/* =========================================
+   CURRENT USER
+========================================= */
 
 let currentUser = null;
 
 
-// ==========================================
-// TRACK ORDER FUNCTION
-// ==========================================
+/* =========================================
+   TRACK ORDER
+========================================= */
 
 async function trackOrder() {
 
-    const id = trackInput.value.trim();
+    const id =
+        trackInput.value.trim();
 
 
-    // --------------------------------------
-    // CHECK ORDER ID
-    // --------------------------------------
+    /* -----------------------------------------
+       EMPTY ORDER ID
+    ----------------------------------------- */
 
-    if (id === "") {
+    if (!id) {
 
         result.innerHTML = `
 
-            <div style="
-                text-align:center;
-                padding:20px;
-            ">
+            <div class="track-message error">
 
-                <h3 style="color:red;">
+                <h3>
                     ❌ Please enter your Order ID.
                 </h3>
 
@@ -202,20 +224,17 @@ async function trackOrder() {
     }
 
 
-    // --------------------------------------
-    // CHECK LOGIN
-    // --------------------------------------
+    /* -----------------------------------------
+       LOGIN CHECK
+    ----------------------------------------- */
 
     if (!currentUser) {
 
         result.innerHTML = `
 
-            <div style="
-                text-align:center;
-                padding:20px;
-            ">
+            <div class="track-message error">
 
-                <h3 style="color:red;">
+                <h3>
                     🔒 Please sign in first.
                 </h3>
 
@@ -228,16 +247,13 @@ async function trackOrder() {
     }
 
 
-    // --------------------------------------
-    // LOADING
-    // --------------------------------------
+    /* -----------------------------------------
+       SEARCHING
+    ----------------------------------------- */
 
     result.innerHTML = `
 
-        <div style="
-            text-align:center;
-            padding:20px;
-        ">
+        <div class="track-message">
 
             <h3>
                 🔍 Searching for your order...
@@ -250,56 +266,57 @@ async function trackOrder() {
 
     try {
 
-        // --------------------------------------
-        // FIRESTORE ORDERS
-        // --------------------------------------
-
-        const ordersRef = collection(
-            db,
-            "orders"
-        );
+        const ordersRef =
+            collection(
+                db,
+                "orders"
+            );
 
 
-        // --------------------------------------
-        // ONLY FIND THIS CUSTOMER'S ORDER
-        // --------------------------------------
+        /* -----------------------------------------
+           CUSTOMER'S ORDER ONLY
+        ----------------------------------------- */
 
-        const q = query(
+        const q =
+            query(
 
-            ordersRef,
+                ordersRef,
 
-            where(
-                "customerUID",
-                "==",
-                currentUser.uid
-            ),
+                where(
+                    "customerUID",
+                    "==",
+                    currentUser.uid
+                ),
 
-            where(
-                "orderID",
-                "==",
-                id
-            )
+                where(
+                    "orderID",
+                    "==",
+                    id
+                )
 
-        );
-
-
-        const snapshot = await getDocs(q);
+            );
 
 
-        // ======================================
-        // ORDER FOUND
-        // ======================================
+        const snapshot =
+            await getDocs(q);
+
+
+        /* =========================================
+           ORDER FOUND
+        ========================================= */
 
         if (!snapshot.empty) {
 
-            const docSnap = snapshot.docs[0];
+            const docSnap =
+                snapshot.docs[0];
 
-            const found = docSnap.data();
+            const found =
+                docSnap.data();
 
 
-            // ==================================
-            // PRODUCTS
-            // ==================================
+            /* -----------------------------------------
+               PRODUCTS
+            ----------------------------------------- */
 
             let productsHTML = "";
 
@@ -309,91 +326,61 @@ async function trackOrder() {
                 typeof found.products === "object"
             ) {
 
-                productsHTML = Object.keys(
-                    found.products
-                )
-                .map(function(productName) {
+                productsHTML =
+                    Object.keys(found.products)
+                        .map(function(productName) {
 
-                    const product =
-                        found.products[productName];
-
-
-                    const price =
-                        Number(product.price) || 0;
+                            const product =
+                                found.products[productName];
 
 
-                    const quantity =
-                        Number(product.quantity) || 0;
+                            const price =
+                                Number(product.price) || 0;
 
 
-                    const subtotal =
-                        price * quantity;
+                            const quantity =
+                                Number(product.quantity) || 0;
 
 
-                    return `
-
-                        <div style="
-                            background:#f8fafc;
-                            padding:15px;
-                            margin:10px 0;
-                            border-radius:10px;
-                            border:1px solid #e5e7eb;
-                        ">
-
-                            <p style="
-                                margin:0 0 8px;
-                                font-size:17px;
-                            ">
-
-                                <strong>
-                                    🧩 ${productName}
-                                </strong>
-
-                            </p>
+                            const subtotal =
+                                price * quantity;
 
 
-                            <p style="
-                                margin:5px 0;
-                            ">
+                            return `
 
-                                💰 Price:
-                                PKR ${price}
+                                <div class="track-product">
 
-                            </p>
+                                    <h4>
+                                        🧩 ${productName}
+                                    </h4>
 
+                                    <p>
+                                        💰 Price:
+                                        PKR ${price}
+                                    </p>
 
-                            <p style="
-                                margin:5px 0;
-                            ">
+                                    <p>
+                                        🔢 Quantity:
+                                        ${quantity}
+                                    </p>
 
-                                🔢 Quantity:
-                                ${quantity}
+                                    <p class="track-subtotal">
+                                        💵 Subtotal:
+                                        PKR ${subtotal}
+                                    </p>
 
-                            </p>
+                                </div>
 
+                            `;
 
-                            <p style="
-                                margin:5px 0;
-                                font-weight:bold;
-                            ">
-
-                                💵 Subtotal:
-                                PKR ${subtotal}
-
-                            </p>
-
-                        </div>
-
-                    `;
-
-                })
-                .join("");
+                        })
+                        .join("");
 
             } else {
 
                 productsHTML = `
 
-                    <p>
+                    <p class="track-muted">
                         No product information available.
                     </p>
 
@@ -402,9 +389,9 @@ async function trackOrder() {
             }
 
 
-            // ==================================
-            // SHOW ORDER
-            // ==================================
+            /* =========================================
+               DISPLAY ORDER
+            ========================================= */
 
             result.innerHTML = `
 
@@ -462,7 +449,7 @@ async function trackOrder() {
                     </h3>
 
 
-                    <div>
+                    <div class="track-products">
 
                         ${productsHTML}
 
@@ -474,15 +461,7 @@ async function trackOrder() {
                     </h3>
 
 
-                    <div style="
-                        padding:15px;
-                        margin-top:10px;
-                        border-radius:10px;
-                        text-align:center;
-                        font-weight:bold;
-                        font-size:18px;
-                        background:#f8fafc;
-                    ">
+                    <div class="track-status">
 
                         ${found.status || "Pending 🟡"}
 
@@ -495,29 +474,24 @@ async function trackOrder() {
         }
 
 
-        // ======================================
-        // ORDER NOT FOUND
-        // ======================================
+        /* =========================================
+           ORDER NOT FOUND
+        ========================================= */
 
         else {
 
             result.innerHTML = `
 
-                <div style="
-                    text-align:center;
-                    padding:20px;
-                ">
+                <div class="track-message error">
 
-                    <h3 style="color:red;">
+                    <h3>
                         ❌ Order Not Found
                     </h3>
-
 
                     <p>
                         No order was found with this Order ID
                         on your account.
                     </p>
-
 
                     <p>
                         Please check your Order ID and try again.
@@ -540,15 +514,11 @@ async function trackOrder() {
 
         result.innerHTML = `
 
-            <div style="
-                text-align:center;
-                padding:20px;
-            ">
+            <div class="track-message error">
 
-                <h3 style="color:red;">
+                <h3>
                     ❌ Unable to check order
                 </h3>
-
 
                 <p>
                     Please try again.
@@ -563,9 +533,9 @@ async function trackOrder() {
 }
 
 
-// ==========================================
-// CHECK FIREBASE LOGIN
-// ==========================================
+/* =========================================
+   FIREBASE LOGIN STATE
+========================================= */
 
 onAuthStateChanged(
     auth,
@@ -580,15 +550,11 @@ onAuthStateChanged(
 
             result.innerHTML = `
 
-                <div style="
-                    text-align:center;
-                    padding:20px;
-                ">
+                <div class="track-message error">
 
-                    <h3 style="color:red;">
+                    <h3>
                         🔒 Please Sign In
                     </h3>
-
 
                     <p>
                         You must be logged in to track your order.
@@ -597,15 +563,7 @@ onAuthStateChanged(
 
                     <a
                         href="customer-login.html"
-                        style="
-                            display:inline-block;
-                            margin-top:10px;
-                            padding:12px 20px;
-                            background:#2563eb;
-                            color:white;
-                            border-radius:8px;
-                            text-decoration:none;
-                        "
+                        class="track-login-btn"
                     >
                         👤 Sign In
                     </a>
@@ -619,18 +577,18 @@ onAuthStateChanged(
         }
 
 
-        // --------------------------------------
-        // USER LOGGED IN
-        // --------------------------------------
+        /* -----------------------------------------
+           USER LOGGED IN
+        ----------------------------------------- */
 
         currentUser = user;
 
         trackButton.disabled = false;
 
 
-        // --------------------------------------
-        // AUTOMATICALLY TRACK URL ORDER
-        // --------------------------------------
+        /* -----------------------------------------
+           AUTO TRACK URL ORDER
+        ----------------------------------------- */
 
         if (orderIDFromURL) {
 
@@ -642,9 +600,9 @@ onAuthStateChanged(
 );
 
 
-// ==========================================
-// TRACK BUTTON
-// ==========================================
+/* =========================================
+   TRACK BUTTON
+========================================= */
 
 trackButton.addEventListener(
     "click",
@@ -652,9 +610,9 @@ trackButton.addEventListener(
 );
 
 
-// ==========================================
-// ENTER KEY
-// ==========================================
+/* =========================================
+   ENTER KEY
+========================================= */
 
 trackInput.addEventListener(
     "keydown",
@@ -670,8 +628,15 @@ trackInput.addEventListener(
 );
 
 </script>
-<script src="assets/js/page-loading.js"></script>
+
+<!-- =========================================
+     PAGE LOADING SYSTEM
+========================================= -->
+
+<script
+    src="assets/js/page-loading.js"
+></script>
+
 </body>
 
 </html>
-
