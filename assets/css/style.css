@@ -4791,3 +4791,24 @@ body > header nav a:hover {
     background: #222222 !important;
     color: #ffffff !important;
 }
+/* =================================
+   PRODUCT PAGE - WHY CARDS BLACK
+================================= */
+
+.why-choose .why-box {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #333333 !important;
+}
+
+.why-choose .why-box h3 {
+    color: #ffffff !important;
+}
+
+.why-choose .why-box p {
+    color: #cccccc !important;
+}
+
+.why-choose .why-box:hover {
+    background: #111111 !important;
+}
