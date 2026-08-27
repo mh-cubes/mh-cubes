@@ -3913,3 +3913,119 @@ body:has(.orders-page) {
     }
 
 }
+/* =========================================
+   PRODUCT PAGES — MH CUBES THEME
+========================================= */
+
+body:has(.product-page),
+body:has(.product-details),
+body:has(.product-container) {
+    background:
+        radial-gradient(
+            circle at top,
+            #1a0a0a 0%,
+            #0b0b0b 45%,
+            #000000 100%
+        ) !important;
+
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   REMOVE LOGO FROM PRODUCT PAGE
+========================================= */
+
+body:has(.product-page) header .logo,
+body:has(.product-details) header .logo,
+body:has(.product-container) header .logo {
+    display: none !important;
+}
+
+
+/* =========================================
+   PRODUCT HEADER
+========================================= */
+
+body:has(.product-page) header,
+body:has(.product-details) header,
+body:has(.product-container) header {
+    justify-content: center;
+    padding: 25px 20px;
+}
+
+
+/* =========================================
+   BIG HOME BUTTON
+========================================= */
+
+body:has(.product-page) header nav a:first-child,
+body:has(.product-details) header nav a:first-child,
+body:has(.product-container) header nav a:first-child {
+    display: inline-block;
+
+    padding: 14px 28px;
+
+    border-radius: 12px;
+
+    background: #dc2626;
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 8px 25px rgba(220, 38, 38, 0.3);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+body:has(.product-page) header nav a:first-child:hover,
+body:has(.product-details) header nav a:first-child:hover,
+body:has(.product-container) header nav a:first-child:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(220, 38, 38, 0.5);
+}
+
+
+/* =========================================
+   PRODUCT CONTENT
+========================================= */
+
+body:has(.product-page) .product,
+body:has(.product-details) .product,
+body:has(.product-container) .product {
+    color: #ffffff;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    body:has(.product-page) header,
+    body:has(.product-details) header,
+    body:has(.product-container) header {
+        padding: 18px 12px;
+    }
+
+    body:has(.product-page) header nav a:first-child,
+    body:has(.product-details) header nav a:first-child,
+    body:has(.product-container) header nav a:first-child {
+        font-size: 16px;
+        padding: 12px 24px;
+    }
+
+}
