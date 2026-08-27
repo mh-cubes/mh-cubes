@@ -4684,3 +4684,60 @@ header {
     }
 
 }
+/* =========================================
+   MH CUBES CART TOAST
+========================================= */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+    transform: translate(-50%, 30px);
+
+    background: #000;
+    color: #fff;
+
+    padding: 14px 24px;
+    border-radius: 12px;
+
+    border: 2px solid #ffd700;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 99999;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translate(-50%, 0);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .toast {
+        width: calc(100% - 40px);
+        text-align: center;
+
+        bottom: 20px;
+
+        font-size: 15px;
+        padding: 13px 18px;
+    }
+
+}
