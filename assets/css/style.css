@@ -1,397 +1,16 @@
 /* =========================================================
-   MH CUBES — CLEAN STYLE.CSS
-   PART 1/5
-   Base • Header • Navigation • Hero • Products
+   MH CUBES — HOMEPAGE PREMIUM UI
+   PHASE 1
+   Hero • Products • Why Choose • Footer
+   Desktop • Mobile • Animations
 ========================================================= */
 
 
 /* =========================================================
-   1. RESET & BASE
+   GLOBAL HOMEPAGE ANIMATIONS
 ========================================================= */
 
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    background: #ffffff;
-    color: #222222;
-
-    line-height: 1.5;
-}
-
-img {
-    max-width: 100%;
-}
-
-button,
-input,
-textarea,
-select {
-    font-family: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-a {
-    color: inherit;
-}
-
-
-/* =========================================================
-   2. HEADER
-========================================================= */
-
-header {
-    position: relative;
-    z-index: 1000;
-
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-
-    padding: 15px 30px;
-
-    background: #111111;
-    color: white;
-
-    box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.12);
-}
-
-
-/* Logo */
-
-.logo {
-    font-size: 25px;
-    font-weight: 900;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    white-space: nowrap;
-}
-
-
-/* Navigation */
-
-header nav {
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
-
-    margin-left: auto;
-}
-
-header nav a {
-    display: inline-block;
-
-    padding: 10px 13px;
-
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    border-radius: 9px;
-
-    transition:
-        background 0.25s ease,
-        color 0.25s ease,
-        transform 0.25s ease;
-}
-
-header nav a:hover {
-    background: rgba(255, 255, 255, 0.10);
-    color: #ffb703;
-}
-
-
-/* Cart button */
-
-header .cart-btn {
-    display: inline-block;
-
-    padding: 10px 14px;
-
-    background: #ffb703;
-    color: #111111;
-
-    border-radius: 10px;
-
-    font-weight: 800;
-
-    text-decoration: none;
-
-    transition: 0.25s ease;
-}
-
-header .cart-btn:hover {
-    background: #ff9500;
-
-    transform: translateY(-2px);
-}
-
-
-/* Mobile menu button */
-
-.menu-btn {
-    display: none;
-
-    background: none;
-    border: none;
-
-    color: inherit;
-
-    font-size: 28px;
-
-    padding: 5px;
-
-    margin-left: 8px;
-}
-
-
-/* =========================================================
-   3. HERO SECTION
-========================================================= */
-
-.hero {
-    position: relative;
-
-    width: 100%;
-    min-height: 520px;
-
-    padding: 90px 30px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 20% 30%,
-            rgba(255, 45, 45, 0.30),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 70%,
-            rgba(255, 183, 3, 0.15),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #090000,
-            #350000,
-            #850000,
-            #c40000
-        );
-
-    color: white;
-}
-
-
-/* Hero decorative glow */
-
-.hero::before {
-    content: "";
-
-    position: absolute;
-
-    width: 380px;
-    height: 380px;
-
-    top: -120px;
-    left: -100px;
-
-    border-radius: 50%;
-
-    background: rgba(255, 0, 0, 0.12);
-
-    filter: blur(70px);
-
-    pointer-events: none;
-}
-
-.hero::after {
-    content: "";
-
-    position: absolute;
-
-    width: 300px;
-    height: 300px;
-
-    right: -80px;
-    bottom: -100px;
-
-    border-radius: 50%;
-
-    background: rgba(255, 183, 3, 0.10);
-
-    filter: blur(70px);
-
-    pointer-events: none;
-}
-
-
-/* Hero content */
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-    max-width: 900px;
-
-    margin: 0 auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    text-align: center;
-}
-
-
-/* Hero title */
-
-.hero h1 {
-    margin: 0 0 20px;
-
-    font-size: clamp(40px, 6vw, 72px);
-
-    font-weight: 900;
-
-    line-height: 1.05;
-
-    letter-spacing: -2px;
-
-    color: white;
-
-    text-align: center;
-
-    text-shadow:
-        0 5px 25px rgba(0, 0, 0, 0.40);
-
-    animation: heroTitle 0.8s ease;
-}
-
-
-/* Hero title underline */
-
-.hero h1::after {
-    content: "";
-
-    display: block;
-
-    width: 90px;
-    height: 5px;
-
-    margin: 18px auto 0;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff0000,
-            #ffb703
-        );
-
-    box-shadow:
-        0 0 15px rgba(255, 183, 3, 0.40);
-}
-
-
-/* Hero paragraph */
-
-.hero p {
-    max-width: 700px;
-
-    margin: 0 auto 35px;
-
-    font-size: 20px;
-
-    line-height: 1.6;
-
-    color: #ffecec;
-
-    text-align: center;
-
-    animation: heroText 0.9s ease;
-}
-
-
-/* Hero button */
-
-.hero button {
-    display: inline-block;
-
-    width: auto;
-
-    padding: 16px 40px;
-
-    border: none;
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffb703,
-            #ff9500
-        );
-
-    color: #111111;
-
-    font-size: 18px;
-    font-weight: 900;
-
-    text-align: center;
-
-    box-shadow:
-        0 10px 30px rgba(255, 183, 3, 0.35);
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.hero button:hover {
-    transform: translateY(-5px) scale(1.03);
-
-    box-shadow:
-        0 18px 40px rgba(255, 183, 3, 0.45);
-}
-
-.hero button:active {
-    transform: scale(0.97);
-}
-
-
-/* =========================================================
-   4. HERO ANIMATIONS
-========================================================= */
-
-@keyframes heroTitle {
+@keyframes mhFadeUp {
     from {
         opacity: 0;
         transform: translateY(25px);
@@ -403,8516 +22,91 @@ header .cart-btn:hover {
     }
 }
 
-@keyframes heroText {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* =========================================================
-   5. PRODUCTS SECTION
-========================================================= */
-
-.products {
-    position: relative;
-
-    width: 100%;
-
-    padding: 65px 20px 75px;
-}
-
-
-/* Small section label */
-
-.products::before {
-    content: "OUR COLLECTION";
-
-    display: block;
-
-    margin-bottom: 12px;
-
-    text-align: center;
-
-    color: #c40000;
-
-    font-size: 13px;
-    font-weight: 900;
-
-    letter-spacing: 4px;
-}
-
-
-/* Search */
-
-.search-box {
-    position: relative;
-
-    width: 100%;
-    max-width: 650px;
-
-    margin: 0 auto 35px;
-}
-
-.search-box input {
-    width: 100%;
-
-    padding: 17px 22px;
-
-    border: 2px solid #eeeeee;
-    border-radius: 16px;
-
-  background: #fff;
-color: #222 !important;
-    font-size: 16px;
-
-    outline: none;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.07);
-
-    transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.search-box input:focus {
-    border-color: #c40000;
-
-    box-shadow:
-        0 10px 30px rgba(196, 0, 0, 0.12);
-}
-
-
-/* Product grid */
-
-.product-box {
-    width: 100%;
-    max-width: 1100px;
-
-    margin: 0 auto;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 25px;
-}
-
-
-/* Product card */
-
-.product {
-    position: relative;
-
-    width: 100%;
-
-    padding: 25px;
-
-    border: 1px solid #eeeeee;
-    border-radius: 22px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.08);
-
-    text-align: center;
-
-    overflow: hidden;
-
-    transition:
-        transform 0.35s ease,
-        box-shadow 0.35s ease,
-        border-color 0.35s ease;
-}
-
-
-/* Product top accent */
-
-.product::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703,
-            #c40000
-        );
-
-    transform: scaleX(0);
-    transform-origin: center;
-
-    transition: 0.35s ease;
-}
-
-
-/* Product hover */
-
-.product:hover {
-    transform: translateY(-9px);
-
-    border-color: rgba(196, 0, 0, 0.25);
-
-    box-shadow:
-        0 20px 45px rgba(196, 0, 0, 0.15);
-}
-
-.product:hover::before {
-    transform: scaleX(1);
-}
-
-
-/* Product image */
-
-.product img {
-    display: block;
-
-    width: 180px;
-    height: 180px;
-
-    margin: 5px auto 15px;
-
-    object-fit: contain;
-
-    filter:
-        drop-shadow(
-            0 12px 15px rgba(0, 0, 0, 0.12)
-        );
-
-    transition:
-        transform 0.4s ease;
-}
-
-.product:hover img {
-    transform:
-        translateY(-5px)
-        scale(1.06);
-}
-
-
-/* Product title */
-
-.product h3 {
-    margin: 10px 0;
-
-    font-size: 20px;
-
-    line-height: 1.3;
-}
-
-.product h3 a {
-    color: #222222;
-
-    text-decoration: none;
-
-    transition: color 0.25s ease;
-}
-
-.product h3 a:hover {
-    color: #c40000;
-}
-
-
-/* Product price */
-
-.product p {
-    margin: 8px 0 20px;
-
-    color: #c40000;
-
-    font-size: 20px;
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   6. PRODUCT BUTTONS
-========================================================= */
-
-.product-buttons {
-    display: flex;
-
-    gap: 10px;
-
-    width: 100%;
-}
-
-.product-buttons button {
-    flex: 1;
-
-    border: none;
-    border-radius: 11px;
-
-    padding: 12px 8px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-
-/* Add to cart */
-
-.product-buttons .cart-btn {
-    background: #111111;
-    color: white;
-}
-
-.product-buttons .cart-btn:hover {
-    background: #c40000;
-
-    transform: translateY(-2px);
-}
-
-
-/* Shop button */
-
-.product-buttons .shop-btn {
-    background:
-        linear-gradient(
-            135deg,
-            #ffb703,
-            #ff9500
-        );
-
-    color: #111111;
-}
-
-.product-buttons .shop-btn:hover {
-    transform: translateY(-2px);
-}
-
-
-/* Standalone shop button */
-
-.shop-button {
-    display: block;
-
-    margin-top: 25px;
-
-    padding: 12px 20px;
-
-    background: white;
-
-    color: #2563eb;
-
-    border: 2px solid #2563eb;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    border-radius: 10px;
-
-    transition: 0.25s ease;
-}
-
-.shop-button:hover {
-    background: #2563eb;
-    color: white;
-}
-
-
-/* =========================================================
-   7. MOBILE HEADER
-========================================================= */
-
-@media (max-width: 768px) {
-
-    header {
-        padding: 15px 20px;
-
-        flex-wrap: wrap;
-    }
-
-    .logo {
-        font-size: 24px;
-    }
-
-    .menu-btn {
-        display: block;
-    }
-
-    header > a {
-        margin-left: auto;
-    }
-
-    header nav {
-        width: 100%;
-
-        flex-direction: column;
-
-        gap: 0;
-
-        margin-top: 15px;
-        padding: 10px 0;
-
-        border-radius: 12px;
-
-        background: inherit;
-
-        max-height: 0;
-
-        opacity: 0;
-
-        overflow: hidden;
-
-        transform: translateY(-10px);
-
-        pointer-events: none;
-
-        transition:
-            max-height 0.35s ease,
-            opacity 0.25s ease,
-            transform 0.35s ease;
-    }
-
-    header nav.mobile-open {
-        max-height: 500px;
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-        pointer-events: auto;
-    }
-
-    header nav a {
-        display: block;
-
-        width: 100%;
-
-        padding: 14px 15px;
-
-        text-align: left;
-    }
-
-    header nav a:hover {
-        background: rgba(255, 255, 255, 0.08);
-    }
-
-    header .cart-btn {
-        padding: 9px 12px;
-
-        font-size: 14px;
-    }
-
-    header nav.mobile-open #auth-link {
-        display: block !important;
-
-        visibility: visible !important;
-
-        opacity: 1 !important;
-    }
-}
-
-
-/* =========================================================
-   8. MOBILE HERO
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .hero {
-        min-height: 450px;
-
-        padding: 60px 20px;
-    }
-
-    .hero h1 {
-        font-size: 40px;
-
-        letter-spacing: -1px;
-    }
-
-    .hero p {
-        max-width: 400px;
-
-        font-size: 16px;
-
-        line-height: 1.6;
-
-        margin-bottom: 25px;
-    }
-
-    .hero button {
-        width: 100%;
-
-        max-width: 280px;
-
-        padding: 14px 20px;
-
-        font-size: 16px;
-    }
-
-}
-
-
-/* =========================================================
-   9. SMALL MOBILE
-========================================================= */
-
-@media (max-width: 430px) {
-
-    .hero {
-        min-height: 430px;
-    }
-
-    .hero h1 {
-        font-size: 34px;
-    }
-
-    .product-box {
-        gap: 10px;
-    }
-
-    .product {
-        padding: 12px;
-
-        border-radius: 16px;
-    }
-
-    .product img {
-        width: 115px;
-        height: 115px;
-    }
-
-}
-
-
-/* =========================================================
-   10. MOBILE PRODUCTS
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .products {
-        padding: 45px 12px 55px;
-    }
-
-    .search-box {
-        margin-bottom: 22px;
-    }
-
-    .search-box input {
-        padding: 14px 16px;
-
-        font-size: 16px;
-
-        border-radius: 12px;
-    }
-
-    .product-box {
-        max-width: 600px;
-
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
-        gap: 14px;
-    }
-
-    .product {
-        min-width: 0;
-        min-height: 360px;
-
-        padding: 14px;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .product img {
-        width: 130px;
-        height: 130px;
-
-        margin-bottom: 12px;
-
-        flex-shrink: 0;
-    }
-
-    .product h3 {
-        width: 100%;
-
-        margin: 8px 0;
-
-        font-size: 16px;
-
-        overflow-wrap: anywhere;
-    }
-
-    .product p {
-        width: 100%;
-
-        margin: 5px 0 12px;
-
-        font-size: 17px;
-    }
-
-    .product-buttons {
-        flex-direction: column;
-
-        gap: 8px;
-
-        width: 100%;
-
-        margin-top: auto;
-    }
-
-    .product-buttons button {
-        width: 100%;
-
-        padding: 11px 8px;
-
-        font-size: 13px;
-    }
-}
-/* =========================================================
-   MH CUBES — CLEAN STYLE.CSS
-   PART 2/5
-   Why Choose • Reviews • Toasts • Footer
-========================================================= */
-
-
-/* =========================================================
-   11. WHY CHOOSE MH CUBES
-========================================================= */
-
-.why-choose {
-    position: relative;
-
-    padding: 75px 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff7f7,
-            #ffffff
-        );
-
-    text-align: center;
-
-    overflow: hidden;
-}
-
-
-/* Section heading */
-
-.why-choose h2 {
-    margin: 0 0 45px;
-
-    color: #b30000;
-
-    font-size: 34px;
-    font-weight: 900;
-
-    text-align: center;
-}
-
-
-/* Feature grid */
-
-.why-choose-container {
-    width: 100%;
-    max-width: 1100px;
-
-    margin: 0 auto;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 25px;
-}
-
-
-/* Feature card */
-
-.why-card {
-    position: relative;
-
-    padding: 30px 22px;
-
-    border-radius: 20px;
-
-    background: white;
-
-    border: 1px solid #eeeeee;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.07);
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        border-color 0.3s ease;
-
-    overflow: hidden;
-}
-
-
-/* Top accent */
-
-.why-card::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703
-        );
-}
-
-
-/* Hover */
-
-.why-card:hover {
-    transform: translateY(-7px);
-
-    border-color:
-        rgba(196, 0, 0, 0.20);
-
-    box-shadow:
-        0 18px 40px rgba(196, 0, 0, 0.12);
-}
-
-
-/* Feature icon */
-
-.why-card .icon {
-    width: 65px;
-    height: 65px;
-
-    margin: 0 auto 18px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 30px;
-
-    box-shadow:
-        0 10px 25px rgba(196, 0, 0, 0.20);
-}
-
-
-/* Feature title */
-
-.why-card h3 {
-    margin: 0 0 10px;
-
-    color: #222222;
-
-    font-size: 20px;
-    font-weight: 800;
-}
-
-
-/* Feature text */
-
-.why-card p {
-    margin: 0;
-
-    color: #666666;
-
-    font-size: 15px;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   12. REVIEWS SECTION
-========================================================= */
-
-.reviews-section {
-    position: relative;
-
-    padding: 75px 20px;
-
-    background: #ffffff;
-
-    text-align: center;
-}
-
-
-/* Reviews heading */
-
-.reviews-section h2 {
-    margin: 0 0 12px;
-
-    color: #b30000;
-
-    font-size: 34px;
-    font-weight: 900;
-}
-
-
-/* Reviews subtitle */
-
-.reviews-section > p {
-    max-width: 650px;
-
-    margin: 0 auto 40px;
-
-    color: #666666;
-
-    font-size: 16px;
-}
-
-
-/* Reviews container */
-
-.reviews-container {
-    width: 100%;
-    max-width: 1100px;
-
-    margin: 0 auto;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 22px;
-}
-
-
-/* Review card */
-
-.review-card {
-    position: relative;
-
-    padding: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff8f8
-        );
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 20px;
-
-    text-align: left;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.07);
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-
-/* Review accent */
-
-.review-card::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 4px;
-
-    border-radius:
-        20px 20px 0 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703,
-            #c40000
-        );
-}
-
-
-/* Review hover */
-
-.review-card:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 18px 40px rgba(196, 0, 0, 0.12);
-}
-
-
-/* Reviewer name */
-
-.review-card h3 {
-    margin: 0 0 8px;
-
-    color: #222222;
-
-    font-size: 18px;
-}
-
-
-/* Review text */
-
-.review-card p {
-    margin: 0;
-
-    color: #555555;
-
-    font-size: 15px;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   13. REVIEW STAR SYSTEM
-========================================================= */
-
-.stars {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 5px;
-
-    margin: 10px 0 15px;
-}
-
-
-.stars span {
-    display: inline-block;
-
-    color: #ffb703;
-
-    font-size: 28px;
-
-    line-height: 1;
-
-    cursor: pointer;
-
-    user-select: none;
-
-    transition:
-        transform 0.15s ease,
-        color 0.15s ease;
-}
-
-
-.stars span:hover {
-    transform: scale(1.15);
-}
-
-
-/* Selected stars */
-
-.stars span.active {
-    color: #ffb703;
-}
-
-
-/* Empty stars */
-
-.stars span:not(.active) {
-    color: #d6d6d6;
-}
-
-
-/* =========================================================
-   14. REVIEW FORM
-========================================================= */
-
-.review-form {
-    width: 100%;
-    max-width: 650px;
-
-    margin: 45px auto 0;
-
-    padding: 30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.08);
-
-    text-align: left;
-}
-
-
-/* Form heading */
-
-.review-form h3 {
-    margin: 0 0 20px;
-
-    color: #b30000;
-
-    font-size: 22px;
-
-    text-align: center;
-}
-
-
-/* Inputs */
-
-.review-form input,
-.review-form textarea {
-    width: 100%;
-
-    padding: 14px 15px;
-
-    margin-bottom: 12px;
-
-    border: 2px solid #eeeeee;
-
-    border-radius: 11px;
-
-    background: #fafafa;
-
-    color: #222222;
-
-    font-size: 15px;
-
-    outline: none;
-
-    resize: vertical;
-
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-
-.review-form input:focus,
-.review-form textarea:focus {
-    border-color: #c40000;
-
-    background: white;
-
-    box-shadow:
-        0 0 0 4px rgba(196, 0, 0, 0.07);
-}
-
-
-/* Submit */
-
-.review-form button {
-    width: 100%;
-
-    padding: 14px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 16px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(196, 0, 0, 0.20);
-
-    transition: 0.25s ease;
-}
-
-
-.review-form button:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 25px rgba(196, 0, 0, 0.28);
-}
-
-
-/* =========================================================
-   15. REVIEW TOAST
-========================================================= */
-
-#review-toast {
-    position: fixed;
-
-    left: 50%;
-    bottom: 30px;
-
-    z-index: 99999;
-
-    transform:
-        translateX(-50%)
-        translateY(20px);
-
-    min-width: 260px;
-    max-width: calc(100% - 30px);
-
-    padding: 14px 20px;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #111111,
-            #333333
-        );
-
-    color: white;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    text-align: center;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.25);
-
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
-}
-
-
-#review-toast.show {
-    opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
-}
-
-
-/* =========================================================
-   16. GENERAL TOAST
-========================================================= */
-
-.toast {
-    position: fixed;
-
-    left: 50%;
-    bottom: 25px;
-
-    z-index: 99999;
-
-    transform:
-        translateX(-50%)
-        translateY(20px);
-
-    padding: 13px 20px;
-
-    border-radius: 11px;
-
-    background: #111111;
-
-    color: white;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    text-align: center;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.20);
-
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
-}
-
-
-.toast.show {
-    opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
-}
-
-
-/* =========================================================
-   17. FOOTER
-========================================================= */
-
-footer {
-    position: relative;
-
-    padding: 45px 20px 25px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #090000,
-            #350000,
-            #650000
-        );
-
-    color: white;
-
-    text-align: center;
-}
-
-
-/* Footer logo */
-
-footer .logo {
-    display: inline-block;
-
-    margin-bottom: 12px;
-
-    font-size: 25px;
-
-    color: white;
-}
-
-
-/* Footer text */
-
-footer p {
-    margin: 8px auto;
-
-    max-width: 600px;
-
-    color: #dddddd;
-
-    font-size: 14px;
-}
-
-
-/* Footer links */
-
-footer a {
-    color: #ffb703;
-
-    text-decoration: none;
-
-    transition: color 0.2s ease;
-}
-
-
-footer a:hover {
-    color: #ffffff;
-}
-
-
-/* Footer divider */
-
-footer hr {
-    width: 90%;
-    max-width: 900px;
-
-    margin: 25px auto;
-
-    border: none;
-
-    border-top:
-        1px solid rgba(255, 255, 255, 0.15);
-}
-
-
-/* =========================================================
-   18. MOBILE WHY CHOOSE
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .why-choose {
-        padding: 55px 15px;
-    }
-
-    .why-choose h2 {
-        font-size: 28px;
-
-        margin-bottom: 30px;
-    }
-
-    .why-choose-container {
-        grid-template-columns: 1fr;
-
-        gap: 16px;
-
-        max-width: 600px;
-    }
-
-    .why-card {
-        padding: 25px 20px;
-    }
-
-}
-
-
-/* =========================================================
-   19. MOBILE REVIEWS
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .reviews-section {
-        padding: 55px 15px;
-    }
-
-    .reviews-section h2 {
-        font-size: 28px;
-    }
-
-    .reviews-container {
-        grid-template-columns: 1fr;
-
-        gap: 16px;
-
-        max-width: 600px;
-    }
-
-    .review-card {
-        padding: 22px 18px;
-    }
-
-    .review-form {
-        padding: 22px 17px;
-
-        margin-top: 30px;
-    }
-
-    .stars span {
-        font-size: 25px;
-    }
-
-}
-
-
-/* =========================================================
-   20. SMALL MOBILE
-========================================================= */
-
-@media (max-width: 430px) {
-
-    .why-choose h2,
-    .reviews-section h2 {
-        font-size: 25px;
-    }
-
-    .why-card {
-        padding: 22px 17px;
-    }
-
-    .review-card {
-        padding: 20px 15px;
-    }
-
-    .review-form {
-        padding: 20px 15px;
-    }
-
-    #review-toast,
-    .toast {
-        bottom: 18px;
-
-        font-size: 13px;
-
-        padding: 12px 15px;
-    }
-
-}
-/* =========================================================
-   MH CUBES — CLEAN STYLE.CSS
-   PART 3/5
-   Cart • Product Details • Checkout • Forms • Order Tracking
-========================================================= */
-
-
-/* =========================================================
-   21. GENERAL PAGE CONTAINER
-========================================================= */
-
-.container {
-    width: min(1100px, calc(100% - 30px));
-
-    margin: 0 auto;
-}
-
-
-/* =========================================================
-   22. PAGE TITLE
-========================================================= */
-
-.page-title {
-    padding: 45px 20px 25px;
-
-    text-align: center;
-}
-
-.page-title h1 {
-    margin: 0;
-
-    color: #b30000;
-
-    font-size: 38px;
-    font-weight: 900;
-}
-
-.page-title p {
-    max-width: 650px;
-
-    margin: 10px auto 0;
-
-    color: #666;
-
-    font-size: 16px;
-}
-
-
-/* =========================================================
-   23. PRODUCT DETAIL PAGE
-========================================================= */
-
-.product-detail {
-    width: min(1100px, calc(100% - 30px));
-
-    margin: 45px auto 70px;
-
-    padding: 35px;
-
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
-
-    gap: 50px;
-
-    align-items: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 25px;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.08);
-}
-
-
-/* Product image area */
-
-.product-detail-image {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    min-height: 400px;
-
-    padding: 20px;
-
-    border-radius: 20px;
-
-    background:
-        radial-gradient(
-            circle,
-            #ffffff,
-            #fff3f3
-        );
-}
-
-.product-detail-image img {
-    width: 100%;
-    max-width: 380px;
-
-    max-height: 380px;
-
-    object-fit: contain;
-
-    filter:
-        drop-shadow(
-            0 20px 25px rgba(0, 0, 0, 0.15)
-        );
-
-    transition: transform 0.4s ease;
-}
-
-.product-detail-image img:hover {
-    transform: scale(1.05) translateY(-5px);
-}
-
-
-/* Product information */
-
-.product-detail-info h1 {
-    margin: 0 0 12px;
-
-    color: #222222;
-
-    font-size: 38px;
-    font-weight: 900;
-}
-
-.product-detail-info .price {
-    margin: 10px 0 20px;
-
-    color: #c40000;
-
-    font-size: 30px;
-    font-weight: 900;
-}
-
-.product-detail-info > p {
-    margin: 0 0 25px;
-
-    color: #666666;
-
-    font-size: 16px;
-
-    line-height: 1.8;
-}
-
-
-/* Product features */
-
-.product-features {
-    margin: 25px 0;
-
-    padding: 0;
-
-    list-style: none;
-}
-
-.product-features li {
-    margin: 10px 0;
-
-    padding: 11px 14px;
-
-    border-radius: 10px;
-
-    background: #fff;
-
-    border: 1px solid #eeeeee;
-
-    color: #444444;
-}
-
-.product-features li::before {
-    content: "✓";
-
-    margin-right: 10px;
-
-    color: #16a34a;
-
-    font-weight: 900;
-}
-
-
-/* Detail buttons */
-
-.product-detail-buttons {
-    display: flex;
-
-    gap: 12px;
-
-    margin-top: 25px;
-}
-
-.product-detail-buttons button,
-.product-detail-buttons a {
-    flex: 1;
-
-    padding: 14px 18px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    font-size: 15px;
-    font-weight: 800;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-.product-detail-buttons .cart-btn {
-    background: #111111;
-
-    color: white;
-}
-
-.product-detail-buttons .cart-btn:hover {
-    background: #c40000;
-
-    transform: translateY(-2px);
-}
-
-.product-detail-buttons .buy-btn {
-    background:
-        linear-gradient(
-            135deg,
-            #ffb703,
-            #ff9500
-        );
-
-    color: #111111;
-}
-
-.product-detail-buttons .buy-btn:hover {
-    transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   24. CART PAGE
-========================================================= */
-
-.cart-page {
-    width: min(1100px, calc(100% - 30px));
-
-    margin: 40px auto 70px;
-}
-
-
-/* Cart container */
-
-.cart-container {
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 2fr)
-        minmax(280px, 1fr);
-
-    gap: 25px;
-
-    align-items: start;
-}
-
-
-/* Cart items */
-
-.cart-items {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 15px;
-}
-
-
-/* Cart item */
-
-.cart-item {
-    display: grid;
-
-    grid-template-columns:
-        90px
-        minmax(0, 1fr)
-        auto;
-
-    gap: 18px;
-
-    align-items: center;
-
-    padding: 18px;
-
-    background: white;
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 17px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.06);
-
-    transition: 0.25s ease;
-}
-
-.cart-item:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.09);
-}
-
-
-/* Cart image */
-
-.cart-item img {
-    width: 90px;
-    height: 90px;
-
-    object-fit: contain;
-
-    border-radius: 12px;
-
-    background: #fff7f7;
-}
-
-
-/* Cart information */
-
-.cart-item h3 {
-    margin: 0 0 6px;
-
-    color: #222222;
-
-    font-size: 18px;
-}
-
-.cart-item p {
-    margin: 4px 0;
-
-    color: #c40000;
-
-    font-weight: 800;
-}
-
-
-/* Quantity */
-
-.quantity-controls {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    margin-top: 10px;
-}
-
-.quantity-controls button {
-    width: 32px;
-    height: 32px;
-
-    padding: 0;
-
-    border: none;
-
-    border-radius: 8px;
-
-    background: #111111;
-
-    color: white;
-
-    font-size: 17px;
-    font-weight: 800;
-
-    transition: 0.2s ease;
-}
-
-.quantity-controls button:hover {
-    background: #c40000;
-}
-
-.quantity-controls span {
-    min-width: 25px;
-
-    text-align: center;
-
-    font-weight: 800;
-}
-
-
-/* Remove */
-
-.remove-btn {
-    padding: 9px 12px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    background: #dc2626;
-
-    color: white;
-
-    font-size: 13px;
-    font-weight: 800;
-
-    transition: 0.2s ease;
-}
-
-.remove-btn:hover {
-    background: #991b1b;
-
-    transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   25. CART SUMMARY
-========================================================= */
-
-.cart-summary {
-    position: sticky;
-
-    top: 20px;
-
-    padding: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.08);
-}
-
-.cart-summary h2 {
-    margin: 0 0 20px;
-
-    color: #b30000;
-
-    font-size: 23px;
-}
-
-
-/* Summary rows */
-
-.cart-summary-row {
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 11px 0;
-
-    border-bottom:
-        1px solid #eeeeee;
-
-    color: #555555;
-}
-
-.cart-summary-row strong {
-    color: #222222;
-}
-
-
-/* Total */
-
-.cart-total {
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-top: 15px;
-
-    padding-top: 15px;
-
-    border-top:
-        2px solid #dddddd;
-
-    color: #222222;
-
-    font-size: 20px;
-    font-weight: 900;
-}
-
-.cart-total span:last-child {
-    color: #c40000;
-}
-
-
-/* Checkout button */
-
-.checkout-btn {
-    display: block;
-
-    width: 100%;
-
-    margin-top: 20px;
-
-    padding: 14px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 16px;
-    font-weight: 900;
-
-    text-align: center;
-    text-decoration: none;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(196, 0, 0, 0.22);
-
-    transition: 0.25s ease;
-}
-
-.checkout-btn:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 13px 28px rgba(196, 0, 0, 0.30);
-}
-
-
-/* Continue shopping */
-
-.continue-shopping {
-    display: block;
-
-    margin: 18px auto 0;
-
-    color: #2563eb;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    font-weight: 700;
-
-    transition: 0.2s ease;
-}
-
-.continue-shopping:hover {
-    color: #1d4ed8;
-
-    text-decoration: underline;
-}
-
-
-/* Empty cart */
-
-.empty-cart {
-    padding: 60px 20px;
-
-    background: white;
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 20px;
-
-    text-align: center;
-
-    color: #777777;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.06);
-}
-
-.empty-cart h2 {
-    margin: 0 0 10px;
-
-    color: #444444;
-}
-
-
-/* =========================================================
-   26. CHECKOUT PAGE
-========================================================= */
-
-.checkout-page {
-    width: min(900px, calc(100% - 30px));
-
-    margin: 40px auto 70px;
-}
-
-
-/* Checkout form */
-
-.checkout-form {
-    padding: 30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff8f8
-        );
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.08);
-}
-
-
-/* Form sections */
-
-.form-section {
-    margin-bottom: 30px;
-
-    padding-bottom: 25px;
-
-    border-bottom:
-        1px solid #eeeeee;
-}
-
-.form-section:last-child {
-    margin-bottom: 0;
-
-    padding-bottom: 0;
-
-    border-bottom: none;
-}
-
-.form-section h2 {
-    margin: 0 0 20px;
-
-    color: #b30000;
-
-    font-size: 22px;
-}
-
-
-/* Form group */
-
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #333333;
-
-    font-size: 14px;
-    font-weight: 800;
-}
-
-
-/* Inputs */
-
-.checkout-form input,
-.checkout-form textarea,
-.checkout-form select {
-    width: 100%;
-
-    padding: 14px 15px;
-
-    border: 2px solid #eeeeee;
-
-    border-radius: 11px;
-
-    background: #fafafa;
-
-    color: #222222;
-
-    font-size: 15px;
-
-    outline: none;
-
-    transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
-}
-
-.checkout-form input:focus,
-.checkout-form textarea:focus,
-.checkout-form select:focus {
-    border-color: #c40000;
-
-    background: white;
-
-    box-shadow:
-        0 0 0 4px rgba(196, 0, 0, 0.07);
-}
-
-
-/* =========================================================
-   27. PAYMENT OPTIONS
-========================================================= */
-
-.payment-options {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 12px;
-}
-
-.payment-option {
-    position: relative;
-
-    padding: 15px;
-
-    border: 2px solid #eeeeee;
-
-    border-radius: 12px;
-
-    background: white;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-.payment-option:hover {
-    border-color: #c40000;
-
-    background: #fff8f8;
-}
-
-.payment-option input {
-    width: auto;
-
-    margin-right: 8px;
-}
-
-.payment-option label {
-    cursor: pointer;
-
-    font-weight: 700;
-}
-
-
-/* Transaction ID */
-
-.transaction-box {
-    margin-top: 15px;
-
-    padding: 18px;
-
-    border-radius: 12px;
-
-    background: #fff8f8;
-
-    border: 1px solid #f1dada;
-}
-
-
-/* Place order */
-
-.place-order-btn {
-    width: 100%;
-
-    padding: 16px;
-
-    border: none;
-
-    border-radius: 13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 17px;
-    font-weight: 900;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 10px 25px rgba(196, 0, 0, 0.22);
-
-    transition: 0.25s ease;
-}
-
-.place-order-btn:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 15px 32px rgba(196, 0, 0, 0.30);
-}
-
-.place-order-btn:disabled {
-    opacity: 0.65;
-
-    cursor: not-allowed;
-
-    transform: none;
-}
-
-
-/* =========================================================
-   28. VALIDATION MESSAGES
-========================================================= */
-
-.error-message {
-    margin-top: 6px;
-
-    color: #dc2626;
-
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.success-message {
-    margin-top: 6px;
-
-    color: #16a34a;
-
-    font-size: 13px;
-    font-weight: 600;
-}
-
-
-/* =========================================================
-   29. ORDER TRACKING
-========================================================= */
-
-.track-order-page {
-    width: min(800px, calc(100% - 30px));
-
-    margin: 45px auto 70px;
-}
-
-
-/* Tracking box */
-
-.track-box {
-    padding: 30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.08);
-
-    text-align: center;
-}
-
-.track-box h1 {
-    margin: 0 0 10px;
-
-    color: #b30000;
-
-    font-size: 30px;
-}
-
-.track-box p {
-    color: #666666;
-}
-
-
-/* Tracking input */
-
-.track-box input {
-    width: 100%;
-
-    max-width: 500px;
-
-    padding: 15px;
-
-    margin: 20px auto 12px;
-
-    display: block;
-
-    border: 2px solid #eeeeee;
-
-    border-radius: 11px;
-
-    outline: none;
-
-    font-size: 16px;
-
-    text-align: center;
-
-    transition: 0.25s ease;
-}
-
-.track-box input:focus {
-    border-color: #c40000;
-
-    box-shadow:
-        0 0 0 4px rgba(196, 0, 0, 0.07);
-}
-
-
-/* Track button */
-
-.track-btn {
-    padding: 13px 25px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-.track-btn:hover {
-    transform: translateY(-2px);
-}
-
-
-/* Tracking result */
-
-.track-result {
-    margin-top: 25px;
-
-    text-align: left;
-}
-
-
-/* =========================================================
-   30. ORDER STATUS
-========================================================= */
-
-.order-status {
-    padding: 25px;
-
-    background: white;
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.06);
-}
-
-.order-status h2 {
-    margin: 0 0 18px;
-
-    color: #b30000;
-}
-
-.status {
-    display: inline-block;
-
-    padding: 8px 14px;
-
-    border-radius: 999px;
-
-    background: #fff3cd;
-
-    color: #92400e;
-
-    font-size: 13px;
-    font-weight: 800;
-}
-
-
-/* =========================================================
-   31. MOBILE PRODUCT DETAILS
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .page-title {
-        padding: 35px 15px 20px;
-    }
-
-    .page-title h1 {
-        font-size: 30px;
-    }
-
-    .product-detail {
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-
-        margin-top: 25px;
-
-        padding: 20px;
-
-        border-radius: 20px;
-    }
-
-    .product-detail-image {
-        min-height: 280px;
-
-        padding: 15px;
-    }
-
-    .product-detail-image img {
-        max-width: 280px;
-
-        max-height: 280px;
-    }
-
-    .product-detail-info h1 {
-        font-size: 29px;
-    }
-
-    .product-detail-info .price {
-        font-size: 25px;
-    }
-
-    .product-detail-buttons {
-        flex-direction: column;
-    }
-
-}
-
-
-/* =========================================================
-   32. MOBILE CART
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .cart-page {
-        margin-top: 25px;
-    }
-
-    .cart-container {
-        grid-template-columns: 1fr;
-
-        gap: 18px;
-    }
-
-    .cart-summary {
-        position: static;
-    }
-
-    .cart-item {
-        grid-template-columns:
-            70px
-            minmax(0, 1fr);
-
-        gap: 12px;
-
-        padding: 14px;
-    }
-
-    .cart-item img {
-        width: 70px;
-        height: 70px;
-    }
-
-    .cart-item h3 {
-        font-size: 16px;
-    }
-
-    .cart-item > .remove-btn {
-        grid-column: 1 / -1;
-
-        width: 100%;
-    }
-
-}
-
-
-/* =========================================================
-   33. MOBILE CHECKOUT
-========================================================= */
-
-@media (max-width: 600px) {
-
-    .checkout-page {
-        width: calc(100% - 24px);
-
-        margin-top: 25px;
-    }
-
-    .checkout-form {
-        padding: 20px 16px;
-
-        border-radius: 18px;
-    }
-
-    .payment-options {
-        grid-template-columns: 1fr;
-    }
-
-    .form-section h2 {
-        font-size: 20px;
-    }
-
-}
-
-
-/* =========================================================
-   34. MOBILE TRACKING
-========================================================= */
-
-@media (max-width: 600px) {
-
-    .track-order-page {
-        width: calc(100% - 24px);
-
-        margin-top: 25px;
-    }
-
-    .track-box {
-        padding: 22px 16px;
-    }
-
-    .track-box h1 {
-        font-size: 26px;
-    }
-
-    .track-box input {
-        font-size: 15px;
-    }
-
-}
-/* =========================================================
-   MH CUBES — CLEAN STYLE.CSS
-   PART 4/5
-   Customer Login • My Account • My Orders
-   Owner Login • Admin Panel
-========================================================= */
-
-
-/* =========================================================
-   35. CUSTOMER LOGIN PAGE
-========================================================= */
-
-body:has(.customer-login-box) {
-    min-height: 100vh;
-    margin: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(255, 0, 0, 0.20),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(255, 183, 3, 0.15),
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #100000,
-            #650000,
-            #c40000
-        );
-}
-
-
-/* Customer login card */
-
-.customer-login-box {
-    width: 390px;
-    max-width: calc(100% - 30px);
-
-    padding: 40px 30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border-radius: 24px;
-
-    border: 1px solid rgba(196, 0, 0, 0.12);
-
-    box-shadow:
-        0 25px 65px rgba(0, 0, 0, 0.35);
-
-    text-align: center;
-
-    animation:
-        ownerLoginAppear 0.6s ease;
-}
-
-
-/* Customer login logo */
-
-.customer-login-box .logo {
-    width: 70px;
-    height: 70px;
-
-    margin: 0 auto 15px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 34px;
-
-    box-shadow:
-        0 10px 25px rgba(196, 0, 0, 0.25);
-}
-
-
-/* Customer login title */
-
-.customer-login-box h1 {
-    margin: 0 0 8px;
-
-    color: #b30000;
-
-    font-size: 30px;
-
-    font-weight: 900;
-}
-
-.customer-login-box > p {
-    margin-bottom: 25px;
-
-    color: #666666;
-}
-
-
-/* Customer login inputs */
-
-.customer-login-box input {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 14px 15px;
-
-    margin: 9px 0;
-
-    border: 2px solid #eeeeee;
-
-    border-radius: 11px;
-
-    background: #fafafa;
-
-    font-size: 16px;
-
-    outline: none;
-
-    transition: 0.25s ease;
-}
-
-.customer-login-box input:focus {
-    border-color: #c40000;
-
-    background: white;
-
-    box-shadow:
-        0 0 0 4px rgba(196, 0, 0, 0.07);
-}
-
-
-/* Customer login buttons */
-
-.customer-login-box button {
-    width: 100%;
-
-    padding: 14px;
-
-    margin-top: 14px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-.customer-login-box button:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 22px rgba(196, 0, 0, 0.25);
-}
-
-
-/* Login error */
-
-#login-error,
-#auth-error {
-    min-height: 20px;
-
-    margin-top: 12px;
-
-    color: #dc2626;
-
-    font-size: 14px;
-
-    font-weight: 600;
-}
-
-
-/* =========================================================
-   36. CUSTOMER ACCOUNT PAGE
-========================================================= */
-
-.account-page {
-    width: min(900px, calc(100% - 30px));
-
-    margin: 45px auto 70px;
-}
-
-
-/* Account card */
-
-.account-card {
-    padding: 35px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border-radius: 22px;
-
-    border: 1px solid #eeeeee;
-
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.08);
-
-    text-align: center;
-}
-
-
-/* Account icon */
-
-.account-icon {
-    width: 85px;
-    height: 85px;
-
-    margin: 0 auto 18px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 38px;
-
-    box-shadow:
-        0 12px 30px rgba(196, 0, 0, 0.25);
-}
-
-
-/* Account heading */
-
-.account-card h1 {
-    margin: 0 0 10px;
-
-    color: #b30000;
-
-    font-size: 32px;
-
-    font-weight: 900;
-}
-
-.account-card p {
-    color: #666666;
-}
-
-
-/* Account information */
-
-.account-info {
-    margin: 25px 0;
-
-    text-align: left;
-}
-
-.account-info-row {
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 20px;
-
-    padding: 14px 16px;
-
-    margin: 8px 0;
-
-    border-radius: 11px;
-
-    background: #fafafa;
-
-    border: 1px solid #eeeeee;
-}
-
-.account-info-row strong {
-    color: #333333;
-}
-
-.account-info-row span {
-    color: #666666;
-
-    text-align: right;
-
-    overflow-wrap: anywhere;
-}
-
-
-/* Account buttons */
-
-.account-actions {
-    display: flex;
-
-    gap: 12px;
-}
-
-.account-actions a,
-.account-actions button {
-    flex: 1;
-
-    padding: 13px 18px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    font-size: 15px;
-
-    font-weight: 800;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-.account-actions a {
-    background: #111111;
-
-    color: white;
-}
-
-.account-actions button {
-    background:
-        linear-gradient(
-            135deg,
-            #dc2626,
-            #991b1b
-        );
-
-    color: white;
-}
-
-.account-actions a:hover,
-.account-actions button:hover {
-    transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   37. MY ORDERS PAGE
-========================================================= */
-
-.my-orders-page {
-    width: min(1100px, calc(100% - 30px));
-
-    margin: 40px auto 70px;
-}
-
-
-/* Orders heading */
-
-.my-orders-page > h1 {
-    margin: 0 0 30px;
-
-    color: #b30000;
-
-    font-size: 36px;
-
-    font-weight: 900;
-
-    text-align: center;
-}
-
-
-/* Orders container */
-
-#orders-container {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 22px;
-}
-
-
-/* Order card */
-
-.order-card {
-    position: relative;
-
-    padding: 24px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff8f8
-        );
-
-    border: 1px solid #eeeeee;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.07);
-
-    overflow: hidden;
-
-    transition: 0.3s ease;
-}
-
-.order-card::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 5px;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #c40000,
-            #ffb703
-        );
-}
-
-.order-card:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 17px 38px rgba(196, 0, 0, 0.12);
-}
-
-
-/* Order header */
-
-.order-card-header {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    margin-bottom: 18px;
-
-    padding-bottom: 14px;
-
-    border-bottom: 2px solid #f1dada;
-}
-
-.order-card-header h2 {
-    margin: 0;
-
-    color: #b30000;
-
-    font-size: 21px;
-
-    font-weight: 900;
-
-    overflow-wrap: anywhere;
-}
-
-
-/* Order details */
-
-.order-card p {
-    margin: 8px 0;
-
-    padding: 10px 12px;
-
-    border-radius: 9px;
-
-    background: #fafafa;
-
-    color: #444444;
-
-    font-size: 14px;
-}
-
-.order-card p strong {
-    color: #222222;
-}
-
-
-/* Order products */
-
-.order-products {
-    margin-top: 20px;
-}
-
-.order-products h3 {
-    margin: 0 0 10px;
-
-    color: #222222;
-
-    font-size: 18px;
-}
-
-.order-product {
-    margin: 7px 0;
-
-    padding: 10px 12px;
-
-    border-left: 4px solid #ffb703;
-
-    border-radius: 8px;
-
-    background: white;
-
-    color: #444444;
-}
-
-
-/* Order status */
-
-.order-status-badge {
-    display: inline-block;
-
-    padding: 7px 12px;
-
-    border-radius: 999px;
-
-    background: #fff3cd;
-
-    color: #92400e;
-
-    font-size: 12px;
-
-    font-weight: 900;
-
-    white-space: nowrap;
-}
-
-
-/* Cancel order */
-
-.cancel-order-btn {
-    width: 100%;
-
-    margin-top: 15px;
-
-    padding: 11px 14px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #dc2626,
-            #991b1b
-        );
-
-    color: white;
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-.cancel-order-btn:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 18px rgba(220, 38, 38, 0.22);
-}
-
-
-/* No orders */
-
-.no-orders {
-    grid-column: 1 / -1;
-
-    padding: 60px 20px;
-
-    background: white;
-
-    border-radius: 20px;
-
-    color: #777777;
-
-    text-align: center;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.06);
-}
-
-
-/* =========================================================
-   38. OWNER LOGIN PAGE
-========================================================= */
-
-body.owner-login-page {
-    min-height: 100vh;
-
-    margin: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 15% 15%,
-            rgba(255, 183, 3, 0.22),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 85%,
-            rgba(37, 99, 235, 0.22),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #120000,
-            #650000,
-            #c40000
-        );
-
-    font-family: Arial, sans-serif;
-}
-
-
-/* Owner login box */
-
-.owner-login-box {
-    position: relative;
-
-    width: 350px;
-
-    max-width: calc(100% - 30px);
-
-    padding: 35px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border: 2px solid rgba(255, 183, 3, 0.35);
-
-    border-radius: 22px;
-
-    text-align: center;
-
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.35),
-        0 0 30px rgba(255, 183, 3, 0.12);
-
-    animation:
-        ownerLoginAppear 0.6s ease;
-}
-
-
-/* Owner logo */
-
-.owner-login-box .logo {
-    font-size: 48px;
-
-    margin-bottom: 8px;
-}
-
-
-/* Owner title */
-
-.owner-login-box h1 {
-    margin: 0 0 10px;
-
-    color: #b30000;
-
-    font-size: 30px;
-
-    font-weight: 900;
-}
-
-.owner-login-box p {
-    margin-bottom: 25px;
-
-    color: #666666;
-}
-
-
-/* Owner inputs */
-
-.owner-login-box input {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 14px;
-
-    margin: 9px 0;
-
-    border: 2px solid #dddddd;
-
-    border-radius: 10px;
-
-    background: #fafafa;
-
-    font-size: 16px;
-
-    outline: none;
-
-    transition: 0.25s ease;
-}
-
-.owner-login-box input:focus {
-    border-color: #ffb703;
-
-    background: white;
-
-    box-shadow:
-        0 0 0 3px rgba(255, 183, 3, 0.15);
-}
-
-
-/* Owner button */
-
-.owner-login-box button {
-    width: 100%;
-
-    padding: 14px;
-
-    margin-top: 15px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 17px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(196, 0, 0, 0.25);
-
-    transition: 0.3s ease;
-}
-
-.owner-login-box button:hover {
-    transform: translateY(-2px);
-
-    background:
-        linear-gradient(
-            135deg,
-            #a80000,
-            #e60000
-        );
-}
-
-
-/* =========================================================
-   39. ADMIN PAGE
-========================================================= */
-
-.admin-page {
-    min-height: 100vh;
-
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(255, 183, 3, 0.10),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #fff5f5
-        );
-}
-
-
-/* Admin header */
-
-.admin-page header {
-    position: relative;
-
-    z-index: 10;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding: 18px 30px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #120000,
-            #650000,
-            #c40000
-        );
-
-    color: white;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.25);
-}
-
-
-/* Admin logo */
-
-.admin-page header .logo {
-    color: white;
-
-    font-size: 25px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-}
-
-
-/* Admin navigation */
-
-.admin-page header nav {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-}
-
-.admin-page header nav a {
-    padding: 9px 13px;
-
-    border-radius: 9px;
-
-    color: white;
-
-    text-decoration: none;
-
-    font-weight: 700;
-
-    transition: 0.25s ease;
-}
-
-.admin-page header nav a:hover {
-    background: rgba(255, 255, 255, 0.12);
-}
-
-
-/* Admin actions */
-
-.admin-actions {
-    position: relative;
-
-    z-index: 20;
-
-    display: flex;
-
-    justify-content: flex-end;
-
-    padding: 20px 30px 0;
-}
-
-
-/* Admin logout */
-
-.admin-logout-btn {
-    padding: 12px 20px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ef4444,
-            #b91c1c
-        );
-
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 7px 18px rgba(185, 28, 28, 0.25);
-
-    transition: 0.25s ease;
-}
-
-.admin-logout-btn:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 22px rgba(185, 28, 28, 0.35);
-}
-
-
-/* Admin content */
-
-.admin-page .orders {
-    width: min(1100px, calc(100% - 30px));
-
-    margin: 25px auto 60px;
-}
-
-.admin-page .orders > h1 {
-    margin: 20px 0 30px;
-
-    padding: 25px;
-
-    border-radius: 20px;
-
-    background: white;
-
-    color: #b30000;
-
-    font-size: 36px;
-
-    font-weight: 900;
-
-    text-align: center;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-
-/* Admin order grid */
-
-.admin-order-box {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 22px;
-}
-
-
-/* Admin order card */
-
-.admin-order-card {
-    position: relative;
-
-    padding: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid rgba(196, 0, 0, 0.14);
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.08);
-
-    overflow: hidden;
-
-    transition: 0.3s ease;
-}
-
-.admin-order-card::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 6px;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #ff0000,
-            #c40000,
-            #ffb703
-        );
-}
-
-.admin-order-card:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 18px 40px rgba(196, 0, 0, 0.14);
-}
-
-
-/* Admin order ID */
-
-.admin-order-card h2 {
-    margin: 0 0 20px;
-
-    padding-bottom: 14px;
-
-    border-bottom:
-        2px solid #f1dada;
-
-    color: #b30000;
-
-    font-size: 22px;
-
-    font-weight: 900;
-
-    overflow-wrap: anywhere;
-}
-
-
-/* Admin details */
-
-.admin-order-card p {
-    margin: 8px 0;
-
-    padding: 11px 13px;
-
-    border-radius: 10px;
-
-    background: #fafafa;
-
-    color: #444444;
-
-    font-size: 14px;
-}
-
-.admin-order-card p strong {
-    color: #b30000;
-}
-
-
-/* Admin products */
-
-.admin-order-card h3 {
-    margin: 22px 0 10px;
-
-    color: #222222;
-
-    font-size: 18px;
-}
-
-.admin-order-card h3 + p,
-.admin-order-card h3 ~ p {
-    border-left:
-        4px solid #ffb703;
-}
-
-
-/* Admin action buttons */
-
-.admin-order-card button {
-    padding: 11px 14px;
-
-    margin: 6px 5px 0 0;
-
-    border: none;
-
-    border-radius: 10px;
-
-    color: white;
-
-    font-size: 13px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-
-/* Confirm */
-
-.admin-order-card button:nth-of-type(1) {
-    background:
-        linear-gradient(
-            135deg,
-            #16a34a,
-            #22c55e
-        );
-}
-
-
-/* Processing */
-
-.admin-order-card button:nth-of-type(2) {
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #4f46e5
-        );
-}
-
-
-/* Shipped */
-
-.admin-order-card button:nth-of-type(3) {
-    background:
-        linear-gradient(
-            135deg,
-            #0891b2,
-            #06b6d4
-        );
-}
-
-
-/* Delivered */
-
-.admin-order-card button:nth-of-type(4) {
-    background:
-        linear-gradient(
-            135deg,
-            #15803d,
-            #16a34a
-        );
-}
-
-
-/* Cancel */
-
-.admin-order-card button:nth-of-type(5) {
-    background:
-        linear-gradient(
-            135deg,
-            #dc2626,
-            #991b1b
-        );
-}
-
-
-.admin-order-card button:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.06);
-}
-
-
-/* Empty admin orders */
-
-.admin-order-box > h2 {
-    grid-column: 1 / -1;
-
-    padding: 60px 20px;
-
-    margin: 0;
-
-    border-radius: 20px;
-
-    background: white;
-
-    color: #777777;
-
-    text-align: center;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.07);
-}
-
-
-/* =========================================================
-   40. ADMIN MOBILE
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .admin-page header {
-        flex-direction: column;
-
-        gap: 12px;
-
-        padding: 15px 18px;
-
-        text-align: center;
-    }
-
-    .admin-page header .logo {
-        font-size: 22px;
-    }
-
-    .admin-page header nav {
-        flex-wrap: wrap;
-
-        justify-content: center;
-    }
-
-    .admin-actions {
-        padding: 15px 12px 0;
-    }
-
-    .admin-logout-btn {
-        width: 100%;
-    }
-
-    .admin-page .orders {
-        width: calc(100% - 24px);
-
-        margin-top: 20px;
-    }
-
-    .admin-page .orders > h1 {
-        padding: 20px;
-
-        font-size: 28px;
-    }
-
-    .admin-order-box {
-        grid-template-columns: 1fr;
-
-        gap: 16px;
-    }
-
-    .admin-order-card {
-        padding: 20px 16px;
-    }
-
-    .admin-order-card h2 {
-        font-size: 19px;
-    }
-
-    .admin-order-card button {
-        width: 100%;
-
-        margin: 5px 0;
-
-        padding: 12px;
-    }
-
-}
-
-
-/* =========================================================
-   41. CUSTOMER / ORDERS MOBILE
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .customer-login-box {
-        padding: 32px 20px;
-    }
-
-    .account-page {
-        width: calc(100% - 24px);
-
-        margin-top: 25px;
-    }
-
-    .account-card {
-        padding: 25px 17px;
-    }
-
-    .account-card h1 {
-        font-size: 27px;
-    }
-
-    .account-info-row {
-        flex-direction: column;
-
-        gap: 5px;
-    }
-
-    .account-info-row span {
-        text-align: left;
-    }
-
-    .account-actions {
-        flex-direction: column;
-    }
-
-    .my-orders-page {
-        width: calc(100% - 24px);
-
-        margin-top: 25px;
-    }
-
-    .my-orders-page > h1 {
-        font-size: 28px;
-    }
-
-    #orders-container {
-        grid-template-columns: 1fr;
-
-        gap: 16px;
-    }
-
-    .order-card {
-        padding: 20px 16px;
-    }
-
-    .order-card-header {
-        align-items: flex-start;
-    }
-
-    .order-card-header h2 {
-        max-width: 100%;
-
-        font-size: 15px;
-
-        white-space: nowrap;
-
-        overflow: visible;
-
-        flex-shrink: 1;
-    }
-
-}
-
-
-/* =========================================================
-   42. OWNER LOGIN MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-    .owner-login-box {
-        width: calc(100% - 30px);
-
-        padding: 30px 20px;
-    }
-
-    .owner-login-box .logo {
-        font-size: 42px;
-    }
-
-    .owner-login-box h1 {
-        font-size: 27px;
-    }
-
-}
-/* =========================================================
-   MH CUBES — CLEAN STYLE.CSS
-   PART 5/5
-   Admin Panel • Owner Login • Loading • Responsive • Animations
-========================================================= */
-
-
-/* =========================================================
-   🔐 OWNER LOGIN
-========================================================= */
-
-body.owner-login-page {
-
-    min-height: 100vh;
-    margin: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 15% 15%,
-            rgba(255,183,3,.25),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 85%,
-            rgba(37,99,235,.25),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #120000,
-            #650000,
-            #c40000
-        );
-
-    font-family: Arial, sans-serif;
-
-}
-
-
-.owner-login-box {
-
-    width: 350px;
-    max-width: calc(100% - 30px);
-
-    padding: 35px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border-radius: 22px;
-
-    text-align: center;
-
-    border: 2px solid rgba(255,183,3,.35);
-
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.35),
-        0 0 30px rgba(255,183,3,.12);
-
-    animation:
-        ownerLoginAppear .6s ease;
-
-}
-
-
-.owner-login-box .logo {
-
-    font-size: 48px;
-
-    margin-bottom: 8px;
-
-}
-
-
-.owner-login-box h1 {
-
-    margin: 0 0 10px;
-
-    color: #b30000;
-
-    font-size: 30px;
-
-}
-
-
-.owner-login-box p {
-
-    color: #666;
-
-    margin-bottom: 25px;
-
-}
-
-
-.owner-login-box input {
-
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 14px;
-
-    margin: 9px 0;
-
-    border: 2px solid #ddd;
-
-    border-radius: 11px;
-
-    font-size: 16px;
-
-    outline: none;
-
-    transition: .25s ease;
-
-}
-
-
-.owner-login-box input:focus {
-
-    border-color: #ffb703;
-
-    box-shadow:
-        0 0 0 3px rgba(255,183,3,.15);
-
-}
-
-
-.owner-login-box button {
-
-    width: 100%;
-
-    padding: 14px;
-
-    margin-top: 15px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 17px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(196,0,0,.25);
-
-    transition: .25s ease;
-
-}
-
-
-.owner-login-box button:hover {
-
-    transform: translateY(-2px);
-
-}
-
-
-.owner-login-box button:disabled {
-
-    opacity: .65;
-
-    cursor: not-allowed;
-
-    transform: none;
-
-}
-
-
-#login-error {
-
-    min-height: 20px;
-
-    margin-top: 15px;
-
-    color: #dc2626;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-}
-
-
-/* =========================================================
-   📦 ADMIN PAGE
-========================================================= */
-
-.admin-page {
-
-    min-height: 100vh;
-
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(255,183,3,.12),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #fff5f5
-        );
-
-}
-
-
-/* Admin Header */
-
-.admin-page header {
-
-    position: relative;
-    z-index: 10;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 18px 30px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #120000,
-            #650000,
-            #c40000
-        );
-
-    color: white;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.25);
-
-}
-
-
-.admin-page header .logo {
-
-    color: white;
-
-    font-size: 25px;
-
-    font-weight: 900;
-
-}
-
-
-.admin-page header nav {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-}
-
-
-.admin-page header nav a {
-
-    color: white;
-
-    text-decoration: none;
-
-    font-weight: 700;
-
-    padding: 10px 15px;
-
-    border-radius: 9px;
-
-    transition: .25s ease;
-
-}
-
-
-.admin-page header nav a:hover {
-
-    background:
-        rgba(255,255,255,.12);
-
-}
-
-
-/* Admin Actions */
-
-.admin-actions {
-
-    display: flex;
-
-    justify-content: flex-end;
-
-    padding: 20px 30px 0;
-
-}
-
-
-.admin-logout-btn {
-
-    padding: 12px 20px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ef4444,
-            #b91c1c
-        );
-
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 7px 18px rgba(185,28,28,.25);
-
-    transition: .25s ease;
-
-}
-
-
-.admin-logout-btn:hover {
-
-    transform: translateY(-2px);
-
-}
-
-
-/* Admin Content */
-
-.admin-page .orders {
-
-    max-width: 1100px;
-
-    margin: 25px auto 60px;
-
-    padding: 0 20px;
-
-}
-
-
-.admin-page .orders > h1 {
-
-    margin: 20px 0 30px;
-
-    padding: 25px;
-
-    border-radius: 20px;
-
-    background: white;
-
-    color: #b30000;
-
-    font-size: 36px;
-
-    font-weight: 900;
-
-    text-align: center;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.08);
-
-}
-
-
-/* =========================================================
-   ORDER GRID
-========================================================= */
-
-.admin-order-box {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0,1fr));
-
-    gap: 22px;
-
-}
-
-
-/* =========================================================
-   ORDER CARD
-========================================================= */
-
-.admin-order-card {
-
-    position: relative;
-
-    padding: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff8f8
-        );
-
-    border: 1px solid rgba(196,0,0,.15);
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.08);
-
-    overflow: hidden;
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
-
-}
-
-
-.admin-order-card::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 6px;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #ff0000,
-            #c40000,
-            #ffb703
-        );
-
-}
-
-
-.admin-order-card:hover {
-
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 18px 40px rgba(196,0,0,.15);
-
-}
-
-
-.admin-order-card h2 {
-
-    margin: 0 0 20px;
-
-    padding-bottom: 15px;
-
-    border-bottom:
-        2px solid #f1dada;
-
-    color: #b30000;
-
-    font-size: 22px;
-
-    overflow-wrap: anywhere;
-
-}
-
-
-.admin-order-card h3 {
-
-    margin: 22px 0 10px;
-
-    color: #222;
-
-    font-size: 18px;
-
-}
-
-
-.admin-order-card p {
-
-    margin: 8px 0;
-
-    padding: 11px 13px;
-
-    background: #fff;
-
-    border-radius: 10px;
-
-    border: 1px solid #eee;
-
-    color: #444;
-
-    font-size: 14px;
-
-}
-
-
-.admin-order-card strong {
-
-    color: #c40000;
-
-}
-
-
-/* =========================================================
-   ADMIN BUTTONS
-========================================================= */
-
-.admin-order-card button {
-
-    border: none;
-
-    border-radius: 10px;
-
-    padding: 11px 15px;
-
-    margin: 7px 5px 0 0;
-
-    color: white;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: .2s ease;
-
-}
-
-
-.admin-order-card button:nth-of-type(1) {
-
-    background: #16a34a;
-
-}
-
-
-.admin-order-card button:nth-of-type(2) {
-
-    background: #2563eb;
-
-}
-
-
-.admin-order-card button:nth-of-type(3) {
-
-    background: #7c3aed;
-
-}
-
-
-.admin-order-card button:nth-of-type(4) {
-
-    background: #059669;
-
-}
-
-
-.admin-order-card button:nth-of-type(5) {
-
-    background: #dc2626;
-
-}
-
-
-.admin-order-card button:hover {
-
-    transform: translateY(-2px);
-
-    filter: brightness(1.06);
-
-}
-
-
-/* Empty Orders */
-
-.admin-order-box > h2 {
-
-    grid-column: 1 / -1;
-
-    padding: 60px 20px;
-
-    text-align: center;
-
-    background: white;
-
-    border-radius: 20px;
-
-    color: #777;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.07);
-
-}
-
-
-/* =========================================================
-   ⏳ PAGE LOADING
-========================================================= */
-
-#page-loading {
-
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            #090000,
-            #650000,
-            #c40000
-        );
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    z-index: 999999;
-
-    opacity: 1;
-
-    visibility: visible;
-
-    transition:
-        opacity .5s ease,
-        visibility .5s ease;
-
-}
-
-
-#page-loading.hide {
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    pointer-events: none;
-
-}
-
-
-.loading-content {
-
-    color: white;
-
-    animation:
-        loadingAppear .7s ease;
-
-}
-
-
-.loading-logo {
-
-    font-size: 65px;
-
-    margin-bottom: 15px;
-
-    animation:
-        loadingFloat 1.5s ease-in-out infinite;
-
-}
-
-
-.page-loader {
-
-    width: 58px;
-    height: 58px;
-
-    margin: 0 auto 20px;
-
-    border-radius: 50%;
-
-    border:
-        6px solid rgba(255,255,255,.25);
-
-    border-top-color: #ffb703;
-
-    border-right-color: white;
-
-    animation:
-        pageSpin .8s linear infinite;
-
-    box-shadow:
-        0 0 25px rgba(255,183,3,.35);
-
-}
-
-
-.loading-content h2 {
-
-    margin: 8px 0;
-
-    font-size: 28px;
-
-    font-weight: 900;
-
-    letter-spacing: 2px;
-
-}
-
-
-.loading-content p {
-
-    margin: 0;
-
-    color: #ffe4e4;
-
-    font-size: 16px;
-
-    animation:
-        loadingPulse 1.2s ease-in-out infinite;
-
-}
-
-
-/* =========================================================
-   📱 MOBILE ADMIN
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .admin-page header {
-
-        padding: 15px 18px;
-
-        flex-direction: column;
-
-        gap: 12px;
-
-        text-align: center;
-
-    }
-
-
-    .admin-page header .logo {
-
-        font-size: 22px;
-
-    }
-
-
-    .admin-page header nav {
-
-        flex-wrap: wrap;
-
-        justify-content: center;
-
-    }
-
-
-    .admin-actions {
-
-        padding: 15px 15px 0;
-
-    }
-
-
-    .admin-logout-btn {
-
-        width: 100%;
-
-    }
-
-
-    .admin-page .orders {
-
-        width: calc(100% - 24px);
-
-        padding: 0;
-
-        margin-top: 25px;
-
-    }
-
-
-    .admin-page .orders > h1 {
-
-        font-size: 27px;
-
-        padding: 20px;
-
-    }
-
-
-    .admin-order-box {
-
-        grid-template-columns: 1fr;
-
-        gap: 16px;
-
-    }
-
-
-    .admin-order-card {
-
-        padding: 20px 16px;
-
-    }
-
-
-    .admin-order-card h2 {
-
-        font-size: 19px;
-
-    }
-
-
-    .admin-order-card button {
-
-        width: 100%;
-
-        margin: 5px 0;
-
-        padding: 12px;
-
-    }
-
-
-    .owner-login-box {
-
-        width: calc(100% - 30px);
-
-        padding: 30px 20px;
-
-    }
-
-
-    .loading-logo {
-
-        font-size: 55px;
-
-    }
-
-
-    .page-loader {
-
-        width: 50px;
-
-        height: 50px;
-
-    }
-
-
-    .loading-content h2 {
-
-        font-size: 24px;
-
-    }
-
-}
-
-
-/* =========================================================
-   📱 SMALL MOBILE
-========================================================= */
-
-@media (max-width: 430px) {
-
-    .loading-content h2 {
-
-        font-size: 22px;
-
-    }
-
-
-    .loading-content p {
-
-        font-size: 14px;
-
-    }
-
-
-    .admin-page .orders > h1 {
-
-        font-size: 24px;
-
-    }
-
-}
-
-
-/* =========================================================
-   ✨ ANIMATIONS
-========================================================= */
-
-@keyframes ownerLoginAppear {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(25px)
-            scale(.96);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-    }
-
-}
-
-
-@keyframes pageSpin {
-
-    from {
-
-        transform: rotate(0deg);
-
-    }
-
-    to {
-
-        transform: rotate(360deg);
-
-    }
-
-}
-
-
-@keyframes loadingFloat {
-
-    0%, 100% {
-
-        transform: translateY(0);
-
+@keyframes cubeFloat {
+    0%,
+    100% {
+        transform: rotate(45deg) translateY(0);
     }
 
     50% {
-
-        transform: translateY(-10px);
-
+        transform: rotate(55deg) translateY(-18px);
     }
-
 }
 
-
-@keyframes loadingPulse {
-
-    0%, 100% {
-
-        opacity: .5;
-
-    }
-
-    50% {
-
-        opacity: 1;
-
-    }
-
-}
-
-
-@keyframes loadingAppear {
-
-    from {
-
-        opacity: 0;
-
-        transform: scale(.85);
-
-    }
-
-    to {
-
-        opacity: 1;
-
+@keyframes heroGlow {
+    0%,
+    100% {
+        opacity: .20;
         transform: scale(1);
-
     }
 
-}
-/* =========================================
-   🛒 HIDE MINI CART BOX ON HOMEPAGE
-========================================= */
-
-body:has(.hero) #cartBox {
-    display: none !important;
-}
-/* =========================================
-   🔒 HIDE UI ELEMENTS UNTIL JAVASCRIPT OPENS THEM
-========================================= */
-
-#toast {
-    display: none;
-}
-
-#shop-loading {
-    display: none;
-}
-
-#contact-popup {
-    display: none;
-}
-/* =========================================================
-   🟥 MH CUBES — PREMIUM FOOTER
-   NO CARDS / NO BOXES
-========================================================= */
-
-.footer {
-    position: relative;
-    padding: 65px 30px 0;
-
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(255,45,45,.18),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(255,183,3,.10),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #090000,
-            #350000,
-            #850000
-        );
-
-    color: white;
-}
-
-
-/* FOOTER CONTENT */
-
-.footer-container {
-    max-width: 1150px;
-    margin: 0 auto;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap: 45px;
-}
-
-
-/* NO CARD / BOX */
-
-.footer-about,
-.footer-links,
-.footer-contact,
-.footer-social {
-    padding: 0;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    backdrop-filter: none;
-}
-
-
-/* HEADINGS */
-
-.footer h2,
-.footer h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-
-    color: white;
-    font-weight: 900;
-}
-
-.footer h2 {
-    font-size: 24px;
-}
-
-.footer h3 {
-    font-size: 18px;
-}
-
-
-/* TEXT */
-
-.footer p {
-    color: #f3dede;
-    line-height: 1.7;
-    font-size: 14px;
-}
-
-
-/* QUICK LINKS — VERTICAL */
-
-.footer-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.footer-links a {
-    display: block;
-
-    width: fit-content;
-
-    margin: 8px 0;
-
-    color: #ffecec;
-
-    text-decoration: none;
-
-    font-weight: 600;
-
-    transition:
-        color .25s ease,
-        transform .25s ease;
-}
-
-.footer-links a:hover {
-    color: #ffb703;
-    transform: translateX(5px);
-}
-
-
-/* CONTACT */
-
-.footer-contact a {
-    color: #ffecec;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-
-/* CONTACT PHONE */
-
-.footer .phone-number {
-    cursor: pointer;
-
-    transition:
-        color .25s ease,
-        transform .25s ease;
-}
-
-.footer .phone-number:hover {
-    color: #ffb703;
-    transform: translateX(5px);
+    50% {
+        opacity: .35;
+        transform: scale(1.12);
+    }
 }
 
 
 /* =========================================================
-   📷 INSTAGRAM
-========================================================= */
-
-.footer-social {
-    text-align: center;
-}
-
-.footer-social h3 {
-    margin-bottom: 18px;
-}
-
-
-/* INSTAGRAM BUTTON */
-
-.footer-social a {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    padding: 11px 20px;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #f58529,
-            #dd2a7b,
-            #8134af,
-            #515bd4
-        );
-
-    color: white !important;
-
-    text-decoration: none;
-
-    font-weight: 800;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.25);
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease;
-}
-
-.footer-social a:hover {
-    color: white !important;
-
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 12px 28px rgba(0,0,0,.35);
-}
-
-
-/* =========================================================
-   FOOTER BOTTOM
-========================================================= */
-
-.footer-bottom {
-    max-width: 1150px;
-
-    margin: 40px auto 0;
-
-    padding: 20px 0;
-
-    text-align: center;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.12);
-}
-
-.footer-bottom p {
-    margin: 0;
-
-    color: #d9bcbc;
-
-    font-size: 13px;
-}
-
-
-/* =========================================================
-   📱 MOBILE FOOTER
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .footer {
-        padding: 50px 25px 0;
-    }
-
-    .footer-container {
-        grid-template-columns: 1fr;
-        gap: 35px;
-    }
-
-    .footer-social {
-        text-align: center;
-    }
-
-}
-/* =========================================================
-   ⭐ MH CUBES — PREMIUM WHY CHOOSE SECTION
-========================================================= */
-
-.why-choose {
-    position: relative;
-    padding: 75px 25px;
-
-    background:
-        radial-gradient(
-            circle at 10% 20%,
-            rgba(196,0,0,.08),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 90% 80%,
-            rgba(255,183,3,.10),
-            transparent 30%
-        ),
-        linear-gradient(
-            135deg,
-            #fff,
-            #fff7f7
-        );
-}
-
-
-/* SECTION TITLE */
-
-.why-choose .section-title {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-
-.why-choose .section-title h2 {
-    margin: 0 0 10px;
-
-    color: #b30000;
-
-    font-size: 36px;
-    font-weight: 900;
-}
-
-
-.why-choose .section-title p {
-    margin: 0;
-
-    color: #666;
-
-    font-size: 16px;
-}
-
-
-/* WHY CARDS CONTAINER */
-
-.why-container {
-    max-width: 1100px;
-    margin: 0 auto;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap: 20px;
-}
-
-
-/* WHY CARD */
-
-.why-box {
-    position: relative;
-
-    padding: 30px 22px;
-
-    text-align: center;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border: 1px solid
-        rgba(196,0,0,.12);
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.08);
-
-    cursor: pointer;
-
-    overflow: hidden;
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease,
-        border-color .3s ease;
-}
-
-
-/* TOP ACCENT */
-
-.why-box::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703,
-            #c40000
-        );
-
-    transform: scaleX(0);
-
-    transition: .3s ease;
-}
-
-
-/* HOVER */
-
-.why-box:hover {
-    transform: translateY(-8px);
-
-    border-color:
-        rgba(196,0,0,.25);
-
-    box-shadow:
-        0 20px 40px
-        rgba(196,0,0,.14);
-}
-
-
-.why-box:hover::before {
-    transform: scaleX(1);
-}
-
-
-/* ICON */
-
-.why-icon {
-    width: 70px;
-    height: 70px;
-
-    margin: 0 auto 18px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    font-size: 32px;
-
-    box-shadow:
-        0 10px 25px
-        rgba(196,0,0,.22);
-
-    transition:
-        transform .3s ease;
-}
-
-
-.why-box:hover .why-icon {
-    transform:
-        translateY(-4px)
-        scale(1.08);
-}
-
-
-/* CARD TITLE */
-
-.why-box h3 {
-    margin: 0 0 10px;
-
-    color: #222;
-
-    font-size: 19px;
-
-    font-weight: 900;
-}
-
-
-/* CARD TEXT */
-
-.why-box p {
-    margin: 0;
-
-    color: #666;
-
-    font-size: 14px;
-
-    line-height: 1.6;
-}
-
-
-/* DETAILS BOX */
-
-.why-details {
-    max-width: 750px;
-
-    margin: 35px auto 0;
-
-    padding: 25px;
-
-    text-align: center;
-
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid
-        rgba(196,0,0,.12);
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.07);
-
-    transition: .3s ease;
-}
-
-
-.why-details h3 {
-    margin: 0 0 8px;
-
-    color: #b30000;
-
-    font-size: 20px;
-}
-
-
-.why-details p {
-    margin: 0;
-
-    color: #666;
-
-    line-height: 1.6;
-}
-
-
-/* =========================================================
-   📱 MOBILE
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .why-container {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-
-}
-
-
-@media (max-width: 550px) {
-
-    .why-choose {
-        padding:
-            55px 15px;
-    }
-
-    .why-choose .section-title h2 {
-        font-size: 28px;
-    }
-
-    .why-container {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .why-box {
-        padding: 25px 20px;
-    }
-
-}
-/* =========================================================
-   📷 INSTAGRAM BUTTON
-========================================================= */
-
-.footer-social {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.footer-social h3 {
-    text-align: center;
-}
-
-.instagram-btn {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-
-    gap: 9px;
-
-    margin: 8px auto 0 !important;
-
-    padding: 10px 18px;
-
-    border-radius: 10px;
-
-    background: #000;
-color: white !important;
-
-    text-decoration: none;
-
-    font-weight: 700;
-
-    transition: .25s ease;
-}
-
-.instagram-icon {
-    width: 22px;
-    height: 22px;
-
-    flex-shrink: 0;
-}
-
-.instagram-btn:hover {
-    transform: translateY(-3px) !important;
-
-    box-shadow:
-        0 8px 20px rgba(221,42,123,.30);
-}
-/* =========================================================
-   📞 MH CUBES — PREMIUM CONTACT POPUP
-========================================================= */
-
-.contact-popup {
-    position: fixed !important;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    box-sizing: border-box;
-
-    background: rgba(0, 0, 0, 0.70);
-
-    backdrop-filter: blur(8px);
-
-    z-index: 99999;
-}
-
-
-/* SHOW POPUP */
-
-.contact-popup.show {
-    display: flex !important;
-}
-
-
-/* POPUP BOX */
-
-.contact-box {
-    position: relative;
-
-    width: 380px;
-    max-width: 100%;
-
-    padding: 35px 30px;
-
-    box-sizing: border-box;
-
-    text-align: center;
-
-    border-radius: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border: 2px solid rgba(255, 183, 3, 0.35);
-
-    box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.45),
-        0 0 35px rgba(255, 183, 3, 0.15);
-
-    animation: contactPopupAppear .35s ease;
-}
-
-
-/* TOP GLOW */
-
-.contact-box::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 25px;
-    right: 25px;
-
-    height: 4px;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703,
-            #c40000
-        );
-}
-
-
-/* TITLE */
-
-.contact-box h2 {
-    margin: 5px 0 10px;
-
-    color: #b30000;
-
-    font-size: 26px;
-
-    font-weight: 900;
-}
-
-
-/* DESCRIPTION */
-
-.contact-box p {
-    margin-bottom: 25px;
-
-    color: #666;
-
-    font-size: 15px;
-}
-
-
-/* CONTACT BUTTONS */
-
-.contact-box .popup-btn {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 14px;
-
-    margin: 10px 0;
-
-    border-radius: 13px;
-
-    text-decoration: none;
-
-    font-size: 16px;
-
-    font-weight: 800;
-
-    transition: .25s ease;
-}
-
-
-/* TEXT BUTTON */
-
-.contact-box .popup-btn:first-of-type {
-    background:
-        linear-gradient(
-            135deg,
-            #111,
-            #333
-        );
-
-    color: white;
-}
-
-
-/* CALL BUTTON */
-
-.contact-box .popup-btn:nth-of-type(2) {
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    box-shadow:
-        0 8px 20px rgba(196, 0, 0, .20);
-}
-
-
-/* BUTTON HOVER */
-
-.contact-box .popup-btn:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 12px 25px rgba(0, 0, 0, .20);
-}
-
-
-/* CLOSE BUTTON */
-
-.contact-box .close-popup {
-    width: 100%;
-
-    padding: 12px;
-
-    margin-top: 12px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background: #eeeeee;
-
-    color: #444;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: .25s ease;
-}
-
-
-.contact-box .close-popup:hover {
-    background: #dddddd;
-
-    transform: translateY(-2px);
-}
-
-
-/* ANIMATION */
-
-@keyframes contactPopupAppear {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(20px)
-            scale(.94);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-
-}
-
-
-/* MOBILE */
-
-@media (max-width: 500px) {
-
-    .contact-box {
-        width: 100%;
-
-        padding: 30px 22px;
-
-        border-radius: 22px;
-    }
-
-    .contact-box h2 {
-        font-size: 23px;
-    }
-
-}
-.contact-popup.closing .contact-box {
-    animation: contactPopupClose .3s ease forwards;
-}
-
-@keyframes contactPopupClose {
-
-    from {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-
-    to {
-        opacity: 0;
-        transform: translateY(20px) scale(.94);
-    }
-
-}
-/* =========================================================
-   📧 FOOTER EMAIL
-========================================================= */
-
-.footer-email {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.gmail-link {
-    color: #ffecec !important;
-    text-decoration: none;
-    font-weight: 600;
-    transition: .25s ease;
-}
-
-.gmail-link:hover {
-    color: #ffb703 !important;
-    transform: translateX(4px);
-}
-
-.gmail-icon {
-    font-size: 17px;
-}
-/* =========================================================
-   🛒 MH CUBES — PREMIUM CART SUCCESS TOAST
-========================================================= */
-
-#toast {
-    position: fixed;
-
-    left: 50%;
-    bottom: 30px;
-
-    transform: translateX(-50%) translateY(25px) scale(.95);
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 15px 24px;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #090000,
-            #5c0000,
-            #c40000
-        );
-
-    color: white;
-
-    border: 1px solid rgba(255,183,3,.35);
-
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.40),
-        0 0 20px rgba(255,183,3,.15);
-
-    font-size: 15px;
-    font-weight: 800;
-
-    opacity: 0;
-    visibility: hidden;
-
-    pointer-events: none;
-
-    z-index: 99999;
-
-    transition:
-        opacity .3s ease,
-        transform .3s ease,
-        visibility .3s ease;
-}
-
-
-/* GOLD TOP LINE */
-
-#toast::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 18px;
-    right: 18px;
-
-    height: 3px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff0000,
-            #ffb703,
-            #ff0000
-        );
-}
-
-
-/* SHOW */
-
-#toast.show {
-    opacity: 1;
-
-    visibility: visible;
-
-    transform:
-        translateX(-50%)
-        translateY(0)
-        scale(1);
-}
-
-
-/* MOBILE */
-
-@media (max-width: 500px) {
-
-    #toast {
-        width: calc(100% - 40px);
-
-        justify-content: center;
-
-        box-sizing: border-box;
-
-        bottom: 20px;
-
-        font-size: 14px;
-
-        text-align: center;
-    }
-
-}
-/* =========================================================
-   🛒 MH CUBES — PREMIUM CART PAGE
-========================================================= */
-
-.cart {
-    max-width: 1150px;
-    margin: 45px auto 70px;
-    padding: 0 20px;
-}
-
-.cart > h1 {
-    margin: 0 0 30px;
-    padding: 25px;
-
-    text-align: center;
-
-    color: #b30000;
-    font-size: 36px;
-    font-weight: 900;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border-radius: 20px;
-
-    border: 1px solid rgba(196, 0, 0, .12);
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, .08);
-}
-
-
-/* =========================================================
-   CART LAYOUT
-========================================================= */
-
-.cart-layout {
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        350px;
-
-    gap: 25px;
-
-    align-items: start;
-}
-
-
-/* =========================================================
-   CART ITEMS AREA
-========================================================= */
-
-#cart-items {
-    display: flex;
-    flex-direction: column;
-
-    gap: 16px;
-}
-
-
-/* =========================================================
-   INDIVIDUAL CART ITEM
-========================================================= */
-
-#cart-items > div {
-    position: relative;
-
-    display: grid;
-
-    grid-template-columns:
-        90px
-        minmax(0, 1fr)
-        auto;
-
-    align-items: center;
-
-    gap: 18px;
-
-    padding: 18px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff8f8
-        );
-
-    border: 1px solid
-        rgba(196, 0, 0, .12);
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, .07);
-
-    overflow: hidden;
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        border-color .25s ease;
-}
-
-
-/* LEFT RED ACCENT */
-
-#cart-items > div::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    top: 0;
-
-    width: 5px;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #ff0000,
-            #c40000,
-            #ffb703
-        );
-}
-
-
-/* HOVER */
-
-#cart-items > div:hover {
-    transform: translateY(-4px);
-
-    border-color:
-        rgba(196, 0, 0, .25);
-
-    box-shadow:
-        0 15px 35px rgba(196, 0, 0, .12);
-}
-
-
-/* =========================================================
-   PRODUCT IMAGE
-========================================================= */
-
-.cart-image {
-    width: 90px;
-    height: 90px;
-
-    object-fit: contain;
-
-    border-radius: 14px;
-
-    background: white;
-
-    border: 1px solid #eee;
-
-    padding: 5px;
-
-    box-sizing: border-box;
-
-    transition:
-        transform .25s ease;
-}
-
-
-#cart-items > div:hover .cart-image {
-    transform:
-        scale(1.05);
-}
-
-
-/* =========================================================
-   PRODUCT INFO
-========================================================= */
-
-.cart-info {
-    min-width: 0;
-}
-
-
-.cart-info h3 {
-    margin: 0 0 8px;
-
-    color: #222;
-
-    font-size: 18px;
-    font-weight: 900;
-
-    overflow-wrap: anywhere;
-}
-
-
-.cart-info p {
-    margin: 0;
-
-    color: #c40000;
-
-    font-size: 15px;
-
-    font-weight: 800;
-}
-
-
-/* =========================================================
-   CART CONTROLS
-========================================================= */
-
-.cart-controls {
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-}
-
-
-.cart-controls button {
-    width: 38px;
-    height: 38px;
-
-    padding: 0;
-
-    border: none;
-
-    border-radius: 9px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 18px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    transition:
-        transform .2s ease,
-        filter .2s ease;
-}
-
-
-.cart-controls button:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.08);
-}
-
-
-/* QUANTITY NUMBER */
-
-.cart-controls span {
-    min-width: 28px;
-
-    text-align: center;
-
-    color: #222;
-
-    font-size: 16px;
-
-    font-weight: 900;
-}
-
-
-/* REMOVE BUTTON */
-
-.cart-controls button:last-child {
-    background:
-        linear-gradient(
-            135deg,
-            #dc2626,
-            #991b1b
-        );
-
-    margin-left: 5px;
-}
-
-
-/* =========================================================
-   ORDER SUMMARY
-========================================================= */
-
-.summary {
-    position: sticky;
-
-    top: 20px;
-
-    padding: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border-radius: 20px;
-
-    border: 1px solid
-        rgba(196, 0, 0, .14);
-
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, .09);
-
-    overflow: hidden;
-}
-
-
-/* GOLD TOP LINE */
-
-.summary::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 25px;
-    right: 25px;
-
-    height: 4px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703,
-            #c40000
-        );
-}
-
-
-.summary h2 {
-    margin: 5px 0 20px;
-
-    color: #b30000;
-
-    font-size: 23px;
-
-    font-weight: 900;
-}
-
-
-#summary-total {
-    margin: 0 0 22px;
-
-    padding: 15px;
-
-    border-radius: 12px;
-
-    background: #fff;
-
-    border: 1px solid #f1dada;
-
-    color: #222;
-
-    font-size: 18px;
-
-    font-weight: 900;
-
-    text-align: center;
-}
-
-
-/* =========================================================
-   CHECKOUT BUTTON
-========================================================= */
-
-.summary a {
-    display: block;
-
-    text-decoration: none;
-}
-
-
-.summary a button {
-    width: 100%;
-
-    padding: 14px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(196, 0, 0, .25);
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        filter .25s ease;
-}
-
-
-.summary a button:hover {
-    transform: translateY(-3px);
-
-    filter: brightness(1.06);
-
-    box-shadow:
-        0 13px 28px rgba(196, 0, 0, .30);
-}
-
-
-/* =========================================================
-   EMPTY CART
-========================================================= */
-
-#cart-items:has(> :only-child) {
-    min-height: 150px;
-}
-
-
-/* =========================================================
-   📱 CART MOBILE
-========================================================= */
-
-@media (max-width: 850px) {
-
-    .cart-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .summary {
-        position: relative;
-        top: auto;
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    .cart {
-        width: calc(100% - 24px);
-
-        margin: 25px auto 50px;
-
-        padding: 0;
-    }
-
-    .cart > h1 {
-        padding: 20px;
-
-        font-size: 28px;
-    }
-
-    #cart-items > div {
-        grid-template-columns:
-            70px
-            minmax(0, 1fr);
-
-        gap: 14px;
-
-        padding: 16px;
-    }
-
-    .cart-image {
-        width: 70px;
-        height: 70px;
-    }
-
-    .cart-info h3 {
-        font-size: 16px;
-    }
-
-    .cart-controls {
-        grid-column: 1 / -1;
-
-        justify-content: center;
-
-        padding-top: 5px;
-    }
-
-    .cart-controls button {
-        width: 42px;
-        height: 42px;
-    }
-
-    .summary {
-        padding: 22px 18px;
-    }
-
-}
-
-
-@media (max-width: 400px) {
-
-    .cart > h1 {
-        font-size: 24px;
-    }
-
-    .summary h2 {
-        font-size: 21px;
-    }
-
-}
-/* =========================================================
-   🛒 MH CUBES — PREMIUM CHECKOUT PAGE
-========================================================= */
-
-.checkout {
-    max-width: 900px;
-    margin: 45px auto 70px;
-    padding: 0 20px;
-}
-
-
-/* =========================================================
-   CHECKOUT TITLE
-========================================================= */
-
-.checkout > h1 {
-    margin: 0 0 30px;
-    padding: 25px;
-
-    text-align: center;
-
-    color: #b30000;
-
-    font-size: 36px;
-    font-weight: 900;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border-radius: 20px;
-
-    border: 1px solid
-        rgba(196, 0, 0, .12);
-
-    box-shadow:
-        0 10px 30px
-        rgba(0, 0, 0, .08);
-}
-
-
-/* =========================================================
-   MAIN CHECKOUT BOX
-========================================================= */
-
-.checkout-box {
-    position: relative;
-
-    padding: 35px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border-radius: 24px;
-
-    border: 1px solid
-        rgba(196, 0, 0, .14);
-
-    box-shadow:
-        0 18px 50px
-        rgba(0, 0, 0, .10);
-
-    overflow: hidden;
-}
-
-
-/* TOP ACCENT */
-
-.checkout-box::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 35px;
-    right: 35px;
-
-    height: 5px;
-
-    border-radius: 0 0 10px 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703,
-            #c40000
-        );
-}
-
-
-/* =========================================================
-   SECTION HEADINGS
-========================================================= */
-
-.checkout-box h2 {
-    margin: 28px 0 16px;
-
-    padding-bottom: 10px;
-
-    color: #b30000;
-
-    font-size: 21px;
-
-    font-weight: 900;
-
-    border-bottom:
-        2px solid #f1dada;
-}
-
-
-/* First heading */
-
-.checkout-box h2:first-child {
-    margin-top: 5px;
-}
-
-
-/* =========================================================
-   CUSTOMER INPUTS
-========================================================= */
-
-.checkout-box input[type="text"],
-.checkout-box input[type="tel"],
-.checkout-box textarea {
-
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 14px 16px;
-
-    margin: 7px 0;
-
-    border: 2px solid #eeeeee;
-
-    border-radius: 12px;
-
-    background: #ffffff;
-
-    color: #222;
-
-    font-size: 15px;
-
-    outline: none;
-
-    transition:
-        border-color .25s ease,
-        box-shadow .25s ease,
-        transform .25s ease;
-}
-
-
-.checkout-box input[type="text"]:focus,
-.checkout-box input[type="tel"]:focus,
-.checkout-box textarea:focus {
-
-    border-color: #ffb703;
-
-    box-shadow:
-        0 0 0 4px
-        rgba(255, 183, 3, .12);
-
-    transform:
-        translateY(-1px);
-}
-
-
-.checkout-box textarea {
-
-    min-height: 110px;
-
-    resize: vertical;
-
-    font-family: Arial, sans-serif;
-}
-
-
-/* =========================================================
-   PHONE MESSAGE
-========================================================= */
-
-#phone-message {
-
-    display: block;
-
-    min-height: 18px;
-
-    margin: 2px 4px 8px;
-
-    color: #c40000;
-
-    font-size: 13px;
-
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   PAYMENT OPTIONS
-========================================================= */
-
-.payment-options {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 12px;
-
-}
-
-
-/* PAYMENT CARD */
-
-.payment-card {
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    min-height: 62px;
-
-    padding: 12px 14px;
-
-    box-sizing: border-box;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff8f8
-        );
-
-    border: 2px solid #eeeeee;
-
-    cursor: pointer;
-
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
-}
-
-
-.payment-card:hover {
-
-    transform:
-        translateY(-3px);
-
-    border-color:
-        rgba(196, 0, 0, .30);
-
-    box-shadow:
-        0 10px 25px
-        rgba(196, 0, 0, .10);
-}
-
-
-/* RADIO */
-
-.payment-card input[type="radio"] {
-
-    width: 17px;
-    height: 17px;
-
-    margin-right: 9px;
-
-    accent-color: #c40000;
-
-    cursor: pointer;
-}
-
-
-/* PAYMENT TEXT */
-
-.payment-card span {
-
-    color: #333;
-
-    font-size: 14px;
-
-    font-weight: 800;
-}
-
-
-/* DISABLED */
-
-.payment-card.payment-disabled {
-
-    opacity: .55;
-
-    cursor: not-allowed !important;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f5f5f5,
-            #eeeeee
-        );
-}
-
-
-.payment-card.payment-disabled:hover {
-
-    transform: none;
-
-    border-color: #eeeeee;
-
-    box-shadow: none;
-}
-
-
-.payment-disabled input {
-
-    cursor: not-allowed;
-
-}
-
-
-.coming-soon {
-
-    display: block;
-
-    margin-top: 3px;
-
-    color: #dc2626;
-
-    font-size: 11px;
-
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   CHECKOUT ITEMS
-========================================================= */
-
-#checkout-items {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-    margin-top: 5px;
-}
-
-
-#checkout-items > div {
-
-    padding: 14px 16px;
-
-    border-radius: 12px;
-
-    background: #ffffff;
-
-    border: 1px solid #eeeeee;
-
-    color: #333;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    box-shadow:
-        0 5px 15px
-        rgba(0, 0, 0, .04);
-}
-
-
-/* =========================================================
-   TOTAL
-========================================================= */
-
-#checkout-total {
-
-    margin-top: 25px !important;
-
-    padding: 18px;
-
-    border: none !important;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff1f1,
-            #fff8e8
-        );
-
-    color: #b30000 !important;
-
-    font-size: 22px !important;
-
-    text-align: right;
-}
-
-
-/* =========================================================
-   PLACE ORDER
-========================================================= */
-
-.place-order {
-
-    width: 100%;
-
-    margin-top: 18px;
-
-    padding: 16px;
-
-    border: none;
-
-    border-radius: 13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 17px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 10px 25px
-        rgba(196, 0, 0, .25);
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        filter .25s ease;
-}
-
-
-.place-order:hover {
-
-    transform:
-        translateY(-3px);
-
-    filter: brightness(1.06);
-
-    box-shadow:
-        0 15px 32px
-        rgba(196, 0, 0, .32);
-}
-
-
-.place-order:active {
-
-    transform:
-        translateY(0);
-}
-
-
-/* =========================================================
-   💳 PAYMENT LOADING
-========================================================= */
-
-.payment-loading {
-
-    position: fixed;
-
-    inset: 0;
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex-direction: column;
-
-    text-align: center;
-
-    background:
-        rgba(9, 0, 0, .82);
-
-    backdrop-filter: blur(8px);
-
-    z-index: 99998;
-
-    color: white;
-}
-
-
-.payment-loading.show {
-
-    display: flex;
-}
-
-
-.payment-loading .loader {
-
-    width: 55px;
-    height: 55px;
-
-    margin-bottom: 20px;
-
-    border-radius: 50%;
-
-    border:
-        5px solid
-        rgba(255,255,255,.25);
-
-    border-top-color:
-        #ffb703;
-
-    border-right-color:
-        white;
-
-    animation:
-        checkoutSpin .8s linear infinite;
-}
-
-
-.payment-loading h2 {
-
-    margin: 0 0 8px;
-
-    font-size: 24px;
-}
-
-
-.payment-loading p {
-
-    margin: 0;
-
-    color: #ffe4e4;
-}
-
-
-@keyframes checkoutSpin {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-/* =========================================================
-   💳 PAYMENT POPUP
-========================================================= */
-
-.payment-popup {
-
-    position: fixed;
-
-    inset: 0;
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-
-    box-sizing: border-box;
-
-    background:
-        rgba(0, 0, 0, .72);
-
-    backdrop-filter: blur(8px);
-
-    z-index: 99999;
-}
-
-
-.payment-popup.show {
-
-    display: flex;
-}
-
-
-/* POPUP BOX */
-
-.payment-box {
-
-    position: relative;
-
-    width: 430px;
-
-    max-width: 100%;
-
-    padding: 32px;
-
-    box-sizing: border-box;
-
-    border-radius: 23px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border: 2px solid
-        rgba(255,183,3,.35);
-
-    box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.45);
-
-    animation:
-        checkoutPopupAppear .35s ease;
-}
-
-
-/* POPUP TOP LINE */
-
-.payment-box::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 25px;
-    right: 25px;
-
-    height: 4px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703,
-            #c40000
-        );
-}
-
-
-/* CLOSE */
-
-.close-payment {
-
-    position: absolute;
-
-    top: 15px;
-    right: 15px;
-
-    width: 35px;
-    height: 35px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #eeeeee;
-
-    color: #444;
-
-    font-size: 15px;
-
-    cursor: pointer;
-
-    transition: .2s ease;
-}
-
-
-.close-payment:hover {
-
-    background: #dc2626;
-
-    color: white;
-
-    transform: rotate(90deg);
-}
-
-
-/* POPUP TITLE */
-
-#payment-title {
-
-    margin: 5px 40px 20px 0;
-
-    color: #b30000;
-
-    font-size: 25px;
-
-    font-weight: 900;
-}
-
-
-/* WARNING */
-
-.payment-warning {
-
-    margin-bottom: 20px;
-
-    padding: 15px;
-
-    border-radius: 13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff7d6,
-            #fff1b8
-        );
-
-    border:
-        1px solid
-        rgba(255,183,3,.45);
-}
-
-
-.payment-warning h3 {
-
-    margin: 0 0 7px;
-
-    color: #9a6700;
-
-    font-size: 15px;
-}
-
-
-.payment-warning p {
-
-    margin: 0;
-
-    color: #6b5200;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-}
-
-
-/* ACCOUNT DETAILS */
-
-.payment-box > h3 {
-
-    margin: 13px 0 6px;
-
-    color: #333;
-
-    font-size: 15px;
-}
-
-
-#payment-number {
-
-    margin: 0 0 15px;
-
-    padding: 12px;
-
-    border-radius: 10px;
-
-    background: #f8f8f8;
-
-    color: #c40000;
-
-    font-size: 18px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    text-align: center;
-}
-
-
-/* TRANSACTION INPUT */
-
-#transaction-id {
-
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 14px;
-
-    margin-top: 5px;
-
-    border: 2px solid #ddd;
-
-    border-radius: 11px;
-
-    outline: none;
-
-    font-size: 15px;
-
-    transition: .25s ease;
-}
-
-
-#transaction-id:focus {
-
-    border-color: #ffb703;
-
-    box-shadow:
-        0 0 0 4px
-        rgba(255,183,3,.12);
-}
-
-
-/* POPUP BUTTONS */
-
-.payment-buttons {
-
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 18px;
-}
-
-
-.payment-buttons button {
-
-    flex: 1;
-
-    padding: 13px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    color: white;
-
-    font-size: 14px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    transition: .25s ease;
-}
-
-
-.confirm-btn {
-
-    background:
-        linear-gradient(
-            135deg,
-            #16a34a,
-            #22c55e
-        );
-
-    box-shadow:
-        0 7px 18px
-        rgba(22,163,74,.20);
-}
-
-
-.cancel-btn {
-
-    background:
-        linear-gradient(
-            135deg,
-            #dc2626,
-            #991b1b
-        );
-}
-
-
-.payment-buttons button:hover {
-
-    transform:
-        translateY(-2px);
-
-    filter: brightness(1.06);
-}
-
-
-@keyframes checkoutPopupAppear {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(20px)
-            scale(.94);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-    }
-
-}
-
-
-/* =========================================================
-   📱 CHECKOUT MOBILE
-========================================================= */
-
-@media (max-width: 750px) {
-
-    .checkout {
-
-        width: calc(100% - 24px);
-
-        margin: 25px auto 50px;
-
-        padding: 0;
-    }
-
-
-    .checkout > h1 {
-
-        padding: 20px;
-
-        font-size: 28px;
-    }
-
-
-    .checkout-box {
-
-        padding: 25px 18px;
-
-        border-radius: 20px;
-    }
-
-
-    .checkout-box::before {
-
-        left: 20px;
-        right: 20px;
-    }
-
-
-    .payment-options {
-
-        grid-template-columns: 1fr;
-    }
-
-
-    .payment-card {
-
-        min-height: 58px;
-    }
-
-
-    #checkout-total {
-
-        font-size: 20px !important;
-    }
-
-
-    .payment-box {
-
-        padding: 28px 20px;
-    }
-
-}
-
-
-@media (max-width: 450px) {
-
-    .checkout > h1 {
-
-        font-size: 24px;
-    }
-
-
-    .checkout-box h2 {
-
-        font-size: 19px;
-    }
-
-
-    .payment-buttons {
-
-        flex-direction: column;
-    }
-
-
-    .payment-buttons button {
-
-        width: 100%;
-    }
-
-}
-/* =========================================================
-   🛒 MH CUBES — PREMIUM CHECKOUT PRODUCTS
-========================================================= */
-
-.checkout-product {
-
-    display: flex;
-    align-items: center;
-    gap: 18px;
-
-    padding: 18px;
-
-    margin-bottom: 14px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid rgba(196, 0, 0, .12);
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 8px 22px rgba(0, 0, 0, .06);
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        border-color .25s ease;
-}
-
-
-.checkout-product:hover {
-
-    transform: translateY(-3px);
-
-    border-color:
-        rgba(196, 0, 0, .25);
-
-    box-shadow:
-        0 14px 30px rgba(196, 0, 0, .12);
-}
-
-
-/* PRODUCT IMAGE */
-
-.checkout-product-image {
-
-    width: 95px;
-    height: 95px;
-
-    flex-shrink: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 15px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #f8eeee
-        );
-
-    border: 1px solid #ead5d5;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 6px 16px rgba(0, 0, 0, .08);
-}
-
-
-.checkout-product-image img {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-
-    padding: 8px;
-
-    box-sizing: border-box;
-
-    transition:
-        transform .3s ease;
-}
-
-
-.checkout-product:hover
-.checkout-product-image img {
-
-    transform: scale(1.08);
-}
-
-
-/* PRODUCT INFORMATION */
-
-.checkout-product-info {
-
-    flex: 1;
-
-    min-width: 0;
-}
-
-
-.checkout-product-info h3 {
-
-    margin: 0 0 7px;
-
-    color: #222;
-
-    font-size: 18px;
-
-    font-weight: 900;
-
-    overflow-wrap: anywhere;
-}
-
-
-.checkout-product-price {
-
-    margin: 0 0 12px;
-
-    color: #c40000;
-
-    font-size: 15px;
-
-    font-weight: 800;
-}
-
-
-/* QUANTITY */
-
-.checkout-quantity {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-}
-
-
-.checkout-quantity button {
-
-    width: 34px;
-    height: 34px;
-
-    padding: 0;
-
-    border: none;
-
-    border-radius: 9px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 20px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    transition: .2s ease;
-}
-
-
-.checkout-quantity button:hover {
-
-    transform: translateY(-2px);
-
-    filter: brightness(1.08);
-
-}
-
-
-.checkout-quantity span {
-
-    min-width: 25px;
-
-    text-align: center;
-
-    color: #222;
-
-    font-size: 16px;
-
-    font-weight: 900;
-}
-
-
-/* SUBTOTAL */
-
-.checkout-product-total {
-
-    min-width: 105px;
-
-    text-align: right;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 5px;
-}
-
-
-.checkout-product-total span {
-
-    color: #888;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    text-transform: uppercase;
-
-    letter-spacing: .5px;
-}
-
-
-.checkout-product-total strong {
-
-    color: #b30000;
-
-    font-size: 16px;
-
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   📱 CHECKOUT MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-    .checkout-product {
-
-        align-items: flex-start;
-
-        gap: 13px;
-
-        padding: 14px;
-    }
-
-
-    .checkout-product-image {
-
-        width: 75px;
-        height: 75px;
-    }
-
-
-    .checkout-product-info h3 {
-
-        font-size: 16px;
-    }
-
-
-    .checkout-product-price {
-
-        font-size: 14px;
-    }
-
-
-    .checkout-quantity button {
-
-        width: 31px;
-        height: 31px;
-
-        font-size: 18px;
-    }
-
-
-    .checkout-product-total {
-
-        display: none;
-    }
-
-}
-
-
-@media (max-width: 400px) {
-
-    .checkout-product-image {
-
-        width: 65px;
-        height: 65px;
-    }
-
-
-    .checkout-product {
-
-        gap: 10px;
-    }
-
-
-    .checkout-product-info h3 {
-
-        font-size: 15px;
-    }
-
-}
-/* =========================================================
-   ⚙️ MH CUBES — PREMIUM SETTINGS PAGE
-========================================================= */
-
-.settings-page {
-    max-width: 900px;
-    margin: 45px auto 70px;
-    padding: 0 20px;
-}
-
-.settings-page > h1 {
-    margin: 0 0 30px;
-    padding: 28px;
-
-    text-align: center;
-
-    color: #b30000;
-    font-size: 36px;
-    font-weight: 900;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border: 1px solid rgba(196, 0, 0, .12);
-    border-radius: 20px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, .08);
-}
-
-
-/* SETTINGS BOX */
-
-.settings-box {
-    position: relative;
-
-    margin-bottom: 20px;
-    padding: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid rgba(196, 0, 0, .12);
-    border-radius: 20px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, .07);
-
-    overflow: hidden;
-
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease;
-}
-
-
-/* GOLD/RED ACCENT */
-
-.settings-box::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 5px;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #c40000,
-            #ffb703
-        );
-}
-
-
-.settings-box:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 16px 35px rgba(196, 0, 0, .12);
-}
-
-
-/* HEADINGS */
-
-.settings-box h2 {
-    margin: 0 0 8px;
-
-    color: #b30000;
-
-    font-size: 21px;
-    font-weight: 900;
-}
-
-
-.settings-box p {
-    margin: 0 0 18px;
-
-    color: #666;
-
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-
-/* SETTINGS BUTTONS */
-
-.settings-box button {
-    padding: 12px 18px;
-
-    border: none;
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 14px;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 7px 18px rgba(196, 0, 0, .20);
-
-    transition: .25s ease;
-}
-
-
-.settings-box button:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.06);
-}
-
-
-/* ACCOUNT INPUTS */
-
-.settings-box input {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 13px 14px;
-
-    border: 2px solid #eadada;
-    border-radius: 11px;
-
-    background: #fff;
-
-    color: #333;
-
-    font-size: 15px;
-
-    outline: none;
-
-    transition: .25s ease;
-}
-
-
-.settings-box input:focus {
-    border-color: #ffb703;
-
-    box-shadow:
-        0 0 0 3px rgba(255, 183, 3, .14);
-}
-
-
-/* ACCOUNT PANEL */
-
-#account-panel {
-    padding-top: 5px;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    .settings-page {
-        width: calc(100% - 24px);
-
-        padding: 0;
-        margin-top: 25px;
-    }
-
-    .settings-page > h1 {
-        padding: 22px 15px;
-
-        font-size: 28px;
-    }
-
-    .settings-box {
-        padding: 22px 18px;
-    }
-
-    .settings-box h2 {
-        font-size: 19px;
-    }
-
-    .settings-box button {
-        width: 100%;
-    }
-
-}
-/* =========================================================
-   📦 MH CUBES — PREMIUM TRACK ORDER PAGE
-========================================================= */
-
-.checkout:has(#track-id) {
-    max-width: 900px;
-    margin: 45px auto 70px;
-    padding: 0 20px;
-}
-
-
-/* PAGE TITLE */
-
-.checkout:has(#track-id) > h1 {
-    margin: 0 0 30px;
-    padding: 28px 20px;
-
-    text-align: center;
-
-    color: #b30000;
-    font-size: 36px;
-    font-weight: 900;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff5f5
-        );
-
-    border: 1px solid rgba(196, 0, 0, .12);
-    border-radius: 20px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, .08);
-}
-
-
-/* MAIN TRACKING BOX */
-
-.checkout:has(#track-id) .checkout-box {
-    position: relative;
-
-    padding: 35px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid rgba(196, 0, 0, .12);
-    border-radius: 22px;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, .08);
-
-    overflow: hidden;
-}
-
-
-/* GOLD TOP LINE */
-
-.checkout:has(#track-id) .checkout-box::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 30px;
-    right: 30px;
-
-    height: 4px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #c40000,
-            #ffb703,
-            #c40000
-        );
-}
-
-
-/* HEADING */
-
-.checkout:has(#track-id) .checkout-box > h2 {
-    margin: 0 0 8px;
-
-    color: #b30000;
-
-    font-size: 23px;
-    font-weight: 900;
-}
-
-
-.checkout:has(#track-id) .checkout-box > p {
-    margin: 0 0 22px;
-
-    color: #666;
-
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-
-/* ORDER ID INPUT */
-
-#track-id {
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 15px 16px;
-
-    border: 2px solid #eadada;
-    border-radius: 12px;
-
-    background: #fff;
-
-    color: #222;
-
-    font-size: 16px;
-
-    outline: none;
-
-    transition:
-        border-color .25s ease,
-        box-shadow .25s ease;
-}
-
-
-#track-id:focus {
-    border-color: #ffb703;
-
-    box-shadow:
-        0 0 0 4px rgba(255, 183, 3, .13);
-}
-
-
-#track-id::placeholder {
-    color: #aaa;
-}
-
-
-/* TRACK BUTTON */
-
-#track-button {
-    width: 100%;
-
-    margin-top: 15px;
-
-    padding: 14px;
-
-    border: none;
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    color: white;
-
-    font-size: 16px;
-    font-weight: 900;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 9px 22px rgba(196, 0, 0, .22);
-
-    transition:
-        transform .2s ease,
-        filter .2s ease;
-}
-
-
-#track-button:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.06);
-}
-
-
-#track-button:disabled {
-    opacity: .55;
-
-    cursor: not-allowed;
-
-    transform: none;
-}
-
-
-/* =========================================================
-   📦 TRACKING RESULT
-========================================================= */
-
-#track-result {
-    margin-top: 25px;
-}
-
-
-/* RESULT ORDER CARD */
-
-#track-result .admin-order-box {
-    display: block;
-
-    padding: 28px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff7f7
-        );
-
-    border: 1px solid rgba(196, 0, 0, .12);
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, .08);
-}
-
-
-/* ORDER FOUND */
-
-#track-result .admin-order-box > h2 {
-    margin: 0 0 20px;
-
-    padding: 15px;
-
-    text-align: center;
-
-    color: white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #c40000,
-            #ff2b2b
-        );
-
-    border-radius: 13px;
-
-    font-size: 21px;
-}
-
-
-/* ORDER DETAILS */
-
-#track-result .admin-order-box > p {
-    margin: 8px 0;
-
-    padding: 12px 14px;
-
-    background: #fff;
-
-    border: 1px solid #eee;
-
-    border-radius: 10px;
-
-    color: #444;
-
-    font-size: 14px;
-}
-
-
-#track-result .admin-order-box > p strong {
-    color: #b30000;
-}
-
-
-/* SECTION HEADINGS */
-
-#track-result .admin-order-box > h3 {
-    margin: 25px 0 12px;
-
-    padding-bottom: 9px;
-
-    border-bottom: 2px solid #f1dada;
-
-    color: #b30000;
-
-    font-size: 19px;
-}
-
-
-/* PRODUCT CARDS */
-
-#track-result .admin-order-box > div > div {
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #fff8f8
-        ) !important;
-
-    border:
-        1px solid rgba(196, 0, 0, .12) !important;
-
-    border-left:
-        4px solid #ffb703 !important;
-
-    border-radius: 13px !important;
-
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, .05);
-}
-
-
-/* CURRENT STATUS */
-
-#track-result .admin-order-box > div:last-child {
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff8e1,
-            #fff3cd
-        ) !important;
-
-    border:
-        1px solid rgba(255, 183, 3, .35);
-
-    color: #8a5700;
-
-    box-shadow:
-        0 7px 20px rgba(255, 183, 3, .10);
-}
-
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    .checkout:has(#track-id) {
-        width: calc(100% - 24px);
-
-        padding: 0;
-
-        margin-top: 25px;
-    }
-
-
-    .checkout:has(#track-id) > h1 {
-        padding: 22px 15px;
-
-        font-size: 28px;
-    }
-
-
-    .checkout:has(#track-id) .checkout-box {
-        padding: 25px 18px;
-    }
-
-
-    #track-result .admin-order-box {
-        padding: 20px 15px;
-    }
-
-
-    #track-result .admin-order-box > h2 {
-        font-size: 18px;
-    }
-
-}
-/* =========================================================
-   MH CUBES — NEW PREMIUM HOMEPAGE HERO
+   🏠 HERO
 ========================================================= */
 
 .hero {
-
     position: relative;
-
     min-height: 570px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
+    isolation: isolate;
 
     background:
         radial-gradient(
-            circle at 20% 20%,
-            rgba(220, 38, 38, 0.28),
-            transparent 35%
+            circle at 15% 20%,
+            rgba(220, 38, 38, .28),
+            transparent 32%
         ),
-
         radial-gradient(
-            circle at 80% 80%,
-            rgba(153, 27, 27, 0.30),
-            transparent 35%
+            circle at 85% 80%,
+            rgba(153, 27, 27, .30),
+            transparent 34%
         ),
-
         linear-gradient(
             135deg,
-            #080808,
-            #170707 45%,
-            #450909 100%
+            #050505,
+            #130606 45%,
+            #430808
         );
 
-    color: white;
-
-    isolation: isolate;
-
+    color: #fff;
 }
 
 
-/* =========================================================
-   GEOMETRIC PATTERN
-========================================================= */
+/* HERO PATTERN */
 
 .hero-pattern {
-
     position: absolute;
-
     inset: 0;
 
     z-index: -2;
 
-    opacity: 0.22;
+    opacity: .20;
 
     background-image:
-
         linear-gradient(
             30deg,
             transparent 48%,
-            rgba(255,255,255,0.12) 49%,
-            rgba(255,255,255,0.12) 51%,
+            rgba(255,255,255,.12) 49%,
+            rgba(255,255,255,.12) 51%,
             transparent 52%
         ),
-
         linear-gradient(
             150deg,
             transparent 48%,
-            rgba(255,255,255,0.08) 49%,
-            rgba(255,255,255,0.08) 51%,
+            rgba(255,255,255,.08) 49%,
+            rgba(255,255,255,.08) 51%,
             transparent 52%
         );
 
@@ -8924,34 +118,24 @@ color: white !important;
         perspective(600px)
         rotateX(55deg)
         scale(1.5);
-
 }
 
 
-/* =========================================================
-   CUBE PATTERN BLOCKS
-========================================================= */
+/* PATTERN CUBES */
 
 .hero-pattern span {
-
     position: absolute;
 
     width: 90px;
-
     height: 90px;
 
-    border: 1px solid
-        rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,.14);
 
-    transform:
-        rotate(45deg);
+    transform: rotate(45deg);
 
     box-shadow:
-        0 0 30px
-        rgba(220,38,38,0.08);
-
+        0 0 30px rgba(220,38,38,.08);
 }
-
 
 .hero-pattern span:nth-child(1) {
     top: 12%;
@@ -8999,123 +183,104 @@ color: white !important;
 }
 
 
-/* =========================================================
-   RED GLOW
-========================================================= */
+/* HERO GLOW */
 
 .hero-glow {
-
     position: absolute;
 
     width: 300px;
-
     height: 300px;
 
     border-radius: 50%;
 
     filter: blur(80px);
 
-    opacity: 0.25;
-
     z-index: -1;
 
+    animation:
+        heroGlow 7s ease-in-out infinite;
 }
 
-
 .hero-glow-one {
-
     background: #dc2626;
 
     top: -100px;
-
     left: -80px;
-
 }
-
 
 .hero-glow-two {
-
     background: #991b1b;
 
+    right: -80px;
     bottom: -120px;
 
-    right: -80px;
-
+    animation-delay: 2s;
 }
 
 
-/* =========================================================
-   HERO CONTENT
-========================================================= */
+/* HERO CONTENT */
 
 .hero-content {
-
     position: relative;
-
     z-index: 5;
 
     width: min(850px, 90%);
 
+    padding: 70px 20px;
+
     text-align: center;
 
-    padding: 60px 20px;
-
+    animation:
+        mhFadeUp .8s ease both;
 }
 
 
+/* BADGE */
+
 .hero-badge {
-
     display: inline-flex;
-
     align-items: center;
 
     padding: 9px 18px;
+    margin-bottom: 22px;
 
-    margin-bottom: 20px;
+    border:
+        1px solid rgba(239,68,68,.45);
 
     border-radius: 30px;
 
     background:
-        rgba(220,38,38,0.15);
-
-    border:
-        1px solid
-        rgba(239,68,68,0.45);
+        rgba(220,38,38,.14);
 
     color: #fecaca;
 
     font-size: 13px;
-
     font-weight: 800;
 
     letter-spacing: 1.5px;
 
     backdrop-filter: blur(10px);
-
 }
 
+
+/* HERO TITLE */
 
 .hero-content h1 {
-
     margin: 0;
 
-    font-size: clamp(42px, 7vw, 76px);
+    font-size: clamp(44px, 7vw, 78px);
 
-    line-height: 1.05;
+    line-height: 1.02;
 
-    font-weight: 900;
+    font-weight: 950;
 
-    letter-spacing: -2px;
+    letter-spacing: -2.5px;
 
     text-shadow:
-        0 8px 30px
-        rgba(0,0,0,0.45);
-
+        0 10px 35px rgba(0,0,0,.50);
 }
 
-
 .hero-content h1 span {
-
     display: block;
 
     margin-top: 8px;
@@ -9123,61 +288,55 @@ color: white !important;
     background:
         linear-gradient(
             90deg,
-            #ffffff,
+            #fff,
             #f87171,
             #dc2626
         );
 
     -webkit-background-clip: text;
-
     background-clip: text;
 
     color: transparent;
-
 }
 
 
+/* HERO DESCRIPTION */
+
 .hero-content p {
+    max-width: 610px;
 
-    max-width: 600px;
-
-    margin: 22px auto 30px;
+    margin: 24px auto 32px;
 
     color: #e5e7eb;
 
     font-size: 18px;
 
     line-height: 1.7;
-
 }
 
 
-/* =========================================================
-   HERO BUTTONS
-========================================================= */
+/* HERO BUTTONS */
 
 .hero-buttons {
-
     display: flex;
 
     justify-content: center;
-
     align-items: center;
 
     gap: 14px;
 
     flex-wrap: wrap;
-
 }
 
 
-.hero-shop-btn {
+/* SHOP BUTTON */
 
+.hero-shop-btn {
     border: none;
 
-    padding: 15px 28px;
+    padding: 15px 30px;
 
-    border-radius: 12px;
+    border-radius: 13px;
 
     background:
         linear-gradient(
@@ -9186,364 +345,232 @@ color: white !important;
             #991b1b
         );
 
-    color: white;
+    color: #fff;
 
     font-size: 16px;
-
-    font-weight: 800;
+    font-weight: 850;
 
     cursor: pointer;
 
     box-shadow:
-        0 10px 30px
-        rgba(220,38,38,0.35);
+        0 10px 30px rgba(220,38,38,.35);
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease;
 }
-
 
 .hero-shop-btn:hover {
-
     transform: translateY(-4px);
 
-    box-shadow:
-        0 16px 35px
-        rgba(220,38,38,0.5);
+    filter: brightness(1.08);
 
+    box-shadow:
+        0 16px 38px rgba(220,38,38,.48);
 }
 
 
-.hero-explore-btn {
+/* EXPLORE BUTTON */
 
+.hero-explore-btn {
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
-    padding: 14px 25px;
-
-    border-radius: 12px;
+    padding: 14px 27px;
 
     border:
-        1px solid
-        rgba(255,255,255,0.25);
+        1px solid rgba(255,255,255,.25);
+
+    border-radius: 13px;
 
     background:
-        rgba(255,255,255,0.07);
+        rgba(255,255,255,.07);
 
-    color: white;
+    color: #fff;
 
     text-decoration: none;
 
-    font-weight: 700;
+    font-weight: 750;
 
     backdrop-filter: blur(10px);
 
     transition:
-        background 0.25s ease,
-        transform 0.25s ease;
-
+        background .25s ease,
+        transform .25s ease,
+        border-color .25s ease;
 }
 
-
 .hero-explore-btn:hover {
-
     background:
-        rgba(255,255,255,0.14);
+        rgba(255,255,255,.14);
+
+    border-color:
+        rgba(255,255,255,.40);
 
     transform:
         translateY(-3px);
-
 }
 
 
-/* =========================================================
-   FLOATING CUBES
-========================================================= */
+/* FLOATING CUBES */
 
 .floating-cube {
-
     position: absolute;
 
     width: 75px;
-
     height: 75px;
 
-    border: 2px solid
-        rgba(255,255,255,0.18);
+    border:
+        2px solid rgba(255,255,255,.18);
 
-    transform:
-        rotate(45deg);
+    transform: rotate(45deg);
 
-    opacity: 0.35;
+    opacity: .35;
 
     animation:
         cubeFloat 6s ease-in-out infinite;
-
 }
 
-
 .floating-cube div {
-
     width: 100%;
-
     height: 100%;
 
     border:
-        2px solid
-        rgba(220,38,38,0.45);
+        2px solid rgba(220,38,38,.45);
 
     transform:
         rotate(15deg)
-        scale(0.7);
-
+        scale(.7);
 }
-
 
 .cube-one {
-
-    left: 8%;
-
     top: 30%;
-
+    left: 8%;
 }
 
-
 .cube-two {
-
+    top: 22%;
     right: 10%;
 
-    top: 22%;
-
     width: 55px;
-
     height: 55px;
 
     animation-delay: 1.5s;
-
 }
 
-
 .cube-three {
-
     right: 18%;
-
     bottom: 15%;
 
     width: 90px;
-
     height: 90px;
 
     animation-delay: 3s;
-
-}
-
-
-@keyframes cubeFloat {
-
-    0%,
-    100% {
-
-        transform:
-            rotate(45deg)
-            translateY(0);
-
-    }
-
-    50% {
-
-        transform:
-            rotate(55deg)
-            translateY(-18px);
-
-    }
-
 }
 
 
 /* =========================================================
-   MOBILE HERO
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .hero {
-
-        min-height: 540px;
-
-    }
-
-
-    .hero-content {
-
-        padding: 45px 15px;
-
-    }
-
-
-    .hero-content h1 {
-
-        font-size: 43px;
-
-        letter-spacing: -1px;
-
-    }
-
-
-    .hero-content p {
-
-        font-size: 16px;
-
-    }
-
-
-    .hero-badge {
-
-        font-size: 11px;
-
-        letter-spacing: 1px;
-
-    }
-
-
-    .hero-buttons {
-
-        flex-direction: column;
-
-        width: 100%;
-
-    }
-
-
-    .hero-shop-btn,
-    .hero-explore-btn {
-
-        width: min(320px, 100%);
-
-    }
-
-
-    .floating-cube {
-
-        opacity: 0.18;
-
-    }
-
-}
-/* =========================================================
-   MH CUBES — PREMIUM PRODUCTS SECTION
+   🧊 PRODUCTS SECTION
 ========================================================= */
 
 .products {
-
     position: relative;
 
-    padding: 85px 25px 100px;
+    padding:
+        90px 25px
+        105px;
 
     overflow: hidden;
 
     background:
         radial-gradient(
             circle at 10% 20%,
-            rgba(220, 38, 38, 0.08),
+            rgba(220,38,38,.07),
             transparent 30%
         ),
         radial-gradient(
             circle at 90% 80%,
-            rgba(153, 27, 27, 0.08),
+            rgba(153,27,27,.07),
             transparent 30%
         ),
         #f8f8f8;
-
 }
 
 
-/* =========================================================
-   SECTION TITLE
-========================================================= */
+/* DECORATION */
 
 .products::before {
-
     content: "";
 
     position: absolute;
 
     width: 350px;
-
     height: 350px;
 
     top: -180px;
-
     right: -120px;
+
+    border:
+        1px solid rgba(220,38,38,.10);
 
     border-radius: 50%;
 
-    border: 1px solid
-        rgba(220,38,38,0.10);
-
     box-shadow:
-        0 0 0 35px rgba(220,38,38,0.025),
-        0 0 0 70px rgba(220,38,38,0.02);
+        0 0 0 35px rgba(220,38,38,.025),
+        0 0 0 70px rgba(220,38,38,.02);
 
+    pointer-events: none;
 }
 
-
 .products::after {
-
     content: "";
 
     position: absolute;
 
     width: 250px;
-
     height: 250px;
 
+    left: -100px;
     bottom: -150px;
 
-    left: -100px;
+    border:
+        1px solid rgba(153,27,27,.10);
 
     border-radius: 50%;
 
-    border: 1px solid
-        rgba(153,27,27,0.10);
-
+    pointer-events: none;
 }
 
 
-/* =========================================================
-   SEARCH BOX
-========================================================= */
+/* SEARCH */
 
 .search-box {
-
     position: relative;
-
     z-index: 2;
 
     max-width: 650px;
 
-    margin: 0 auto 50px;
-
+    margin:
+        0 auto 55px;
 }
 
-
 .search-box input {
-
     width: 100%;
 
     box-sizing: border-box;
 
-    padding: 17px 22px;
+    padding:
+        17px 22px;
+
+    border:
+        1px solid #e5e7eb;
 
     border-radius: 16px;
 
-    border: 1px solid #e5e7eb;
-
-    background: white;
+    background: #fff;
 
     color: #111827;
 
@@ -9552,41 +579,32 @@ color: white !important;
     outline: none;
 
     box-shadow:
-        0 10px 30px
-        rgba(0,0,0,0.07);
+        0 10px 30px rgba(0,0,0,.07);
 
     transition:
-        border 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s ease;
-
+        border-color .25s ease,
+        box-shadow .25s ease,
+        transform .25s ease;
 }
 
-
 .search-box input:focus {
-
     border-color: #dc2626;
 
     box-shadow:
-        0 10px 35px
-        rgba(220,38,38,0.14);
+        0 12px 35px rgba(220,38,38,.14);
 
-    transform: translateY(-2px);
-
+    transform:
+        translateY(-2px);
 }
 
 
-/* =========================================================
-   PRODUCT GRID
-========================================================= */
+/* PRODUCT GRID */
 
 .product-box {
-
     position: relative;
-
     z-index: 2;
 
-    max-width: 1200px;
+    width: min(1200px, 100%);
 
     margin: 0 auto;
 
@@ -9596,67 +614,55 @@ color: white !important;
         repeat(3, minmax(0, 1fr));
 
     gap: 28px;
-
 }
 
 
-/* =========================================================
-   PRODUCT CARD
-========================================================= */
+/* PRODUCT CARD */
 
 .product {
-
     position: relative;
 
     display: flex;
-
     flex-direction: column;
 
     overflow: hidden;
 
     padding: 18px;
 
+    border:
+        1px solid #e5e7eb;
+
     border-radius: 24px;
 
     background:
         linear-gradient(
             145deg,
-            #ffffff,
+            #fff,
             #fafafa
         );
 
-    border:
-        1px solid #e5e7eb;
-
     box-shadow:
-        0 12px 35px
-        rgba(0,0,0,0.08);
+        0 12px 35px rgba(0,0,0,.08);
 
     transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        border-color 0.3s ease;
-
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
 }
 
-
-/* RED TOP LINE */
-
 .product::before {
-
     content: "";
 
     position: absolute;
 
     top: 0;
-
     left: 12%;
 
     width: 76%;
-
     height: 3px;
 
-    border-radius: 0 0 10px 10px;
+    border-radius:
+        0 0 10px 10px;
 
     background:
         linear-gradient(
@@ -9669,39 +675,28 @@ color: white !important;
     opacity: 0;
 
     transition:
-        opacity 0.3s ease;
-
+        opacity .3s ease;
 }
 
-
 .product:hover {
-
     transform:
         translateY(-10px);
 
     border-color:
-        rgba(220,38,38,0.35);
+        rgba(220,38,38,.35);
 
     box-shadow:
-        0 22px 50px
-        rgba(0,0,0,0.13);
-
+        0 22px 50px rgba(0,0,0,.13);
 }
-
 
 .product:hover::before {
-
     opacity: 1;
-
 }
 
 
-/* =========================================================
-   PRODUCT IMAGE
-========================================================= */
+/* PRODUCT IMAGE */
 
 .product > a:first-child {
-
     display: block;
 
     overflow: hidden;
@@ -9712,98 +707,75 @@ color: white !important;
         linear-gradient(
             145deg,
             #f3f4f6,
-            #ffffff
+            #fff
         );
-
 }
 
-
 .product img {
-
     display: block;
 
     width: 100%;
-
     height: 250px;
-
-    object-fit: contain;
-
-    padding: 18px;
 
     box-sizing: border-box;
 
-    transition:
-        transform 0.45s ease;
+    padding: 18px;
 
+    object-fit: contain;
+
+    transition:
+        transform .45s ease;
 }
 
-
 .product:hover img {
-
     transform:
         scale(1.08)
         rotate(1deg);
-
 }
 
 
-/* =========================================================
-   PRODUCT NAME
-========================================================= */
+/* PRODUCT NAME */
 
 .product h3 {
-
-    margin: 20px 5px 7px;
+    margin:
+        20px 5px 7px;
 
     font-size: 20px;
 
     font-weight: 850;
-
 }
 
-
 .product h3 a {
-
     color: #111827;
 
     text-decoration: none;
 
     transition:
-        color 0.2s ease;
-
+        color .2s ease;
 }
-
 
 .product h3 a:hover {
-
     color: #dc2626;
-
 }
 
 
-/* =========================================================
-   PRICE
-========================================================= */
+/* PRICE */
 
 .product > p {
-
-    margin: 0 5px 18px;
+    margin:
+        0 5px 18px;
 
     color: #dc2626;
 
     font-size: 21px;
 
     font-weight: 900;
-
 }
 
 
-/* =========================================================
-   PRODUCT BUTTONS
-========================================================= */
+/* PRODUCT BUTTONS */
 
 .product-buttons {
-
     display: grid;
 
     grid-template-columns:
@@ -9812,12 +784,9 @@ color: white !important;
     gap: 10px;
 
     margin-top: auto;
-
 }
 
-
 .product-buttons button {
-
     min-height: 46px;
 
     border-radius: 11px;
@@ -9829,47 +798,39 @@ color: white !important;
     cursor: pointer;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
-
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
 
 
-/* ADD TO CART */
+/* CART */
 
 .product-buttons .cart-btn {
-
     border:
         1px solid #dc2626;
 
-    background: white;
+    background: #fff;
 
     color: #dc2626;
-
 }
 
-
 .product-buttons .cart-btn:hover {
-
     background: #dc2626;
 
-    color: white;
+    color: #fff;
 
     transform:
         translateY(-2px);
 
     box-shadow:
-        0 8px 20px
-        rgba(220,38,38,0.25);
-
+        0 8px 20px rgba(220,38,38,.25);
 }
 
 
-/* SHOP NOW */
+/* SHOP */
 
 .product-buttons .shop-btn {
-
     border: none;
 
     background:
@@ -9879,46 +840,369 @@ color: white !important;
             #991b1b
         );
 
-    color: white;
+    color: #fff;
 
     box-shadow:
-        0 7px 18px
-        rgba(220,38,38,0.20);
-
+        0 7px 18px rgba(220,38,38,.20);
 }
 
-
 .product-buttons .shop-btn:hover {
-
     transform:
         translateY(-2px);
 
     box-shadow:
-        0 10px 25px
-        rgba(220,38,38,0.35);
-
+        0 10px 25px rgba(220,38,38,.35);
 }
 
 
 /* =========================================================
-   DARK MODE
+   ⭐ WHY CHOOSE MH CUBES
 ========================================================= */
 
-body.dark-mode .products {
+.why-choose {
+    position: relative;
+
+    padding:
+        90px 25px
+        100px;
+
+    overflow: hidden;
 
     background:
         radial-gradient(
-            circle at 10% 20%,
-            rgba(220,38,38,0.12),
+            circle at 15% 20%,
+            rgba(220,38,38,.16),
             transparent 30%
         ),
-        #0b0b0b;
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(153,27,27,.15),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #050505,
+            #130606 55%,
+            #2b0707
+        ) !important;
 
+    color: #fff;
 }
 
 
-body.dark-mode .product {
+/* DECORATIVE GLOW */
 
+.why-choose::before {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    top: -150px;
+    right: -100px;
+
+    border:
+        1px solid rgba(239,68,68,.15);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 40px rgba(239,68,68,.03),
+        0 0 0 80px rgba(239,68,68,.02);
+}
+
+
+/* WHY CHOOSE CARDS */
+
+.why-choose > * {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* Generic cards inside Why Choose */
+
+.why-choose .why-card,
+.why-choose .feature-card,
+.why-choose .choose-card {
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    border-radius: 20px;
+
+    backdrop-filter:
+        blur(12px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.25);
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        background .3s ease;
+}
+
+.why-choose .why-card:hover,
+.why-choose .feature-card:hover,
+.why-choose .choose-card:hover {
+    transform:
+        translateY(-7px);
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-color:
+        rgba(239,68,68,.40);
+}
+
+
+/* =========================================================
+   🦶 FOOTER
+========================================================= */
+
+footer {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #050505,
+            #100404,
+            #1d0505
+        );
+
+    color: #fff;
+
+    border-top:
+        1px solid rgba(220,38,38,.18);
+}
+
+
+/* FOOTER GLOW */
+
+footer::before {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    top: -160px;
+    left: 10%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(220,38,38,.12);
+
+    filter:
+        blur(70px);
+
+    pointer-events: none;
+}
+
+
+/* FOOTER LINKS */
+
+footer a {
+    color: #d1d5db;
+
+    text-decoration: none;
+
+    transition:
+        color .2s ease,
+        transform .2s ease;
+}
+
+footer a:hover {
+    color: #f87171;
+}
+
+
+/* =========================================================
+   📱 HOMEPAGE MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .product-box {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 22px;
+    }
+
+    .hero {
+        min-height: 540px;
+    }
+
+    .hero-content {
+        padding:
+            55px 20px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    /* HERO */
+
+    .hero {
+        min-height: 540px;
+    }
+
+    .hero-content {
+        width: calc(100% - 30px);
+
+        padding:
+            45px 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 43px;
+
+        letter-spacing:
+            -1.5px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+
+        line-height:
+            1.65;
+    }
+
+    .hero-badge {
+        font-size: 11px;
+
+        padding:
+            8px 14px;
+
+        letter-spacing:
+            1px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .hero-shop-btn,
+    .hero-explore-btn {
+        width:
+            min(320px, 100%);
+
+        box-sizing:
+            border-box;
+    }
+
+    .floating-cube {
+        opacity: .16;
+    }
+
+
+    /* PRODUCTS */
+
+    .products {
+        padding:
+            65px 15px
+            75px;
+    }
+
+    .search-box {
+        margin-bottom:
+            32px;
+    }
+
+    .product-box {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+    .product {
+        padding: 15px;
+
+        border-radius: 20px;
+    }
+
+    .product img {
+        height: 230px;
+    }
+
+    .product h3 {
+        font-size: 19px;
+    }
+
+    .product > p {
+        font-size: 20px;
+    }
+
+    .product-buttons {
+        gap: 8px;
+    }
+
+    .product-buttons button {
+        min-height: 48px;
+
+        font-size: 13px;
+    }
+
+
+    /* WHY CHOOSE */
+
+    .why-choose {
+        padding:
+            65px 15px
+            75px !important;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .hero-content h1 {
+        font-size: 38px;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    .product img {
+        height: 210px;
+    }
+
+    .product h3 {
+        font-size: 18px;
+    }
+}
+
+
+/* =========================================================
+   🌙 HOMEPAGE DARK MODE
+========================================================= */
+
+body.dark-mode .products {
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(220,38,38,.12),
+            transparent 30%
+        ),
+        #0b0b0b;
+}
+
+body.dark-mode .product {
     background:
         linear-gradient(
             145deg,
@@ -9927,153 +1211,40 @@ body.dark-mode .product {
         );
 
     border-color:
-        rgba(255,255,255,0.08);
+        rgba(255,255,255,.08);
 
     box-shadow:
-        0 15px 40px
-        rgba(0,0,0,0.35);
-
+        0 15px 40px rgba(0,0,0,.35);
 }
-
 
 body.dark-mode .product h3 a {
-
     color: #f9fafb;
-
 }
 
-
 body.dark-mode .product > a:first-child {
-
     background:
         linear-gradient(
             145deg,
             #202020,
             #151515
         );
-
 }
-
 
 body.dark-mode .search-box input {
-
     background: #171717;
 
-    color: white;
+    color: #fff;
 
     border-color:
-        rgba(255,255,255,0.12);
-
+        rgba(255,255,255,.12);
 }
 
-
 body.dark-mode .product-buttons .cart-btn {
-
-    background: transparent;
+    background:
+        transparent;
 
     color: #f87171;
 
-    border-color: #dc2626;
-
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .product-box {
-
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
-        gap: 22px;
-
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-    .products {
-
-        padding:
-            60px 15px 75px;
-
-    }
-
-
-    .search-box {
-
-        margin-bottom: 30px;
-
-    }
-
-
-    .product-box {
-
-        grid-template-columns: 1fr;
-
-        gap: 20px;
-
-    }
-
-
-    .product {
-
-        padding: 15px;
-
-        border-radius: 20px;
-
-    }
-
-
-    .product img {
-
-        height: 230px;
-
-    }
-
-
-    .product h3 {
-
-        font-size: 19px;
-
-    }
-
-
-    .product > p {
-
-        font-size: 20px;
-
-    }
-
-
-    .product-buttons {
-
-        gap: 8px;
-
-    }
-
-
-    .product-buttons button {
-
-        min-height: 48px;
-
-        font-size: 13px;
-
-    }
-
-}
-/* WHY CHOOSE SECTION BACKGROUND */
-
-.why-choose {
-    background: #000 !important;
+    border-color:
+        #dc2626;
 }
