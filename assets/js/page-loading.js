@@ -15,6 +15,8 @@ function getPageLoadingInfo(page) {
 
     page = page.toLowerCase();
 
+    /* MY ACCOUNT */
+
     if (page === "customer-account.html") {
         return {
             title: "MY ACCOUNT",
@@ -22,12 +24,21 @@ function getPageLoadingInfo(page) {
         };
     }
 
-    if (page === "my-orders.html" || page === "orders.html") {
+
+    /* MY ORDERS */
+
+    if (
+        page === "my-orders.html" ||
+        page === "orders.html"
+    ) {
         return {
             title: "MY ORDERS",
             message: "Fetching your orders..."
         };
     }
+
+
+    /* TRACK ORDER */
 
     if (page === "track-order.html") {
         return {
@@ -36,12 +47,18 @@ function getPageLoadingInfo(page) {
         };
     }
 
+
+    /* SETTINGS */
+
     if (page === "settings.html") {
         return {
             title: "SETTINGS",
             message: "Opening settings..."
         };
     }
+
+
+    /* CART */
 
     if (page === "cart.html") {
         return {
@@ -50,12 +67,18 @@ function getPageLoadingInfo(page) {
         };
     }
 
+
+    /* CHECKOUT */
+
     if (page === "checkout.html") {
         return {
             title: "CHECKOUT",
             message: "Preparing checkout..."
         };
     }
+
+
+    /* CUSTOMER LOGIN */
 
     if (page === "customer-login.html") {
         return {
@@ -64,19 +87,32 @@ function getPageLoadingInfo(page) {
         };
     }
 
-   if (
-    page === "index.html" ||
-    page === ""
-) {
+
+    /* HOMEPAGE */
+
+    if (
+        page === "index.html" ||
+        page === ""
+    ) {
+        return {
+            title: "MH CUBES",
+            message: "Loading..."
+        };
+    }
+
+
+    /* DEFAULT */
+
     return {
         title: "MH CUBES",
-        message: "Loading..."
+        message: "Loading page..."
     };
+
 }
 
 
 /* =========================================
-   SET TEXT
+   SET LOADING TEXT
 ========================================= */
 
 function setLoadingText(title, message) {
@@ -88,11 +124,12 @@ function setLoadingText(title, message) {
     if (loadingText) {
         loadingText.textContent = message;
     }
+
 }
 
 
 /* =========================================
-   HIDE LOADER
+   HIDE LOADING SCREEN
 ========================================= */
 
 function hidePageLoading() {
@@ -100,6 +137,7 @@ function hidePageLoading() {
     if (!loadingScreen) return;
 
     loadingScreen.classList.add("hide");
+
 }
 
 
@@ -111,25 +149,27 @@ window.addEventListener("load", function () {
 
     if (!loadingScreen) return;
 
+
     const page =
         window.location.pathname
             .split("/")
             .pop()
             .toLowerCase();
 
+
     const info =
         getPageLoadingInfo(page);
+
 
     setLoadingText(
         info.title,
         info.message
     );
 
-    /*
-       IMPORTANT:
 
-       We DO NOT create another loader.
-       We simply hide the existing one.
+    /*
+       Hide the loader after
+       the page has completely loaded.
     */
 
     setTimeout(function () {
@@ -150,15 +190,20 @@ document.addEventListener("click", function (event) {
     const link =
         event.target.closest("a");
 
+
     if (!link) return;
+
 
     const href =
         link.getAttribute("href");
 
+
     if (!href) return;
 
 
-    /* Ignore special links */
+    /* =====================================
+       IGNORE SPECIAL LINKS
+    ===================================== */
 
     if (
         href.startsWith("#") ||
@@ -171,7 +216,9 @@ document.addEventListener("click", function (event) {
     }
 
 
-    /* Ignore external websites */
+    /* =====================================
+       IGNORE EXTERNAL WEBSITES
+    ===================================== */
 
     if (
         link.hostname &&
@@ -182,7 +229,9 @@ document.addEventListener("click", function (event) {
     }
 
 
-    /* Ignore same page */
+    /* =====================================
+       IGNORE SAME PAGE
+    ===================================== */
 
     if (
         link.href ===
@@ -192,15 +241,16 @@ document.addEventListener("click", function (event) {
     }
 
 
-    /* -----------------------------------------
-       DESTINATION
-    ----------------------------------------- */
+    /* =====================================
+       DESTINATION PAGE
+    ===================================== */
 
     const destination =
         new URL(
             link.href,
             window.location.href
         );
+
 
     const page =
         destination.pathname
@@ -213,9 +263,9 @@ document.addEventListener("click", function (event) {
         getPageLoadingInfo(page);
 
 
-    /* -----------------------------------------
+    /* =====================================
        SHOW LOADER
-    ----------------------------------------- */
+    ===================================== */
 
     if (loadingScreen) {
 
@@ -224,19 +274,18 @@ document.addEventListener("click", function (event) {
             info.message
         );
 
+
         loadingScreen.classList.remove("hide");
 
     }
 
 
-    /*
-       DO NOT WAIT 3 SECONDS.
-
-       Navigate immediately so the new page
-       doesn't show a second loader.
-    */
+    /* =====================================
+       NAVIGATE IMMEDIATELY
+    ===================================== */
 
     event.preventDefault();
+
 
     window.location.href =
         link.href;
@@ -252,65 +301,31 @@ window.addEventListener("pageshow", function (event) {
 
     if (!loadingScreen) return;
 
+
+    /* Browser back/forward cache */
+
     if (event.persisted) {
+
         hidePageLoading();
+
     }
 
+
+    /* Normal back/forward navigation */
+
     const navigation =
-        performance.getEntriesByType("navigation")[0];
+        performance.getEntriesByType(
+            "navigation"
+        )[0];
+
 
     if (
         navigation &&
         navigation.type === "back_forward"
     ) {
+
         hidePageLoading();
+
     }
 
 });
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const phone = document.querySelector(".phone-number");
-    const popup = document.getElementById("contact-popup");
-    const closeButton = document.getElementById("close-contact-popup");
-
-    if (!phone || !popup || !closeButton) return;
-
-
-    /* OPEN ONLY WHEN PHONE IS CLICKED */
-
-    phone.addEventListener("click", function () {
-        popup.classList.add("show");
-    });
-
-
-    /* CLOSE BUTTON */
-
-    closeButton.addEventListener("click", function () {
-        popup.classList.remove("show");
-    });
-
-
-    /* CLICK OUTSIDE POPUP TO CLOSE */
-
-    popup.addEventListener("click", function (event) {
-
-        if (event.target === popup) {
-            popup.classList.remove("show");
-        }
-
-    });
-
-
-    /* ESCAPE KEY */
-
-    document.addEventListener("keydown", function (event) {
-
-        if (event.key === "Escape") {
-            popup.classList.remove("show");
-        }
-
-    });
-
-});
-</script>
