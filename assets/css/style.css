@@ -4450,3 +4450,18 @@ body:has(.orders-page) header nav a:hover {
     background: #eeeeee !important;
     color: #000000 !important;
 }
+/* =========================================
+   HOMEPAGE — HEADER CART
+========================================= */
+
+body:has(.hero) .header-cart-link {
+    display: inline-flex !important;
+    text-decoration: none;
+}
+
+body:has(.hero) .header-cart-link .cart-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
