@@ -3856,3 +3856,60 @@ body {
         font-weight: 700;
     }
 }
+/* =========================================
+   MY ORDERS — WEBSITE HEADER
+========================================= */
+
+body:has(.orders-page) header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 25px 20px;
+    text-align: center;
+}
+
+body:has(.orders-page) header .logo {
+    font-size: 36px;
+    font-weight: 900;
+    text-align: center;
+    color: #00ffff;
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 10px rgba(0, 255, 255, 0.6),
+        0 0 25px rgba(0, 255, 255, 0.3);
+}
+
+
+/* My Orders background */
+
+body:has(.orders-page) {
+    background:
+        radial-gradient(
+            circle at top,
+            #151515 0%,
+            #080808 45%,
+            #000000 100%
+        ) !important;
+
+    color: white;
+    min-height: 100vh;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    body:has(.orders-page) header {
+        padding: 20px 12px;
+        gap: 14px;
+    }
+
+    body:has(.orders-page) header .logo {
+        font-size: 28px;
+    }
+
+}
