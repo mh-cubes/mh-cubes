@@ -3306,3 +3306,276 @@ input:focus-visible {
     }
 
 }
+/* =========================================================
+   MH CUBES — PREMIUM NAVBAR
+========================================================= */
+
+header {
+    position: relative;
+    z-index: 1000;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(196, 0, 0, 0.10);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+
+/* NAV CONTAINER */
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    flex-wrap: wrap;
+}
+
+
+/* NAV LINKS */
+
+nav a {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 17px;
+
+    border-radius: 10px;
+
+    color: #333;
+    background: transparent;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .2px;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+
+/* HOVER */
+
+nav a:hover {
+    color: #c40000;
+
+    background:
+        rgba(196, 0, 0, .07);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* RED UNDERLINE */
+
+nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 4px;
+
+    width: 0;
+    height: 2px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    transform:
+        translateX(-50%);
+
+    transition:
+        width .25s ease;
+}
+
+
+nav a:hover::after {
+    width: 45%;
+}
+
+
+/* BUTTONS INSIDE NAV */
+
+nav button {
+    position: relative;
+
+    padding: 10px 17px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #333;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease;
+}
+
+
+nav button:hover {
+    color: #c40000;
+
+    background:
+        rgba(196, 0, 0, .07);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* ACTIVE / IMPORTANT BUTTON */
+
+nav .active,
+nav a.active {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c40000,
+            #ff2b2b
+        );
+
+    box-shadow:
+        0 6px 16px
+        rgba(196, 0, 0, .22);
+}
+
+
+nav .active:hover,
+nav a.active:hover {
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 9px 22px
+        rgba(196, 0, 0, .30);
+}
+
+
+/* =========================================================
+   NAVBAR MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    nav {
+
+        gap: 5px;
+
+        padding:
+            10px 10px;
+    }
+
+
+    nav a,
+    nav button {
+
+        padding:
+            9px 12px;
+
+        font-size:
+            13px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    nav {
+
+        gap:
+            4px;
+
+        padding:
+            9px 7px;
+    }
+
+
+    nav a,
+    nav button {
+
+        padding:
+            8px 9px;
+
+        font-size:
+            12px;
+
+        border-radius:
+            8px;
+    }
+
+}
+
+
+/* =========================================================
+   DARK MODE NAVBAR
+========================================================= */
+
+body.dark-mode header {
+
+    background:
+        #111;
+
+    border-bottom-color:
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.35);
+}
+
+
+body.dark-mode nav a,
+body.dark-mode nav button {
+
+    color:
+        #eee;
+}
+
+
+body.dark-mode nav a:hover,
+body.dark-mode nav button:hover {
+
+    color:
+        #ff5555;
+
+    background:
+        rgba(220,38,38,.12);
+}
+
+
+body.dark-mode nav .active,
+body.dark-mode nav a.active {
+
+    color:
+        white;
+
+}
