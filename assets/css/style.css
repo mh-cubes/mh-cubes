@@ -3821,3 +3821,27 @@ header .logo {
 #shop-loading {
     display: none !important;
 }
+/* =========================================================
+   MH CUBES — FULL SCREEN BASE RESET
+========================================================= */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
