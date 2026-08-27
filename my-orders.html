@@ -4,877 +4,863 @@
 
 <head>
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>My Orders - MH CUBES</title>
-
-<link rel="stylesheet" href="assets/css/style.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<style>
+    <title>My Orders - MH CUBES</title>
 
-/* =========================================
-   MY ORDERS PAGE
-========================================= */
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
 
-body {
-    background: #ffffff !important;
-}
+    <style>
 
+        /* =========================================
+           MY ORDERS PAGE
+        ========================================= */
 
-/* =========================================
-   MAIN AREA
-========================================= */
+        body {
+            background: #ffffff !important;
+        }
 
-.orders-page {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px 20px 70px;
-    box-sizing: border-box;
-}
 
+        /* =========================================
+           MAIN AREA
+        ========================================= */
 
-/* =========================================
-   PAGE TITLE
-========================================= */
+        .orders-page {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 70px;
+            box-sizing: border-box;
+        }
 
-.orders-title {
-    text-align: center;
-    margin-bottom: 30px;
-}
 
-.orders-title h1 {
-    margin: 0;
-    font-size: 42px;
-    font-weight: 900;
-    color: #00ffff;
+        /* =========================================
+           PAGE TITLE
+        ========================================= */
 
-    text-shadow:
-        0 0 10px rgba(0, 255, 255, 0.5),
-        0 0 25px rgba(0, 255, 255, 0.25);
-}
+        .orders-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-.orders-title p {
-    margin-top: 10px;
-    color: #555;
-    font-size: 16px;
-}
+        .orders-title h1 {
+            margin: 0;
 
+            font-size: 42px;
+            font-weight: 900;
 
-/* =========================================
-   ACCOUNT BUTTONS
-========================================= */
+            color: #00ffff;
 
-.account-actions {
-    display: none;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 35px;
-}
+            text-shadow:
+                0 0 10px rgba(0, 255, 255, 0.5),
+                0 0 25px rgba(0, 255, 255, 0.25);
+        }
 
-.account-action-button {
-    border: none;
-    padding: 13px 22px;
-    border-radius: 12px;
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+        .orders-title p {
+            margin-top: 10px;
 
-    transition: 0.2s ease;
-}
+            color: #555;
 
-.home-button {
-    background: #dc2626;
-}
+            font-size: 16px;
+        }
 
-.logout-button {
-    background: #333;
-}
 
-.account-action-button:hover {
-    transform: translateY(-2px);
-}
+        /* =========================================
+           ACCOUNT BUTTONS
+        ========================================= */
 
+        .account-actions {
+            display: none;
 
-/* =========================================
-   ORDERS CONTAINER
-========================================= */
+            justify-content: center;
 
-.orders-container {
-    width: 100%;
-    box-sizing: border-box;
+            gap: 14px;
 
-    background: rgba(5, 10, 15, 0.95);
+            flex-wrap: wrap;
 
-    border: 1px solid rgba(0, 255, 255, 0.18);
+            margin-bottom: 35px;
+        }
 
-    border-radius: 22px;
+        .account-action-button {
+            border: none;
 
-    padding: 28px;
+            padding: 13px 22px;
 
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.35),
-        0 0 30px rgba(0, 255, 255, 0.05);
-}
+            border-radius: 12px;
 
-.orders-container > h2 {
-    margin-top: 0;
-    color: #00ffff;
-    text-align: center;
-    font-size: 26px;
-}
+            color: white;
 
-.orders-container > p {
-    text-align: center;
-    color: #aaa;
-    margin-bottom: 28px;
-}
+            font-size: 15px;
+            font-weight: 700;
 
+            cursor: pointer;
 
-/* =========================================
-   ORDER CARD
-========================================= */
+            text-decoration: none;
 
-.customer-order-card {
-    width: 100%;
-    box-sizing: border-box;
+            display: inline-block;
 
-    background:
-        linear-gradient(
-            145deg,
-            #071a1d,
-            #101010,
-            #06151a
-        );
+            transition: 0.2s ease;
+        }
 
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    border-left: 5px solid #00ffff;
+        .home-button {
+            background: #dc2626;
+        }
 
-    border-radius: 18px;
+        .logout-button {
+            background: #333;
+        }
 
-    padding: 22px;
-    margin-bottom: 22px;
+        .account-action-button:hover {
+            transform: translateY(-2px);
+        }
 
-    overflow: hidden;
 
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.35),
-        0 0 18px rgba(0, 255, 255, 0.08);
+        /* =========================================
+           ORDERS CONTAINER
+        ========================================= */
 
-    box-sizing: border-box;
-}
+        .orders-container {
+            width: 100%;
 
+            background: rgba(5, 10, 15, 0.95);
 
-/* =========================================
-   ORDER HEADER
-========================================= */
+            border: 1px solid rgba(0, 255, 255, 0.18);
 
-.order-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+            border-radius: 22px;
 
-    gap: 15px;
-    flex-wrap: wrap;
+            padding: 28px;
 
-    padding-bottom: 18px;
-    margin-bottom: 18px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.35),
+                0 0 30px rgba(0, 255, 255, 0.05);
 
-    border-bottom: 1px solid rgba(0, 255, 255, 0.15);
-}
+            box-sizing: border-box;
+        }
 
-.order-card-header h2 {
-    margin: 0;
+        .orders-container > h2 {
+            margin-top: 0;
 
-    color: #00ffff;
+            color: #00ffff;
 
-    font-size: 22px;
+            text-align: center;
 
-    word-break: break-word;
+            font-size: 26px;
+        }
 
-    max-width: 100%;
-}
+        .orders-container > p {
+            text-align: center;
 
+            color: #aaa;
 
-/* =========================================
-   STATUS
-========================================= */
+            margin-bottom: 28px;
+        }
 
-.order-status {
-    display: inline-block;
 
-    padding: 8px 14px;
+        /* =========================================
+           ORDER CARD
+        ========================================= */
 
-    border-radius: 999px;
+        .customer-order-card {
+            width: 100%;
 
-    background: #00ffff;
+            background:
+                linear-gradient(
+                    145deg,
+                    #071a1d,
+                    #101010,
+                    #06151a
+                );
 
-    color: #031014;
+            border: 1px solid rgba(0, 255, 255, 0.25);
 
-    font-size: 13px;
-    font-weight: 900;
+            border-left: 5px solid #00ffff;
 
-    white-space: nowrap;
-}
+            border-radius: 18px;
 
+            padding: 22px;
 
-/* =========================================
-   ORDER DETAILS
-========================================= */
+            margin-bottom: 22px;
 
-.order-details {
-    display: grid;
+            overflow: hidden;
 
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.35),
+                0 0 18px rgba(0, 255, 255, 0.08);
 
-    gap: 10px 20px;
+            box-sizing: border-box;
+        }
 
-    margin-bottom: 22px;
-}
 
-.order-details p {
-    margin: 0;
+        /* =========================================
+           ORDER HEADER
+        ========================================= */
 
-    padding: 12px;
+        .order-card-header {
+            display: flex;
 
-    background: rgba(255, 255, 255, 0.035);
+            align-items: center;
 
-    border-radius: 10px;
+            justify-content: space-between;
 
-    color: #ddd;
+            gap: 15px;
 
-    border: 1px solid rgba(0, 255, 255, 0.08);
+            flex-wrap: wrap;
 
-    font-size: 14px;
+            padding-bottom: 18px;
 
-    word-break: break-word;
+            margin-bottom: 18px;
 
-    overflow-wrap: anywhere;
-}
+            border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+        }
 
-.order-details strong {
-    color: #00ffff;
-}
+        .order-card-header h2 {
+            margin: 0;
 
+            color: #00ffff;
 
-/* =========================================
-   PRODUCTS TITLE
-========================================= */
+            font-size: 22px;
 
-.customer-order-card h3 {
-    color: #00ffff;
+            word-break: break-word;
 
-    margin: 20px 0 12px;
+            max-width: 100%;
+        }
 
-    font-size: 18px;
-}
 
+        /* =========================================
+           STATUS
+        ========================================= */
 
-/* =========================================
-   PRODUCTS CONTAINER
-========================================= */
+        .order-status {
+            display: inline-block;
 
-.my-order-products {
-    width: 100%;
+            padding: 8px 14px;
 
-    display: flex;
-    flex-direction: column;
+            border-radius: 999px;
 
-    gap: 10px;
+            background: #00ffff;
 
-    box-sizing: border-box;
-}
+            color: #031014;
 
+            font-size: 13px;
 
-/* =========================================
-   PRODUCT ITEM
-========================================= */
+            font-weight: 900;
 
-.my-order-product-item {
-    width: 100%;
+            white-space: nowrap;
+        }
 
-    display: flex;
 
-    align-items: center;
+        /* =========================================
+           ORDER DETAILS
+        ========================================= */
 
-    gap: 12px;
+        .order-details {
+            display: grid;
 
-    padding: 10px;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
 
-    box-sizing: border-box;
+            gap: 10px 20px;
 
-    background:
-        linear-gradient(
-            90deg,
-            #071c20,
-            #111111
-        );
+            margin-bottom: 22px;
+        }
 
-    border: 1px solid rgba(0, 255, 255, 0.12);
+        .order-details p {
+            margin: 0;
 
-    border-radius: 12px;
+            padding: 12px;
 
-    overflow: hidden;
-}
+            background: rgba(255, 255, 255, 0.035);
 
+            border-radius: 10px;
 
-/* =========================================
-   PRODUCT IMAGE BOX
-========================================= */
+            color: #ddd;
 
-.my-order-product-image {
-    width: 50px !important;
-    height: 50px !important;
+            border: 1px solid rgba(0, 255, 255, 0.08);
 
-    min-width: 50px !important;
-    min-height: 50px !important;
+            font-size: 14px;
 
-    max-width: 50px !important;
-    max-height: 50px !important;
+            word-break: break-word;
 
-    flex: 0 0 50px;
+            overflow-wrap: anywhere;
+        }
 
-    display: flex;
+        .order-details strong {
+            color: #00ffff;
+        }
 
-    align-items: center;
-    justify-content: center;
 
-    background: #ffffff;
+        /* =========================================
+           PRODUCTS TITLE
+        ========================================= */
 
-    border-radius: 8px;
+        .customer-order-card h3 {
+            color: #00ffff;
 
-    overflow: hidden;
+            margin: 20px 0 12px;
 
-    box-sizing: border-box;
-}
+            font-size: 18px;
+        }
 
 
-/* =========================================
-   PRODUCT IMAGE
-========================================= */
+        /* =========================================
+           PRODUCTS CONTAINER
+        ========================================= */
 
-.my-order-product-image img,
-.my-order-product-item img {
-    width: 100% !important;
-    height: 100% !important;
+        .my-order-products {
+            width: 100%;
 
-    max-width: 100% !important;
-    max-height: 100% !important;
+            display: flex;
 
-    object-fit: contain !important;
+            flex-direction: column;
 
-    display: block;
+            gap: 10px;
 
-    margin: 0;
+            box-sizing: border-box;
+        }
 
-    box-sizing: border-box;
-}
 
+        /* =========================================
+           PRODUCT ITEM
+        ========================================= */
 
-/* =========================================
-   PRODUCT INFO
-========================================= */
+        .my-order-product-item {
+            width: 100%;
 
-.my-order-product-info {
-    min-width: 0;
+            display: flex;
 
-    flex: 1;
+            align-items: center;
 
-    display: flex;
+            gap: 12px;
 
-    flex-direction: column;
+            padding: 10px;
 
-    gap: 5px;
+            box-sizing: border-box;
 
-    overflow: hidden;
-}
+            background:
+                linear-gradient(
+                    90deg,
+                    #071c20,
+                    #111111
+                );
 
-.my-order-product-info strong {
-    color: #00ffff;
+            border: 1px solid rgba(0, 255, 255, 0.12);
 
-    font-size: 15px;
+            border-radius: 12px;
 
-    word-break: break-word;
+            overflow: hidden;
+        }
 
-    overflow-wrap: anywhere;
-}
 
-.my-order-product-info span {
-    color: #ddd;
+        /* =========================================
+           PRODUCT IMAGE BOX
+        ========================================= */
 
-    font-size: 13px;
+        .my-order-product-image {
+            width: 50px !important;
+            height: 50px !important;
 
-    word-break: break-word;
-}
+            min-width: 50px !important;
+            min-height: 50px !important;
 
+            max-width: 50px !important;
+            max-height: 50px !important;
 
-/* =========================================
-   TOTAL
-========================================= */
+            flex: 0 0 50px;
 
-.order-total {
-    display: flex;
+            display: flex;
 
-    justify-content: space-between;
+            align-items: center;
+            justify-content: center;
 
-    align-items: center;
+            background: #ffffff;
 
-    gap: 10px;
+            border-radius: 8px;
 
-    margin-top: 22px;
+            overflow: hidden;
 
-    padding: 16px 18px;
+            box-sizing: border-box;
+        }
 
-    background:
-        linear-gradient(
-            90deg,
-            #00ffff,
-            #008cff
-        );
 
-    border-radius: 12px;
+        /* =========================================
+           PRODUCT IMAGE
+        ========================================= */
 
-    color: #031014;
+        .my-order-product-image img,
+        .my-order-product-item img {
+            width: 100% !important;
+            height: 100% !important;
 
-    font-size: 18px;
+            max-width: 100% !important;
+            max-height: 100% !important;
 
-    font-weight: 900;
+            object-fit: contain !important;
 
-    box-sizing: border-box;
-}
+            display: block;
 
+            margin: 0;
 
-/* =========================================
-   NOTIFICATION
-========================================= */
+            box-sizing: border-box;
+        }
 
-.order-notification {
-    margin-top: 15px;
 
-    padding: 14px 16px;
+        /* =========================================
+           PRODUCT INFO
+        ========================================= */
 
-    background: rgba(0, 255, 255, 0.06);
+        .my-order-product-info {
+            min-width: 0;
 
-    border: 1px solid rgba(0, 255, 255, 0.3);
+            flex: 1;
 
-    border-radius: 10px;
+            display: flex;
 
-    color: #00ffff;
+            flex-direction: column;
 
-    font-weight: 700;
+            gap: 5px;
 
-    word-break: break-word;
-}
+            overflow: hidden;
+        }
 
+        .my-order-product-info strong {
+            color: #00ffff;
 
-/* =========================================
-   TRACK BUTTON
-========================================= */
+            font-size: 15px;
 
-.track-order-btn {
-    display: block;
+            word-break: break-word;
 
-    width: 100%;
+            overflow-wrap: anywhere;
+        }
 
-    box-sizing: border-box;
+        .my-order-product-info span {
+            color: #ddd;
 
-    margin-top: 18px;
+            font-size: 13px;
 
-    padding: 14px 18px;
+            word-break: break-word;
+        }
 
-    text-align: center;
 
-    background: #00ffff;
+        /* =========================================
+           TOTAL
+        ========================================= */
 
-    color: #031014;
+        .order-total {
+            display: flex;
 
-    border-radius: 12px;
+            justify-content: space-between;
 
-    text-decoration: none;
+            align-items: center;
 
-    font-weight: 900;
+            gap: 10px;
 
-    font-size: 16px;
-}
+            margin-top: 22px;
 
+            padding: 16px 18px;
 
-/* =========================================
-   LOADING
-========================================= */
+            background:
+                linear-gradient(
+                    90deg,
+                    #00ffff,
+                    #008cff
+                );
 
-.order-loading {
-    text-align: center;
+            border-radius: 12px;
 
-    padding: 50px 20px;
+            color: #031014;
 
-    color: white;
-}
+            font-size: 18px;
 
-.loader {
-    width: 48px;
-    height: 48px;
+            font-weight: 900;
 
-    border: 5px solid #333;
+            box-sizing: border-box;
+        }
 
-    border-top: 5px solid #00ffff;
 
-    border-radius: 50%;
+        /* =========================================
+           NOTIFICATION
+        ========================================= */
 
-    animation: spin 1s linear infinite;
+        .order-notification {
+            margin-top: 15px;
 
-    margin: 0 auto 18px;
-}
+            padding: 14px 16px;
 
-.order-loading h3 {
-    color: #00ffff;
-}
+            background: rgba(0, 255, 255, 0.06);
 
+            border: 1px solid rgba(0, 255, 255, 0.3);
 
-/* =========================================
-   EMPTY / ERROR
-========================================= */
+            border-radius: 10px;
 
-.orders-message {
-    text-align: center;
+            color: #00ffff;
 
-    padding: 55px 20px;
-}
+            font-weight: 700;
 
-.orders-message .message-icon {
-    font-size: 60px;
-}
+            word-break: break-word;
+        }
 
-.orders-message h2 {
-    color: #00ffff;
-}
 
-.orders-message p {
-    color: #aaa;
+        /* =========================================
+           TRACK BUTTON
+        ========================================= */
 
-    line-height: 1.6;
-}
+        .track-order-btn {
+            display: block;
 
+            width: 100%;
 
-/* =========================================
-   ANIMATION
-========================================= */
+            box-sizing: border-box;
 
-@keyframes spin {
+            margin-top: 18px;
 
-    from {
-        transform: rotate(0deg);
-    }
+            padding: 14px 18px;
 
-    to {
-        transform: rotate(360deg);
-    }
+            text-align: center;
 
-}
+            background: #00ffff;
 
+            color: #031014;
 
-/* =========================================
-   MOBILE
-========================================= */
+            border-radius: 12px;
 
-@media (max-width: 700px) {
+            text-decoration: none;
 
-    .orders-page {
-        width: 100%;
+            font-weight: 900;
 
-        padding: 20px 8px 45px;
-    }
+            font-size: 16px;
+        }
 
 
-    /* TITLE */
+        /* =========================================
+           LOADING INSIDE ORDERS
+        ========================================= */
 
-    .orders-title {
-        margin-bottom: 20px;
-    }
+        .order-loading {
+            text-align: center;
 
-    .orders-title h1 {
-        font-size: 30px;
-    }
+            padding: 50px 20px;
 
-    .orders-title p {
-        font-size: 13px;
-        line-height: 1.5;
-    }
+            color: white;
+        }
 
+        .loader {
+            width: 48px;
+            height: 48px;
 
-    /* CONTAINER */
+            border: 5px solid #333;
 
-    .orders-container {
-        width: 100%;
+            border-top: 5px solid #00ffff;
 
-        padding: 10px;
+            border-radius: 50%;
 
-        border-radius: 15px;
-    }
+            animation: spin 1s linear infinite;
 
-    .orders-container > h2 {
-        font-size: 21px;
-    }
+            margin: 0 auto 18px;
+        }
 
-    .orders-container > p {
-        font-size: 13px;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
+        .order-loading h3 {
+            color: #00ffff;
+        }
 
 
-    /* ORDER CARD */
+        /* =========================================
+           EMPTY / ERROR
+        ========================================= */
 
-    .customer-order-card {
-        width: 100%;
+        .orders-message {
+            text-align: center;
 
-        padding: 12px;
+            padding: 55px 20px;
+        }
 
-        margin-bottom: 15px;
+        .orders-message .message-icon {
+            font-size: 60px;
+        }
 
-        border-radius: 13px;
+        .orders-message h2 {
+            color: #00ffff;
+        }
 
-        border-left: 4px solid #00ffff;
-    }
+        .orders-message p {
+            color: #aaa;
 
+            line-height: 1.6;
+        }
 
-    /* ORDER HEADER */
 
-    .order-card-header {
-        display: flex;
+        /* =========================================
+           ANIMATION
+        ========================================= */
 
-        flex-direction: column;
+        @keyframes spin {
 
-        align-items: flex-start;
+            from {
+                transform: rotate(0deg);
+            }
 
-        gap: 8px;
+            to {
+                transform: rotate(360deg);
+            }
 
-        padding-bottom: 12px;
+        }
 
-        margin-bottom: 12px;
-    }
 
+        /* =========================================
+           MOBILE
+        ========================================= */
 
-    .order-card-header h2 {
-        width: 100%;
+        @media (max-width: 700px) {
 
-        font-size: 13px;
+            .orders-page {
+                width: 100%;
 
-        line-height: 1.3;
+                padding: 20px 8px 45px;
+            }
 
-        word-break: break-all;
 
-        overflow-wrap: anywhere;
-    }
+            .orders-title {
+                margin-bottom: 20px;
+            }
 
+            .orders-title h1 {
+                font-size: 30px;
+            }
 
-    .order-status {
-        font-size: 10px;
+            .orders-title p {
+                font-size: 13px;
 
-        padding: 5px 9px;
-    }
+                line-height: 1.5;
+            }
 
 
-    /* DETAILS */
+            .orders-container {
+                width: 100%;
 
-    .order-details {
-        display: flex;
+                padding: 10px;
 
-        flex-direction: column;
+                border-radius: 15px;
+            }
 
-        gap: 7px;
+            .orders-container > h2 {
+                font-size: 21px;
+            }
 
-        margin-bottom: 16px;
-    }
+            .orders-container > p {
+                font-size: 13px;
 
-    .order-details p {
-        width: 100%;
+                line-height: 1.5;
 
-        padding: 9px;
+                margin-bottom: 20px;
+            }
 
-        font-size: 12px;
 
-        line-height: 1.5;
-    }
+            .customer-order-card {
+                width: 100%;
 
+                padding: 12px;
 
-    /* PRODUCTS */
+                margin-bottom: 15px;
 
-    .customer-order-card h3 {
-        font-size: 16px;
+                border-radius: 13px;
 
-        margin: 16px 0 9px;
-    }
+                border-left: 4px solid #00ffff;
+            }
 
 
-    .my-order-products {
-        width: 100%;
+            .order-card-header {
+                display: flex;
 
-        gap: 7px;
-    }
+                flex-direction: column;
 
+                align-items: flex-start;
 
-    /* PRODUCT ITEM */
+                gap: 8px;
 
-    .my-order-product-item {
-        width: 100%;
+                padding-bottom: 12px;
 
-        gap: 9px;
+                margin-bottom: 12px;
+            }
 
-        padding: 8px;
 
-        border-radius: 9px;
-    }
+            .order-card-header h2 {
+                width: 100%;
 
+                font-size: 13px;
 
-    /* SMALL MOBILE IMAGE */
+                line-height: 1.3;
 
-    .my-order-product-image {
-        width: 42px !important;
-        height: 42px !important;
+                word-break: break-all;
 
-        min-width: 42px !important;
-        min-height: 42px !important;
+                overflow-wrap: anywhere;
+            }
 
-        max-width: 42px !important;
-        max-height: 42px !important;
 
-        flex: 0 0 42px;
-    }
+            .order-status {
+                font-size: 10px;
 
+                padding: 5px 9px;
+            }
 
-    .my-order-product-image img,
-    .my-order-product-item img {
-        width: 100% !important;
-        height: 100% !important;
 
-        max-width: 100% !important;
-        max-height: 100% !important;
+            .order-details {
+                display: flex;
 
-        object-fit: contain !important;
-    }
+                flex-direction: column;
 
+                gap: 7px;
 
-    /* PRODUCT TEXT */
+                margin-bottom: 16px;
+            }
 
-    .my-order-product-info {
-        min-width: 0;
+            .order-details p {
+                width: 100%;
 
-        flex: 1;
-    }
+                padding: 9px;
 
-    .my-order-product-info strong {
-        font-size: 13px;
-    }
+                font-size: 12px;
 
-    .my-order-product-info span {
-        font-size: 11px;
-    }
+                line-height: 1.5;
+            }
 
 
-    /* TOTAL */
+            .customer-order-card h3 {
+                font-size: 16px;
 
-    .order-total {
-        flex-direction: column;
+                margin: 16px 0 9px;
+            }
 
-        align-items: stretch;
 
-        gap: 4px;
+            .my-order-products {
+                width: 100%;
 
-        margin-top: 16px;
+                gap: 7px;
+            }
 
-        padding: 12px;
 
-        font-size: 14px;
-    }
+            .my-order-product-item {
+                width: 100%;
 
+                gap: 9px;
 
-    /* NOTIFICATION */
+                padding: 8px;
 
-    .order-notification {
-        padding: 10px;
+                border-radius: 9px;
+            }
 
-        font-size: 12px;
 
-        line-height: 1.5;
-    }
+            .my-order-product-image {
+                width: 42px !important;
+                height: 42px !important;
 
+                min-width: 42px !important;
+                min-height: 42px !important;
 
-    /* TRACK BUTTON */
+                max-width: 42px !important;
+                max-height: 42px !important;
 
-    .track-order-btn {
-        padding: 12px;
+                flex: 0 0 42px;
+            }
 
-        margin-top: 13px;
 
-        font-size: 13px;
+            .my-order-product-image img,
+            .my-order-product-item img {
+                width: 100% !important;
+                height: 100% !important;
 
-        border-radius: 9px;
-    }
+                max-width: 100% !important;
+                max-height: 100% !important;
 
+                object-fit: contain !important;
+            }
 
-    /* LOADING */
 
-    .order-loading {
-        padding: 40px 10px;
-    }
+            .my-order-product-info {
+                min-width: 0;
 
+                flex: 1;
+            }
 
-    /* EMPTY */
+            .my-order-product-info strong {
+                font-size: 13px;
+            }
 
-    .orders-message {
-        padding: 40px 10px;
-    }
+            .my-order-product-info span {
+                font-size: 11px;
+            }
 
-    .orders-message .message-icon {
-        font-size: 50px;
-    }
 
-    .orders-message h2 {
-        font-size: 20px;
-    }
+            .order-total {
+                flex-direction: column;
 
-    .orders-message p {
-        font-size: 13px;
-    }
+                align-items: stretch;
 
-}
+                gap: 4px;
 
-</style>
+                margin-top: 16px;
+
+                padding: 12px;
+
+                font-size: 14px;
+            }
+
+
+            .order-notification {
+                padding: 10px;
+
+                font-size: 12px;
+
+                line-height: 1.5;
+            }
+
+
+            .track-order-btn {
+                padding: 12px;
+
+                margin-top: 13px;
+
+                font-size: 13px;
+
+                border-radius: 9px;
+            }
+
+
+            .order-loading {
+                padding: 40px 10px;
+            }
+
+
+            .orders-message {
+                padding: 40px 10px;
+            }
+
+            .orders-message .message-icon {
+                font-size: 50px;
+            }
+
+            .orders-message h2 {
+                font-size: 20px;
+            }
+
+            .orders-message p {
+                font-size: 13px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 
 <body>
-
-
-<!-- =========================================
-     PAGE LOADING
-========================================= -->
-
-<div id="page-loading">
-
-    <div class="loading-content">
-
-        <div class="loading-logo">
-            🧩
-        </div>
-
-        <div class="page-loader"></div>
-
-        <h2>MY ORDERS</h2>
-
-        <p>Fetching your orders...</p>
-
-    </div>
-
-</div>
 
 
 <!-- =========================================
@@ -908,7 +894,6 @@ body {
 
 <main class="orders-page">
 
-
     <div class="orders-title">
 
         <h1>
@@ -935,7 +920,6 @@ body {
         >
             🏠 Continue Shopping
         </a>
-
 
         <button
             id="logout-button"
@@ -965,7 +949,6 @@ body {
 
     </div>
 
-
 </main>
 
 
@@ -976,10 +959,6 @@ body {
 <script
     type="module"
     src="assets/js/orders.js"
-></script>
-
-<script
-    src="assets/js/page-loading.js"
 ></script>
 
 
