@@ -30,6 +30,7 @@
 
 <div id="page-loading">
 
+
 <div class="loading-content">
 
     <div class="loading-logo">
@@ -62,7 +63,6 @@
     MH CUBES
 </div>
 
-
 <nav>
 
     <a href="index.html">
@@ -90,28 +90,35 @@
      SETTINGS PAGE
 ========================================= -->
 
-<section class="settings-page">
+<main class="settings-page">
 
 
-<h1>
-    ⚙️ Settings
-</h1>
+<div class="settings-title">
+
+    <h1>
+        ⚙️ Settings
+    </h1>
+
+    <p>
+        Manage your MH CUBES preferences.
+    </p>
+
+</div>
 
 
 <!-- =====================================
      ACCOUNT SETTINGS
 ====================================== -->
 
-<div class="settings-box">
+<section class="settings-box">
 
     <h2>
-        Account Settings
+        👤 Account Settings
     </h2>
 
     <p>
-        Manage your MH CUBES account.
+        Manage your MH CUBES account information.
     </p>
-
 
     <button
         type="button"
@@ -123,64 +130,71 @@
 
     <div
         id="account-panel"
-        style="display:none; margin-top:20px;"
+        class="account-panel"
     >
 
         <input
+            type="text"
             id="username"
             placeholder="Your Name"
+            autocomplete="name"
         >
-
-        <br><br>
 
 
         <input
+            type="email"
             id="email"
             placeholder="Your Email"
+            autocomplete="email"
         >
-
-        <br><br>
 
 
         <button
             type="button"
             onclick="saveAccount()"
         >
-            Save Account
+            💾 Save Account
         </button>
 
     </div>
 
-</div>
+</section>
 
 
 <!-- =====================================
      NOTIFICATIONS
 ====================================== -->
 
-<div class="settings-box">
+<section class="settings-box">
 
     <h2>
-        Notifications
+        🔔 Notifications
     </h2>
 
     <p>
-        Order updates and alerts.
+        Order updates and important alerts.
     </p>
 
-</div>
+    <div class="setting-status">
+        Notifications are managed automatically.
+    </div>
+
+</section>
 
 
 <!-- =====================================
      THEME
 ====================================== -->
 
-<div class="settings-box">
+<section class="settings-box">
 
     <h2>
-        Theme
+        🎨 Theme
     </h2>
 
+    <p>
+        Choose the appearance of MH CUBES.
+    </p>
 
     <button
         id="darkModeBtn"
@@ -190,10 +204,23 @@
         🌙 Dark Mode
     </button>
 
+</section>
+
+
+<!-- =====================================
+     BACK HOME
+===================================== -->
+
+<div class="settings-back">
+
+    <a href="index.html">
+        ← Back to MH CUBES
+    </a>
+
 </div>
 
 
-</section>
+</main>
 
 <!-- =========================================
      ACCOUNT FUNCTIONS
@@ -206,17 +233,14 @@ function openAccount() {
     const panel =
         document.getElementById("account-panel");
 
-
     if (!panel) return;
 
 
-    panel.style.display =
-        "block";
+    panel.classList.toggle("show");
 
 
     const username =
         document.getElementById("username");
-
 
     const email =
         document.getElementById("email");
@@ -245,20 +269,22 @@ function saveAccount() {
     const username =
         document.getElementById("username");
 
-
     const email =
         document.getElementById("email");
 
 
+    if (!username || !email) return;
+
+
     localStorage.setItem(
         "username",
-        username.value
+        username.value.trim()
     );
 
 
     localStorage.setItem(
         "email",
-        email.value
+        email.value.trim()
     );
 
 
