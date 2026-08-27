@@ -4406,3 +4406,22 @@ body:has(.why-choose) #why-details p {
     }
 
 }
+/* =========================================
+   MY ORDERS — HEADER
+========================================= */
+
+body:has(.orders-page) header {
+    background: #000000 !important;
+}
+
+/* Home button stays white */
+
+body:has(.orders-page) header nav a {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+body:has(.orders-page) header nav a:hover {
+    background: #eeeeee !important;
+    color: #000000 !important;
+}
