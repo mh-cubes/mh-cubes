@@ -4045,3 +4045,243 @@ body:has(.orders-page) .track-order-btn:hover {
     background: #111111 !important;
     color: #ffffff !important;
 }
+/* =========================================
+   TRACK ORDER — MH CUBES COLOR THEME ONLY
+   DOES NOT CHANGE FUNCTIONALITY
+========================================= */
+
+body:has(.checkout) {
+    background:
+        radial-gradient(
+            circle at top,
+            #250707 0%,
+            #0d0d0d 45%,
+            #000000 100%
+        ) !important;
+
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+
+/* Track Order main heading */
+
+body:has(.checkout) .checkout > h1 {
+    color: #ffffff;
+    font-weight: 900;
+
+    text-shadow:
+        0 0 12px rgba(220, 38, 38, 0.45);
+
+    text-align: center;
+}
+
+
+/* Main tracking box */
+
+body:has(.checkout) .checkout-box {
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #090909
+        ) !important;
+
+    border: 1px solid rgba(220, 38, 38, 0.3);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.55),
+        0 0 25px rgba(220, 38, 38, 0.08);
+
+    color: #ffffff;
+}
+
+
+/* Box heading */
+
+body:has(.checkout) .checkout-box h2 {
+    color: #ffffff;
+    font-weight: 900;
+}
+
+
+/* Description */
+
+body:has(.checkout) .checkout-box > p {
+    color: #bdbdbd;
+}
+
+
+/* Order ID input */
+
+body:has(.checkout) #track-id {
+    background: #111111 !important;
+
+    color: #ffffff !important;
+
+    border: 1px solid #333333 !important;
+}
+
+body:has(.checkout) #track-id::placeholder {
+    color: #777777;
+}
+
+
+/* Track button */
+
+body:has(.checkout) #track-button {
+    background: #dc2626 !important;
+
+    color: #ffffff !important;
+
+    border: none;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 8px 25px rgba(220, 38, 38, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+body:has(.checkout) #track-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(220, 38, 38, 0.4);
+}
+
+
+/* Disabled button */
+
+body:has(.checkout) #track-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* Order result box */
+
+body:has(.checkout) #track-result {
+    color: #ffffff;
+}
+
+
+/* Found order */
+
+body:has(.checkout) #track-result .admin-order-box {
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #090909
+        ) !important;
+
+    border: 1px solid rgba(220, 38, 38, 0.25);
+
+    color: #ffffff;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Result headings */
+
+body:has(.checkout) #track-result h2,
+body:has(.checkout) #track-result h3 {
+    color: #ff3b3b;
+}
+
+
+/* Result text */
+
+body:has(.checkout) #track-result p {
+    color: #dddddd;
+}
+
+
+/* Product cards */
+
+body:has(.checkout) #track-result .track-product {
+    background: #111111 !important;
+
+    border: 1px solid #292929 !important;
+
+    color: #ffffff;
+}
+
+
+/* Product text */
+
+body:has(.checkout) #track-result .track-product h4 {
+    color: #ffffff;
+}
+
+body:has(.checkout) #track-result .track-product p {
+    color: #cccccc;
+}
+
+
+/* Subtotal */
+
+body:has(.checkout) #track-result .track-subtotal {
+    color: #ff3b3b !important;
+    font-weight: 900;
+}
+
+
+/* Current status */
+
+body:has(.checkout) #track-result .track-status {
+    background: #111111 !important;
+
+    border: 1px solid rgba(220, 38, 38, 0.25);
+
+    color: #ff3b3b !important;
+
+    font-weight: 900;
+}
+
+
+/* Login button */
+
+body:has(.checkout) #track-result .track-login-btn {
+    background: #dc2626 !important;
+
+    color: #ffffff !important;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 8px 20px rgba(220, 38, 38, 0.25);
+}
+
+
+/* Error / information messages */
+
+body:has(.checkout) #track-result .track-message {
+    color: #ffffff;
+}
+
+body:has(.checkout) #track-result .track-message p {
+    color: #aaaaaa;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    body:has(.checkout) .checkout > h1 {
+        font-size: 28px;
+    }
+
+    body:has(.checkout) .checkout-box {
+        border-radius: 16px;
+    }
+
+}
