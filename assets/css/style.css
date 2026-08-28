@@ -5795,3 +5795,70 @@ MOBILE
 .track-muted {
     color: #111111 !important;
 }
+/* =========================================
+   TRACK ORDER PRODUCT
+========================================= */
+
+.track-product {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px;
+    margin: 12px 0;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 15px;
+}
+
+.track-product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #f5f5f5;
+    padding: 8px;
+    flex-shrink: 0;
+}
+
+.track-product-info {
+    flex: 1;
+}
+
+.track-product-info h4 {
+    margin: 0 0 10px;
+    color: #111111 !important;
+    font-size: 17px;
+}
+
+.track-product-info p {
+    margin: 5px 0;
+    color: #111111 !important;
+}
+
+.track-subtotal {
+    font-weight: bold;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .track-product {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .track-product-image {
+        width: 75px;
+        height: 75px;
+    }
+
+    .track-product-info h4 {
+        font-size: 15px;
+    }
+
+    .track-product-info p {
+        font-size: 13px;
+    }
+
+}
