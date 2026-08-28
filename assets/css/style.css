@@ -4812,3 +4812,282 @@ body > header nav a:hover {
 .why-choose .why-box:hover {
     background: #111111 !important;
 }
+/* =========================================
+   MH CUBES - CUSTOMER DETAILS
+========================================= */
+
+.customer-details-section {
+
+    background: #111111;
+
+    border: 1px solid #292929;
+
+    border-radius: 20px;
+
+    padding: 28px;
+
+    margin-bottom: 35px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.18);
+
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.customer-details-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 28px;
+
+}
+
+
+.customer-details-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ff2020;
+
+    border-radius: 14px;
+
+    font-size: 22px;
+
+    box-shadow:
+        0 8px 20px rgba(255, 32, 32, 0.25);
+
+}
+
+
+.customer-details-heading h2 {
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 24px;
+
+}
+
+
+.customer-details-heading p {
+
+    margin: 4px 0 0;
+
+    color: #aaaaaa;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
+
+.checkout-field {
+
+    margin-bottom: 20px;
+
+}
+
+
+.checkout-field label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.checkout-field input,
+.checkout-field textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: #1b1b1b;
+
+    color: #ffffff;
+
+    border: 1px solid #333333;
+
+    border-radius: 12px;
+
+    padding: 14px 15px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+
+}
+
+
+.checkout-field input {
+
+    height: 50px;
+
+}
+
+
+.checkout-field textarea {
+
+    min-height: 110px;
+
+    resize: vertical;
+
+}
+
+
+.checkout-field input::placeholder,
+.checkout-field textarea::placeholder {
+
+    color: #777777;
+
+}
+
+
+/* =========================================
+   FOCUS EFFECT
+========================================= */
+
+.checkout-field input:focus,
+.checkout-field textarea:focus {
+
+    background: #202020;
+
+    border-color: #ff2020;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 32, 32, 0.12);
+
+}
+
+
+/* =========================================
+   PHONE MESSAGE
+========================================= */
+
+#phone-message {
+
+    display: block;
+
+    margin-top: 7px;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   DELIVERY NOTE
+========================================= */
+
+.delivery-note {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    background: rgba(255, 32, 32, 0.08);
+
+    border: 1px solid rgba(255, 32, 32, 0.2);
+
+    border-radius: 12px;
+
+    padding: 12px 14px;
+
+}
+
+
+.delivery-note span {
+
+    font-size: 20px;
+
+}
+
+
+.delivery-note p {
+
+    margin: 0;
+
+    color: #bbbbbb;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .customer-details-section {
+
+        padding: 20px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .customer-details-heading h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .customer-details-icon {
+
+        width: 43px;
+
+        height: 43px;
+
+        font-size: 19px;
+
+    }
+
+
+    .checkout-field input {
+
+        height: 48px;
+
+    }
+
+}
