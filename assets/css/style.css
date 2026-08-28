@@ -6115,3 +6115,303 @@ section {
     }
 
 }
+/* =========================================
+   BEAUTIFUL MH CUBES SETTINGS PAGE
+========================================= */
+
+.settings-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 70px 20px 100px;
+}
+
+/* SETTINGS TITLE */
+
+.settings-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.settings-title h1 {
+    font-size: 42px;
+    font-weight: 900;
+    color: #ff2020;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.settings-title p {
+    color: #777;
+    font-size: 16px;
+}
+
+
+/* SETTINGS CARDS */
+
+.settings-box {
+    background: #050505;
+    border: 1px solid rgba(255, 32, 32, 0.35);
+    border-radius: 22px;
+    padding: 30px;
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.18),
+        0 0 20px rgba(255, 32, 32, 0.05);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.settings-box:hover {
+    transform: translateY(-4px);
+    border-color: #ff2020;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.3),
+        0 0 25px rgba(255, 32, 32, 0.12);
+}
+
+
+/* CARD HEADINGS */
+
+.settings-box h2 {
+    color: #ffffff;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.settings-box p {
+    color: #bdbdbd;
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
+
+
+/* BUTTONS */
+
+.settings-box button {
+    background: linear-gradient(
+        135deg,
+        #ff2020,
+        #c40000
+    );
+
+    color: white;
+    border: none;
+    border-radius: 12px;
+
+    padding: 13px 22px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 18px rgba(255, 32, 32, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+.settings-box button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+
+    box-shadow:
+        0 10px 25px rgba(255, 32, 32, 0.4);
+}
+
+.settings-box button:active {
+    transform: scale(0.97);
+}
+
+
+/* ACCOUNT PANEL */
+
+.account-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    margin-top: 0;
+
+    transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        margin-top 0.4s ease;
+}
+
+.account-panel.show {
+    max-height: 400px;
+    opacity: 1;
+    margin-top: 25px;
+}
+
+
+/* INPUTS */
+
+.account-panel input {
+    width: 100%;
+    box-sizing: border-box;
+
+    background: #111111;
+    color: white;
+
+    border: 1px solid #333;
+    border-radius: 12px;
+
+    padding: 14px 16px;
+
+    margin-bottom: 14px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.account-panel input:focus {
+    border-color: #ff2020;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 32, 32, 0.12);
+}
+
+.account-panel input::placeholder {
+    color: #777;
+}
+
+
+/* SAVE BUTTON */
+
+.account-panel button {
+    margin-top: 5px;
+}
+
+
+/* NOTIFICATION STATUS */
+
+.setting-status {
+    background: #111111;
+    border: 1px solid #292929;
+
+    border-radius: 12px;
+
+    padding: 15px 18px;
+
+    color: #bdbdbd;
+
+    font-size: 14px;
+}
+
+
+/* BACK HOME */
+
+.settings-back {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.settings-back a {
+    display: inline-block;
+
+    color: #ff2020;
+    text-decoration: none;
+
+    font-weight: 700;
+
+    padding: 12px 20px;
+
+    border: 1px solid rgba(255, 32, 32, 0.35);
+    border-radius: 12px;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.settings-back a:hover {
+    background: #ff2020;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+.dark-mode .settings-box {
+    background: #050505;
+    border-color: rgba(255, 32, 32, 0.4);
+}
+
+.dark-mode .settings-title p {
+    color: #aaa;
+}
+
+.dark-mode .settings-box p {
+    color: #bdbdbd;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .settings-page {
+        padding: 45px 15px 70px;
+    }
+
+    .settings-title {
+        margin-bottom: 30px;
+    }
+
+    .settings-title h1 {
+        font-size: 32px;
+    }
+
+    .settings-title p {
+        font-size: 14px;
+    }
+
+    .settings-box {
+        padding: 22px 18px;
+        border-radius: 18px;
+    }
+
+    .settings-box h2 {
+        font-size: 19px;
+    }
+
+    .settings-box p {
+        font-size: 14px;
+    }
+
+    .settings-box button {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .account-panel input {
+        padding: 13px 14px;
+        font-size: 14px;
+    }
+
+    .settings-back a {
+        width: calc(100% - 40px);
+    }
+
+}
