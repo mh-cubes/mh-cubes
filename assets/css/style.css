@@ -5761,3 +5761,37 @@ MOBILE
 .track-order-details span {
     color: #111111 !important;
 }
+/* =========================================
+   TRACK ORDER - BLACK TEXT
+========================================= */
+
+.admin-order-box {
+    color: #111111 !important;
+}
+
+.admin-order-box h2,
+.admin-order-box h3,
+.admin-order-box h4,
+.admin-order-box p,
+.admin-order-box strong,
+.admin-order-box span {
+    color: #111111 !important;
+}
+
+/* Product details */
+.track-product,
+.track-product h4,
+.track-product p,
+.track-product strong {
+    color: #111111 !important;
+}
+
+/* Order status */
+.track-status {
+    color: #111111 !important;
+}
+
+/* Muted text */
+.track-muted {
+    color: #111111 !important;
+}
