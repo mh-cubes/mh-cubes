@@ -25,7 +25,9 @@
 ========================================================= */
 
 body {
+
     margin: 0;
+
     min-height: 100vh;
 
     background:
@@ -45,26 +47,35 @@ body {
 ========================================================= */
 
 .cart-header {
+
     width: 100%;
 
     background: #050505;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.08);
 
     padding: 18px 30px;
 
     box-sizing: border-box;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     position: relative;
+
     z-index: 10;
 }
 
+
 .cart-header .logo {
+
     font-size: 24px;
+
     font-weight: 900;
 
     color: #ffffff;
@@ -72,15 +83,23 @@ body {
     letter-spacing: 1px;
 }
 
+
 .cart-header nav {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 }
 
+
 .cart-header nav a {
+
     display: inline-flex;
+
     align-items: center;
+
     justify-content: center;
 
     padding: 10px 18px;
@@ -89,7 +108,9 @@ body {
 
     color: #ffffff;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.12);
 
     border-radius: 10px;
 
@@ -100,7 +121,9 @@ body {
     transition: 0.2s ease;
 }
 
+
 .cart-header nav a:hover {
+
     background: #1a1a1a;
 
     border-color: #00ffff;
@@ -116,6 +139,7 @@ body {
 ========================================================= */
 
 .cart-page {
+
     width: 100%;
 
     max-width: 1150px;
@@ -133,12 +157,15 @@ body {
 ========================================================= */
 
 .cart-title {
+
     text-align: center;
 
     margin-bottom: 45px;
 }
 
+
 .cart-title h1 {
+
     margin: 0;
 
     font-size: 46px;
@@ -148,10 +175,13 @@ body {
     color: #ffffff;
 
     text-shadow:
-        0 0 15px rgba(255, 255, 255, 0.12);
+        0 0 15px
+        rgba(255, 255, 255, 0.12);
 }
 
+
 .cart-title p {
+
     margin: 12px 0 0;
 
     color: #aaa;
@@ -165,6 +195,7 @@ body {
 ========================================================= */
 
 .cart-layout {
+
     display: grid;
 
     grid-template-columns:
@@ -182,6 +213,7 @@ body {
 ========================================================= */
 
 #cart-items {
+
     min-height: 220px;
 
     padding: 25px;
@@ -195,20 +227,24 @@ body {
             #070707
         );
 
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.09);
 
     border-radius: 20px;
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.35);
+        0 20px 50px
+        rgba(0, 0, 0, 0.35);
 }
 
 
 /* =========================================================
-   SUMMARY
+   PREMIUM SUMMARY
 ========================================================= */
 
 .summary {
+
     padding: 26px;
 
     box-sizing: border-box;
@@ -220,45 +256,185 @@ body {
             #080808
         );
 
-    border: 1px solid rgba(0, 255, 255, 0.2);
+    border:
+        1px solid
+        rgba(0, 255, 255, 0.18);
 
     border-radius: 20px;
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.4),
-        0 0 25px rgba(0, 255, 255, 0.04);
+        0 20px 50px
+        rgba(0, 0, 0, 0.45),
+
+        0 0 30px
+        rgba(0, 255, 255, 0.04);
 
     position: sticky;
 
     top: 25px;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
-.summary h2 {
-    margin: 0 0 22px;
+
+.summary:hover {
+
+    border-color:
+        rgba(0, 255, 255, 0.32);
+
+    box-shadow:
+        0 22px 55px
+        rgba(0, 0, 0, 0.5),
+
+        0 0 35px
+        rgba(0, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   SUMMARY HEADING
+========================================================= */
+
+.summary-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+
+.summary-heading span {
+
+    font-size: 23px;
+}
+
+
+.summary-heading h2 {
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 23px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   SUMMARY ROWS
+========================================================= */
+
+.summary-line {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 16px;
+
+    color: #aaa;
+
+    font-size: 15px;
+}
+
+
+.summary-line strong {
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    text-align: right;
+}
+
+
+.delivery-line strong {
+
+    color: #00ffff;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.summary-divider {
+
+    width: 100%;
+
+    height: 1px;
+
+    margin: 20px 0;
+
+    background:
+        rgba(255, 255, 255, 0.1);
+}
+
+
+/* =========================================================
+   FINAL TOTAL
+========================================================= */
+
+.summary-total-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+
+.summary-total-row span {
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+.summary-total-row strong {
 
     color: #00ffff;
 
     font-size: 24px;
 
     font-weight: 900;
+
+    text-shadow:
+        0 0 12px
+        rgba(0, 255, 255, 0.25);
 }
 
-#summary-total {
-    margin: 0 0 25px;
 
-    padding: 17px;
+/* =========================================================
+   HIDDEN OLD TOTAL
+========================================================= */
 
-    background: #00ffff;
+.summary-total-hidden {
 
-    color: #050505;
-
-    border-radius: 12px;
-
-    font-size: 20px;
-
-    font-weight: 900;
-
-    text-align: center;
+    display: none !important;
 }
 
 
@@ -266,18 +442,31 @@ body {
    CHECKOUT BUTTON
 ========================================================= */
 
-.summary a {
+.checkout-link {
+
     display: block;
 
     text-decoration: none;
 }
 
-.summary button {
+
+.checkout-link button {
+
     width: 100%;
+
+    min-height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
 
     border: none;
 
-    padding: 15px 18px;
+    border-radius: 12px;
 
     background:
         linear-gradient(
@@ -288,8 +477,6 @@ body {
 
     color: #ffffff;
 
-    border-radius: 12px;
-
     font-size: 16px;
 
     font-weight: 900;
@@ -297,43 +484,67 @@ body {
     cursor: pointer;
 
     box-shadow:
-        0 8px 20px rgba(220, 38, 38, 0.25);
+        0 8px 22px
+        rgba(220, 38, 38, 0.22);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
 }
 
-.summary button:hover {
-    transform: translateY(-3px);
+
+.checkout-link button:hover {
+
+    transform:
+        translateY(-3px);
+
+    filter:
+        brightness(1.08);
 
     box-shadow:
-        0 12px 28px rgba(220, 38, 38, 0.4);
+        0 13px 30px
+        rgba(220, 38, 38, 0.4);
+}
+
+
+.checkout-link button:active {
+
+    transform:
+        translateY(0)
+        scale(0.98);
+}
+
+
+.checkout-link button span {
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.checkout-link button:hover span {
+
+    transform:
+        translateX(4px);
 }
 
 
 /* =========================================================
-   CART PRODUCT OVERRIDES
+   SECURE CHECKOUT
 ========================================================= */
 
-#cart-items > div {
-    background:
-        linear-gradient(
-            145deg,
-            #151515,
-            #0b0b0b
-        ) !important;
+.secure-checkout {
 
-    border: 1px solid rgba(0, 255, 255, 0.12) !important;
+    margin-top: 15px;
 
-    border-radius: 16px !important;
+    text-align: center;
 
-    color: #ffffff !important;
+    color: #777;
 
-    margin-bottom: 15px;
+    font-size: 12px;
 
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.25);
+    font-weight: 700;
 }
 
 
@@ -344,51 +555,81 @@ body {
 @media (max-width: 800px) {
 
     .cart-header {
+
         padding: 15px 16px;
     }
 
+
     .cart-header .logo {
+
         font-size: 20px;
     }
 
+
     .cart-header nav a {
+
         padding: 9px 13px;
 
         font-size: 13px;
     }
 
+
     .cart-page {
+
         padding: 35px 12px 55px;
     }
 
+
     .cart-title {
+
         margin-bottom: 28px;
     }
 
+
     .cart-title h1 {
+
         font-size: 34px;
     }
 
+
     .cart-title p {
+
         font-size: 14px;
     }
 
+
     .cart-layout {
+
         grid-template-columns: 1fr;
 
         gap: 18px;
     }
 
+
     .summary {
+
         position: static;
 
-        padding: 20px;
+        padding: 22px;
     }
 
+
     #cart-items {
+
         padding: 15px;
     }
 
+
+    .summary-heading h2 {
+
+        font-size: 21px;
+    }
+
+
+    .summary-total-row strong {
+
+        font-size: 22px;
+    }
 }
 
 
@@ -399,25 +640,60 @@ body {
 @media (max-width: 450px) {
 
     .cart-header .logo {
+
         font-size: 18px;
     }
 
+
     .cart-header nav a {
+
         padding: 8px 11px;
 
         font-size: 12px;
     }
 
+
     .cart-title h1 {
+
         font-size: 29px;
     }
 
-    .summary h2 {
+
+    .summary {
+
+        padding: 19px;
+    }
+
+
+    .summary-line {
+
+        font-size: 14px;
+    }
+
+
+    .summary-line strong {
+
+        font-size: 14px;
+    }
+
+
+    .summary-total-row span {
+
+        font-size: 17px;
+    }
+
+
+    .summary-total-row strong {
+
         font-size: 21px;
     }
 
-    #summary-total {
-        font-size: 17px;
+
+    .checkout-link button {
+
+        min-height: 49px;
+
+        font-size: 15px;
     }
 
 }
@@ -439,6 +715,7 @@ body {
     <div class="logo">
         MH CUBES
     </div>
+
 
     <nav>
 
@@ -474,7 +751,9 @@ body {
     <div class="cart-layout">
 
 
-        <!-- CART ITEMS -->
+        <!-- =================================================
+             CART ITEMS
+        ================================================== -->
 
         <div id="cart-items">
 
@@ -483,31 +762,113 @@ body {
         </div>
 
 
-        <!-- ORDER SUMMARY -->
+        <!-- =================================================
+             ORDER SUMMARY
+        ================================================== -->
 
         <aside class="summary">
 
-            <h2>
-                Order Summary
-            </h2>
 
-            <p id="summary-total">
+            <div class="summary-heading">
+
+                <span>
+                    🧾
+                </span>
+
+                <h2>
+                    Order Summary
+                </h2>
+
+            </div>
+
+
+            <div class="summary-line">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong id="cart-subtotal">
+                    PKR 0
+                </strong>
+
+            </div>
+
+
+            <div
+                class="summary-line delivery-line"
+            >
+
+                <span>
+                    Delivery
+                </span>
+
+                <strong id="cart-delivery">
+                    Calculated at checkout
+                </strong>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-total-row">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="cart-final-total">
+                    PKR 0
+                </strong>
+
+            </div>
+
+
+            <!--
+                Kept for compatibility with
+                existing cart-page.js.
+            -->
+
+            <p
+                id="summary-total"
+                class="summary-total-hidden"
+            >
                 Total: PKR 0
             </p>
 
 
-            <a href="checkout.html">
+            <a
+                href="checkout.html"
+                class="checkout-link"
+            >
 
                 <button type="button">
-                    Proceed to Checkout ⚡
+
+                    Proceed to Checkout
+
+                    <span>
+                        ⚡
+                    </span>
+
                 </button>
 
             </a>
+
+
+            <div class="secure-checkout">
+
+                🔒 Secure Checkout
+
+            </div>
+
 
         </aside>
 
 
     </div>
+
 
 </main>
 
@@ -516,7 +877,9 @@ body {
      JAVASCRIPT
 ========================================================= -->
 
-<script src="assets/js/cart-page.js"></script>
+<script
+    src="assets/js/cart-page.js"
+></script>
 
 
 </body>
