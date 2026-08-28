@@ -1,4 +1,3 @@
-
 import { db, auth } from "./firebase.js";
 
 import {
@@ -10,18 +9,15 @@ import {
     collection,
     getDocs,
     query,
-    where
+    where,
+    doc,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-const orderBox =
-    document.getElementById("order-box");
-
-const accountActions =
-    document.getElementById("account-actions");
-
-const logoutButton =
-    document.getElementById("logout-button");
+const orderBox = document.getElementById("order-box");
+const accountActions = document.getElementById("account-actions");
+const logoutButton = document.getElementById("logout-button");
 
 
 // =========================================
@@ -30,72 +26,44 @@ const logoutButton =
 
 async function loadCustomerOrders(user) {
 
-    if (!orderBox) {
-        return;
-    }
-
+    if (!orderBox) return;
 
     orderBox.innerHTML = `
-
         <div class="order-loading">
-
             <div class="loader"></div>
-
-            <h3>
-                🔄 Loading your orders...
-            </h3>
-
+            <h3>🔄 Loading your orders...</h3>
         </div>
-
     `;
-
 
     try {
 
         const ordersQuery = query(
-
             collection(db, "orders"),
-
-            where(
-                "customerUID",
-                "==",
-                user.uid
-            )
-
+            where("customerUID", "==", user.uid)
         );
 
-
-        const snapshot =
-            await getDocs(ordersQuery);
-
+        const snapshot = await getDocs(ordersQuery);
 
         const orders = [];
-
 
         snapshot.forEach(function(docSnap) {
 
             orders.push({
-
                 id: docSnap.id,
-
                 ...docSnap.data()
-
             });
 
         });
 
 
         // =====================================
-        // NEWEST ORDERS FIRST
+        // NEWEST FIRST
         // =====================================
 
         orders.sort(function(a, b) {
 
-            return Number(
-                b.createdAt || 0
-            ) - Number(
-                a.createdAt || 0
-            );
+            return Number(b.createdAt || 0) -
+                   Number(a.createdAt || 0);
 
         });
 
@@ -107,7 +75,6 @@ async function loadCustomerOrders(user) {
         if (orders.length === 0) {
 
             orderBox.innerHTML = `
-
                 <div class="orders-message">
 
                     <div class="message-icon">
@@ -124,17 +91,11 @@ async function loadCustomerOrders(user) {
                     </p>
 
                 </div>
-
             `;
 
             return;
-
         }
 
-
-        // =====================================
-        // CLEAR ORDER BOX
-        // =====================================
 
         orderBox.innerHTML = "";
 
@@ -145,12 +106,9 @@ async function loadCustomerOrders(user) {
 
         orders.forEach(function(order) {
 
-            const card =
-                document.createElement("div");
+            const card = document.createElement("div");
 
-
-            card.className =
-                "customer-order-card";
+            card.className = "customer-order-card";
 
 
             // =================================
@@ -162,33 +120,18 @@ async function loadCustomerOrders(user) {
             let calculatedTotal = 0;
 
 
-            Object.keys(
-                order.products || {}
-            ).forEach(function(productName) {
+            Object.keys(order.products || {}).forEach(function(productName) {
 
-                const item =
-                    order.products[productName];
+                const item = order.products[productName];
 
+                const price = Number(item.price) || 0;
 
-                const price =
-                    Number(item.price) || 0;
+                const quantity = Number(item.quantity) || 0;
 
+                const subtotal = price * quantity;
 
-                const quantity =
-                    Number(item.quantity) || 0;
+                calculatedTotal += subtotal;
 
-
-                const subtotal =
-                    price * quantity;
-
-
-                calculatedTotal +=
-                    subtotal;
-
-
-                // =================================
-                // PRODUCT IMAGE
-                // =================================
 
                 const productImage =
                     item.image ||
@@ -198,52 +141,20 @@ async function loadCustomerOrders(user) {
 
                 productsHTML += `
 
-                    <div
-                        class="my-order-product-item"
-                    >
+                    <div class="my-order-product-item">
 
-                        <div
-                            class="my-order-product-image"
-                            style="
-                                width:50px;
-                                height:50px;
-                                min-width:50px;
-                                max-width:50px;
-                                min-height:50px;
-                                max-height:50px;
-                                flex:0 0 50px;
-                                overflow:hidden;
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                background:#ffffff;
-                                border-radius:8px;
-                                box-sizing:border-box;
-                            "
-                        >
+                        <div class="my-order-product-image">
 
                             <img
                                 src="${productImage}"
                                 alt="${productName}"
-                                style="
-                                    width:100%;
-                                    height:100%;
-                                    max-width:100%;
-                                    max-height:100%;
-                                    object-fit:contain;
-                                    display:block;
-                                "
-                                onerror="
-                                    this.style.display='none';
-                                "
+                                onerror="this.style.display='none';"
                             >
 
                         </div>
 
 
-                        <div
-                            class="my-order-product-info"
-                        >
+                        <div class="my-order-product-info">
 
                             <strong>
                                 🧩 ${productName}
@@ -267,9 +178,7 @@ async function loadCustomerOrders(user) {
             // STATUS
             // =================================
 
-            const status =
-                order.status ||
-                "Pending 🟡";
+            const status = order.status || "Pending";
 
 
             // =================================
@@ -282,16 +191,45 @@ async function loadCustomerOrders(user) {
 
 
             // =================================
-            // TRACK LINK
+            // ORDER ID
             // =================================
 
             const orderID =
-                order.orderID || "";
+                order.orderID || "Order";
 
+
+            // =================================
+            // TRACK URL
+            // =================================
 
             const trackURL =
                 "track-order.html?orderID=" +
                 encodeURIComponent(orderID);
+
+
+            // =================================
+            // CANCEL BUTTON
+            // =================================
+
+            let cancelButtonHTML = "";
+
+
+            if (
+                status.toLowerCase() === "pending"
+            ) {
+
+                cancelButtonHTML = `
+
+                    <button
+                        class="cancel-order-btn"
+                        onclick="cancelOrder('${order.id}', '${orderID}')"
+                    >
+                        ❌ Cancel Order
+                    </button>
+
+                `;
+
+            }
 
 
             // =================================
@@ -303,8 +241,7 @@ async function loadCustomerOrders(user) {
                 <div class="order-card-header">
 
                     <h2>
-                        📦
-                        ${orderID || "Order"}
+                        📦 ${orderID}
                     </h2>
 
                     <span class="order-status">
@@ -314,83 +251,40 @@ async function loadCustomerOrders(user) {
                 </div>
 
 
-                <!-- ORDER DETAILS -->
-
                 <div class="order-details">
 
                     <p>
-
-                        <strong>
-                            👤 Name
-                        </strong>
-
+                        <strong>👤 Name</strong>
                         <br>
-
-                        ${order.customerName ||
-                        "Not available"}
-
+                        ${order.customerName || "Not available"}
                     </p>
 
-
                     <p>
-
-                        <strong>
-                            📱 Phone
-                        </strong>
-
+                        <strong>📱 Phone</strong>
                         <br>
-
-                        ${order.phone ||
-                        "Not available"}
-
+                        ${order.phone || "Not available"}
                     </p>
 
-
                     <p>
-
-                        <strong>
-                            📍 Address
-                        </strong>
-
+                        <strong>📍 Address</strong>
                         <br>
-
-                        ${order.address ||
-                        "Not available"}
-
+                        ${order.address || "Not available"}
                     </p>
 
-
                     <p>
-
-                        <strong>
-                            💳 Payment
-                        </strong>
-
+                        <strong>💳 Payment</strong>
                         <br>
-
-                        ${order.payment ||
-                        "Not selected"}
-
+                        ${order.payment || "Not selected"}
                     </p>
 
-
                     <p>
-
-                        <strong>
-                            📅 Date
-                        </strong>
-
+                        <strong>📅 Date</strong>
                         <br>
-
-                        ${order.date ||
-                        "Not available"}
-
+                        ${order.date || "Not available"}
                     </p>
 
                 </div>
 
-
-                <!-- PRODUCTS -->
 
                 <h3>
                     🧩 Products Ordered
@@ -403,8 +297,6 @@ async function loadCustomerOrders(user) {
 
                 </div>
 
-
-                <!-- TOTAL -->
 
                 <div class="order-total">
 
@@ -419,36 +311,28 @@ async function loadCustomerOrders(user) {
                 </div>
 
 
-                <!-- NOTIFICATION -->
-
                 ${
                     order.notification
                     ?
                     `
-
-                    <div class="order-notification">
-
-                        🔔
-                        ${order.notification}
-
-                    </div>
-
+                        <div class="order-notification">
+                            🔔 ${order.notification}
+                        </div>
                     `
                     :
                     ""
                 }
 
 
-                <!-- TRACK ORDER -->
-
                 <a
                     href="${trackURL}"
                     class="track-order-btn"
                 >
-
                     🔍 Track This Order
-
                 </a>
+
+
+                ${cancelButtonHTML}
 
             `;
 
@@ -456,35 +340,6 @@ async function loadCustomerOrders(user) {
             orderBox.appendChild(card);
 
         });
-
-
-        // =====================================
-        // MOBILE IMAGE SIZE
-        // =====================================
-
-        if (window.innerWidth <= 700) {
-
-            document
-                .querySelectorAll(
-                    ".my-order-product-image"
-                )
-                .forEach(function(imageBox) {
-
-                    imageBox.style.width = "42px";
-                    imageBox.style.height = "42px";
-
-                    imageBox.style.minWidth = "42px";
-                    imageBox.style.minHeight = "42px";
-
-                    imageBox.style.maxWidth = "42px";
-                    imageBox.style.maxHeight = "42px";
-
-                    imageBox.style.flex =
-                        "0 0 42px";
-
-                });
-
-        }
 
 
     } catch (error) {
@@ -526,6 +381,77 @@ async function loadCustomerOrders(user) {
 
 
 // =========================================
+// CANCEL ORDER
+// =========================================
+
+async function cancelOrder(orderDocID, orderID) {
+
+    const confirmed = confirm(
+        "Are you sure you want to cancel order " +
+        orderID +
+        "?"
+    );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const orderRef = doc(
+            db,
+            "orders",
+            orderDocID
+        );
+
+
+        await updateDoc(
+            orderRef,
+            {
+                status: "Cancelled",
+                notification:
+                    "❌ This order was cancelled by the customer."
+            }
+        );
+
+
+        alert(
+            "✅ Order " +
+            orderID +
+            " has been cancelled."
+        );
+
+
+        // Reload orders
+
+        const user = auth.currentUser;
+
+        if (user) {
+            loadCustomerOrders(user);
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Cancel order error:",
+            error
+        );
+
+
+        alert(
+            "❌ Could not cancel the order.\n\n" +
+            "Please try again."
+        );
+
+    }
+
+}
+
+
+// =========================================
 // AUTHENTICATION
 // =========================================
 
@@ -535,21 +461,10 @@ onAuthStateChanged(
 
         if (!user) {
 
-            if (
-                sessionStorage.getItem("loggingOut")
-                === "true"
-            ) {
-
-                return;
-
-            }
-
-
             window.location.href =
                 "customer-login.html";
 
             return;
-
         }
 
 
@@ -581,64 +496,15 @@ if (logoutButton) {
 
                 logoutButton.disabled = true;
 
-
                 logoutButton.innerText =
                     "⏳ Logging out...";
-
-
-                sessionStorage.setItem(
-                    "loggingOut",
-                    "true"
-                );
-
-
-                setTimeout(function() {
-
-                    sessionStorage.removeItem(
-                        "loggingOut"
-                    );
-
-
-                    window.location.href =
-                        "https://mh-cubes.pages.dev/";
-
-                }, 5000);
 
 
                 await signOut(auth);
 
 
-                if (accountActions) {
-
-                    accountActions.style.display =
-                        "none";
-
-                }
-
-
-                orderBox.innerHTML = `
-
-                    <div class="orders-message">
-
-                        <div class="message-icon">
-                            ✅
-                        </div>
-
-                        <h2>
-                            Logged Out Successfully!
-                        </h2>
-
-                        <p>
-                            Redirecting to MH CUBES...
-                        </p>
-
-                        <p>
-                            ⏳ Please wait 5 seconds
-                        </p>
-
-                    </div>
-
-                `;
+                window.location.href =
+                    "index.html";
 
 
             } catch (error) {
@@ -649,38 +515,16 @@ if (logoutButton) {
                 );
 
 
-                sessionStorage.removeItem(
-                    "loggingOut"
-                );
-
-
                 logoutButton.disabled =
                     false;
-
 
                 logoutButton.innerText =
                     "🚪 Logout";
 
 
-                orderBox.innerHTML = `
-
-                    <div class="orders-message">
-
-                        <div class="message-icon">
-                            ❌
-                        </div>
-
-                        <h2>
-                            Failed to Logout
-                        </h2>
-
-                        <p>
-                            Please try again.
-                        </p>
-
-                    </div>
-
-                `;
+                alert(
+                    "❌ Failed to logout. Please try again."
+                );
 
             }
 
@@ -689,3 +533,9 @@ if (logoutButton) {
 
 }
 
+
+// =========================================
+// MAKE FUNCTION AVAILABLE TO HTML
+// =========================================
+
+window.cancelOrder = cancelOrder;
