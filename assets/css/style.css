@@ -5091,3 +5091,47 @@ body > header nav a:hover {
     }
 
 }
+/* =========================================
+   BEAUTIFUL PLACE ORDER BUTTON
+========================================= */
+
+.place-order {
+    width: 100%;
+    margin-top: 25px;
+    padding: 17px 25px;
+
+    background: linear-gradient(135deg, #ff2020, #d90000);
+    color: #ffffff;
+
+    border: none;
+    border-radius: 14px;
+
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(255, 32, 32, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.place-order:hover {
+    background: linear-gradient(135deg, #ff3030, #b90000);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(255, 32, 32, 0.38);
+}
+
+.place-order:active {
+    transform: translateY(-1px);
+    box-shadow:
+        0 7px 18px rgba(255, 32, 32, 0.25);
+}
