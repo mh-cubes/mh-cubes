@@ -822,131 +822,124 @@ document.addEventListener("DOMContentLoaded", () => {
                     item.date || "";
 
 
-                // =================================
-                // DELETE BUTTON
-                // =================================
+// =================================
+// REVIEW MENU + DELETE BUTTON
+// =================================
 
-                const menuContainer =
-                    document.createElement(
-                        "div"
-                    );
+const menuContainer =
+    document.createElement("div");
 
-                menuContainer.className =
-                    "review-menu";
+menuContainer.className = "review-menu";
 
+const menuButton =
+    document.createElement("button");
 
-                const isOwner =
-                    currentUser &&
-                    currentUser.uid ===
-                    ownerUID;
+menuButton.type = "button";
+menuButton.className = "review-menu-button";
+menuButton.textContent = "⋮";
+menuButton.title = "Review options";
 
+const menuDropdown =
+    document.createElement("div");
 
-                const isReviewOwner =
-                    currentUser &&
-                    item.customerUID &&
-                    item.customerUID ===
-                    currentUser.uid;
+menuDropdown.className = "review-menu-dropdown";
+menuDropdown.style.display = "none";
 
+const isOwner =
+    currentUser &&
+    currentUser.uid === ownerUID;
 
-                if (
-                    isOwner ||
-                    isReviewOwner
-                ) {
+const isReviewOwner =
+    currentUser &&
+    item.customerUID &&
+    item.customerUID === currentUser.uid;
 
-                    const deleteButton =
-                        document.createElement(
-                            "button"
-                        );
+if (isOwner || isReviewOwner) {
 
+    const deleteButton =
+        document.createElement("button");
 
-                    deleteButton.type =
-                        "button";
+    deleteButton.type = "button";
+    deleteButton.className = "delete-review-btn";
+    deleteButton.textContent = "🗑 Delete Review";
 
+    deleteButton.addEventListener(
+        "click",
+        async () => {
 
-                    deleteButton.className =
-                        "delete-review-btn";
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this review?"
+                );
 
+            if (!confirmed) return;
 
-                    deleteButton.textContent =
-                        "🗑️";
+            try {
 
+                deleteButton.disabled = true;
+                deleteButton.textContent =
+                    "⏳ Deleting...";
 
-                    deleteButton.title =
-                        "Delete review";
+                await deleteDoc(
+                    doc(
+                        db,
+                        "reviews",
+                        item.id
+                    )
+                );
 
+                showToast(
+                    "Review deleted successfully!"
+                );
 
-                    deleteButton.addEventListener(
-                        "click",
-                        async () => {
+                await displayReviews();
 
-                            const confirmed =
-                                confirm(
-                                    "Are you sure you want to delete this review?"
-                                );
+            } catch (error) {
 
+                console.error(
+                    "DELETE REVIEW ERROR:",
+                    error
+                );
 
-                            if (!confirmed)
-                                return;
+                showToast(
+                    "Failed to delete review: " +
+                    error.message
+                );
 
+                deleteButton.disabled = false;
+                deleteButton.textContent =
+                    "🗑 Delete Review";
+            }
+        }
+    );
 
-                            try {
+    menuDropdown.appendChild(deleteButton);
 
-                                deleteButton.disabled =
-                                    true;
+    menuButton.addEventListener(
+        "click",
+        (event) => {
 
+            event.stopPropagation();
 
-                                deleteButton.textContent =
-                                    "⏳";
+            const isOpen =
+                menuDropdown.style.display === "block";
 
+            document
+                .querySelectorAll(".review-menu-dropdown")
+                .forEach((menu) => {
+                    menu.style.display = "none";
+                });
 
-                                await deleteDoc(
-                                    doc(
-                                        db,
-                                        "reviews",
-                                        item.id
-                                    )
-                                );
+            menuDropdown.style.display =
+                isOpen ? "none" : "block";
+        }
+    );
 
-
-                                showToast(
-                                    "Review deleted successfully!"
-                                );
-
-
-                                await displayReviews();
-
-
-                            } catch (error) {
-
-                                console.error(
-                                    "DELETE REVIEW ERROR:",
-                                    error
-                                );
-
-
-                                showToast(
-                                    "Failed to delete review: " +
-                                    error.message
-                                );
-
-
-                                deleteButton.disabled =
-                                    false;
-
-                                deleteButton.textContent =
-                                    "🗑️";
-
-                            }
-
-                        }
-                    );
+    menuContainer.appendChild(menuButton);
+    menuContainer.appendChild(menuDropdown);
+}
 
 
-                    menuContainer.appendChild(
-                        deleteButton
-                    );
-
-                }
 
 
                 // =================================
