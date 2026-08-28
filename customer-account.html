@@ -3,494 +3,515 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Account - MH CUBES</title>
+<title>My Account - MH CUBES</title>
 
-    <link
-        rel="stylesheet"
-        href="assets/css/style.css"
-    >
+<link rel="stylesheet" href="assets/css/style.css">
 
-    <style>
+<style>
 
-        /* =========================================
-           ACCOUNT PAGE
-        ========================================= */
+body {
+    min-height: 100vh;
 
-        body {
-            min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(220, 38, 38, 0.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(153, 27, 27, 0.10),
+            transparent 35%
+        ),
+        #f5f5f5;
+}
 
-            background:
-                radial-gradient(
-                    circle at top left,
-                    rgba(220, 38, 38, 0.12),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at bottom right,
-                    rgba(153, 27, 27, 0.10),
-                    transparent 35%
-                ),
-                #f5f5f5;
-        }
 
+/* =========================================
+   ACCOUNT NAV
+========================================= */
 
-        /* =========================================
-           ACCOUNT NAVIGATION
-        ========================================= */
+.account-nav {
 
-        .account-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-            display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
 
-            justify-content: center;
+    padding: 22px 20px;
+    margin-top: 10px;
+}
 
-            align-items: center;
+.account-nav a {
 
-            gap: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-            flex-wrap: wrap;
+    min-width: 150px;
 
-            padding: 22px 20px;
+    padding: 13px 24px;
 
-            margin-top: 10px;
-        }
+    border-radius: 14px;
 
+    text-decoration: none;
 
-        .account-nav a {
+    color: white;
 
-            display: inline-flex;
+    font-size: 15px;
+    font-weight: 800;
 
-            align-items: center;
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #991b1b
+        );
 
-            justify-content: center;
+    border: 1px solid rgba(255,255,255,0.12);
 
-            min-width: 150px;
+    box-shadow:
+        0 8px 22px rgba(0,0,0,0.25);
 
-            padding: 13px 24px;
+    transition: 0.25s ease;
+}
 
-            border-radius: 14px;
+.account-nav a:hover {
 
-            text-decoration: none;
+    transform: translateY(-3px);
 
-            color: white;
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #b91c1c
+        );
 
-            font-size: 15px;
+    box-shadow:
+        0 12px 28px rgba(220,38,38,0.35);
+}
 
-            font-weight: 800;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #dc2626,
-                    #991b1b
-                );
+/* =========================================
+   CONTAINER
+========================================= */
 
-            border: 1px solid
-                rgba(255, 255, 255, 0.12);
+.account-container {
 
-            box-shadow:
-                0 8px 22px
-                rgba(0, 0, 0, 0.25);
+    max-width: 1000px;
 
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease,
-                background 0.25s ease;
-        }
+    margin: 35px auto 60px;
 
+    padding: 20px;
+}
 
-        .account-nav a:hover {
 
-            transform: translateY(-3px);
+/* =========================================
+   ACCOUNT HEADER
+========================================= */
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #ef4444,
-                    #b91c1c
-                );
+.account-header {
 
-            box-shadow:
-                0 12px 28px
-                rgba(220, 38, 38, 0.35);
-        }
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #2563eb
+        );
 
+    color: white;
 
-        /* =========================================
-           ACCOUNT CONTAINER
-        ========================================= */
+    padding: 40px 30px;
 
-        .account-container {
+    border-radius: 25px;
 
-            max-width: 1000px;
+    text-align: center;
 
-            margin: 35px auto 60px;
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.2);
+}
 
-            padding: 20px;
-        }
+.account-avatar {
 
+    width: 90px;
+    height: 90px;
 
-        /* =========================================
-           ACCOUNT HEADER
-        ========================================= */
+    margin: 0 auto 15px;
 
-        .account-header {
+    border-radius: 50%;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #111827,
-                    #2563eb
-                );
+    background: white;
 
-            color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-            padding: 40px 30px;
+    font-size: 45px;
+}
 
-            border-radius: 25px;
+.account-header h1 {
 
-            text-align: center;
+    margin: 10px 0;
 
-            box-shadow:
-                0 15px 40px
-                rgba(0, 0, 0, 0.2);
-        }
+    font-size: 32px;
+}
 
+.account-header p {
 
-        .account-avatar {
+    margin: 5px 0;
 
-            width: 90px;
+    opacity: 0.9;
+}
 
-            height: 90px;
+.account-email {
 
-            margin: 0 auto 15px;
+    display: inline-block;
 
-            border-radius: 50%;
+    margin-top: 15px;
 
-            background: white;
+    padding: 10px 18px;
 
-            display: flex;
+    background:
+        rgba(255,255,255,0.15);
 
-            justify-content: center;
+    border-radius: 30px;
 
-            align-items: center;
+    font-size: 15px;
 
-            font-size: 45px;
-        }
+    word-break: break-word;
+}
 
 
-        .account-header h1 {
+/* =========================================
+   ACCOUNT CARDS
+========================================= */
 
-            margin: 10px 0;
+.account-actions {
 
-            font-size: 32px;
-        }
+    display: grid;
 
+    grid-template-columns:
+        repeat(3, 1fr);
 
-        .account-header p {
+    gap: 20px;
 
-            margin: 5px 0;
+    margin-top: 25px;
+}
 
-            opacity: 0.9;
-        }
+.account-card {
 
+    background: white;
 
-        /* =========================================
-           EMAIL
-        ========================================= */
+    padding: 30px;
 
-        .account-email {
+    border-radius: 20px;
 
-            display: inline-block;
+    text-align: center;
 
-            margin-top: 15px;
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.12);
 
-            padding: 10px 18px;
+    transition: 0.25s ease;
+}
 
-            background:
-                rgba(255, 255, 255, 0.15);
+.account-card:hover {
 
-            border-radius: 30px;
+    transform: translateY(-5px);
 
-            font-size: 15px;
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.18);
+}
 
-            word-break: break-word;
-        }
+.account-icon {
 
+    font-size: 40px;
 
-        /* =========================================
-           ACCOUNT CARDS
-        ========================================= */
+    margin-bottom: 10px;
+}
 
-        .account-actions {
+.account-card h3 {
 
-            display: grid;
+    margin: 8px 0;
+}
 
-            grid-template-columns:
-                repeat(3, 1fr);
+.account-card p {
 
-            gap: 20px;
+    color: #666;
 
-            margin-top: 25px;
-        }
+    font-size: 14px;
 
+    margin-bottom: 20px;
+}
 
-        .account-card {
 
-            background: white;
+/* =========================================
+   ORDER STATISTICS
+========================================= */
 
-            padding: 30px;
+.order-count {
 
-            border-radius: 20px;
+    font-size: 42px;
 
-            text-align: center;
+    font-weight: bold;
 
-            box-shadow:
-                0 8px 25px
-                rgba(0, 0, 0, 0.12);
+    color: #2563eb;
 
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-        }
+    margin: 10px 0;
+}
 
+.order-count-text {
 
-        .account-card:hover {
+    color: #666;
 
-            transform: translateY(-5px);
+    font-size: 14px;
 
-            box-shadow:
-                0 15px 35px
-                rgba(0, 0, 0, 0.18);
-        }
+    margin-bottom: 20px;
+}
 
 
-        .account-icon {
+/* =========================================
+   STAT CARDS
+========================================= */
 
-            font-size: 40px;
+.account-stat-grid {
 
-            margin-bottom: 10px;
-        }
+    display: grid;
 
+    grid-template-columns:
+        repeat(2, 1fr);
 
-        .account-card h3 {
+    gap: 20px;
 
-            margin: 8px 0;
-        }
+    margin-top: 20px;
+}
 
+.account-stat {
 
-        .account-card p {
+    background: white;
 
-            color: #666;
+    padding: 25px;
 
-            font-size: 14px;
+    border-radius: 20px;
 
-            margin-bottom: 20px;
-        }
+    text-align: center;
 
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.10);
 
-        /* =========================================
-           TOTAL ORDERS
-        ========================================= */
+    transition: 0.25s ease;
+}
 
-        .order-count {
+.account-stat:hover {
 
-            font-size: 42px;
+    transform: translateY(-4px);
 
-            font-weight: bold;
+    box-shadow:
+        0 14px 30px rgba(0,0,0,0.15);
+}
 
-            color: #2563eb;
+.account-stat-icon {
 
-            margin: 10px 0;
-        }
+    font-size: 32px;
 
+    margin-bottom: 5px;
+}
 
-        .order-count-text {
+.account-stat-number {
 
-            color: #666;
+    font-size: 34px;
 
-            font-size: 14px;
+    font-weight: 900;
 
-            margin-bottom: 20px;
-        }
+    color: #2563eb;
 
+    margin: 5px 0;
+}
 
-        /* =========================================
-           BUTTONS
-        ========================================= */
+.account-stat-label {
 
-        .account-button {
+    color: #666;
 
-            display: inline-flex;
+    font-size: 14px;
+}
 
-            align-items: center;
 
-            justify-content: center;
+/* =========================================
+   BUTTONS
+========================================= */
 
-            width: 100%;
+.account-button {
 
-            padding: 13px;
+    display: inline-flex;
 
-            border: none;
+    align-items: center;
+    justify-content: center;
 
-            border-radius: 10px;
+    width: 100%;
 
-            background: #2563eb;
+    padding: 13px;
 
-            color: white;
+    border: none;
 
-            font-size: 15px;
+    border-radius: 10px;
 
-            font-weight: 700;
+    background: #2563eb;
 
-            cursor: pointer;
+    color: white;
 
-            text-decoration: none;
+    font-size: 15px;
 
-            box-sizing: border-box;
+    font-weight: 700;
 
-            transition:
-                transform 0.2s ease,
-                background 0.2s ease,
-                box-shadow 0.2s ease;
-        }
+    cursor: pointer;
 
+    text-decoration: none;
 
-        .account-button:hover {
+    box-sizing: border-box;
 
-            background: #1d4ed8;
+    transition: 0.2s ease;
+}
 
-            transform: translateY(-2px);
+.account-button:hover {
 
-            box-shadow:
-                0 7px 18px
-                rgba(37, 99, 235, 0.25);
-        }
+    background: #1d4ed8;
 
+    transform: translateY(-2px);
 
-        /* =========================================
-           SHOP BUTTON
-        ========================================= */
+    box-shadow:
+        0 7px 18px rgba(37,99,235,0.25);
+}
 
-        .shop-button {
 
-            display: flex;
+/* =========================================
+   SHOP BUTTON
+========================================= */
 
-            width: min(420px, 100%);
+.shop-button {
 
-            margin: 30px auto 0;
+    display: flex;
 
-            background: white;
+    width: min(420px, 100%);
 
-            color: #2563eb;
+    margin: 30px auto 0;
 
-            border: 2px solid #2563eb;
-        }
+    background: white;
 
+    color: #2563eb;
 
-        .shop-button:hover {
+    border: 2px solid #2563eb;
+}
 
-            background: #2563eb;
+.shop-button:hover {
 
-            color: white;
-        }
+    background: #2563eb;
 
+    color: white;
+}
 
-        /* =========================================
-           LOGOUT BUTTON
-        ========================================= */
 
-        .logout-button {
+/* =========================================
+   LOGOUT
+========================================= */
 
-            display: flex;
+.logout-button {
 
-            width: min(420px, 100%);
+    display: flex;
 
-            margin: 15px auto 0;
+    width: min(420px, 100%);
 
-            background: #dc2626;
-        }
+    margin: 15px auto 0;
 
+    background: #dc2626;
+}
 
-        .logout-button:hover {
+.logout-button:hover {
 
-            background: #b91c1c;
-        }
+    background: #b91c1c;
+}
 
 
-        /* =========================================
-           MOBILE
-        ========================================= */
+/* =========================================
+   LOADING
+========================================= */
 
-        @media (max-width: 700px) {
+.account-loading {
 
-            .account-nav {
+    color: #666;
 
-                gap: 10px;
+    font-size: 14px;
+}
 
-                padding: 18px 15px;
-            }
 
+/* =========================================
+   MOBILE
+========================================= */
 
-            .account-nav a {
+@media (max-width: 700px) {
 
-                min-width: 135px;
+    .account-nav {
 
-                padding: 12px 18px;
+        gap: 10px;
 
-                font-size: 14px;
-            }
+        padding: 18px 15px;
+    }
 
+    .account-nav a {
 
-            .account-container {
+        min-width: 135px;
 
-                margin: 20px auto 40px;
+        padding: 12px 18px;
 
-                padding: 15px;
-            }
+        font-size: 14px;
+    }
 
+    .account-container {
 
-            .account-header {
+        margin: 20px auto 40px;
 
-                padding: 30px 20px;
-            }
+        padding: 15px;
+    }
 
+    .account-header {
 
-            .account-header h1 {
+        padding: 30px 20px;
+    }
 
-                font-size: 26px;
-            }
+    .account-header h1 {
 
+        font-size: 26px;
+    }
 
-            .account-email {
+    .account-email {
 
-                max-width: 100%;
+        max-width: 100%;
 
-                font-size: 13px;
-            }
+        font-size: 13px;
+    }
 
+    .account-actions {
 
-            .account-actions {
+        grid-template-columns: 1fr;
+    }
 
-                grid-template-columns: 1fr;
-            }
+    .account-stat-grid {
 
+        grid-template-columns: 1fr;
+    }
 
-            .account-card {
+    .account-card {
 
-                padding: 25px;
-            }
+        padding: 25px;
+    }
 
-        }
+}
 
-    </style>
+</style>
 
 </head>
 
@@ -498,344 +519,423 @@
 <body>
 
 
-    <!-- =========================================
-         ACCOUNT NAVIGATION
-    ========================================= -->
+<nav class="account-nav">
 
-    <nav class="account-nav">
+    <a href="index.html">
+        🏠 Home
+    </a>
 
-        <a href="index.html">
-            🏠 Home
-        </a>
+    <a href="my-orders.html">
+        📦 My Orders
+    </a>
 
-        <a href="my-orders.html">
-            📦 My Orders
-        </a>
+</nav>
 
-    </nav>
 
+<main>
 
-    <!-- =========================================
-         ACCOUNT
-    ========================================= -->
+<div class="account-container">
 
-    <main>
 
-        <div class="account-container">
+<!-- =========================================
+     ACCOUNT HEADER
+========================================= -->
 
+<div class="account-header">
 
-            <!-- =====================================
-                 ACCOUNT HEADER
-            ====================================== -->
+    <div class="account-avatar">
+        👤
+    </div>
 
-            <div class="account-header">
+    <h1>
+        My Account
+    </h1>
 
-                <div class="account-avatar">
-                    👤
-                </div>
+    <p>
+        Welcome back to MH CUBES!
+    </p>
 
-                <h1>
-                    My Account
-                </h1>
+    <div
+        class="account-email"
+        id="account-email"
+    >
+        Loading...
+    </div>
 
-                <p>
-                    Welcome back to MH CUBES!
-                </p>
+</div>
 
-                <div
-                    class="account-email"
-                    id="account-email"
-                >
-                    Loading...
-                </div>
 
-            </div>
+<!-- =========================================
+     MAIN ACCOUNT ACTIONS
+========================================= -->
 
+<div class="account-actions">
 
-            <!-- =====================================
-                 ACCOUNT ACTIONS
-            ====================================== -->
 
-            <div class="account-actions">
+<div class="account-card">
 
+    <div class="account-icon">
+        📦
+    </div>
 
-                <!-- MY ORDERS -->
+    <h3>
+        My Orders
+    </h3>
 
-                <div class="account-card">
+    <p>
+        View your previous and current orders.
+    </p>
 
-                    <div class="account-icon">
-                        📦
-                    </div>
+    <a
+        href="my-orders.html"
+        class="account-button"
+    >
+        View My Orders
+    </a>
 
-                    <h3>
-                        My Orders
-                    </h3>
+</div>
 
-                    <p>
-                        View your previous and current orders.
-                    </p>
 
-                    <a
-                        href="my-orders.html"
-                        class="account-button"
-                    >
-                        View My Orders
-                    </a>
+<div class="account-card">
 
-                </div>
+    <div class="account-icon">
+        🔍
+    </div>
 
+    <h3>
+        Track Order
+    </h3>
 
-                <!-- TRACK ORDER -->
+    <p>
+        Check the current status of your order.
+    </p>
 
-                <div class="account-card">
+    <a
+        href="track-order.html"
+        class="account-button"
+    >
+        Track My Order
+    </a>
 
-                    <div class="account-icon">
-                        🔍
-                    </div>
+</div>
 
-                    <h3>
-                        Track Order
-                    </h3>
 
-                    <p>
-                        Check the current status of your order.
-                    </p>
+<div class="account-card">
 
-                    <a
-                        href="track-order.html"
-                        class="account-button"
-                    >
-                        Track My Order
-                    </a>
+    <div class="account-icon">
+        📊
+    </div>
 
-                </div>
+    <h3>
+        Total Orders
+    </h3>
 
+    <div
+        class="order-count"
+        id="order-count"
+    >
+        ...
+    </div>
 
-                <!-- TOTAL ORDERS -->
+    <div class="order-count-text">
+        Orders you've placed with MH CUBES
+    </div>
 
-                <div class="account-card">
+</div>
 
-                    <div class="account-icon">
-                        📊
-                    </div>
 
-                    <h3>
-                        Total Orders
-                    </h3>
+</div>
 
-                    <div
-                        class="order-count"
-                        id="order-count"
-                    >
-                        ...
-                    </div>
 
-                    <div class="order-count-text">
-                        Orders you've placed with MH CUBES
-                    </div>
+<!-- =========================================
+     ORDER STATISTICS
+========================================= -->
 
-                </div>
+<div class="account-stat-grid">
 
 
-            </div>
+<div class="account-stat">
 
+    <div class="account-stat-icon">
+        🚚
+    </div>
 
-            <!-- =====================================
-                 CONTINUE SHOPPING
-            ====================================== -->
+    <div
+        class="account-stat-number"
+        id="active-count"
+    >
+        ...
+    </div>
 
-            <a
-                href="index.html"
-                class="account-button shop-button"
-            >
-                🛍️ Continue Shopping
-            </a>
+    <div class="account-stat-label">
+        Active Orders
+    </div>
 
+</div>
 
-            <!-- =====================================
-                 LOGOUT
-            ====================================== -->
 
-            <button
-                class="account-button logout-button"
-                id="logout-button"
-                type="button"
-            >
-                🚪 Logout
-            </button>
+<div class="account-stat">
 
+    <div class="account-stat-icon">
+        ❌
+    </div>
 
-        </div>
+    <div
+        class="account-stat-number"
+        id="cancelled-count"
+    >
+        ...
+    </div>
 
-    </main>
+    <div class="account-stat-label">
+        Cancelled Orders
+    </div>
 
+</div>
 
-    <!-- =========================================
-         FIREBASE
-    ========================================= -->
 
-    <script type="module">
+</div>
 
-        import {
-            auth,
-            db
-        } from "./assets/js/firebase.js";
 
+<!-- =========================================
+     CONTINUE SHOPPING
+========================================= -->
 
-        import {
-            onAuthStateChanged,
-            signOut
-        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+<a
+    href="index.html"
+    class="account-button shop-button"
+>
+    🛍️ Continue Shopping
+</a>
 
 
-        import {
-            collection,
-            query,
-            where,
-            getDocs
-        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+<!-- =========================================
+     LOGOUT
+========================================= -->
 
+<button
+    class="account-button logout-button"
+    id="logout-button"
+    type="button"
+>
+    🚪 Logout
+</button>
 
-        const emailBox =
-            document.getElementById("account-email");
 
+</div>
 
-        const orderCount =
-            document.getElementById("order-count");
+</main>
 
 
-        const logoutButton =
-            document.getElementById("logout-button");
+<script type="module">
 
+import {
+    auth,
+    db
+} from "./assets/js/firebase.js";
 
-        // =========================================
-        // CHECK LOGIN
-        // =========================================
 
-        onAuthStateChanged(
-            auth,
-            async function(user) {
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-                if (!user) {
 
-                    window.location.replace(
-                        "customer-login.html"
-                    );
+import {
+    collection,
+    query,
+    where,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-                    return;
-                }
 
+const emailBox =
+    document.getElementById("account-email");
 
-                // =================================
-                // CUSTOMER EMAIL
-                // =================================
+const orderCount =
+    document.getElementById("order-count");
 
-                emailBox.innerText =
-                    user.email ||
-                    "Customer account";
+const activeCount =
+    document.getElementById("active-count");
 
+const cancelledCount =
+    document.getElementById("cancelled-count");
 
-                // =================================
-                // LOAD TOTAL ORDERS
-                // =================================
+const logoutButton =
+    document.getElementById("logout-button");
 
-                try {
 
-                    const ordersRef =
-                        collection(
-                            db,
-                            "orders"
-                        );
+/* =========================================
+   CHECK LOGIN
+========================================= */
 
+onAuthStateChanged(
+    auth,
+    async function(user) {
 
-                    const ordersQuery =
-                        query(
-                            ordersRef,
-                            where(
-                                "customerUID",
-                                "==",
-                                user.uid
-                            )
-                        );
+        if (!user) {
 
+            window.location.replace(
+                "customer-login.html"
+            );
 
-                    const snapshot =
-                        await getDocs(
-                            ordersQuery
-                        );
+            return;
+        }
 
 
-                    orderCount.innerText =
-                        snapshot.size;
+        /* =====================================
+           EMAIL
+        ===================================== */
 
-                }
+        emailBox.innerText =
+            user.email ||
+            "Customer account";
 
-                catch (error) {
 
-                    console.error(
-                        "Order count error:",
-                        error
-                    );
+        /* =====================================
+           LOAD CUSTOMER ORDERS
+        ===================================== */
 
-                    orderCount.innerText =
-                        "0";
-                }
+        try {
 
-            }
-        );
+            const ordersQuery =
+                query(
+                    collection(db, "orders"),
+                    where(
+                        "customerUID",
+                        "==",
+                        user.uid
+                    )
+                );
 
 
-        // =========================================
-        // LOGOUT
-        // =========================================
+            const snapshot =
+                await getDocs(
+                    ordersQuery
+                );
 
-        logoutButton.addEventListener(
-            "click",
-            async function() {
 
-                try {
+            let totalOrders =
+                snapshot.size;
 
-                    logoutButton.disabled =
-                        true;
+            let activeOrders = 0;
 
-                    logoutButton.innerText =
-                        "⏳ Logging out...";
+            let cancelledOrders = 0;
 
 
-                    await signOut(auth);
+            snapshot.forEach(function(docSnap) {
 
+                const order =
+                    docSnap.data();
 
-                    window.location.replace(
-                        "index.html"
-                    );
 
-                }
+                const status =
+                    String(
+                        order.status || "Pending"
+                    ).toLowerCase();
 
-                catch (error) {
 
-                    console.error(
-                        "Logout error:",
-                        error
-                    );
+                if (
+                    status === "cancelled"
+                ) {
 
+                    cancelledOrders++;
 
-                    logoutButton.disabled =
-                        false;
+                } else {
 
-                    logoutButton.innerText =
-                        "🚪 Logout";
-
-
-                    alert(
-                        "❌ Failed to logout. Please try again."
-                    );
+                    activeOrders++;
 
                 }
 
-            }
-        );
+            });
 
-    </script>
+
+            /* =================================
+               DISPLAY COUNTS
+            ================================= */
+
+            orderCount.innerText =
+                totalOrders;
+
+            activeCount.innerText =
+                activeOrders;
+
+            cancelledCount.innerText =
+                cancelledOrders;
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Order statistics error:",
+                error
+            );
+
+
+            orderCount.innerText = "0";
+
+            activeCount.innerText = "0";
+
+            cancelledCount.innerText = "0";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+logoutButton.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            logoutButton.disabled = true;
+
+            logoutButton.innerText =
+                "⏳ Logging out...";
+
+
+            await signOut(auth);
+
+
+            window.location.replace(
+                "index.html"
+            );
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+
+            logoutButton.disabled = false;
+
+            logoutButton.innerText =
+                "🚪 Logout";
+
+
+            alert(
+                "❌ Failed to logout. Please try again."
+            );
+
+        }
+
+    }
+);
+
+</script>
 
 
 </body>
