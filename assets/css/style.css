@@ -5252,3 +5252,300 @@ body > header nav a:hover {
     }
 
 }
+
+/* =========================================
+   MH CUBES — BEAUTIFUL PAYMENT SECTION
+========================================= */
+
+.payment-section {
+    margin-top: 35px;
+    padding: 28px;
+    background: #111111;
+    border: 1px solid #242424;
+    border-radius: 22px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+}
+
+
+/* HEADING */
+
+.payment-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.payment-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ff2020;
+    border-radius: 15px;
+
+    font-size: 25px;
+
+    box-shadow: 0 8px 22px rgba(255, 32, 32, 0.25);
+}
+
+.payment-heading h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.payment-heading p {
+    margin: 5px 0 0;
+    color: #999999;
+    font-size: 13px;
+}
+
+
+/* PAYMENT OPTIONS */
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+
+/* CARD */
+
+.payment-card {
+    position: relative;
+
+    display: block;
+
+    background: #181818;
+    border: 1px solid #303030;
+
+    border-radius: 16px;
+
+    padding: 5px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.payment-card:hover {
+    transform: translateY(-2px);
+    border-color: #ff2020;
+    box-shadow: 0 8px 25px rgba(255, 32, 32, 0.12);
+}
+
+
+/* HIDE RADIO */
+
+.payment-card input {
+    position: absolute;
+    opacity: 0;
+}
+
+
+/* CARD CONTENT */
+
+.payment-card-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 14px;
+}
+
+
+/* ICON */
+
+.payment-method-icon {
+    width: 48px;
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    font-size: 22px;
+
+    background: #222222;
+}
+
+
+/* METHOD INFO */
+
+.payment-method-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    flex: 1;
+}
+
+.payment-method-info strong {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.payment-method-info span {
+    color: #888888;
+    font-size: 12px;
+}
+
+
+/* COMING SOON */
+
+.payment-disabled {
+    opacity: 0.48;
+    cursor: not-allowed !important;
+}
+
+.payment-disabled:hover {
+    transform: none;
+    border-color: #303030;
+    box-shadow: none;
+}
+
+.payment-disabled .payment-method-info span {
+    color: #ff2020;
+    font-weight: 700;
+}
+
+
+/* ACTIVE COD */
+
+.payment-active {
+    border-color: #ff2020;
+    background:
+        linear-gradient(
+            135deg,
+            #1c1111,
+            #181818
+        );
+
+    box-shadow:
+        0 8px 25px rgba(255, 32, 32, 0.10);
+}
+
+
+/* RADIO CHECKED EFFECT */
+
+.payment-card:has(input:checked) {
+    border-color: #ff2020;
+
+    background:
+        linear-gradient(
+            135deg,
+            #211010,
+            #181818
+        );
+
+    box-shadow:
+        0 10px 30px rgba(255, 32, 32, 0.15);
+}
+
+
+/* CHECK */
+
+.payment-check {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ff2020;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    box-shadow:
+        0 5px 15px rgba(255, 32, 32, 0.3);
+}
+
+
+/* LOCK */
+
+.payment-arrow {
+    font-size: 15px;
+    opacity: 0.7;
+}
+
+
+/* SECURITY NOTE */
+
+.payment-secure-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 20px;
+    padding-top: 17px;
+
+    border-top: 1px solid #292929;
+}
+
+.payment-secure-note span {
+    font-size: 14px;
+}
+
+.payment-secure-note p {
+    margin: 0;
+
+    color: #777777;
+
+    font-size: 12px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .payment-section {
+        padding: 20px 15px;
+        border-radius: 18px;
+    }
+
+    .payment-heading h2 {
+        font-size: 20px;
+    }
+
+    .payment-heading p {
+        font-size: 12px;
+    }
+
+    .payment-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 21px;
+    }
+
+    .payment-method-icon {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    .payment-method-info strong {
+        font-size: 14px;
+    }
+}
+
