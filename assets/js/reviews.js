@@ -1,3 +1,4 @@
+
 import {
     collection,
     addDoc,
@@ -8,14 +9,14 @@ import {
     where
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-import { db } from "./firebase.js";
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import { db, auth } from "./firebase.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    // =========================================
-    // ELEMENTS
-    // =========================================
 
     const nameInput = document.getElementById("review-name");
     const reviewInput = document.getElementById("review-text");
@@ -26,17 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const stars = document.querySelectorAll(".stars span");
 
-    const imageInput = document.getElementById("review-images");
-    const imagePreview = document.getElementById("image-preview");
 
-
-    if (
-        !nameInput ||
-        !reviewInput ||
-        !ratingInput ||
-        !submitButton
-    ) {
-        console.error("Review elements are missing.");
+    if (!nameInput || !reviewInput || !ratingInput || !submitButton) {
+        console.error("Review elements missing.");
         return;
     }
 
@@ -51,35 +44,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
-    // SELECTED IMAGES
-    // =========================================
-
-    let selectedImages = [];
-
-
-    // =========================================
     // STAR RATING
     // =========================================
 
     stars.forEach((star) => {
 
-        star.addEventListener("click", (event) => {
+        star.addEventListener("click", () => {
 
-            event.preventDefault();
-
-            const rating =
-                Number(star.dataset.star);
+            const rating = Number(star.dataset.star);
 
             if (!rating) return;
 
-            ratingInput.value =
-                String(rating);
-
+            ratingInput.value = rating;
 
             stars.forEach((s) => {
 
-                const number =
-                    Number(s.dataset.star);
+                const number = Number(s.dataset.star);
 
                 if (number <= rating) {
 
@@ -101,551 +81,121 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
-    // IMAGE COMPRESSION
-    // =========================================
-
-    function compressImage(file) {
-
-        return new Promise((resolve, reject) => {
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload = (event) => {
-
-                const img =
-                    new Image();
-
-
-                img.onload = () => {
-
-                    const maxWidth = 700;
-                    const maxHeight = 700;
-
-                    let width = img.width;
-                    let height = img.height;
-
-
-                    if (
-                        width > maxWidth ||
-                        height > maxHeight
-                    ) {
-
-                        const ratio =
-                            Math.min(
-                                maxWidth / width,
-                                maxHeight / height
-                            );
-
-                        width =
-                            Math.round(width * ratio);
-
-                        height =
-                            Math.round(height * ratio);
-
-                    }
-
-
-                    const canvas =
-                        document.createElement(
-                            "canvas"
-                        );
-
-                    canvas.width = width;
-                    canvas.height = height;
-
-
-                    const context =
-                        canvas.getContext("2d");
-
-
-                    context.drawImage(
-                        img,
-                        0,
-                        0,
-                        width,
-                        height
-                    );
-
-
-                    const compressed =
-                        canvas.toDataURL(
-                            "image/jpeg",
-                            0.45
-                        );
-
-
-                    resolve(compressed);
-
-                };
-
-
-                img.onerror = () => {
-
-                    reject(
-                        new Error(
-                            "Unable to load image."
-                        )
-                    );
-
-                };
-
-
-                img.src =
-                    event.target.result;
-
-            };
-
-
-            reader.onerror = () => {
-
-                reject(
-                    new Error(
-                        "Unable to read image."
-                    )
-                );
-
-            };
-
-
-            reader.readAsDataURL(file);
-
-        });
-
-    }
-
-
-    // =========================================
-    // CREATE IMAGE PREVIEW
-    // =========================================
-
-    function createImagePreview(imageData) {
-
-        if (!imagePreview) return;
-
-
-        const wrapper =
-            document.createElement("div");
-
-        wrapper.className =
-            "review-preview-wrapper";
-
-
-        const image =
-            document.createElement("img");
-
-        image.src = imageData;
-
-        image.alt =
-            "Selected review image";
-
-        image.className =
-            "review-preview-image";
-
-
-        const removeButton =
-            document.createElement("button");
-
-        removeButton.type = "button";
-
-        removeButton.className =
-            "remove-preview-image";
-
-        removeButton.textContent = "×";
-
-        removeButton.setAttribute(
-            "aria-label",
-            "Remove image"
-        );
-
-
-        removeButton.addEventListener(
-            "click",
-            (event) => {
-
-                event.preventDefault();
-
-                const index =
-                    selectedImages.indexOf(
-                        imageData
-                    );
-
-
-                if (index !== -1) {
-
-                    selectedImages.splice(
-                        index,
-                        1
-                    );
-
-                }
-
-
-                wrapper.remove();
-
-            }
-        );
-
-
-        wrapper.appendChild(image);
-
-        wrapper.appendChild(removeButton);
-
-        imagePreview.appendChild(wrapper);
-
-    }
-
-
-    // =========================================
-    // IMAGE UPLOAD
-    // =========================================
-
-    if (imageInput) {
-
-        imageInput.addEventListener(
-            "change",
-            async () => {
-
-                const files =
-                    Array.from(
-                        imageInput.files
-                    );
-
-
-                if (!files.length) {
-                    return;
-                }
-
-
-                if (
-                    selectedImages.length +
-                    files.length > 3
-                ) {
-
-                    showToast(
-                        "Maximum 3 pictures allowed."
-                    );
-
-                    imageInput.value = "";
-
-                    return;
-
-                }
-
-
-                for (const file of files) {
-
-                    if (
-                        !file.type.startsWith(
-                            "image/"
-                        )
-                    ) {
-
-                        showToast(
-                            "Please select image files only."
-                        );
-
-                        continue;
-
-                    }
-
-
-                    try {
-
-                        showToast(
-                            "Processing picture..."
-                        );
-
-
-                        const imageData =
-                            await compressImage(
-                                file
-                            );
-
-
-                        /*
-                         * Extra safety check.
-                         * Firestore documents have a size limit.
-                         */
-
-                        if (
-                            imageData.length >
-                            350000
-                        ) {
-
-                            showToast(
-                                "Picture is too large. Please choose another."
-                            );
-
-                            continue;
-
-                        }
-
-
-                        selectedImages.push(
-                            imageData
-                        );
-
-
-                        createImagePreview(
-                            imageData
-                        );
-
-
-                    } catch (error) {
-
-                        console.error(
-                            "Image error:",
-                            error
-                        );
-
-                        showToast(
-                            "Failed to process picture."
-                        );
-
-                    }
-
-                }
-
-
-                imageInput.value = "";
-
-            }
-        );
-
-    }
-
-
-    // =========================================
     // SUBMIT REVIEW
     // =========================================
 
-    submitButton.addEventListener(
-        "click",
-        async () => {
+    submitButton.addEventListener("click", async () => {
 
-            const name =
-                nameInput.value.trim();
+        const currentUser = auth.currentUser;
 
-            const review =
-                reviewInput.value.trim();
+        if (!currentUser) {
 
-            const rating =
-                Number(ratingInput.value);
-
-
-            // NAME
-
-            if (!name) {
-
-                showToast(
-                    "Please enter your name."
-                );
-
-                nameInput.focus();
-
-                return;
-
-            }
-
-
-            // REVIEW
-
-            if (!review) {
-
-                showToast(
-                    "Please write your review."
-                );
-
-                reviewInput.focus();
-
-                return;
-
-            }
-
-
-            // RATING
-
-            if (
-                rating < 1 ||
-                rating > 5
-            ) {
-
-                showToast(
-                    "Please select a star rating."
-                );
-
-                return;
-
-            }
-
-
-            try {
-
-                submitButton.disabled = true;
-
-                submitButton.textContent =
-                    "Submitting...";
-
-
-                const reviewData = {
-
-                    product:
-                        productName,
-
-                    name:
-                        name,
-
-                    review:
-                        review,
-
-                    rating:
-                        rating,
-
-                    images:
-                        selectedImages,
-
-                    date:
-                        new Date()
-                            .toLocaleDateString(),
-
-                    createdAt:
-                        Date.now()
-
-                };
-
-
-                // =================================
-                // SAVE TO FIRESTORE
-                // =================================
-
-                await addDoc(
-                    collection(
-                        db,
-                        "reviews"
-                    ),
-                    reviewData
-                );
-
-
-                // =================================
-                // CLEAR FORM
-                // =================================
-
-                nameInput.value = "";
-
-                reviewInput.value = "";
-
-                ratingInput.value = "0";
-
-                selectedImages = [];
-
-
-                if (imagePreview) {
-
-                    imagePreview.innerHTML =
-                        "";
-
-                }
-
-
-                if (imageInput) {
-
-                    imageInput.value =
-                        "";
-
-                }
-
-
-                // RESET STARS
-
-                stars.forEach((star) => {
-
-                    star.textContent =
-                        "☆";
-
-                    star.classList.remove(
-                        "selected"
-                    );
-
-                });
-
-
-                showToast(
-                    "Review submitted successfully! ⭐"
-                );
-
-
-                await displayReviews();
-
-
-            } catch (error) {
-
-                console.error(
-                    "FULL FIRESTORE REVIEW ERROR:",
-                    error
-                );
-
-
-                /*
-                 * Show the actual Firebase error
-                 * in console for debugging.
-                 */
-
-                showToast(
-                    "Failed to submit review."
-                );
-
-
-            } finally {
-
-                submitButton.disabled =
-                    false;
-
-                submitButton.textContent =
-                    "Submit Review";
-
-            }
-
-        }
-    );
-
-
-    // =========================================
-    // TOAST
-    // =========================================
-
-    function showToast(message) {
-
-        if (!toast) {
-
-            alert(message);
+            showToast("Please login before submitting a review.");
 
             return;
-
         }
 
 
-        toast.textContent =
-            message;
+        const name = nameInput.value.trim();
+        const review = reviewInput.value.trim();
+        const rating = Number(ratingInput.value);
 
-        toast.classList.add("show");
+
+        if (!name) {
+
+            showToast("Please enter your name.");
+            nameInput.focus();
+
+            return;
+        }
 
 
-        setTimeout(() => {
+        if (!review) {
 
-            toast.classList.remove(
-                "show"
+            showToast("Please write your review.");
+            reviewInput.focus();
+
+            return;
+        }
+
+
+        if (rating < 1 || rating > 5) {
+
+            showToast("Please select a star rating.");
+
+            return;
+        }
+
+
+        try {
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting...";
+
+
+            const reviewData = {
+
+                product: productName,
+
+                name: name,
+
+                review: review,
+
+                rating: rating,
+
+                customerUID: currentUser.uid,
+
+                date: new Date().toLocaleDateString(),
+
+                createdAt: Date.now()
+
+            };
+
+
+            await addDoc(
+                collection(db, "reviews"),
+                reviewData
             );
 
-        }, 3000);
 
-    }
+            nameInput.value = "";
+            reviewInput.value = "";
+
+            ratingInput.value = "0";
+
+
+            stars.forEach((star) => {
+
+                star.textContent = "☆";
+                star.classList.remove("selected");
+
+            });
+
+
+            showToast("Review submitted successfully!");
+
+
+            await displayReviews();
+
+
+        } catch (error) {
+
+            console.error("Submit review error:", error);
+
+            showToast("Failed to submit review.");
+
+        } finally {
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Review";
+
+        }
+
+    });
 
 
     // =========================================
-    // LOAD REVIEWS
+    // DISPLAY REVIEWS
     // =========================================
 
     async function displayReviews() {
@@ -653,119 +203,83 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!reviewList) return;
 
 
-        reviewList.innerHTML =
-            "<p>Loading reviews...</p>";
+        reviewList.innerHTML = `
+            <div class="reviews-loading">
+                Loading reviews...
+            </div>
+        `;
 
 
         try {
 
-            const reviewsQuery =
-                query(
-                    collection(
-                        db,
-                        "reviews"
-                    ),
-                    where(
-                        "product",
-                        "==",
-                        productName
-                    )
-                );
+            const reviewsQuery = query(
+                collection(db, "reviews"),
+                where("product", "==", productName)
+            );
 
 
-            const snapshot =
-                await getDocs(
-                    reviewsQuery
-                );
+            const snapshot = await getDocs(reviewsQuery);
 
 
             const reviews = [];
 
 
-            snapshot.forEach(
-                (reviewDoc) => {
+            snapshot.forEach((reviewDoc) => {
 
-                    reviews.push({
+                reviews.push({
 
-                        id:
-                            reviewDoc.id,
+                    id: reviewDoc.id,
 
-                        ...reviewDoc.data()
+                    ...reviewDoc.data()
 
-                    });
+                });
 
-                }
-            );
+            });
 
 
-            reviews.sort(
-                (a, b) => {
+            reviews.sort((a, b) => {
 
-                    return (
-                        (b.createdAt || 0) -
-                        (a.createdAt || 0)
-                    );
-
-                }
-            );
-
-
-            reviewList.innerHTML =
-                "";
-
-
-            // =================================
-            // NO REVIEWS
-            // =================================
-
-            if (!reviews.length) {
-
-                const noReviews =
-                    document.createElement(
-                        "div"
-                    );
-
-                noReviews.className =
-                    "no-reviews";
-
-
-                noReviews.innerHTML = `
-                    <div class="no-reviews-icon">
-                        ⭐
-                    </div>
-
-                    <h3>
-                        No reviews yet
-                    </h3>
-
-                    <p>
-                        Be the first customer to share your experience!
-                    </p>
-                `;
-
-
-                reviewList.appendChild(
-                    noReviews
+                return (
+                    (b.createdAt || 0) -
+                    (a.createdAt || 0)
                 );
 
-                return;
+            });
 
+
+            reviewList.innerHTML = "";
+
+
+            if (reviews.length === 0) {
+
+                reviewList.innerHTML = `
+                    <div class="no-reviews">
+                        <div class="no-reviews-icon">⭐</div>
+
+                        <h3>No reviews yet</h3>
+
+                        <p>
+                            Be the first customer to share your experience!
+                        </p>
+                    </div>
+                `;
+
+                return;
             }
 
 
-            // =================================
-            // DISPLAY REVIEWS
-            // =================================
+            const currentUser = auth.currentUser;
+
+            const ownerUID =
+                "UPdmuwyLEcdEyMXFENPGRlAhxwa2";
+
 
             reviews.forEach((item) => {
 
                 const card =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
-                card.className =
-                    "review-card";
+                card.className = "review-card";
 
 
                 // =================================
@@ -773,102 +287,66 @@ document.addEventListener("DOMContentLoaded", () => {
                 // =================================
 
                 const header =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
-                header.className =
-                    "review-header";
+                header.className = "review-header";
 
 
                 // AVATAR
 
                 const avatar =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
-                avatar.className =
-                    "review-avatar";
-
+                avatar.className = "review-avatar";
 
                 avatar.textContent =
-                    String(
-                        item.name || "?"
-                    )
+                    String(item.name || "?")
                         .charAt(0)
                         .toUpperCase();
 
 
-                // USER
+                // USER AREA
 
                 const user =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
-                user.className =
-                    "review-user";
+                user.className = "review-user";
 
 
                 const username =
-                    document.createElement(
-                        "h3"
-                    );
+                    document.createElement("h3");
 
                 username.textContent =
-                    item.name ||
-                    "Customer";
+                    item.name || "Customer";
 
 
                 // STARS
 
                 const reviewStars =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
                 reviewStars.className =
                     "review-stars";
 
 
-                let starsHTML = "";
+                for (let i = 1; i <= 5; i++) {
 
-
-                for (
-                    let i = 1;
-                    i <= 5;
-                    i++
-                ) {
-
-                    starsHTML +=
-                        i <=
-                        Number(item.rating)
+                    reviewStars.textContent +=
+                        i <= Number(item.rating)
                             ? "★"
                             : "☆";
 
                 }
 
 
-                reviewStars.textContent =
-                    starsHTML;
-
-
-                user.appendChild(
-                    username
-                );
-
-                user.appendChild(
-                    reviewStars
-                );
+                user.appendChild(username);
+                user.appendChild(reviewStars);
 
 
                 // DATE
 
                 const date =
-                    document.createElement(
-                        "span"
-                    );
+                    document.createElement("span");
 
                 date.className =
                     "review-date";
@@ -878,128 +356,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 // =================================
-                // ADMIN MENU
+                // DELETE BUTTON
                 // =================================
 
                 const menuContainer =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
                 menuContainer.className =
                     "review-menu";
 
 
-                const isAdmin =
-                    localStorage.getItem(
-                        "adminAccess"
-                    ) === "granted";
+                const isOwner =
+                    currentUser &&
+                    currentUser.uid === ownerUID;
 
 
-                if (isAdmin) {
-
-                    const menuButton =
-                        document.createElement(
-                            "button"
-                        );
-
-                    menuButton.type =
-                        "button";
-
-                    menuButton.className =
-                        "review-menu-btn";
-
-                    menuButton.textContent =
-                        "⋮";
+                const isReviewOwner =
+                    currentUser &&
+                    item.customerUID === currentUser.uid;
 
 
-                    const menu =
-                        document.createElement(
-                            "div"
-                        );
-
-                    menu.className =
-                        "review-menu-dropdown";
-
+                if (isOwner || isReviewOwner) {
 
                     const deleteButton =
-                        document.createElement(
-                            "button"
-                        );
+                        document.createElement("button");
 
-                    deleteButton.type =
-                        "button";
+                    deleteButton.type = "button";
 
                     deleteButton.className =
                         "delete-review-btn";
 
                     deleteButton.textContent =
-                        "Delete Review";
+                        "🗑️";
 
 
-                    menu.appendChild(
-                        deleteButton
-                    );
+                    deleteButton.title =
+                        "Delete review";
 
-
-                    menuContainer.appendChild(
-                        menuButton
-                    );
-
-                    menuContainer.appendChild(
-                        menu
-                    );
-
-
-                    // OPEN MENU
-
-                    menuButton.addEventListener(
-                        "click",
-                        (event) => {
-
-                            event.stopPropagation();
-
-
-                            document
-                                .querySelectorAll(
-                                    ".review-menu-dropdown"
-                                )
-                                .forEach(
-                                    (otherMenu) => {
-
-                                        if (
-                                            otherMenu !==
-                                            menu
-                                        ) {
-
-                                            otherMenu
-                                                .classList
-                                                .remove(
-                                                    "show"
-                                                );
-
-                                        }
-
-                                    }
-                                );
-
-
-                            menu.classList.toggle(
-                                "show"
-                            );
-
-                        }
-                    );
-
-
-                    // DELETE REVIEW
 
                     deleteButton.addEventListener(
                         "click",
-                        async (event) => {
-
-                            event.stopPropagation();
-
+                        async () => {
 
                             const confirmed =
                                 confirm(
@@ -1007,18 +404,12 @@ document.addEventListener("DOMContentLoaded", () => {
                                 );
 
 
-                            if (!confirmed) {
-
-                                menu.classList.remove(
-                                    "show"
-                                );
-
-                                return;
-
-                            }
+                            if (!confirmed) return;
 
 
                             try {
+
+                                deleteButton.disabled = true;
 
                                 await deleteDoc(
                                     doc(
@@ -1026,11 +417,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                         "reviews",
                                         item.id
                                     )
-                                );
-
-
-                                menu.classList.remove(
-                                    "show"
                                 );
 
 
@@ -1054,9 +440,17 @@ document.addEventListener("DOMContentLoaded", () => {
                                     "Failed to delete review."
                                 );
 
+
+                                deleteButton.disabled = false;
+
                             }
 
                         }
+                    );
+
+
+                    menuContainer.appendChild(
+                        deleteButton
                     );
 
                 }
@@ -1064,21 +458,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // HEADER
 
-                header.appendChild(
-                    avatar
-                );
+                header.appendChild(avatar);
 
-                header.appendChild(
-                    user
-                );
+                header.appendChild(user);
 
-                header.appendChild(
-                    date
-                );
+                header.appendChild(date);
 
-                header.appendChild(
-                    menuContainer
-                );
+                header.appendChild(menuContainer);
 
 
                 // =================================
@@ -1086,9 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // =================================
 
                 const message =
-                    document.createElement(
-                        "p"
-                    );
+                    document.createElement("p");
 
                 message.className =
                     "review-message";
@@ -1097,84 +481,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     item.review || "";
 
 
-                card.appendChild(
-                    header
-                );
-
-                card.appendChild(
-                    message
-                );
-
-
                 // =================================
-                // REVIEW IMAGES
+                // CARD
                 // =================================
 
-                const images =
-                    Array.isArray(item.images)
-                        ? item.images
-                        : [];
+                card.appendChild(header);
+
+                card.appendChild(message);
 
 
-                if (images.length > 0) {
-
-                    const imagesContainer =
-                        document.createElement(
-                            "div"
-                        );
-
-                    imagesContainer.className =
-                        "review-images";
-
-
-                    images.forEach(
-                        (imageSrc) => {
-
-                            const image =
-                                document.createElement(
-                                    "img"
-                                );
-
-                            image.src =
-                                imageSrc;
-
-                            image.alt =
-                                "Customer review picture";
-
-                            image.className =
-                                "review-image";
-
-
-                            image.addEventListener(
-                                "click",
-                                () => {
-
-                                    openImageViewer(
-                                        imageSrc
-                                    );
-
-                                }
-                            );
-
-
-                            imagesContainer.appendChild(
-                                image
-                            );
-
-                        }
-                    );
-
-
-                    card.appendChild(
-                        imagesContainer
-                    );
-
-                }
-
-
-                reviewList.appendChild(
-                    card
-                );
+                reviewList.appendChild(card);
 
             });
 
@@ -1188,9 +504,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             reviewList.innerHTML = `
-                <p class="reviews-error">
-                    Unable to load reviews.
-                </p>
+                <div class="no-reviews">
+                    <h3>Unable to load reviews</h3>
+                    <p>Please try again later.</p>
+                </div>
             `;
 
         }
@@ -1199,200 +516,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
-    // IMAGE FULLSCREEN VIEWER
+    // TOAST
     // =========================================
 
-    function openImageViewer(imageSrc) {
+    function showToast(message) {
 
-        const oldViewer =
-            document.querySelector(
-                ".review-image-viewer"
-            );
+        if (!toast) {
 
+            alert(message);
 
-        if (oldViewer) {
-
-            oldViewer.remove();
-
+            return;
         }
 
 
-        const viewer =
-            document.createElement(
-                "div"
-            );
+        toast.textContent = message;
 
-        viewer.className =
-            "review-image-viewer";
-
-
-        const image =
-            document.createElement(
-                "img"
-            );
-
-        image.src =
-            imageSrc;
-
-        image.alt =
-            "Customer review picture";
-
-
-        const closeButton =
-            document.createElement(
-                "button"
-            );
-
-        closeButton.type =
-            "button";
-
-        closeButton.className =
-            "review-image-viewer-close";
-
-        closeButton.textContent =
-            "×";
-
-
-        viewer.appendChild(
-            image
-        );
-
-        viewer.appendChild(
-            closeButton
-        );
-
-
-        document.body.appendChild(
-            viewer
-        );
-
-
-        requestAnimationFrame(() => {
-
-            viewer.classList.add(
-                "show"
-            );
-
-        });
-
-
-        closeButton.addEventListener(
-            "click",
-            () => {
-
-                closeImageViewer();
-
-            }
-        );
-
-
-        viewer.addEventListener(
-            "click",
-            (event) => {
-
-                if (
-                    event.target ===
-                    viewer
-                ) {
-
-                    closeImageViewer();
-
-                }
-
-            }
-        );
-
-
-        document.addEventListener(
-            "keydown",
-            imageViewerEscapeHandler
-        );
-
-    }
-
-
-    // =========================================
-    // CLOSE IMAGE VIEWER
-    // =========================================
-
-    function closeImageViewer() {
-
-        const viewer =
-            document.querySelector(
-                ".review-image-viewer"
-            );
-
-
-        if (!viewer) return;
-
-
-        viewer.classList.remove(
-            "show"
-        );
+        toast.classList.add("show");
 
 
         setTimeout(() => {
 
-            viewer.remove();
+            toast.classList.remove("show");
 
-        }, 250);
-
-
-        document.removeEventListener(
-            "keydown",
-            imageViewerEscapeHandler
-        );
+        }, 3000);
 
     }
 
 
     // =========================================
-    // ESC KEY
+    // AUTH STATE
     // =========================================
 
-    function imageViewerEscapeHandler(
-        event
-    ) {
+    onAuthStateChanged(auth, () => {
 
-        if (event.key === "Escape") {
+        displayReviews();
 
-            closeImageViewer();
-
-        }
-
-    }
-
-
-    // =========================================
-    // CLOSE MENUS
-    // =========================================
-
-    document.addEventListener(
-        "click",
-        () => {
-
-            document
-                .querySelectorAll(
-                    ".review-menu-dropdown"
-                )
-                .forEach(
-                    (menu) => {
-
-                        menu.classList.remove(
-                            "show"
-                        );
-
-                    }
-                );
-
-        }
-    );
-
-
-    // =========================================
-    // START
-    // =========================================
-
-    displayReviews();
+    });
 
 });
+
