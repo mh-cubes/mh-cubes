@@ -8481,3 +8481,370 @@ body.dark-mode:has(.settings-page) {
     }
 }
 
+/* =========================================================
+   STEP 3 — PREMIUM ORDER SUMMARY
+========================================================= */
+
+.summary {
+
+    padding: 26px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #080808
+        ) !important;
+
+    border:
+        1px solid
+        rgba(0, 255, 255, 0.18) !important;
+
+    border-radius: 20px !important;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        0 0 30px rgba(0, 255, 255, 0.04);
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.summary:hover {
+
+    border-color:
+        rgba(0, 255, 255, 0.32) !important;
+
+    box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(0, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.summary-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+
+.summary-heading span {
+
+    font-size: 23px;
+}
+
+
+.summary-heading h2 {
+
+    margin: 0 !important;
+
+    color: #ffffff !important;
+
+    font-size: 23px !important;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   SUMMARY ROWS
+========================================================= */
+
+.summary-line {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 16px;
+
+    color: #aaa;
+
+    font-size: 15px;
+}
+
+
+.summary-line strong {
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    text-align: right;
+}
+
+
+.delivery-line strong {
+
+    color: #00ffff;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.summary-divider {
+
+    width: 100%;
+
+    height: 1px;
+
+    margin: 20px 0;
+
+    background:
+        rgba(255, 255, 255, 0.1);
+}
+
+
+/* =========================================================
+   FINAL TOTAL
+========================================================= */
+
+.summary-total-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+
+.summary-total-row span {
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 900;
+}
+
+
+.summary-total-row strong {
+
+    color: #00ffff;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    text-shadow:
+        0 0 12px
+        rgba(0, 255, 255, 0.25);
+}
+
+
+/* =========================================================
+   HIDDEN OLD TOTAL
+========================================================= */
+
+.summary-total-hidden {
+
+    display: none !important;
+}
+
+
+/* =========================================================
+   CHECKOUT BUTTON
+========================================================= */
+
+.checkout-link {
+
+    display: block;
+
+    text-decoration: none;
+}
+
+
+.checkout-link button {
+
+    width: 100%;
+
+    min-height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #ef4444
+        );
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 22px
+        rgba(220, 38, 38, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+.checkout-link button:hover {
+
+    transform:
+        translateY(-3px);
+
+    filter:
+        brightness(1.08);
+
+    box-shadow:
+        0 13px 30px
+        rgba(220, 38, 38, 0.4);
+}
+
+
+.checkout-link button:active {
+
+    transform:
+        translateY(0)
+        scale(0.98);
+}
+
+
+.checkout-link button span {
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.checkout-link button:hover span {
+
+    transform:
+        translateX(4px);
+}
+
+
+/* =========================================================
+   SECURE CHECKOUT
+========================================================= */
+
+.secure-checkout {
+
+    margin-top: 15px;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .summary {
+
+        padding: 22px !important;
+    }
+
+
+    .summary-heading h2 {
+
+        font-size: 21px !important;
+    }
+
+
+    .summary-total-row strong {
+
+        font-size: 22px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 450px) {
+
+    .summary {
+
+        padding: 19px !important;
+    }
+
+
+    .summary-line {
+
+        font-size: 14px;
+    }
+
+
+    .summary-line strong {
+
+        font-size: 14px;
+    }
+
+
+    .summary-total-row span {
+
+        font-size: 17px;
+    }
+
+
+    .summary-total-row strong {
+
+        font-size: 21px;
+    }
+
+
+    .checkout-link button {
+
+        min-height: 49px;
+
+        font-size: 15px;
+    }
+}
+
+
