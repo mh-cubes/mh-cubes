@@ -1117,3 +1117,23 @@ document.addEventListener(
 
     }
 );
+// =========================================
+// CONTACT POPUP CLOSE BUTTON
+// =========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const closeButton =
+        document.getElementById("close-contact-popup");
+
+    if (closeButton) {
+
+        closeButton.addEventListener("click", () => {
+
+            closeContactPopup();
+
+        });
+
+    }
+
+});
