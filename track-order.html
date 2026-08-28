@@ -290,75 +290,89 @@ async function trackOrder() {
                PRODUCTS
             ----------------------------------------- */
 
-            let productsHTML = "";
+           let productsHTML = "";
 
+if (
+    found.products &&
+    typeof found.products === "object"
+) {
 
-            if (
-                found.products &&
-                typeof found.products === "object"
-            ) {
+    productsHTML =
+        Object.keys(found.products)
+            .map(function(productName) {
 
-                productsHTML =
-                    Object.keys(found.products)
-                        .map(function(productName) {
+                const product =
+                    found.products[productName];
 
-                            const product =
-                                found.products[productName];
+                const price =
+                    Number(product.price) || 0;
 
+                const quantity =
+                    Number(product.quantity) || 0;
 
-                            const price =
-                                Number(product.price) || 0;
+                const subtotal =
+                    price * quantity;
 
+                const image =
+                    product.image || "";
 
-                            const quantity =
-                                Number(product.quantity) || 0;
+                return `
 
+                    <div class="track-product">
 
-                            const subtotal =
-                                price * quantity;
+                        ${
+                            image
+                            ? `
+                                <img
+                                    src="${image}"
+                                    alt="${productName}"
+                                    class="track-product-image"
+                                >
+                              `
+                            : ""
+                        }
 
+                        <div class="track-product-info">
 
-                            return `
+                            <h4>
+                                🧩 ${productName}
+                            </h4>
 
-                                <div class="track-product">
+                            <p>
+                                💰 Price:
+                                PKR ${price}
+                            </p>
 
-                                    <h4>
-                                        🧩 ${productName}
-                                    </h4>
+                            <p>
+                                🔢 Quantity:
+                                ${quantity}
+                            </p>
 
-                                    <p>
-                                        💰 Price:
-                                        PKR ${price}
-                                    </p>
+                            <p class="track-subtotal">
+                                💵 Subtotal:
+                                PKR ${subtotal}
+                            </p>
 
-                                    <p>
-                                        🔢 Quantity:
-                                        ${quantity}
-                                    </p>
+                        </div>
 
-                                    <p class="track-subtotal">
-                                        💵 Subtotal:
-                                        PKR ${subtotal}
-                                    </p>
-
-                                </div>
-
-                            `;
-
-                        })
-                        .join("");
-
-            } else {
-
-                productsHTML = `
-
-                    <p class="track-muted">
-                        No product information available.
-                    </p>
+                    </div>
 
                 `;
 
-            }
+            })
+            .join("");
+
+} else {
+
+    productsHTML = `
+
+        <p class="track-muted">
+            No product information available.
+        </p>
+
+    `;
+
+}
 
 
             /* =========================================
