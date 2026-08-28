@@ -57,7 +57,9 @@ onAuthStateChanged(auth, (user) => {
     );
 
 
+    // =====================================
     // OWNER ONLY
+    // =====================================
 
     if (user.uid !== OWNER_UID) {
 
@@ -78,7 +80,9 @@ onAuthStateChanged(auth, (user) => {
     }
 
 
+    // =====================================
     // OWNER AUTHORIZED
+    // =====================================
 
     loadOrders();
 
@@ -97,9 +101,16 @@ async function loadOrders() {
 
 
     box.innerHTML = `
-        <div style="padding:20px;text-align:center;">
+
+        <div style="
+            padding:20px;
+            text-align:center;
+        ">
+
             🔄 Loading orders...
+
         </div>
+
     `;
 
 
@@ -110,7 +121,10 @@ async function loadOrders() {
 
         const snapshot =
             await getDocs(
-                collection(db, "orders")
+                collection(
+                    db,
+                    "orders"
+                )
             );
 
 
@@ -140,7 +154,11 @@ async function loadOrders() {
         if (orders.length === 0) {
 
             box.innerHTML = `
-                <div style="padding:30px;text-align:center;">
+
+                <div style="
+                    padding:30px;
+                    text-align:center;
+                ">
 
                     <h2>
                         📦 No orders yet
@@ -151,11 +169,27 @@ async function loadOrders() {
                     </p>
 
                 </div>
+
             `;
 
             return;
 
         }
+
+
+        // =====================================
+        // NEWEST ORDERS FIRST
+        // =====================================
+
+        orders.sort((a, b) => {
+
+            return Number(
+                b.createdAt || 0
+            ) - Number(
+                a.createdAt || 0
+            );
+
+        });
 
 
         // =====================================
@@ -173,40 +207,6 @@ async function loadOrders() {
 
 
             // =================================
-            // PRODUCTS
-            // =================================
-
-            const productsHTML =
-                Object.keys(
-                    order.products || {}
-                )
-                .map((product) => {
-
-                    const item =
-                        order.products[product];
-
-
-                    return `
-                        <p>
-
-                            🧩
-                            <strong>
-                                ${product}
-                            </strong>
-
-                            —
-                            PKR ${item.price}
-
-                            × ${item.quantity}
-
-                        </p>
-                    `;
-
-                })
-                .join("");
-
-
-            // =================================
             // STATUS
             // =================================
 
@@ -215,63 +215,245 @@ async function loadOrders() {
                 "Pending";
 
 
+            const statusLower =
+                String(status)
+                    .toLowerCase();
+
+
+            // =================================
+            // PRODUCTS
+            // =================================
+
+            const productsHTML =
+
+                Object.keys(
+                    order.products || {}
+                )
+
+                .map((productName) => {
+
+                    const item =
+                        order.products[
+                            productName
+                        ] || {};
+
+
+                    const price =
+                        Number(
+                            item.price
+                        ) || 0;
+
+
+                    const quantity =
+                        Number(
+                            item.quantity
+                        ) || 0;
+
+
+                    return `
+
+                        <p>
+
+                            🧩
+
+                            <strong>
+                                ${productName}
+                            </strong>
+
+                            — PKR
+                            ${price.toLocaleString()}
+
+                            ×
+                            ${quantity}
+
+                        </p>
+
+                    `;
+
+                })
+
+                .join("");
+
+
+            // =================================
+            // CUSTOMER CANCELLED
+            // =================================
+
+            const customerCancelled =
+                statusLower.includes(
+                    "cancelled by customer"
+                );
+
+
+            // =================================
+            // ADMIN BUTTONS
+            // =================================
+
+            let buttonsHTML = "";
+
+
+            if (customerCancelled) {
+
+                buttonsHTML = `
+
+                    <div
+                        style="
+                            margin-top:15px;
+                            padding:12px;
+                            border-radius:10px;
+                            background:#fff3cd;
+                            color:#856404;
+                            font-weight:bold;
+                        "
+                    >
+
+                        ❌ Cancelled by Customer
+
+                    </div>
+
+                    <button
+                        onclick="deleteCancelledOrder('${order.id}')"
+                        style="
+                            background:
+                                linear-gradient(
+                                    135deg,
+                                    #6b7280,
+                                    #374151
+                                );
+                        "
+                    >
+                        🗑️ Remove From Dashboard
+                    </button>
+
+                `;
+
+            }
+
+            else {
+
+                buttonsHTML = `
+
+                    <button
+                        onclick="confirmOrder('${order.id}')"
+                    >
+                        Confirm ✅
+                    </button>
+
+
+                    <button
+                        onclick="processOrder('${order.id}')"
+                    >
+                        Processing 📦
+                    </button>
+
+
+                    <button
+                        onclick="shipOrder('${order.id}')"
+                    >
+                        Ship 🚚
+                    </button>
+
+
+                    <button
+                        onclick="deliverOrder('${order.id}')"
+                    >
+                        Deliver ✅
+                    </button>
+
+
+                    <button
+                        onclick="cancelAdminOrder('${order.id}')"
+                    >
+                        Cancel ❌
+                    </button>
+
+                `;
+
+            }
+
+
             // =================================
             // ORDER CARD
             // =================================
 
             box.innerHTML += `
 
-                <div class="admin-order-card">
-
+                <div
+                    class="admin-order-card"
+                >
 
                     <h2>
-                        📦 Order #${order.orderID || "N/A"}
+
+                        📦 Order #
+
+                        ${order.orderID || "N/A"}
+
                     </h2>
 
 
                     <p>
+
                         <strong>
                             Customer:
                         </strong>
 
                         ${order.customerName || "N/A"}
+
                     </p>
 
 
                     <p>
+
                         <strong>
                             Phone:
                         </strong>
 
                         ${order.phone || "N/A"}
+
                     </p>
 
 
                     <p>
+
                         <strong>
                             Address:
                         </strong>
 
                         ${order.address || "N/A"}
+
                     </p>
 
 
                     <p>
+
                         <strong>
                             Payment:
                         </strong>
 
                         ${order.payment || "N/A"}
+
                     </p>
 
 
                     <p>
+
                         <strong>
                             Transaction ID:
                         </strong>
 
-                        ${order.transactionID ||
-                        "Not provided"}
+                        ${order.transactionID || "Not provided"}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            Date:
+                        </strong>
+
+                        ${order.date || "N/A"}
+
                     </p>
 
 
@@ -282,17 +464,23 @@ async function loadOrders() {
 
                     <div class="admin-products">
 
-                        ${productsHTML}
+                        ${productsHTML || `
+                            <p>
+                                No product information available.
+                            </p>
+                        `}
 
                     </div>
 
 
                     <p>
+
                         <strong>
                             Status:
                         </strong>
 
                         ${status}
+
                     </p>
 
 
@@ -300,59 +488,30 @@ async function loadOrders() {
                         order.notification
                         ?
                         `
+
                             <p>
+
                                 <strong>
                                     🔔 Notification:
                                 </strong>
 
                                 ${order.notification}
+
                             </p>
+
                         `
                         :
                         ""
                     }
 
 
-                    <div class="admin-order-buttons">
+                    <div
+                        class="admin-order-buttons"
+                    >
 
-
-                        <button
-                            onclick="confirmOrder('${order.id}')"
-                        >
-                            Confirm ✅
-                        </button>
-
-
-                        <button
-                            onclick="processOrder('${order.id}')"
-                        >
-                            Processing 📦
-                        </button>
-
-
-                        <button
-                            onclick="shipOrder('${order.id}')"
-                        >
-                            Ship 🚚
-                        </button>
-
-
-                        <button
-                            onclick="deliverOrder('${order.id}')"
-                        >
-                            Deliver ✅
-                        </button>
-
-
-                        <button
-                            onclick="cancelAdminOrder('${order.id}')"
-                        >
-                            Cancel ❌
-                        </button>
-
+                        ${buttonsHTML}
 
                     </div>
-
 
                 </div>
 
@@ -361,7 +520,9 @@ async function loadOrders() {
         });
 
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(
             "🔥 FIRESTORE ERROR:",
@@ -383,17 +544,14 @@ async function loadOrders() {
 
         box.innerHTML = `
 
-            <div
-                style="
-                    padding:25px;
-                    text-align:center;
-                "
-            >
+            <div style="
+                padding:25px;
+                text-align:center;
+            ">
 
                 <h2>
                     ❌ Error Loading Orders
                 </h2>
-
 
                 <p>
 
@@ -438,7 +596,11 @@ async function updateOrderStatus(
     try {
 
         await updateDoc(
-            doc(db, "orders", id),
+            doc(
+                db,
+                "orders",
+                id
+            ),
             {
 
                 status:
@@ -453,8 +615,9 @@ async function updateOrderStatus(
 
         location.reload();
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             "Error updating order:",
@@ -555,11 +718,75 @@ async function cancelAdminOrder(id) {
 
     const confirmCancel =
         confirm(
-            "Are you sure you want to permanently delete this order?"
+            "⚠️ Are you sure you want to cancel this order?\n\nThis will permanently remove the order from Firestore."
         );
 
 
     if (!confirmCancel) {
+
+        return;
+
+    }
+
+
+    try {
+
+        // =================================
+        // DELETE ORDER FROM FIRESTORE
+        // =================================
+
+        await deleteDoc(
+            doc(
+                db,
+                "orders",
+                id
+            )
+        );
+
+
+        alert(
+            "✅ Order cancelled and removed from the dashboard."
+        );
+
+
+        // =================================
+        // RELOAD DASHBOARD
+        // =================================
+
+        location.reload();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error cancelling order:",
+            error
+        );
+
+
+        alert(
+            "❌ Failed to cancel order."
+        );
+
+    }
+
+}
+
+
+// =========================================
+// REMOVE CUSTOMER-CANCELLED ORDER
+// =========================================
+
+async function deleteCancelledOrder(id) {
+
+    const confirmed =
+        confirm(
+            "Remove this customer-cancelled order from the Owner Dashboard?\n\nThis will permanently delete it from Firestore."
+        );
+
+
+    if (!confirmed) {
 
         return;
 
@@ -578,23 +805,24 @@ async function cancelAdminOrder(id) {
 
 
         alert(
-            "✅ Order deleted successfully."
+            "✅ Cancelled order removed."
         );
 
 
         location.reload();
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
-            "Error deleting order:",
+            "Error removing cancelled order:",
             error
         );
 
 
         alert(
-            "❌ Failed to delete order."
+            "❌ Failed to remove cancelled order."
         );
 
     }
@@ -621,8 +849,9 @@ async function logoutOwner() {
         window.location.href =
             "owner-login.html";
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             "Logout error:",
@@ -640,23 +869,32 @@ async function logoutOwner() {
 
 
 // =========================================
-// MAKE FUNCTIONS AVAILABLE
+// MAKE FUNCTIONS AVAILABLE TO HTML
 // =========================================
 
 window.confirmOrder =
     confirmOrder;
 
+
 window.processOrder =
     processOrder;
+
 
 window.shipOrder =
     shipOrder;
 
+
 window.deliverOrder =
     deliverOrder;
 
+
 window.cancelAdminOrder =
     cancelAdminOrder;
+
+
+window.deleteCancelledOrder =
+    deleteCancelledOrder;
+
 
 window.logoutOwner =
     logoutOwner;
