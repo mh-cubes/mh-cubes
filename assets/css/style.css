@@ -6415,3 +6415,58 @@ section {
     }
 
 }
+/* =========================================
+   SETTINGS PAGE NAVIGATION
+   BIGGER + CENTERED
+========================================= */
+
+.settings-page ~ * {
+    box-sizing: border-box;
+}
+
+body:has(.settings-page) header nav {
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+}
+
+body:has(.settings-page) header nav a {
+    padding: 12px 20px;
+    min-width: 105px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+body:has(.settings-page) header nav a:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    body:has(.settings-page) header nav {
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    body:has(.settings-page) header nav a {
+        min-width: 120px;
+        padding: 13px 16px;
+        font-size: 14px;
+    }
+
+}
