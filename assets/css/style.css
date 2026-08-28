@@ -5135,3 +5135,120 @@ body > header nav a:hover {
     box-shadow:
         0 7px 18px rgba(255, 32, 32, 0.25);
 }
+/* =========================================
+   CHECKOUT HEADER
+========================================= */
+
+.checkout-header {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 22px 25px 20px;
+
+    background: #000000;
+    border-bottom: 2px solid #ff2020;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+
+/* MH CUBES LOGO */
+
+.checkout-logo {
+    color: #ffffff;
+
+    font-size: 32px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 15px;
+
+    text-shadow:
+        0 0 12px rgba(255, 32, 32, 0.35);
+}
+
+.checkout-logo::first-letter {
+    color: #ff2020;
+}
+
+
+/* NAVIGATION */
+
+.checkout-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+}
+
+
+/* BUTTONS */
+
+.checkout-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 105px;
+
+    padding: 10px 18px;
+
+    background: #111111;
+    color: #ffffff;
+
+    border: 1px solid #333333;
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: all 0.25s ease;
+}
+
+
+/* HOVER */
+
+.checkout-nav a:hover {
+    background: #ff2020;
+    border-color: #ff2020;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(255, 32, 32, 0.3);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .checkout-header {
+        padding: 18px 15px;
+    }
+
+    .checkout-logo {
+        font-size: 27px;
+        letter-spacing: 2px;
+    }
+
+    .checkout-nav {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .checkout-nav a {
+        flex: 1;
+        max-width: 130px;
+    }
+
+}
