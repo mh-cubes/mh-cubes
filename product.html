@@ -1,755 +1,944 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>3x3 Speed Cube - MH CUBES</title>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
 
-    <style>
-        /* =================================
-           MH CUBES - PRODUCT PAGE
-           LIGHT / WHITE THEME
-        ================================= */
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-        body {
-            background: #ffffff !important;
-            color: #111111 !important;
+<title>3x3 Speed Cube - MH CUBES</title>
+
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
+
+<style>
+
+    /* =================================
+       MH CUBES - PRODUCT PAGE
+       LIGHT / WHITE THEME
+    ================================= */
+
+    body {
+        background: #ffffff !important;
+        color: #111111 !important;
+    }
+
+
+    .product-page {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 0 25px;
+    }
+
+
+    .product-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+
+
+    /* ================================
+       PRODUCT IMAGE
+    ================================= */
+
+    .product-image-box {
+        position: relative;
+        background: #f5f5f5 !important;
+        border: 1px solid #dddddd;
+        border-radius: 25px;
+        padding: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 500px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.10);
+    }
+
+
+    .product-image-box::before {
+        content: "";
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        background: rgba(255, 0, 0, 0.08);
+        border-radius: 50%;
+        filter: blur(70px);
+    }
+
+
+    .product-image-box img {
+        position: relative;
+        width: 85%;
+        max-width: 430px;
+        border-radius: 18px;
+        transition: transform 0.45s ease;
+        z-index: 1;
+    }
+
+
+    .product-image-box:hover img {
+        transform: scale(1.06) rotate(1deg);
+    }
+
+
+    .stock-badge {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: #16a34a !important;
+        color: #ffffff !important;
+        padding: 8px 14px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: bold;
+        z-index: 2;
+    }
+
+
+    /* ================================
+       PRODUCT INFO
+    ================================= */
+
+    .product-info {
+        animation: productFade 0.7s ease;
+        color: #111111 !important;
+    }
+
+
+    @keyframes productFade {
+
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        .product-page {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 25px;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .product-main {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        /* ================================
-           PRODUCT IMAGE
-        ================================= */
-
-        .product-image-box {
-            position: relative;
-            background: #f5f5f5 !important;
-            border: 1px solid #dddddd;
-            border-radius: 25px;
-            padding: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 500px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.10);
-        }
-
-        .product-image-box::before {
-            content: "";
-            position: absolute;
-            width: 280px;
-            height: 280px;
-            background: rgba(255, 0, 0, 0.08);
-            border-radius: 50%;
-            filter: blur(70px);
-        }
-
-        .product-image-box img {
-            position: relative;
-            width: 85%;
-            max-width: 430px;
-            border-radius: 18px;
-            transition: transform 0.45s ease;
-            z-index: 1;
-        }
-
-        .product-image-box:hover img {
-            transform: scale(1.06) rotate(1deg);
-        }
-
-        .stock-badge {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: #16a34a !important;
-            color: #ffffff !important;
-            padding: 8px 14px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: bold;
-            z-index: 2;
-        }
-
-        /* ================================
-           PRODUCT INFO
-        ================================= */
-
-        .product-info {
-            animation: productFade 0.7s ease;
-            color: #111111 !important;
-        }
-
-        @keyframes productFade {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .product-tag {
-            display: inline-block;
-            color: #ff2020 !important;
-            font-size: 14px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .product-info h1 {
-            color: #111111 !important;
-            font-size: 46px;
-            line-height: 1.1;
-            margin: 0 0 12px;
-        }
-
-        .rating {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            color: #ffc107 !important;
-            font-size: 18px;
-        }
-
-        .rating span {
-            color: #666666 !important;
-            font-size: 14px;
-        }
-
-        .product-price {
-            color: #111111 !important;
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 20px;
-        }
-
-        .product-description {
-            color: #555555 !important;
-            line-height: 1.7;
-            font-size: 16px;
-            margin-bottom: 25px;
-        }
-
-        /* ================================
-           DELIVERY CARD
-        ================================= */
-
-        .delivery-card {
-            background: #f7f7f7 !important;
-            border: 1px solid #dddddd;
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 25px;
-        }
-
-        .delivery-card h3 {
-            color: #111111 !important;
-            margin: 0 0 12px;
-            font-size: 17px;
-        }
-
-        .delivery-card p {
-            color: #555555 !important;
-            line-height: 1.7;
-            margin: 0;
-            font-size: 14px;
-        }
-
-        /* ================================
-           BUTTONS
-        ================================= */
-
-        .product-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .product-buttons button {
-            flex: 1;
-            border: none;
-            padding: 16px 20px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cart-btn {
-            background: #ff2020 !important;
-            color: #ffffff !important;
-        }
-
-        .cart-btn:hover {
-            background: #d90000 !important;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255,0,0,0.25);
-        }
-
-        .shop-btn {
-            background: #111111 !important;
-            color: #ffffff !important;
-        }
-
-        .shop-btn:hover {
-            background: #333333 !important;
-            transform: translateY(-3px);
-        }
-
-        /* ================================
-           REVIEWS
-        ================================= */
-
-        .reviews {
-            max-width: 1000px;
-            margin: 90px auto 0;
-            padding: 30px;
-            background: #f7f7f7 !important;
-            border: 1px solid #dddddd;
-            border-radius: 22px;
-            color: #111111 !important;
-        }
-
-        .reviews h2 {
-            color: #111111 !important;
-            font-size: 28px;
-            margin-bottom: 30px;
-        }
-
-        .reviews h3 {
-            color: #111111 !important;
-            margin-top: 20px;
-        }
-
-        .reviews input,
-        .reviews textarea {
-            background: #ffffff !important;
-            color: #111111 !important;
-            border: 1px solid #cccccc !important;
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 14px;
-        }
-
-        .reviews input::placeholder,
-        .reviews textarea::placeholder {
-            color: #888888 !important;
-        }
-
-        .reviews textarea {
-            width: 100%;
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .stars {
-            color: #ffc107 !important;
-            font-size: 28px;
-            cursor: pointer;
-        }
-
-        .stars span {
-            color: #ffc107 !important;
-        }
-
-        #submit-review {
-            background: #ff2020 !important;
-            color: #ffffff !important;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .upload-btn {
-            display: inline-block;
-            background: #111111 !important;
-            color: #ffffff !important;
-            padding: 10px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        #review-images {
-            display: none;
-        }
-
-        #review-toast {
-            color: #111111 !important;
-        }
-
-        /* ================================
-           WHY CHOOSE MH CUBES
-        ================================= */
-
-        .why-choose {
-            background: #ffffff !important;
-            color: #111111 !important;
-            padding: 50px 20px;
-        }
-
-        .why-choose h2,
-        .why-choose h3 {
-            color: #111111 !important;
-        }
-
-        .why-choose p {
-            color: #555555 !important;
-        }
-
-        .why-details {
-            color: #111111 !important;
-        }
-
-        .why-details h3 {
-            color: #111111 !important;
-        }
-
-        .why-details p {
-            color: #555555 !important;
-        }
-
-        /* ================================
-           MOBILE
-        ================================= */
-
-        @media (max-width: 800px) {
-
-            .product-page {
-                margin: 25px auto;
-                padding: 0 15px;
-            }
-
-            .product-main {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .product-image-box {
-                min-height: 350px;
-                padding: 25px;
-            }
-
-            .product-info h1 {
-                font-size: 34px;
-            }
-
-            .product-price {
-                font-size: 30px;
-            }
-
-            .product-buttons {
-                flex-direction: column;
-            }
-
-            .reviews {
-                margin-top: 50px;
-                padding: 20px;
-            }
-        }
-        /* =========================================
-   REVIEW TOAST
-========================================= */
-
-#review-toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-
-    background: #111111 !important;
-    color: #ffffff !important;
-
-    padding: 14px 22px;
-    border-radius: 12px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition: all 0.3s ease;
-
-    z-index: 99999;
-}
-
-#review-toast.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-}
-        /* =========================================
-   REVIEW IMAGE GALLERY
-========================================= */
-
-.review-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.review-image {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 10px;
-    cursor: pointer;
-    border: 1px solid #dddddd;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.review-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-
-/* =========================================
-   IMAGE FULLSCREEN VIEWER
-========================================= */
-
-.review-image-viewer {
-    position: fixed;
-    inset: 0;
-
-    background: rgba(0, 0, 0, 0.88);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 25px;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition: opacity 0.25s ease;
-
-    z-index: 100000;
-}
-
-.review-image-viewer.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.review-image-viewer img {
-    max-width: 90%;
-    max-height: 85vh;
-
-    object-fit: contain;
-
-    border-radius: 12px;
-
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-
-/* CLOSE BUTTON */
-
-.review-image-viewer-close {
-    position: absolute;
-
-    top: 20px;
-    right: 25px;
-
-    width: 42px;
-    height: 42px;
-
-    border: none;
-    border-radius: 50%;
-
-    background: #ffffff;
-    color: #111111;
-
-    font-size: 28px;
-    line-height: 1;
-
-    cursor: pointer;
-
-    transition: transform 0.2s ease;
-}
-
-.review-image-viewer-close:hover {
-    transform: scale(1.1);
-}
-
-/* =================================
-   REVIEW IMAGES
-================================= */
-
-.review-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.review-image {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid #dddddd;
-    cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.review-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-}
-/* MOBILE */
-
-@media (max-width: 600px) {
+    }
+
+
+    .product-tag {
+        display: inline-block;
+        color: #ff2020 !important;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+
+    .product-info h1 {
+        color: #111111 !important;
+        font-size: 46px;
+        line-height: 1.1;
+        margin: 0 0 12px;
+    }
+
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        color: #ffc107 !important;
+        font-size: 18px;
+    }
+
+
+    .rating span {
+        color: #666666 !important;
+        font-size: 14px;
+    }
+
+
+    .product-price {
+        color: #111111 !important;
+        font-size: 36px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+
+    .product-description {
+        color: #555555 !important;
+        line-height: 1.7;
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+
+    /* ================================
+       DELIVERY CARD
+    ================================= */
+
+    .delivery-card {
+        background: #f7f7f7 !important;
+        border: 1px solid #dddddd;
+        border-radius: 16px;
+        padding: 18px;
+        margin-bottom: 25px;
+    }
+
+
+    .delivery-card h3 {
+        color: #111111 !important;
+        margin: 0 0 12px;
+        font-size: 17px;
+    }
+
+
+    .delivery-card p {
+        color: #555555 !important;
+        line-height: 1.7;
+        margin: 0;
+        font-size: 14px;
+    }
+
+
+    /* ================================
+       BUTTONS
+    ================================= */
+
+    .product-buttons {
+        display: flex;
+        gap: 12px;
+    }
+
+
+    .product-buttons button {
+        flex: 1;
+        border: none;
+        padding: 16px 20px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+
+    .cart-btn {
+        background: #ff2020 !important;
+        color: #ffffff !important;
+    }
+
+
+    .cart-btn:hover {
+        background: #d90000 !important;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(255,0,0,0.25);
+    }
+
+
+    .shop-btn {
+        background: #111111 !important;
+        color: #ffffff !important;
+    }
+
+
+    .shop-btn:hover {
+        background: #333333 !important;
+        transform: translateY(-3px);
+    }
+
+
+    /* ================================
+       REVIEWS
+    ================================= */
+
+    .reviews {
+        max-width: 1000px;
+        margin: 90px auto 0;
+        padding: 30px;
+        background: #f7f7f7 !important;
+        border: 1px solid #dddddd;
+        border-radius: 22px;
+        color: #111111 !important;
+    }
+
+
+    .reviews h2 {
+        color: #111111 !important;
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+
+    .reviews h3 {
+        color: #111111 !important;
+        margin-top: 20px;
+    }
+
+
+    .reviews input,
+    .reviews textarea {
+        background: #ffffff !important;
+        color: #111111 !important;
+        border: 1px solid #cccccc !important;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+
+    .reviews input::placeholder,
+    .reviews textarea::placeholder {
+        color: #888888 !important;
+    }
+
+
+    .reviews textarea {
+        width: 100%;
+        min-height: 120px;
+        resize: vertical;
+    }
+
+
+    .stars {
+        color: #ffc107 !important;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+
+    .stars span {
+        color: #ffc107 !important;
+    }
+
+
+    #submit-review {
+        background: #ff2020 !important;
+        color: #ffffff !important;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+
+    .upload-btn {
+        display: inline-block;
+        background: #111111 !important;
+        color: #ffffff !important;
+        padding: 10px 15px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+
+    #review-images {
+        display: none;
+    }
+
+
+    #review-toast {
+        color: #111111 !important;
+    }
+
+
+    /* ================================
+       WHY CHOOSE MH CUBES
+    ================================= */
+
+    .why-choose {
+        background: #ffffff !important;
+        color: #111111 !important;
+        padding: 50px 20px;
+    }
+
+
+    .why-choose h2,
+    .why-choose h3 {
+        color: #111111 !important;
+    }
+
+
+    .why-choose p {
+        color: #555555 !important;
+    }
+
+
+    /* =================================
+       WHY CHOOSE - HOMEPAGE STYLE
+    ================================= */
+
+    .why-container {
+        max-width: 1100px;
+        margin: 30px auto 0;
+    }
+
+
+    .why-item {
+        margin-bottom: 15px;
+    }
+
+
+    .why-box {
+        cursor: pointer;
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+
+    .why-box:hover {
+        transform: translateY(-4px);
+    }
+
+
+    .why-box.active {
+        transform: translateY(-3px);
+        box-shadow:
+            0 12px 30px
+            rgba(220, 38, 38, 0.20);
+    }
+
+
+    .why-details {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-10px);
+
+        transition:
+            max-height 0.45s ease,
+            opacity 0.35s ease,
+            transform 0.35s ease,
+            padding 0.35s ease,
+            margin 0.35s ease;
+
+        color: #111111 !important;
+    }
+
+
+    .why-item.open .why-details {
+        max-height: 500px;
+        opacity: 1;
+        transform: translateY(0);
+        padding: 22px;
+        margin-top: 10px;
+    }
+
+
+    .why-details h3 {
+        color: #111111 !important;
+    }
+
+
+    .why-details p {
+        color: #555555 !important;
+    }
+
+
+    .why-details ul {
+        margin: 15px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+
+    .why-details li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+
+    .why-details li:last-child {
+        border-bottom: none;
+    }
+
+
+    .why-details li span {
+        font-size: 20px;
+    }
+
+
+    .why-details li strong {
+        color: #111111;
+    }
+
+
+    .why-details li small {
+        color: #777777;
+    }
+
+
+    /* =================================
+       REVIEW TOAST
+    ================================= */
+
+    #review-toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+
+        background: #111111 !important;
+        color: #ffffff !important;
+
+        padding: 14px 22px;
+        border-radius: 12px;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        box-shadow:
+            0 10px 30px
+            rgba(0, 0, 0, 0.3);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition: all 0.3s ease;
+
+        z-index: 99999;
+    }
+
+
+    #review-toast.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+
+    /* =================================
+       REVIEW IMAGE GALLERY
+    ================================= */
+
+    .review-images {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
 
     .review-image {
-        width: 75px;
-        height: 75px;
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid #dddddd;
+        cursor: pointer;
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
     }
+
+
+    .review-image:hover {
+        transform: scale(1.05);
+        box-shadow:
+            0 6px 18px
+            rgba(0,0,0,0.18);
+    }
+
+
+    /* =================================
+       IMAGE FULLSCREEN VIEWER
+    ================================= */
 
     .review-image-viewer {
-        padding: 15px;
+        position: fixed;
+        inset: 0;
+
+        background: rgba(0, 0, 0, 0.88);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 25px;
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition: opacity 0.25s ease;
+
+        z-index: 100000;
     }
+
+
+    .review-image-viewer.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
 
     .review-image-viewer img {
-        max-width: 95%;
-        max-height: 80vh;
+        max-width: 90%;
+        max-height: 85vh;
+
+        object-fit: contain;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 20px 60px
+            rgba(0, 0, 0, 0.5);
     }
+
 
     .review-image-viewer-close {
-        top: 15px;
-        right: 15px;
+        position: absolute;
+
+        top: 20px;
+        right: 25px;
+
+        width: 42px;
+        height: 42px;
+
+        border: none;
+        border-radius: 50%;
+
+        background: #ffffff;
+        color: #111111;
+
+        font-size: 28px;
+        line-height: 1;
+
+        cursor: pointer;
+
+        transition:
+            transform 0.2s ease;
     }
 
-}
-    </style>
+
+    .review-image-viewer-close:hover {
+        transform: scale(1.1);
+    }
+
+
+    /* =================================
+       MOBILE
+    ================================= */
+
+    @media (max-width: 800px) {
+
+        .product-page {
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+
+        .product-main {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+
+        .product-image-box {
+            min-height: 350px;
+            padding: 25px;
+        }
+
+
+        .product-info h1 {
+            font-size: 34px;
+        }
+
+
+        .product-price {
+            font-size: 30px;
+        }
+
+
+        .product-buttons {
+            flex-direction: column;
+        }
+
+
+        .reviews {
+            margin-top: 50px;
+            padding: 20px;
+        }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+        .review-image {
+            width: 75px;
+            height: 75px;
+        }
+
+
+        .review-image-viewer {
+            padding: 15px;
+        }
+
+
+        .review-image-viewer img {
+            max-width: 95%;
+            max-height: 80vh;
+        }
+
+
+        .review-image-viewer-close {
+            top: 15px;
+            right: 15px;
+        }
+
+    }
+
+</style>
+
+
 </head>
 
 <body>
 
 <header>
 
-   
 
-    <nav>
-        <a href="index.html">Home</a>
-    </nav>
+<nav>
+
+    <a href="index.html">
+        Home
+    </a>
+
+</nav>
+
 
 </header>
 
-
 <main class="product-page">
 
-    <div class="product-main">
 
-        <!-- PRODUCT IMAGE -->
+<div class="product-main">
 
-        <div class="product-image-box">
 
-            <div class="stock-badge">
-                ● IN STOCK
-            </div>
+    <!-- PRODUCT IMAGE -->
 
-            <img
-                src="assets/images/3x3.jpg"
-                alt="3x3 Speed Cube">
+    <div class="product-image-box">
 
+        <div class="stock-badge">
+            ● IN STOCK
+        </div>
+
+        <img
+            src="assets/images/3x3.jpg"
+            alt="3x3 Speed Cube"
+        >
+
+    </div>
+
+
+    <!-- PRODUCT INFORMATION -->
+
+    <div class="product-info">
+
+        <div class="product-tag">
+            MH CUBES • SPEED CUBE
         </div>
 
 
-        <!-- PRODUCT INFORMATION -->
+        <h1>
+            3x3 Speed Cube
+        </h1>
 
-        <div class="product-info">
 
-            <div class="product-tag">
-                MH CUBES • SPEED CUBE
-            </div>
+        <div class="rating">
+            ★★★★★
+            <span>
+                Customer Reviews
+            </span>
+        </div>
 
-            <h1>
-                3x3 Speed Cube
-            </h1>
 
-            <div class="rating">
-                ★★★★★
-                <span>Customer Reviews</span>
-            </div>
+        <div class="product-price">
+            PKR 999
+        </div>
 
-            <div class="product-price">
-                PKR 999
-            </div>
 
-            <p class="product-description">
-                High-quality speed cube with smooth turning,
-                durable plastic, and excellent corner cutting.
-                Perfect for beginners and professionals.
+        <p class="product-description">
+            High-quality speed cube with smooth turning,
+            durable plastic, and excellent corner cutting.
+            Perfect for beginners and professionals.
+        </p>
+
+
+        <!-- DELIVERY -->
+
+        <div class="delivery-card">
+
+            <h3>
+                🚚 Delivery Information
+            </h3>
+
+            <p>
+                ✅ Delivery available all over Islamabad.<br>
+                💰 Flat delivery charges: PKR 200.<br>
+                📦 Estimated delivery: 3–5 working days.<br>
+                🛡️ Products are safely packed before shipping.<br>
+                💵 Cash on Delivery available.
             </p>
 
-
-            <!-- DELIVERY -->
-
-            <div class="delivery-card">
-
-                <h3>
-                    🚚 Delivery Information
-                </h3>
-
-                <p>
-                    ✅ Delivery available all over Islamabad.<br>
-                    💰 Flat delivery charges: PKR 200.<br>
-                    📦 Estimated delivery: 3–5 working days.<br>
-                    🛡️ Products are safely packed before shipping.<br>
-                    💵 Cash on Delivery available.
-                </p>
-
-            </div>
+        </div>
 
 
-            <!-- BUTTONS -->
+        <!-- BUTTONS -->
 
-            <div class="product-buttons">
+        <div class="product-buttons">
 
-                <button
-                    class="cart-btn"
-                    data-name="3x3 Speed Cube"
-                    data-price="999"
-                    data-image="assets/images/3x3.jpg">
+            <button
+                class="cart-btn"
+                data-name="3x3 Speed Cube"
+                data-price="999"
+                data-image="assets/images/3x3.jpg"
+            >
+                🛒 Add to Cart
+            </button>
 
-                    🛒 Add to Cart
 
-                </button>
-
-                <button class="shop-btn">
-
-                    ⚡ Shop Now
-
-                </button>
-
-            </div>
+            <button class="shop-btn">
+                ⚡ Shop Now
+            </button>
 
         </div>
 
     </div>
 
-
-    <!-- REVIEWS -->
-
-    <div class="reviews">
-
-        <h2>
-            Customer Reviews ⭐
-        </h2>
-
-        <div id="reviews-list">
-            <!-- Reviews will appear here -->
-        </div>
+</div>
 
 
-        <h3>
-            Write a Review
-        </h3>
+<!-- REVIEWS -->
 
-        <input
-            type="text"
-            id="review-name"
-            placeholder="Your Name">
+<div class="reviews">
 
-        <br><br>
+    <h2>
+        Customer Reviews ⭐
+    </h2>
 
 
-        <div class="stars">
-
-            <span data-star="1">☆</span>
-            <span data-star="2">☆</span>
-            <span data-star="3">☆</span>
-            <span data-star="4">☆</span>
-            <span data-star="5">☆</span>
-
-        </div>
-
-        <input
-            type="hidden"
-            id="rating"
-            value="0">
-
-        <br>
+    <div id="reviews-list">
+        <!-- Reviews will appear here -->
+    </div>
 
 
-        <textarea
-    id="review-text"
-    placeholder="Write your review..."
-></textarea>
+    <h3>
+        Write a Review
+    </h3>
 
-<br><br>
 
-<label
-    for="review-images"
-    class="upload-btn"
->
-    🖼️ Add Pictures
-</label>
+    <input
+        type="text"
+        id="review-name"
+        placeholder="Your Name"
+    >
 
-<input
-    type="file"
-    id="review-images"
-    accept="image/*"
-    multiple
->
 
-<div id="image-preview"></div>
+    <br><br>
 
-<br>
 
-<button id="submit-review">
-    Submit Review
-</button>
+    <div class="stars">
 
-        <div id="review-toast"></div>
+        <span data-star="1">☆</span>
+        <span data-star="2">☆</span>
+        <span data-star="3">☆</span>
+        <span data-star="4">☆</span>
+        <span data-star="5">☆</span>
 
     </div>
+
+
+    <input
+        type="hidden"
+        id="rating"
+        value="0"
+    >
+
+
+    <br>
+
+
+    <textarea
+        id="review-text"
+        placeholder="Write your review..."
+    ></textarea>
+
+
+    <br><br>
+
+
+    <label
+        for="review-images"
+        class="upload-btn"
+    >
+        🖼️ Add Pictures
+    </label>
+
+
+    <input
+        type="file"
+        id="review-images"
+        accept="image/*"
+        multiple
+    >
+
+
+    <div id="image-preview"></div>
+
+
+    <br>
+
+
+    <button id="submit-review">
+        Submit Review
+    </button>
+
+
+    <div id="review-toast"></div>
+
+</div>
+
 
 </main>
 
-
-<!-- WHY CHOOSE MH CUBES -->
+<!-- =========================================
+     WHY CHOOSE MH CUBES
+========================================= -->
 
 <section class="why-choose">
 
-    <h2>
-        Why Choose MH CUBES?
-    </h2>
 
-    <div class="why-container">
+<h2>
+    Why Choose MH CUBES?
+</h2>
+
+
+<div class="why-container">
+
+
+    <!-- FAST DELIVERY -->
+
+    <div class="why-item">
 
         <div
             class="why-box"
-            onclick="showWhy('delivery', this)">
+            onclick="showWhy('delivery', this)"
+        >
 
             <div class="why-icon">
                 🚚
@@ -766,9 +955,19 @@
         </div>
 
 
+        <div class="why-details"></div>
+
+    </div>
+
+
+    <!-- ORIGINAL -->
+
+    <div class="why-item">
+
         <div
             class="why-box"
-            onclick="showWhy('original', this)">
+            onclick="showWhy('original', this)"
+        >
 
             <div class="why-icon">
                 💯
@@ -785,9 +984,19 @@
         </div>
 
 
+        <div class="why-details"></div>
+
+    </div>
+
+
+    <!-- BEST PRICES -->
+
+    <div class="why-item">
+
         <div
             class="why-box"
-            onclick="showWhy('price', this)">
+            onclick="showWhy('price', this)"
+        >
 
             <div class="why-icon">
                 💰
@@ -804,9 +1013,19 @@
         </div>
 
 
+        <div class="why-details"></div>
+
+    </div>
+
+
+    <!-- TRUSTED -->
+
+    <div class="why-item">
+
         <div
             class="why-box"
-            onclick="showWhy('trusted', this)">
+            onclick="showWhy('trusted', this)"
+        >
 
             <div class="why-icon">
                 ⭐
@@ -822,33 +1041,30 @@
 
         </div>
 
-    </div>
 
-
-    <div
-        id="why-details"
-        class="why-details">
-
-        <h3>
-            👆 Click any card above
-        </h3>
-
-        <p>
-            Click one of the four cards to learn more.
-        </p>
+        <div class="why-details"></div>
 
     </div>
+
+</div>
+
 
 </section>
 
+<!-- =========================================
+     SCRIPTS
+========================================= -->
 
-<!-- SCRIPTS -->
+<script
+    type="module"
+    src="assets/js/app.js"
+></script>
 
-<script type="module" src="assets/js/firebase.js"></script>
-
-<script src="assets/js/app.js"></script>
-
-<script type="module" src="assets/js/reviews.js"></script>
+<script
+    type="module"
+    src="assets/js/reviews.js"
+></script>
 
 </body>
+
 </html>
