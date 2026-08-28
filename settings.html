@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
 
 <meta charset="UTF-8">
 
@@ -19,38 +17,315 @@
     href="assets/css/style.css"
 >
 
+<style>
+
+/* =========================================
+   SETTINGS PAGE
+========================================= */
+
+.settings-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 70px 20px 100px;
+}
+
+
+/* =========================================
+   SETTINGS TITLE
+========================================= */
+
+.settings-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.settings-title h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 800;
+    color: #111;
+}
+
+.settings-title h1::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    margin: 14px auto 0;
+    background: #e50914;
+    border-radius: 10px;
+}
+
+.settings-title p {
+    margin-top: 15px;
+    color: #666;
+    font-size: 16px;
+}
+
+
+/* =========================================
+   SETTINGS CARDS
+========================================= */
+
+.settings-box {
+    position: relative;
+    background: #050505;
+    border: 1px solid rgba(255, 32, 32, 0.25);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 22px;
+    overflow: hidden;
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.12);
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.settings-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: #e50914;
+}
+
+.settings-box:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 32, 32, 0.65);
+    box-shadow:
+        0 18px 45px rgba(229, 9, 20, 0.15);
+}
+
+
+/* =========================================
+   CARD HEADINGS
+========================================= */
+
+.settings-box h2 {
+    margin: 0 0 8px;
+    color: #ffffff;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.settings-box > p {
+    margin: 0 0 22px;
+    color: #bdbdbd;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   SETTINGS BUTTONS
+========================================= */
+
+.settings-box button {
+    border: none;
+    outline: none;
+    background: #e50914;
+    color: #ffffff;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.settings-box button:hover {
+    background: #ff2020;
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 22px rgba(229, 9, 20, 0.35);
+}
+
+.settings-box button:active {
+    transform: scale(0.97);
+}
+
+
+/* =========================================
+   ACCOUNT PANEL
+========================================= */
+
+.account-panel {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transition:
+        max-height 0.4s ease,
+        opacity 0.3s ease,
+        margin-top 0.4s ease;
+}
+
+.account-panel.show {
+    max-height: 400px;
+    opacity: 1;
+    margin-top: 22px;
+}
+
+
+/* =========================================
+   ACCOUNT INPUTS
+========================================= */
+
+.account-panel input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 13px;
+    padding: 14px 16px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: #111;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.account-panel input::placeholder {
+    color: #777;
+}
+
+.account-panel input:focus {
+    border-color: #e50914;
+    box-shadow:
+        0 0 0 3px rgba(229, 9, 20, 0.12);
+}
+
+
+/* =========================================
+   ACCOUNT SAVE BUTTON
+========================================= */
+
+.account-panel button {
+    margin-top: 3px;
+}
+
+
+/* =========================================
+   NOTIFICATION STATUS
+========================================= */
+
+.setting-status {
+    background: #111;
+    border: 1px solid #2b2b2b;
+    border-radius: 12px;
+    padding: 15px 17px;
+    color: #d6d6d6;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   BACK HOME
+========================================= */
+
+.settings-back {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.settings-back a {
+    display: inline-block;
+    color: #e50914;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.settings-back a:hover {
+    color: #ff2020;
+    transform: translateX(-3px);
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+body.dark-mode .settings-title h1 {
+    color: #ffffff;
+}
+
+body.dark-mode .settings-title p {
+    color: #aaa;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .settings-page {
+        padding:
+            45px 15px 70px;
+    }
+
+    .settings-title {
+        margin-bottom: 30px;
+    }
+
+    .settings-title h1 {
+        font-size: 32px;
+    }
+
+    .settings-title p {
+        font-size: 14px;
+    }
+
+    .settings-box {
+        padding: 23px 20px;
+        border-radius: 17px;
+    }
+
+    .settings-box h2 {
+        font-size: 20px;
+    }
+
+    .settings-box > p {
+        line-height: 1.5;
+    }
+
+    .settings-box button {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .account-panel input {
+        padding: 14px;
+        font-size: 14px;
+    }
+
+    .setting-status {
+        line-height: 1.5;
+    }
+
+}
+
+</style>
 
 </head>
 
+
 <body>
 
-<!-- =========================================
-     PAGE LOADING SCREEN
-========================================= -->
-
-<div id="page-loading">
-
-
-<div class="loading-content">
-
-    <div class="loading-logo">
-        🧩
-    </div>
-
-    <div class="page-loader"></div>
-
-    <h2>
-        SETTINGS
-    </h2>
-
-    <p>
-        Opening settings...
-    </p>
-
-</div>
-
-
-</div>
 
 <!-- =========================================
      HEADER
@@ -58,33 +333,33 @@
 
 <header>
 
+    <div class="logo">
+        MH CUBES
+    </div>
 
-<div class="logo">
-    MH CUBES
-</div>
 
-<nav>
+    <nav>
 
-    <a href="index.html">
-        🏠 Home
-    </a>
+        <a href="index.html">
+            🏠 Home
+        </a>
 
-    <a href="products.html">
-        🧩 Products
-    </a>
+        <a href="products.html">
+            🧩 Products
+        </a>
 
-    <a href="cart.html">
-        🛒 Cart
-    </a>
+        <a href="cart.html">
+            🛒 Cart
+        </a>
 
-    <a href="my-orders.html">
-        📦 My Orders
-    </a>
+        <a href="my-orders.html">
+            📦 My Orders
+        </a>
 
-</nav>
-
+    </nav>
 
 </header>
+
 
 <!-- =========================================
      SETTINGS PAGE
@@ -93,134 +368,140 @@
 <main class="settings-page">
 
 
-<div class="settings-title">
+    <!-- TITLE -->
 
-    <h1>
-        ⚙️ Settings
-    </h1>
+    <div class="settings-title">
 
-    <p>
-        Manage your MH CUBES preferences.
-    </p>
+        <h1>
+            ⚙️ Settings
+        </h1>
 
-</div>
+        <p>
+            Manage your MH CUBES preferences.
+        </p>
 
-
-<!-- =====================================
-     ACCOUNT SETTINGS
-====================================== -->
-
-<section class="settings-box">
-
-    <h2>
-        👤 Account Settings
-    </h2>
-
-    <p>
-        Manage your MH CUBES account information.
-    </p>
-
-    <button
-        type="button"
-        onclick="openAccount()"
-    >
-        👤 Open Account
-    </button>
+    </div>
 
 
-    <div
-        id="account-panel"
-        class="account-panel"
-    >
+    <!-- =====================================
+         ACCOUNT SETTINGS
+    ====================================== -->
 
-        <input
-            type="text"
-            id="username"
-            placeholder="Your Name"
-            autocomplete="name"
-        >
+    <section class="settings-box">
 
+        <h2>
+            👤 Account Settings
+        </h2>
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Your Email"
-            autocomplete="email"
-        >
+        <p>
+            Manage your MH CUBES account information.
+        </p>
 
 
         <button
             type="button"
-            onclick="saveAccount()"
+            onclick="openAccount()"
         >
-            💾 Save Account
+            👤 Open Account
         </button>
 
+
+        <div
+            id="account-panel"
+            class="account-panel"
+        >
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Your Name"
+                autocomplete="name"
+            >
+
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Your Email"
+                autocomplete="email"
+            >
+
+
+            <button
+                type="button"
+                onclick="saveAccount()"
+            >
+                💾 Save Account
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         NOTIFICATIONS
+    ====================================== -->
+
+    <section class="settings-box">
+
+        <h2>
+            🔔 Notifications
+        </h2>
+
+        <p>
+            Order updates and important alerts.
+        </p>
+
+
+        <div class="setting-status">
+            🔔 Notifications are managed automatically.
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         THEME
+    ====================================== -->
+
+    <section class="settings-box">
+
+        <h2>
+            🎨 Theme
+        </h2>
+
+        <p>
+            Choose the appearance of MH CUBES.
+        </p>
+
+
+        <button
+            id="darkModeBtn"
+            type="button"
+            onclick="toggleDarkMode()"
+        >
+            🌙 Dark Mode
+        </button>
+
+    </section>
+
+
+    <!-- =====================================
+         BACK HOME
+    ===================================== -->
+
+    <div class="settings-back">
+
+        <a href="index.html">
+            ← Back to MH CUBES
+        </a>
+
     </div>
-
-</section>
-
-
-<!-- =====================================
-     NOTIFICATIONS
-====================================== -->
-
-<section class="settings-box">
-
-    <h2>
-        🔔 Notifications
-    </h2>
-
-    <p>
-        Order updates and important alerts.
-    </p>
-
-    <div class="setting-status">
-        Notifications are managed automatically.
-    </div>
-
-</section>
-
-
-<!-- =====================================
-     THEME
-====================================== -->
-
-<section class="settings-box">
-
-    <h2>
-        🎨 Theme
-    </h2>
-
-    <p>
-        Choose the appearance of MH CUBES.
-    </p>
-
-    <button
-        id="darkModeBtn"
-        type="button"
-        onclick="toggleDarkMode()"
-    >
-        🌙 Dark Mode
-    </button>
-
-</section>
-
-
-<!-- =====================================
-     BACK HOME
-===================================== -->
-
-<div class="settings-back">
-
-    <a href="index.html">
-        ← Back to MH CUBES
-    </a>
-
-</div>
 
 
 </main>
+
 
 <!-- =========================================
      ACCOUNT FUNCTIONS
@@ -296,6 +577,7 @@ function saveAccount() {
 
 </script>
 
+
 <!-- =========================================
      APP.JS
 ========================================= -->
@@ -305,13 +587,6 @@ function saveAccount() {
     src="assets/js/app.js"
 ></script>
 
-<!-- =========================================
-     PAGE LOADING SYSTEM
-========================================= -->
-
-<script
-    src="assets/js/page-loading.js"
-></script>
 
 </body>
 
