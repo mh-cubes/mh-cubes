@@ -7445,3 +7445,265 @@ body.dark-mode:has(.settings-page) {
 .stars span:hover {
     color: #ffd700 !important;
 }
+
+/* =========================================
+   PREMIUM MH CUBES REVIEWS
+========================================= */
+
+.review-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================
+   REVIEW HEADER
+========================================= */
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* =========================================
+   AVATAR
+========================================= */
+
+.review-avatar {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(135deg, #ff3b3b, #8b0000);
+    color: #ffffff !important;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    box-shadow: 0 4px 14px rgba(255, 50, 50, 0.25);
+}
+
+/* =========================================
+   USER INFORMATION
+========================================= */
+
+.review-user {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+/* FORCE NAME WHITE */
+
+.review-user h3,
+.review-user h3 * {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    margin: 0;
+    padding: 0;
+}
+
+/* =========================================
+   STARS
+========================================= */
+
+.review-stars {
+    color: #ffd43b !important;
+    font-size: 15px;
+    letter-spacing: 2px;
+
+    text-shadow: 0 0 8px rgba(255, 212, 59, 0.35);
+}
+
+/* =========================================
+   DATE
+========================================= */
+
+.review-date {
+    margin-left: auto;
+
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 13px;
+    font-weight: 500;
+
+    white-space: nowrap;
+}
+
+/* =========================================
+   REVIEW MESSAGE
+========================================= */
+
+.review-message {
+    color: rgba(255, 255, 255, 0.90) !important;
+
+    font-size: 15px;
+    line-height: 1.7;
+
+    margin: 16px 0 0;
+}
+
+/* =========================================
+   MENU
+========================================= */
+
+.review-menu {
+    position: relative;
+    margin-left: 6px;
+}
+
+.review-menu-button {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: transparent;
+    color: #ffffff !important;
+
+    font-size: 25px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.review-menu-button:hover {
+    background: rgba(255, 255, 255, 0.10);
+    transform: scale(1.08);
+}
+
+/* =========================================
+   DELETE DROPDOWN
+========================================= */
+
+.review-menu-dropdown {
+    position: absolute;
+
+    top: 42px;
+    right: 0;
+
+    min-width: 165px;
+
+    padding: 6px;
+
+    background: rgba(20, 20, 20, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.55);
+
+    z-index: 999;
+}
+
+.delete-review-btn {
+    width: 100%;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 10px 12px;
+
+    background: transparent;
+    color: #ffffff !important;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.delete-review-btn:hover {
+    background: rgba(255, 60, 60, 0.14);
+    color: #ff6b6b !important;
+}
+
+/* =========================================
+   REVIEW IMAGES
+========================================= */
+
+.review-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.review-image {
+    width: 85px;
+    height: 85px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    cursor: pointer;
+
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.review-image:hover {
+    transform: scale(1.05);
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .review-card {
+        padding: 16px;
+        border-radius: 15px;
+    }
+
+    .review-date {
+        font-size: 11px;
+    }
+
+    .review-stars {
+        font-size: 13px;
+    }
+
+    .review-message {
+        font-size: 14px;
+    }
+
+}
+
