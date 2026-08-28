@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -12,111 +12,121 @@
 <link rel="stylesheet" href="assets/css/style.css">
 
 <style>
-.password-wrapper{
-    position:relative;
-    width:90%;
-    margin:10px auto;
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #111827, #2563eb);
+    font-family: Arial, sans-serif;
 }
 
-.password-wrapper input{
-    width:100%;
-    box-sizing:border-box;
-    margin:0;
-    padding:14px 85px 14px 14px;
+.login-box {
+    background: white;
+    width: 350px;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
 }
 
-.show-password-btn{
-    position:absolute !important;
-    right:8px;
-    top:50%;
-    transform:translateY(-50%);
-
-    width:auto !important;
-
-    margin:0 !important;
-    padding:7px 9px !important;
-
-    background:transparent !important;
-    color:#2563eb !important;
-
-    font-size:13px !important;
-    font-weight:bold;
-
-    border:none !important;
+.login-box h1 {
+    color: #2563eb;
+    margin-bottom: 10px;
 }
 
-.show-password-btn:hover{
-    background:transparent !important;
-    color:#1d4ed8 !important;
-    transform:translateY(-50%);
+.login-box p {
+    color: #666;
 }
 
-@media (max-width:600px){
+.login-box input {
+    width: 90%;
+    padding: 14px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
 
-    .login-box{
-        width:calc(100% - 30px);
-        padding:30px 20px;
+.password-wrapper {
+    position: relative;
+    width: 90%;
+    margin: 10px auto;
+}
+
+.password-wrapper input {
+    width: 100%;
+    margin: 0;
+    padding: 14px 85px 14px 14px;
+}
+
+.show-password-btn {
+    position: absolute !important;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: auto !important;
+    margin: 0 !important;
+    padding: 7px 9px !important;
+
+    background: transparent !important;
+    color: #2563eb !important;
+
+    font-size: 13px !important;
+    font-weight: bold;
+
+    border: none !important;
+}
+
+.show-password-btn:hover {
+    background: transparent !important;
+    color: #1d4ed8 !important;
+    transform: translateY(-50%);
+}
+
+.login-box button {
+    width: 95%;
+    padding: 14px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background: #1d4ed8;
+}
+
+#login-message {
+    margin-top: 15px;
+    min-height: 20px;
+}
+
+#customer-name {
+    display: none;
+}
+
+.signup-mode #customer-name {
+    display: inline-block;
+}
+
+@media (max-width: 600px) {
+
+    .login-box {
+        width: calc(100% - 30px);
+        padding: 30px 20px;
     }
 
-    .password-wrapper{
-        width:90%;
+    .password-wrapper {
+        width: 90%;
     }
 
-}
-body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#111827,#2563eb);
-    font-family:Arial,sans-serif;
-}
-
-.login-box{
-    background:white;
-    width:350px;
-    padding:35px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    text-align:center;
-}
-
-.login-box h1{
-    color:#2563eb;
-    margin-bottom:10px;
-}
-
-.login-box p{
-    color:#666;
-}
-
-.login-box input{
-    width:90%;
-    padding:14px;
-    margin:10px 0;
-    border:1px solid #ccc;
-    border-radius:10px;
-    font-size:16px;
-}
-
-.login-box button{
-    width:95%;
-    padding:14px;
-    margin-top:10px;
-    border:none;
-    border-radius:10px;
-    background:#2563eb;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-}
-
-.login-box button:hover{
-    background:#1d4ed8;
-}
-
-#login-message{
-    margin-top:15px;
 }
 
 </style>
@@ -125,23 +135,41 @@ body{
 
 <body>
 
-<div class="login-box">
+<div class="login-box" id="login-box">
 
-    <div style="font-size:45px;">
-        👤
-    </div>
 
-    <h1>MH CUBES</h1>
+<div style="font-size:45px;">
+    👤
+</div>
 
-    <p>Customer Account</p>
+<h1>MH CUBES</h1>
 
-    <input
-        type="email"
-        id="customer-email"
-        placeholder="Enter your email"
-    >
+<p id="form-title">
+    Customer Account
+</p>
 
-   <div class="password-wrapper">
+
+<!-- NAME -->
+
+<input
+    type="text"
+    id="customer-name"
+    placeholder="Enter your full name"
+>
+
+
+<!-- EMAIL -->
+
+<input
+    type="email"
+    id="customer-email"
+    placeholder="Enter your email"
+>
+
+
+<!-- PASSWORD -->
+
+<div class="password-wrapper">
 
     <input
         type="password"
@@ -159,22 +187,41 @@ body{
 
 </div>
 
-    <button id="login-button">
-        Login
-    </button>
 
-    <button id="signup-button">
-        Create Account
-    </button>
+<!-- LOGIN -->
 
-    <p id="login-message"></p>
+<button id="login-button">
+    Login
+</button>
+
+
+<!-- SIGNUP -->
+
+<button id="signup-button">
+    Create Account
+</button>
+
+
+<!-- SWITCH -->
+
+<p
+    id="switch-mode"
+    style="cursor:pointer;color:#2563eb;font-weight:bold;"
+>
+    Create a new account
+</p>
+
+
+<!-- MESSAGE -->
+
+<p id="login-message"></p>
+
 
 </div>
 
-
 <script type="module">
 
-import { auth } from "./assets/js/firebase.js";
+import { auth, db } from "./assets/js/firebase.js";
 
 import {
     signInWithEmailAndPassword,
@@ -183,6 +230,17 @@ import {
     browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+import {
+    doc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+const loginBox =
+    document.getElementById("login-box");
+
+const nameInput =
+    document.getElementById("customer-name");
 
 const emailInput =
     document.getElementById("customer-email");
@@ -192,195 +250,349 @@ const passwordInput =
 
 const message =
     document.getElementById("login-message");
-    // =============================
-// SHOW / HIDE PASSWORD
-// =============================
+
+const formTitle =
+    document.getElementById("form-title");
+
+const switchMode =
+    document.getElementById("switch-mode");
+
+const loginButton =
+    document.getElementById("login-button");
+
+const signupButton =
+    document.getElementById("signup-button");
 
 const togglePassword =
     document.getElementById("toggle-password");
 
-togglePassword.addEventListener("click", function(){
 
-    if(passwordInput.type === "password"){
+let signupMode = false;
 
-        passwordInput.type = "text";
 
-        togglePassword.innerText = "🙈 Hide";
+// =========================================
+// SHOW / HIDE PASSWORD
+// =========================================
 
-    }else{
+togglePassword.addEventListener(
+    "click",
+    function() {
 
-        passwordInput.type = "password";
+        if (passwordInput.type === "password") {
 
-        togglePassword.innerText = "👁️ Show";
+            passwordInput.type = "text";
 
-    }
+            togglePassword.innerText =
+                "🙈 Hide";
 
-});
-// Keep customer signed in
-setPersistence(auth, browserLocalPersistence)
-    .catch((error) => {
-        console.error("Persistence error:", error);
-    });
+        } else {
 
-// =============================
-// LOGIN
-// =============================
+            passwordInput.type = "password";
 
-document
-.getElementById("login-button")
-.addEventListener("click", async function(){
-
-    const email =
-        emailInput.value.trim();
-
-    const password =
-        passwordInput.value;
-
-
-    if(!email || !password){
-
-        message.innerText =
-            "❌ Please enter your email and password.";
-
-        message.style.color = "red";
-
-        return;
-
-    }
-
-
-  try{
-
-    await setPersistence(auth, browserLocalPersistence);
-
-    await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-    );
-
-
-        message.innerText =
-            "✅ Login successful!";
-
-        message.style.color =
-            "green";
-
-
-        setTimeout(function(){
-
-           window.location.href = "my-orders.html";
-
-        },1000);
-
-
-    }catch(error){
-
-        console.error(error);
-
-        message.innerText =
-            "❌ Invalid email or password.";
-
-        message.style.color =
-            "red";
-
-    }
-
-});
-
-
-// =============================
-// CREATE ACCOUNT
-// =============================
-
-document
-.getElementById("signup-button")
-.addEventListener("click", async function(){
-
-    const email =
-        emailInput.value.trim();
-
-    const password =
-        passwordInput.value;
-
-
-    if(!email || !password){
-
-        message.innerText =
-            "❌ Please enter an email and password.";
-
-        message.style.color =
-            "red";
-
-        return;
-
-    }
-
-
-    if(password.length < 6){
-
-        message.innerText =
-            "❌ Password must be at least 6 characters.";
-
-        message.style.color =
-            "red";
-
-        return;
-
-    }
-
-
-   try{
-
-    await setPersistence(auth, browserLocalPersistence);
-
-    await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-    );
-
-
-        message.innerText =
-            "✅ Account created successfully!";
-
-        message.style.color =
-            "green";
-
-
-        setTimeout(function(){
-
-            window.location.href = "my-orders.html";
-        },1000);
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        if(error.code === "auth/email-already-in-use"){
-
-            message.innerText =
-                "❌ This email already has an account.";
-
-        }else{
-
-            message.innerText =
-                "❌ Could not create account.";
+            togglePassword.innerText =
+                "👁️ Show";
 
         }
 
-        message.style.color =
-            "red";
+    }
+);
+
+
+// =========================================
+// SWITCH LOGIN / SIGNUP
+// =========================================
+
+switchMode.addEventListener(
+    "click",
+    function() {
+
+        signupMode = !signupMode;
+
+        message.innerText = "";
+
+        nameInput.value = "";
+
+        if (signupMode) {
+
+            loginBox.classList.add("signup-mode");
+
+            formTitle.innerText =
+                "Create Customer Account";
+
+            loginButton.style.display =
+                "none";
+
+            signupButton.style.display =
+                "block";
+
+            switchMode.innerText =
+                "Already have an account? Login";
+
+        } else {
+
+            loginBox.classList.remove("signup-mode");
+
+            formTitle.innerText =
+                "Customer Account";
+
+            loginButton.style.display =
+                "block";
+
+            signupButton.style.display =
+                "block";
+
+            switchMode.innerText =
+                "Create a new account";
+
+        }
 
     }
+);
+
+
+// =========================================
+// FIREBASE PERSISTENCE
+// =========================================
+
+setPersistence(
+    auth,
+    browserLocalPersistence
+).catch(function(error) {
+
+    console.error(
+        "Persistence error:",
+        error
+    );
 
 });
+
+
+// =========================================
+// LOGIN
+// =========================================
+
+loginButton.addEventListener(
+    "click",
+    async function() {
+
+        const email =
+            emailInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+
+        if (!email || !password) {
+
+            message.innerText =
+                "❌ Please enter your email and password.";
+
+            message.style.color =
+                "red";
+
+            return;
+
+        }
+
+
+        try {
+
+            await setPersistence(
+                auth,
+                browserLocalPersistence
+            );
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            message.innerText =
+                "✅ Login successful!";
+
+            message.style.color =
+                "green";
+
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "my-orders.html";
+
+            }, 1000);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.innerText =
+                "❌ Invalid email or password.";
+
+            message.style.color =
+                "red";
+
+        }
+
+    }
+);
+
+
+// =========================================
+// CREATE ACCOUNT
+// =========================================
+
+signupButton.addEventListener(
+    "click",
+    async function() {
+
+        const name =
+            nameInput.value.trim();
+
+        const email =
+            emailInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+
+        if (!signupMode) {
+
+            signupMode = true;
+
+            loginBox.classList.add(
+                "signup-mode"
+            );
+
+            formTitle.innerText =
+                "Create Customer Account";
+
+            loginButton.style.display =
+                "none";
+
+            message.innerText =
+                "👤 Please enter your name to create an account.";
+
+            message.style.color =
+                "#2563eb";
+
+            return;
+
+        }
+
+
+        if (!name || !email || !password) {
+
+            message.innerText =
+                "❌ Please enter your name, email and password.";
+
+            message.style.color =
+                "red";
+
+            return;
+
+        }
+
+
+        if (password.length < 6) {
+
+            message.innerText =
+                "❌ Password must be at least 6 characters.";
+
+            message.style.color =
+                "red";
+
+            return;
+
+        }
+
+
+        try {
+
+            await setPersistence(
+                auth,
+                browserLocalPersistence
+            );
+
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            const user =
+                userCredential.user;
+
+
+            // =================================
+            // SAVE CUSTOMER PROFILE
+            // =================================
+
+            await setDoc(
+                doc(
+                    db,
+                    "customers",
+                    user.uid
+                ),
+                {
+                    name: name,
+                    email: email,
+                    customerUID: user.uid,
+                    createdAt: Date.now()
+                }
+            );
+
+
+            message.innerText =
+                "✅ Account created successfully!";
+
+            message.style.color =
+                "green";
+
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "customer-account.html";
+
+            }, 1000);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            if (
+                error.code ===
+                "auth/email-already-in-use"
+            ) {
+
+                message.innerText =
+                    "❌ This email already has an account.";
+
+            } else {
+
+                message.innerText =
+                    "❌ Could not create account.";
+
+            }
+
+            message.style.color =
+                "red";
+
+        }
+
+    }
+);
 
 </script>
 
 </body>
 
 </html>
-
