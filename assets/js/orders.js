@@ -44,16 +44,25 @@ async function loadCustomerOrders(user) {
 
         const snapshot = await getDocs(ordersQuery);
 
-        const orders = [];
+       const orders = [];
 
-        snapshot.forEach(function(docSnap) {
+snapshot.forEach(function(docSnap) {
 
-            orders.push({
-                id: docSnap.id,
-                ...docSnap.data()
-            });
+    const orderData = docSnap.data();
 
-        });
+    // Hide cancelled orders from customer's My Orders
+    if (
+        String(orderData.status || "").toLowerCase() === "cancelled"
+    ) {
+        return;
+    }
+
+    orders.push({
+        id: docSnap.id,
+        ...orderData
+    });
+
+});
 
 
         // =====================================
