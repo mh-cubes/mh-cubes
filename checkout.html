@@ -104,29 +104,101 @@
 
     <!-- CUSTOMER DETAILS -->
 
-   <h2>
-    Customer Details
-</h2>
+   <!-- =========================================
+     BEAUTIFUL CUSTOMER DETAILS
+========================================= -->
 
-<input
-    id="customer-name"
-    type="text"
-    placeholder="Full Name"
->
+<div class="customer-details-section">
 
-<input
-    id="customer-phone"
-    type="tel"
-    placeholder="03XXXXXXXXX"
-    maxlength="11"
->
+    <div class="customer-details-heading">
 
-<small id="phone-message"></small>
+        <div class="customer-details-icon">
+            👤
+        </div>
 
-<textarea
-    id="customer-address"
-    placeholder="Delivery Address"
-></textarea>
+        <div>
+            <h2>
+                Customer Details
+            </h2>
+
+            <p>
+                Enter your details for delivery
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- NAME -->
+
+    <div class="checkout-field">
+
+        <label for="customer-name">
+            👤 Full Name
+        </label>
+
+        <input
+            id="customer-name"
+            type="text"
+            placeholder="Enter your full name"
+            autocomplete="name"
+        >
+
+    </div>
+
+
+    <!-- PHONE -->
+
+    <div class="checkout-field">
+
+        <label for="customer-phone">
+            📱 Phone Number
+        </label>
+
+        <input
+            id="customer-phone"
+            type="tel"
+            placeholder="03XXXXXXXXX"
+            maxlength="11"
+            autocomplete="tel"
+        >
+
+        <small id="phone-message"></small>
+
+    </div>
+
+
+    <!-- ADDRESS -->
+
+    <div class="checkout-field">
+
+        <label for="customer-address">
+            📍 Delivery Address
+        </label>
+
+        <textarea
+            id="customer-address"
+            placeholder="Enter your complete delivery address"
+            autocomplete="street-address"
+        ></textarea>
+
+    </div>
+
+
+    <div class="delivery-note">
+
+        <span>
+            🚚
+        </span>
+
+        <p>
+            Please provide an accurate address so we can
+            deliver your order safely.
+        </p>
+
+    </div>
+
+</div>
 
 
     <!-- PAYMENT -->
