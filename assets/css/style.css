@@ -7715,4 +7715,9 @@ body.dark-mode:has(.settings-page) {
     font-weight: 800 !important;
 }
 
-
+/* REVIEW MESSAGE - MORE READABLE */
+.review-message {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+    font-weight: 500 !important;
+}
