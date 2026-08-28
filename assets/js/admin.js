@@ -10,6 +10,7 @@ import {
     getDocs,
     doc,
     updateDoc,
+    deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
@@ -45,8 +46,15 @@ onAuthStateChanged(auth, (user) => {
     }
 
 
-    console.log("Admin user email:", user.email);
-    console.log("Admin user UID:", user.uid);
+    console.log(
+        "Admin user email:",
+        user.email
+    );
+
+    console.log(
+        "Admin user UID:",
+        user.uid
+    );
 
 
     // OWNER ONLY
@@ -82,6 +90,11 @@ onAuthStateChanged(auth, (user) => {
 // =========================================
 
 async function loadOrders() {
+
+    if (!box) {
+        return;
+    }
+
 
     box.innerHTML = `
         <div style="padding:20px;text-align:center;">
@@ -120,14 +133,23 @@ async function loadOrders() {
         );
 
 
+        // =====================================
         // NO ORDERS
+        // =====================================
 
         if (orders.length === 0) {
 
             box.innerHTML = `
                 <div style="padding:30px;text-align:center;">
-                    <h2>📦 No orders yet</h2>
-                    <p>Customer orders will appear here.</p>
+
+                    <h2>
+                        📦 No orders yet
+                    </h2>
+
+                    <p>
+                        Customer orders will appear here.
+                    </p>
+
                 </div>
             `;
 
@@ -136,14 +158,23 @@ async function loadOrders() {
         }
 
 
+        // =====================================
         // CLEAR BOX
+        // =====================================
 
         box.innerHTML = "";
 
 
+        // =====================================
         // DISPLAY ORDERS
+        // =====================================
 
         orders.forEach((order) => {
+
+
+            // =================================
+            // PRODUCTS
+            // =================================
 
             const productsHTML =
                 Object.keys(
@@ -154,11 +185,20 @@ async function loadOrders() {
                     const item =
                         order.products[product];
 
+
                     return `
                         <p>
-                            🧩 <strong>${product}</strong>
-                            — PKR ${item.price}
+
+                            🧩
+                            <strong>
+                                ${product}
+                            </strong>
+
+                            —
+                            PKR ${item.price}
+
                             × ${item.quantity}
+
                         </p>
                     `;
 
@@ -166,9 +206,23 @@ async function loadOrders() {
                 .join("");
 
 
+            // =================================
+            // STATUS
+            // =================================
+
+            const status =
+                order.status ||
+                "Pending";
+
+
+            // =================================
+            // ORDER CARD
+            // =================================
+
             box.innerHTML += `
 
                 <div class="admin-order-card">
+
 
                     <h2>
                         📦 Order #${order.orderID || "N/A"}
@@ -176,32 +230,48 @@ async function loadOrders() {
 
 
                     <p>
-                        <strong>Customer:</strong>
+                        <strong>
+                            Customer:
+                        </strong>
+
                         ${order.customerName || "N/A"}
                     </p>
 
 
                     <p>
-                        <strong>Phone:</strong>
+                        <strong>
+                            Phone:
+                        </strong>
+
                         ${order.phone || "N/A"}
                     </p>
 
 
                     <p>
-                        <strong>Address:</strong>
+                        <strong>
+                            Address:
+                        </strong>
+
                         ${order.address || "N/A"}
                     </p>
 
 
                     <p>
-                        <strong>Payment:</strong>
+                        <strong>
+                            Payment:
+                        </strong>
+
                         ${order.payment || "N/A"}
                     </p>
 
 
                     <p>
-                        <strong>Transaction ID:</strong>
-                        ${order.transactionID || "Not provided"}
+                        <strong>
+                            Transaction ID:
+                        </strong>
+
+                        ${order.transactionID ||
+                        "Not provided"}
                     </p>
 
 
@@ -218,12 +288,33 @@ async function loadOrders() {
 
 
                     <p>
-                        <strong>Status:</strong>
-                        ${order.status || "Pending"}
+                        <strong>
+                            Status:
+                        </strong>
+
+                        ${status}
                     </p>
 
 
+                    ${
+                        order.notification
+                        ?
+                        `
+                            <p>
+                                <strong>
+                                    🔔 Notification:
+                                </strong>
+
+                                ${order.notification}
+                            </p>
+                        `
+                        :
+                        ""
+                    }
+
+
                     <div class="admin-order-buttons">
+
 
                         <button
                             onclick="confirmOrder('${order.id}')"
@@ -259,7 +350,9 @@ async function loadOrders() {
                             Cancel ❌
                         </button>
 
+
                     </div>
+
 
                 </div>
 
@@ -290,23 +383,37 @@ async function loadOrders() {
 
         box.innerHTML = `
 
-            <div style="
-                padding:25px;
-                text-align:center;
-            ">
+            <div
+                style="
+                    padding:25px;
+                    text-align:center;
+                "
+            >
 
                 <h2>
                     ❌ Error Loading Orders
                 </h2>
 
-                <p>
-                    <strong>Error Code:</strong>
-                    ${error.code || "Unknown"}
-                </p>
 
                 <p>
-                    <strong>Message:</strong>
+
+                    <strong>
+                        Error Code:
+                    </strong>
+
+                    ${error.code || "Unknown"}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Message:
+                    </strong>
+
                     ${error.message || "Unknown error"}
+
                 </p>
 
             </div>
@@ -334,9 +441,11 @@ async function updateOrderStatus(
             doc(db, "orders", id),
             {
 
-                status: status,
+                status:
+                    status,
 
-                notification: message
+                notification:
+                    message
 
             }
         );
@@ -369,9 +478,13 @@ async function updateOrderStatus(
 async function confirmOrder(id) {
 
     await updateOrderStatus(
+
         id,
+
         "Confirmed ✅",
+
         "🎉 Your order has been confirmed and is now being prepared."
+
     );
 
 }
@@ -384,9 +497,13 @@ async function confirmOrder(id) {
 async function processOrder(id) {
 
     await updateOrderStatus(
+
         id,
+
         "Processing 📦",
+
         "📦 Your order is now being prepared."
+
     );
 
 }
@@ -399,9 +516,13 @@ async function processOrder(id) {
 async function shipOrder(id) {
 
     await updateOrderStatus(
+
         id,
+
         "Shipped 🚚",
+
         "🚚 Your order has been shipped and is on the way!"
+
     );
 
 }
@@ -414,23 +535,27 @@ async function shipOrder(id) {
 async function deliverOrder(id) {
 
     await updateOrderStatus(
+
         id,
+
         "Delivered ✅",
+
         "✅ Your order has been delivered. Thank you for shopping with MH CUBES!"
+
     );
 
 }
 
 
 // =========================================
-// CANCEL ORDER
+// ADMIN CANCEL ORDER
 // =========================================
 
 async function cancelAdminOrder(id) {
 
     const confirmCancel =
         confirm(
-            "Are you sure you want to cancel this order?"
+            "Are you sure you want to permanently delete this order?"
         );
 
 
@@ -443,14 +568,18 @@ async function cancelAdminOrder(id) {
 
     try {
 
-       await updateDoc(
-    orderRef,
-    {
-        status: "Cancelled by Customer",
-        notification:
-            "❌ This order was cancelled by the customer."
-    }
-);
+        await deleteDoc(
+            doc(
+                db,
+                "orders",
+                id
+            )
+        );
+
+
+        alert(
+            "✅ Order deleted successfully."
+        );
 
 
         location.reload();
@@ -459,18 +588,19 @@ async function cancelAdminOrder(id) {
     } catch (error) {
 
         console.error(
-            "Error cancelling order:",
+            "Error deleting order:",
             error
         );
 
 
         alert(
-            "❌ Failed to cancel order."
+            "❌ Failed to delete order."
         );
 
     }
 
 }
+
 
 // =========================================
 // OWNER LOGOUT
