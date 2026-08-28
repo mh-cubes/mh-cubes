@@ -18,6 +18,10 @@ import { db, auth } from "./firebase.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // =========================================
+    // ELEMENTS
+    // =========================================
+
     const nameInput = document.getElementById("review-name");
     const reviewInput = document.getElementById("review-text");
     const ratingInput = document.getElementById("rating");
@@ -27,8 +31,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const stars = document.querySelectorAll(".stars span");
 
+    const imageInput = document.getElementById("review-images");
+    const imagePreview = document.getElementById("image-preview");
 
-    if (!nameInput || !reviewInput || !ratingInput || !submitButton) {
+
+    if (
+        !nameInput ||
+        !reviewInput ||
+        !ratingInput ||
+        !submitButton
+    ) {
         console.error("Review elements missing.");
         return;
     }
@@ -44,6 +56,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
+    // OWNER UID
+    // =========================================
+
+    const ownerUID =
+        "UPdmuwyLEcdEyMxFENPGRlAhxwa2";
+
+
+    // =========================================
+    // SELECTED IMAGES
+    // =========================================
+
+    let selectedImages = [];
+
+
+    // =========================================
     // STAR RATING
     // =========================================
 
@@ -51,15 +78,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         star.addEventListener("click", () => {
 
-            const rating = Number(star.dataset.star);
+            const rating =
+                Number(star.dataset.star);
 
             if (!rating) return;
 
-            ratingInput.value = rating;
+            ratingInput.value = String(rating);
+
 
             stars.forEach((s) => {
 
-                const number = Number(s.dataset.star);
+                const number =
+                    Number(s.dataset.star);
 
                 if (number <= rating) {
 
@@ -81,117 +111,498 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
-    // SUBMIT REVIEW
+    // IMAGE COMPRESSION
     // =========================================
 
-    submitButton.addEventListener("click", async () => {
+    function compressImage(file) {
 
-        const currentUser = auth.currentUser;
+        return new Promise((resolve, reject) => {
 
-        if (!currentUser) {
-
-            showToast("Please login before submitting a review.");
-
-            return;
-        }
+            const reader =
+                new FileReader();
 
 
-        const name = nameInput.value.trim();
-        const review = reviewInput.value.trim();
-        const rating = Number(ratingInput.value);
+            reader.onload = (event) => {
+
+                const img =
+                    new Image();
 
 
-        if (!name) {
+                img.onload = () => {
 
-            showToast("Please enter your name.");
-            nameInput.focus();
+                    const maxWidth = 900;
+                    const maxHeight = 900;
 
-            return;
-        }
-
-
-        if (!review) {
-
-            showToast("Please write your review.");
-            reviewInput.focus();
-
-            return;
-        }
+                    let width = img.width;
+                    let height = img.height;
 
 
-        if (rating < 1 || rating > 5) {
+                    if (
+                        width > maxWidth ||
+                        height > maxHeight
+                    ) {
 
-            showToast("Please select a star rating.");
+                        const ratio =
+                            Math.min(
+                                maxWidth / width,
+                                maxHeight / height
+                            );
 
-            return;
-        }
+                        width =
+                            Math.round(width * ratio);
+
+                        height =
+                            Math.round(height * ratio);
+
+                    }
 
 
-        try {
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
 
-            submitButton.disabled = true;
-            submitButton.textContent = "Submitting...";
+
+                    canvas.width = width;
+                    canvas.height = height;
 
 
-            const reviewData = {
+                    const context =
+                        canvas.getContext("2d");
 
-                product: productName,
 
-                name: name,
+                    context.drawImage(
+                        img,
+                        0,
+                        0,
+                        width,
+                        height
+                    );
 
-                review: review,
 
-                rating: rating,
+                    const compressed =
+                        canvas.toDataURL(
+                            "image/jpeg",
+                            0.60
+                        );
 
-                customerUID: currentUser.uid,
 
-                date: new Date().toLocaleDateString(),
+                    resolve(compressed);
 
-                createdAt: Date.now()
+                };
+
+
+                img.onerror = () => {
+
+                    reject(
+                        new Error(
+                            "Could not load image."
+                        )
+                    );
+
+                };
+
+
+                img.src =
+                    event.target.result;
 
             };
 
 
-            await addDoc(
-                collection(db, "reviews"),
-                reviewData
-            );
+            reader.onerror = () => {
+
+                reject(
+                    new Error(
+                        "Could not read image."
+                    )
+                );
+
+            };
 
 
-            nameInput.value = "";
-            reviewInput.value = "";
+            reader.readAsDataURL(file);
 
-            ratingInput.value = "0";
+        });
 
-
-            stars.forEach((star) => {
-
-                star.textContent = "☆";
-                star.classList.remove("selected");
-
-            });
+    }
 
 
-            showToast("Review submitted successfully!");
+    // =========================================
+    // IMAGE PREVIEW
+    // =========================================
+
+    function createImagePreview(imageData) {
+
+        if (!imagePreview) return;
 
 
-            await displayReviews();
+        const wrapper =
+            document.createElement("div");
+
+        wrapper.className =
+            "review-preview-wrapper";
 
 
-        } catch (error) {
+        const image =
+            document.createElement("img");
 
-            console.error("Submit review error:", error);
+        image.src = imageData;
 
-            showToast("Failed to submit review.");
+        image.alt =
+            "Selected review image";
 
-        } finally {
+        image.className =
+            "review-preview-image";
 
-            submitButton.disabled = false;
-            submitButton.textContent = "Submit Review";
+
+        const removeButton =
+            document.createElement("button");
+
+        removeButton.type = "button";
+
+        removeButton.className =
+            "remove-preview-image";
+
+        removeButton.textContent = "×";
+
+        removeButton.title =
+            "Remove image";
+
+
+        removeButton.addEventListener(
+            "click",
+            () => {
+
+                const index =
+                    selectedImages.indexOf(
+                        imageData
+                    );
+
+
+                if (index !== -1) {
+
+                    selectedImages.splice(
+                        index,
+                        1
+                    );
+
+                }
+
+
+                wrapper.remove();
+
+            }
+        );
+
+
+        wrapper.appendChild(image);
+        wrapper.appendChild(removeButton);
+
+        imagePreview.appendChild(wrapper);
+
+    }
+
+
+    // =========================================
+    // IMAGE UPLOAD
+    // =========================================
+
+    if (imageInput) {
+
+        imageInput.addEventListener(
+            "change",
+            async () => {
+
+                const files =
+                    Array.from(
+                        imageInput.files
+                    );
+
+
+                if (
+                    selectedImages.length +
+                    files.length > 5
+                ) {
+
+                    showToast(
+                        "Maximum 5 images allowed."
+                    );
+
+                    imageInput.value = "";
+
+                    return;
+
+                }
+
+
+                for (const file of files) {
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+                        showToast(
+                            "Please select image files only."
+                        );
+
+                        continue;
+
+                    }
+
+
+                    try {
+
+                        showToast(
+                            "Processing image..."
+                        );
+
+
+                        const imageData =
+                            await compressImage(
+                                file
+                            );
+
+
+                        selectedImages.push(
+                            imageData
+                        );
+
+
+                        createImagePreview(
+                            imageData
+                        );
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "Image processing error:",
+                            error
+                        );
+
+                        showToast(
+                            "Failed to process image."
+                        );
+
+                    }
+
+                }
+
+
+                imageInput.value = "";
+
+            }
+        );
+
+    }
+
+
+    // =========================================
+    // SUBMIT REVIEW
+    // =========================================
+
+    submitButton.addEventListener(
+        "click",
+        async () => {
+
+            const currentUser =
+                auth.currentUser;
+
+
+            // LOGIN CHECK
+
+            if (!currentUser) {
+
+                showToast(
+                    "Please login before submitting a review."
+                );
+
+                return;
+
+            }
+
+
+            const name =
+                nameInput.value.trim();
+
+            const review =
+                reviewInput.value.trim();
+
+            const rating =
+                Number(ratingInput.value);
+
+
+            // NAME
+
+            if (!name) {
+
+                showToast(
+                    "Please enter your name."
+                );
+
+                nameInput.focus();
+
+                return;
+
+            }
+
+
+            // REVIEW
+
+            if (!review) {
+
+                showToast(
+                    "Please write your review."
+                );
+
+                reviewInput.focus();
+
+                return;
+
+            }
+
+
+            // RATING
+
+            if (
+                rating < 1 ||
+                rating > 5
+            ) {
+
+                showToast(
+                    "Please select a star rating."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Submitting...";
+
+
+                // =================================
+                // REVIEW DATA
+                // =================================
+
+                const reviewData = {
+
+                    product:
+                        productName,
+
+                    name:
+                        name,
+
+                    review:
+                        review,
+
+                    rating:
+                        rating,
+
+                    customerUID:
+                        currentUser.uid,
+
+                    images:
+                        selectedImages,
+
+                    date:
+                        new Date()
+                            .toLocaleDateString(),
+
+                    createdAt:
+                        Date.now()
+
+                };
+
+
+                // =================================
+                // SAVE TO FIRESTORE
+                // =================================
+
+                await addDoc(
+                    collection(
+                        db,
+                        "reviews"
+                    ),
+                    reviewData
+                );
+
+
+                // =================================
+                // RESET FORM
+                // =================================
+
+                nameInput.value = "";
+
+                reviewInput.value = "";
+
+                ratingInput.value = "0";
+
+
+                selectedImages = [];
+
+
+                if (imagePreview) {
+
+                    imagePreview.innerHTML =
+                        "";
+
+                }
+
+
+                stars.forEach((star) => {
+
+                    star.textContent =
+                        "☆";
+
+                    star.classList.remove(
+                        "selected"
+                    );
+
+                });
+
+
+                showToast(
+                    "Review submitted successfully!"
+                );
+
+
+                await displayReviews();
+
+
+            } catch (error) {
+
+                console.error(
+                    "FULL SUBMIT ERROR:",
+                    error
+                );
+
+
+                showToast(
+                    "Failed to submit review: " +
+                    error.message
+                );
+
+
+            } finally {
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "Submit Review";
+
+            }
 
         }
-
-    });
+    );
 
 
     // =========================================
@@ -212,74 +623,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
-            const reviewsQuery = query(
-                collection(db, "reviews"),
-                where("product", "==", productName)
-            );
+            const reviewsQuery =
+                query(
+                    collection(
+                        db,
+                        "reviews"
+                    ),
+                    where(
+                        "product",
+                        "==",
+                        productName
+                    )
+                );
 
 
-            const snapshot = await getDocs(reviewsQuery);
+            const snapshot =
+                await getDocs(
+                    reviewsQuery
+                );
 
 
             const reviews = [];
 
 
-            snapshot.forEach((reviewDoc) => {
+            snapshot.forEach(
+                (reviewDoc) => {
 
-                reviews.push({
+                    reviews.push({
 
-                    id: reviewDoc.id,
+                        id:
+                            reviewDoc.id,
 
-                    ...reviewDoc.data()
+                        ...reviewDoc.data()
 
-                });
+                    });
 
-            });
+                }
+            );
 
 
-            reviews.sort((a, b) => {
+            // NEWEST FIRST
 
-                return (
+            reviews.sort(
+                (a, b) =>
                     (b.createdAt || 0) -
                     (a.createdAt || 0)
-                );
-
-            });
+            );
 
 
             reviewList.innerHTML = "";
 
 
+            // NO REVIEWS
+
             if (reviews.length === 0) {
 
                 reviewList.innerHTML = `
                     <div class="no-reviews">
-                        <div class="no-reviews-icon">⭐</div>
 
-                        <h3>No reviews yet</h3>
+                        <div class="no-reviews-icon">
+                            ⭐
+                        </div>
+
+                        <h3>
+                            No reviews yet
+                        </h3>
 
                         <p>
                             Be the first customer to share your experience!
                         </p>
+
                     </div>
                 `;
 
                 return;
+
             }
 
 
-            const currentUser = auth.currentUser;
+            const currentUser =
+                auth.currentUser;
 
-            const ownerUID =
-                "UPdmuwyLEcdEyMxFENPGRlAhxwa2";
 
+            // =================================
+            // EACH REVIEW
+            // =================================
 
             reviews.forEach((item) => {
 
                 const card =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
-                card.className = "review-card";
+                card.className =
+                    "review-card";
 
 
                 // =================================
@@ -287,66 +725,95 @@ document.addEventListener("DOMContentLoaded", () => {
                 // =================================
 
                 const header =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
-                header.className = "review-header";
+                header.className =
+                    "review-header";
 
 
                 // AVATAR
 
                 const avatar =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
-                avatar.className = "review-avatar";
+                avatar.className =
+                    "review-avatar";
 
                 avatar.textContent =
-                    String(item.name || "?")
-                        .charAt(0)
-                        .toUpperCase();
+                    String(
+                        item.name || "?"
+                    )
+                    .charAt(0)
+                    .toUpperCase();
 
 
-                // USER AREA
+                // USER
 
                 const user =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
-                user.className = "review-user";
+                user.className =
+                    "review-user";
 
 
                 const username =
-                    document.createElement("h3");
+                    document.createElement(
+                        "h3"
+                    );
 
                 username.textContent =
-                    item.name || "Customer";
+                    item.name ||
+                    "Customer";
 
 
                 // STARS
 
                 const reviewStars =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
                 reviewStars.className =
                     "review-stars";
 
 
-                for (let i = 1; i <= 5; i++) {
+                for (
+                    let i = 1;
+                    i <= 5;
+                    i++
+                ) {
 
                     reviewStars.textContent +=
-                        i <= Number(item.rating)
+                        i <= Number(
+                            item.rating
+                        )
                             ? "★"
                             : "☆";
 
                 }
 
 
-                user.appendChild(username);
-                user.appendChild(reviewStars);
+                user.appendChild(
+                    username
+                );
+
+                user.appendChild(
+                    reviewStars
+                );
 
 
                 // DATE
 
                 const date =
-                    document.createElement("span");
+                    document.createElement(
+                        "span"
+                    );
 
                 date.className =
                     "review-date";
@@ -360,7 +827,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 // =================================
 
                 const menuContainer =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
                 menuContainer.className =
                     "review-menu";
@@ -368,23 +837,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const isOwner =
                     currentUser &&
-                    currentUser.uid === ownerUID;
+                    currentUser.uid ===
+                    ownerUID;
 
 
                 const isReviewOwner =
                     currentUser &&
-                    item.customerUID === currentUser.uid;
+                    item.customerUID &&
+                    item.customerUID ===
+                    currentUser.uid;
 
 
-                if (isOwner || isReviewOwner) {
+                if (
+                    isOwner ||
+                    isReviewOwner
+                ) {
 
                     const deleteButton =
-                        document.createElement("button");
+                        document.createElement(
+                            "button"
+                        );
 
-                    deleteButton.type = "button";
+
+                    deleteButton.type =
+                        "button";
+
 
                     deleteButton.className =
                         "delete-review-btn";
+
 
                     deleteButton.textContent =
                         "🗑️";
@@ -404,12 +885,19 @@ document.addEventListener("DOMContentLoaded", () => {
                                 );
 
 
-                            if (!confirmed) return;
+                            if (!confirmed)
+                                return;
 
 
                             try {
 
-                                deleteButton.disabled = true;
+                                deleteButton.disabled =
+                                    true;
+
+
+                                deleteButton.textContent =
+                                    "⏳";
+
 
                                 await deleteDoc(
                                     doc(
@@ -421,7 +909,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                                 showToast(
-                                    "Review deleted successfully."
+                                    "Review deleted successfully!"
                                 );
 
 
@@ -431,17 +919,22 @@ document.addEventListener("DOMContentLoaded", () => {
                             } catch (error) {
 
                                 console.error(
-                                    "Delete review error:",
+                                    "DELETE REVIEW ERROR:",
                                     error
                                 );
 
 
                                 showToast(
-                                    "Failed to delete review."
+                                    "Failed to delete review: " +
+                                    error.message
                                 );
 
 
-                                deleteButton.disabled = false;
+                                deleteButton.disabled =
+                                    false;
+
+                                deleteButton.textContent =
+                                    "🗑️";
 
                             }
 
@@ -456,15 +949,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                // HEADER
+                // =================================
+                // HEADER APPEND
+                // =================================
 
-                header.appendChild(avatar);
+                header.appendChild(
+                    avatar
+                );
 
-                header.appendChild(user);
+                header.appendChild(
+                    user
+                );
 
-                header.appendChild(date);
+                header.appendChild(
+                    date
+                );
 
-                header.appendChild(menuContainer);
+                header.appendChild(
+                    menuContainer
+                );
 
 
                 // =================================
@@ -472,7 +975,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 // =================================
 
                 const message =
-                    document.createElement("p");
+                    document.createElement(
+                        "p"
+                    );
 
                 message.className =
                     "review-message";
@@ -482,15 +987,92 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 // =================================
-                // CARD
+                // REVIEW IMAGES
                 // =================================
 
-                card.appendChild(header);
+                const images =
+                    Array.isArray(
+                        item.images
+                    )
+                        ? item.images
+                        : [];
 
-                card.appendChild(message);
+
+                if (images.length > 0) {
+
+                    const imagesContainer =
+                        document.createElement(
+                            "div"
+                        );
+
+                    imagesContainer.className =
+                        "review-images";
 
 
-                reviewList.appendChild(card);
+                    images.forEach(
+                        (imageSrc) => {
+
+                            const image =
+                                document.createElement(
+                                    "img"
+                                );
+
+
+                            image.src =
+                                imageSrc;
+
+
+                            image.alt =
+                                "Customer review image";
+
+
+                            image.className =
+                                "review-image";
+
+
+                            image.addEventListener(
+                                "click",
+                                () => {
+
+                                    openImageViewer(
+                                        imageSrc
+                                    );
+
+                                }
+                            );
+
+
+                            imagesContainer.appendChild(
+                                image
+                            );
+
+                        }
+                    );
+
+
+                    card.appendChild(
+                        imagesContainer
+                    );
+
+                }
+
+
+                // =================================
+                // CARD APPEND
+                // =================================
+
+                card.appendChild(
+                    header
+                );
+
+                card.appendChild(
+                    message
+                );
+
+
+                reviewList.appendChild(
+                    card
+                );
 
             });
 
@@ -498,17 +1080,188 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
 
             console.error(
-                "Error loading reviews:",
+                "LOAD REVIEWS ERROR:",
                 error
             );
 
 
             reviewList.innerHTML = `
                 <div class="no-reviews">
-                    <h3>Unable to load reviews</h3>
-                    <p>Please try again later.</p>
+
+                    <h3>
+                        Unable to load reviews
+                    </h3>
+
+                    <p>
+                        Please try again later.
+                    </p>
+
                 </div>
             `;
+
+        }
+
+    }
+
+
+    // =========================================
+    // IMAGE VIEWER
+    // =========================================
+
+    function openImageViewer(imageSrc) {
+
+        const oldViewer =
+            document.querySelector(
+                ".review-image-viewer"
+            );
+
+
+        if (oldViewer) {
+
+            oldViewer.remove();
+
+        }
+
+
+        const viewer =
+            document.createElement(
+                "div"
+            );
+
+        viewer.className =
+            "review-image-viewer";
+
+
+        const image =
+            document.createElement(
+                "img"
+            );
+
+        image.src =
+            imageSrc;
+
+        image.alt =
+            "Enlarged review image";
+
+
+        const closeButton =
+            document.createElement(
+                "button"
+            );
+
+        closeButton.className =
+            "review-image-viewer-close";
+
+        closeButton.type =
+            "button";
+
+        closeButton.textContent =
+            "×";
+
+
+        viewer.appendChild(
+            image
+        );
+
+        viewer.appendChild(
+            closeButton
+        );
+
+
+        document.body.appendChild(
+            viewer
+        );
+
+
+        requestAnimationFrame(() => {
+
+            viewer.classList.add(
+                "show"
+            );
+
+        });
+
+
+        closeButton.addEventListener(
+            "click",
+            closeImageViewer
+        );
+
+
+        viewer.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    event.target ===
+                    viewer
+                ) {
+
+                    closeImageViewer();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            imageViewerEscapeHandler
+        );
+
+    }
+
+
+    // =========================================
+    // CLOSE IMAGE VIEWER
+    // =========================================
+
+    function closeImageViewer() {
+
+        const viewer =
+            document.querySelector(
+                ".review-image-viewer"
+            );
+
+
+        if (!viewer) return;
+
+
+        viewer.classList.remove(
+            "show"
+        );
+
+
+        setTimeout(() => {
+
+            viewer.remove();
+
+        }, 250);
+
+
+        document.removeEventListener(
+            "keydown",
+            imageViewerEscapeHandler
+        );
+
+    }
+
+
+    // =========================================
+    // ESC KEY
+    // =========================================
+
+    function imageViewerEscapeHandler(
+        event
+    ) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeImageViewer();
 
         }
 
@@ -526,19 +1279,26 @@ document.addEventListener("DOMContentLoaded", () => {
             alert(message);
 
             return;
+
         }
 
 
-        toast.textContent = message;
+        toast.textContent =
+            message;
 
-        toast.classList.add("show");
+
+        toast.classList.add(
+            "show"
+        );
 
 
         setTimeout(() => {
 
-            toast.classList.remove("show");
+            toast.classList.remove(
+                "show"
+            );
 
-        }, 3000);
+        }, 3500);
 
     }
 
@@ -547,11 +1307,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // AUTH STATE
     // =========================================
 
-    onAuthStateChanged(auth, () => {
+    onAuthStateChanged(
+        auth,
+        () => {
 
-        displayReviews();
+            displayReviews();
 
-    });
+        }
+    );
 
 });
 
