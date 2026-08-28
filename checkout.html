@@ -1,340 +1,1003 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>Checkout - MH CUBES</title>
+<title>Checkout - MH CUBES</title>
 
-    <link
-        rel="stylesheet"
-        href="assets/css/style.css"
-    >
+<link
+    rel="stylesheet"
+    href="assets/css/style.css"
+>
 
-    <style>
+<style>
 
-       
-<!-- ================================
-     BEAUTIFUL PAYMENT METHOD
-================================ -->
+    /* =====================================================
+       CHECKOUT PAGE
+    ===================================================== */
 
-<div class="payment-section">
+    body {
+        margin: 0;
+        min-height: 100vh;
 
-    <div class="payment-heading">
+        background:
+            radial-gradient(
+                circle at top,
+                rgba(220, 38, 38, 0.14),
+                transparent 38%
+            ),
+            #050505;
 
-        <div class="payment-icon">
-            💳
-        </div>
-
-        <div>
-            <h2>Choose Payment Method</h2>
-            <p>Select how you'd like to pay for your order</p>
-        </div>
-
-    </div>
-
-
-    <div class="payment-options">
-
-        <!-- EASYPAISA -->
-
-        <label class="payment-card payment-disabled">
-
-            <input
-                type="radio"
-                name="payment"
-                value="EasyPaisa"
-                disabled
-            >
-
-            <div class="payment-card-content">
-
-                <div class="payment-method-icon easypaisa-icon">
-                    💚
-                </div>
-
-                <div class="payment-method-info">
-
-                    <strong>EasyPaisa</strong>
-
-                    <span>
-                        Coming Soon
-                    </span>
-
-                </div>
-
-                <div class="payment-arrow">
-                    🔒
-                </div>
-
-            </div>
-
-        </label>
+        color: #ffffff;
+    }
 
 
-        <!-- JAZZCASH -->
+    /* =====================================================
+       HEADER
+    ===================================================== */
 
-        <label class="payment-card payment-disabled">
+    .checkout-header {
+        width: 100%;
 
-            <input
-                type="radio"
-                name="payment"
-                value="JazzCash"
-                disabled
-            >
+        padding: 18px 30px;
 
-            <div class="payment-card-content">
+        box-sizing: border-box;
 
-                <div class="payment-method-icon jazzcash-icon">
-                    ❤️
-                </div>
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-                <div class="payment-method-info">
+        background: rgba(5, 5, 5, 0.96);
 
-                    <strong>JazzCash</strong>
+        border-bottom: 1px solid rgba(255,255,255,0.08);
 
-                    <span>
-                        Coming Soon
-                    </span>
+        position: relative;
+        z-index: 20;
+    }
 
-                </div>
+    .checkout-logo {
+        font-size: 25px;
+        font-weight: 900;
 
-                <div class="payment-arrow">
-                    🔒
-                </div>
+        letter-spacing: 1px;
 
-            </div>
+        color: #ffffff;
+    }
 
-        </label>
+    .checkout-nav {
+        display: flex;
+        gap: 10px;
+    }
 
+    .checkout-nav a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
 
-        <!-- CASH ON DELIVERY -->
+        padding: 10px 17px;
 
-        <label class="payment-card payment-active">
+        color: #ffffff;
 
-            <input
-                type="radio"
-                name="payment"
-                value="Cash On Delivery"
-            >
+        background: #111111;
 
-            <div class="payment-card-content">
+        border: 1px solid rgba(255,255,255,0.12);
 
-                <div class="payment-method-icon cod-icon">
-                    💵
-                </div>
+        border-radius: 10px;
 
-                <div class="payment-method-info">
+        text-decoration: none;
 
-                    <strong>Cash On Delivery</strong>
+        font-weight: 800;
 
-                    <span>
-                        Pay when your order arrives
-                    </span>
+        transition: 0.25s ease;
+    }
 
-                </div>
+    .checkout-nav a:hover {
+        transform: translateY(-2px);
 
-                <div class="payment-check">
-                    ✓
-                </div>
+        border-color: #00ffff;
 
-            </div>
+        color: #00ffff;
 
-        </label>
-
-    </div>
+        background: #181818;
+    }
 
 
-    <div class="payment-secure-note">
+    /* =====================================================
+       CHECKOUT CONTAINER
+    ===================================================== */
 
-        <span>🔒</span>
+    .checkout {
+        width: 100%;
+        max-width: 950px;
 
-        <p>
-            Your payment information is safe and secure.
-        </p>
+        margin: auto;
 
-    </div>
+        padding: 55px 20px 80px;
 
-</div>
+        box-sizing: border-box;
+    }
+
+    .checkout > h1 {
+        text-align: center;
+
+        margin: 0 0 40px;
+
+        font-size: 46px;
+
+        font-weight: 900;
+
+        color: #ffffff;
+
+        text-shadow:
+            0 0 20px rgba(255,255,255,0.08);
+    }
+
+    .checkout-box {
+        width: 100%;
+
+        padding: 28px;
+
+        box-sizing: border-box;
+
+        background:
+            linear-gradient(
+                145deg,
+                #111111,
+                #080808
+            );
+
+        border: 1px solid rgba(255,255,255,0.09);
+
+        border-radius: 24px;
+
+        box-shadow:
+            0 25px 70px rgba(0,0,0,0.45);
+    }
 
 
+    /* =====================================================
+       CUSTOMER DETAILS
+    ===================================================== */
+
+    .customer-details-section {
+        padding: 25px;
+
+        margin-bottom: 30px;
+
+        background:
+            linear-gradient(
+                145deg,
+                #171717,
+                #0d0d0d
+            );
+
+        border: 1px solid rgba(255,255,255,0.09);
+
+        border-radius: 18px;
+    }
+
+    .customer-details-heading {
+        display: flex;
+        align-items: center;
+
+        gap: 14px;
+
+        margin-bottom: 25px;
+    }
+
+    .customer-details-icon {
+        width: 50px;
+        height: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 14px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #dc2626,
+                #ef4444
+            );
+
+        font-size: 23px;
+
+        box-shadow:
+            0 8px 20px rgba(220,38,38,0.25);
+    }
+
+    .customer-details-heading h2 {
+        margin: 0;
+
+        color: #ffffff;
+
+        font-size: 23px;
+
+        font-weight: 900;
+    }
+
+    .customer-details-heading p {
+        margin: 4px 0 0;
+
+        color: #999999;
+
+        font-size: 13px;
+    }
 
 
-        /* =========================================
-           CUSTOMER DETAILS
-        ========================================= */
+    /* =====================================================
+       FIELDS
+    ===================================================== */
+
+    .checkout-field {
+        margin-bottom: 20px;
+    }
+
+    .checkout-field label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #ffffff;
+
+        font-size: 14px;
+
+        font-weight: 800;
+    }
+
+    .checkout-field input,
+    .checkout-field textarea {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        background: #080808;
+
+        color: #ffffff;
+
+        border: 1px solid #303030;
+
+        border-radius: 12px;
+
+        outline: none;
+
+        transition:
+            border-color 0.25s ease,
+            box-shadow 0.25s ease,
+            background 0.25s ease;
+    }
+
+    .checkout-field input {
+        height: 51px;
+
+        padding: 0 15px;
+    }
+
+    .checkout-field textarea {
+        min-height: 115px;
+
+        padding: 14px 15px;
+
+        resize: vertical;
+    }
+
+    .checkout-field input:focus,
+    .checkout-field textarea:focus {
+        background: #0c0c0c;
+
+        border-color: #ff2020;
+
+        box-shadow:
+            0 0 0 3px rgba(255,32,32,0.12);
+    }
+
+    .checkout-field input::placeholder,
+    .checkout-field textarea::placeholder {
+        color: #666666;
+    }
+
+
+    /* =====================================================
+       PHONE VALIDATION
+    ===================================================== */
+
+    #phone-message {
+        display: block;
+
+        margin-top: 7px;
+
+        font-size: 13px;
+
+        font-weight: 700;
+    }
+
+    .valid-phone {
+        color: #22c55e;
+    }
+
+    .invalid-phone {
+        color: #ef4444;
+    }
+
+    .phone-valid {
+        border-color: #22c55e !important;
+    }
+
+    .phone-invalid {
+        border-color: #ef4444 !important;
+    }
+
+
+    /* =====================================================
+       DELIVERY NOTE
+    ===================================================== */
+
+    .delivery-note {
+        display: flex;
+        align-items: center;
+
+        gap: 12px;
+
+        padding: 14px 16px;
+
+        background:
+            rgba(255,32,32,0.07);
+
+        border:
+            1px solid rgba(255,32,32,0.20);
+
+        border-radius: 12px;
+    }
+
+    .delivery-note span {
+        font-size: 21px;
+    }
+
+    .delivery-note p {
+        margin: 0;
+
+        color: #bdbdbd;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       SECTION HEADINGS
+    ===================================================== */
+
+    .checkout-box > h2 {
+        margin: 30px 0 16px;
+
+        color: #ffffff;
+
+        font-size: 22px;
+
+        font-weight: 900;
+    }
+
+
+    /* =====================================================
+       PAYMENT OPTIONS
+    ===================================================== */
+
+    .payment-options {
+        display: grid;
+
+        gap: 12px;
+
+        margin-bottom: 25px;
+    }
+
+    .payment-card {
+        display: flex;
+        align-items: center;
+
+        min-height: 68px;
+
+        padding: 0 17px;
+
+        box-sizing: border-box;
+
+        background:
+            linear-gradient(
+                145deg,
+                #171717,
+                #0d0d0d
+            );
+
+        border: 1px solid #2b2b2b;
+
+        border-radius: 14px;
+
+        cursor: pointer;
+
+        transition:
+            transform 0.2s ease,
+            border-color 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    .payment-card:hover:not(.payment-disabled) {
+        transform: translateY(-2px);
+
+        border-color: rgba(0,255,255,0.55);
+
+        box-shadow:
+            0 8px 25px rgba(0,255,255,0.07);
+    }
+
+    .payment-card input {
+        accent-color: #ef4444;
+
+        width: 17px;
+        height: 17px;
+
+        margin-right: 13px;
+    }
+
+    .payment-card span {
+        color: #ffffff;
+
+        font-size: 15px;
+
+        font-weight: 800;
+    }
+
+    .payment-disabled {
+        opacity: 0.45;
+
+        cursor: not-allowed;
+    }
+
+    .coming-soon {
+        display: block;
+
+        margin-top: 3px;
+
+        color: #888888;
+
+        font-size: 11px;
+
+        font-weight: 600;
+    }
+
+    .payment-card:has(input:checked) {
+        border-color: #ef4444;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(220,38,38,0.16),
+                #111111
+            );
+
+        box-shadow:
+            0 0 20px rgba(220,38,38,0.08);
+    }
+
+
+    /* =====================================================
+       ORDER ITEMS
+    ===================================================== */
+
+    #checkout-items {
+        display: grid;
+
+        gap: 13px;
+    }
+
+    .checkout-product {
+        display: flex;
+        align-items: center;
+
+        gap: 17px;
+
+        padding: 16px;
+
+        background:
+            linear-gradient(
+                145deg,
+                #171717,
+                #0d0d0d
+            );
+
+        border: 1px solid rgba(255,255,255,0.08);
+
+        border-radius: 15px;
+
+        transition:
+            transform 0.2s ease,
+            border-color 0.2s ease;
+    }
+
+    .checkout-product:hover {
+        transform: translateY(-2px);
+
+        border-color:
+            rgba(0,255,255,0.25);
+    }
+
+    .checkout-product-image {
+        width: 80px;
+        height: 80px;
+
+        flex-shrink: 0;
+
+        overflow: hidden;
+
+        border-radius: 12px;
+
+        background: #050505;
+
+        border: 1px solid #292929;
+    }
+
+    .checkout-product-image img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+    }
+
+    .checkout-product-info {
+        flex: 1;
+    }
+
+    .checkout-product-info h3 {
+        margin: 0 0 5px;
+
+        color: #ffffff;
+
+        font-size: 17px;
+
+        font-weight: 900;
+    }
+
+    .checkout-product-price {
+        margin: 0 0 9px;
+
+        color: #00ffff;
+
+        font-size: 14px;
+
+        font-weight: 800;
+    }
+
+    .checkout-quantity {
+        display: flex;
+        align-items: center;
+
+        gap: 9px;
+    }
+
+    .checkout-quantity button {
+        width: 29px;
+        height: 29px;
+
+        border: 1px solid #333333;
+
+        border-radius: 8px;
+
+        background: #111111;
+
+        color: #ffffff;
+
+        font-size: 18px;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+    .checkout-quantity button:hover {
+        background: #222222;
+
+        border-color: #00ffff;
+
+        color: #00ffff;
+    }
+
+    .checkout-quantity span {
+        min-width: 25px;
+
+        text-align: center;
+
+        color: #ffffff;
+
+        font-weight: 900;
+    }
+
+    .checkout-product-total {
+        min-width: 120px;
+
+        text-align: right;
+    }
+
+    .checkout-product-total span {
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #777777;
+
+        font-size: 12px;
+    }
+
+    .checkout-product-total strong {
+        color: #ffffff;
+
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       TOTAL
+    ===================================================== */
+
+    #checkout-total {
+        margin: 25px 0 20px;
+
+        padding: 18px;
+
+        box-sizing: border-box;
+
+        text-align: center;
+
+        color: #050505;
+
+        background:
+            linear-gradient(
+                135deg,
+                #00ffff,
+                #67ffff
+            );
+
+        border-radius: 13px;
+
+        font-size: 22px;
+
+        font-weight: 900;
+
+        box-shadow:
+            0 8px 25px rgba(0,255,255,0.12);
+    }
+
+
+    /* =====================================================
+       PLACE ORDER
+    ===================================================== */
+
+    .place-order {
+        width: 100%;
+
+        padding: 17px 20px;
+
+        border: none;
+
+        border-radius: 13px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #dc2626,
+                #ef4444
+            );
+
+        color: #ffffff;
+
+        font-size: 17px;
+
+        font-weight: 900;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 10px 25px rgba(220,38,38,0.25);
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            filter 0.2s ease;
+    }
+
+    .place-order:hover {
+        transform: translateY(-3px);
+
+        filter: brightness(1.08);
+
+        box-shadow:
+            0 14px 32px rgba(220,38,38,0.40);
+    }
+
+    .place-order:active {
+        transform: translateY(0);
+    }
+
+
+    /* =====================================================
+       PAYMENT POPUP
+    ===================================================== */
+
+    #payment-loading {
+        position: fixed;
+
+        inset: 0;
+
+        display: none;
+
+        align-items: center;
+        justify-content: center;
+
+        background: rgba(0,0,0,0.78);
+
+        backdrop-filter: blur(7px);
+
+        z-index: 9998;
+    }
+
+    #payment-popup {
+        position: fixed;
+
+        inset: 0;
+
+        display: none;
+
+        align-items: center;
+        justify-content: center;
+
+        padding: 20px;
+
+        box-sizing: border-box;
+
+        background: rgba(0,0,0,0.72);
+
+        backdrop-filter: blur(7px);
+
+        z-index: 9999;
+    }
+
+    .payment-popup-box {
+        width: 100%;
+        max-width: 450px;
+
+        padding: 27px;
+
+        box-sizing: border-box;
+
+        background:
+            linear-gradient(
+                145deg,
+                #181818,
+                #090909
+            );
+
+        border: 1px solid rgba(255,255,255,0.10);
+
+        border-radius: 20px;
+
+        box-shadow:
+            0 25px 80px rgba(0,0,0,0.65);
+    }
+
+    .payment-popup-box h2 {
+        margin: 0 0 14px;
+
+        color: #ffffff;
+
+        font-size: 23px;
+    }
+
+    .payment-popup-box p {
+        color: #bcbcbc;
+
+        line-height: 1.6;
+
+        font-size: 14px;
+    }
+
+    #payment-number,
+    #payment-name {
+        color: #00ffff;
+
+        font-weight: 900;
+    }
+
+    #transaction-id {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        padding: 13px;
+
+        margin: 15px 0;
+
+        background: #080808;
+
+        color: #ffffff;
+
+        border: 1px solid #333333;
+
+        border-radius: 10px;
+
+        outline: none;
+    }
+
+    .payment-popup-buttons {
+        display: flex;
+
+        gap: 10px;
+    }
+
+    .payment-popup-buttons button {
+        flex: 1;
+
+        padding: 12px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        font-weight: 900;
+
+        cursor: pointer;
+    }
+
+    .payment-confirm {
+        background: #dc2626;
+
+        color: #ffffff;
+    }
+
+    .payment-cancel {
+        background: #222222;
+
+        color: #ffffff;
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 700px) {
+
+        .checkout-header {
+            padding: 15px 16px;
+        }
+
+        .checkout-logo {
+            font-size: 20px;
+        }
+
+        .checkout-nav {
+            gap: 6px;
+        }
+
+        .checkout-nav a {
+            padding: 9px 11px;
+
+            font-size: 12px;
+        }
+
+        .checkout {
+            padding: 35px 12px 60px;
+        }
+
+        .checkout > h1 {
+            margin-bottom: 28px;
+
+            font-size: 34px;
+        }
+
+        .checkout-box {
+            padding: 17px;
+
+            border-radius: 18px;
+        }
 
         .customer-details-section {
-            background: #111111;
-            border: 1px solid #2a2a2a;
-            border-radius: 20px;
-            padding: 28px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            padding: 19px;
+
+            border-radius: 15px;
         }
 
-        .customer-details-heading {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
+        .checkout-product {
+            align-items: flex-start;
+
+            flex-wrap: wrap;
         }
 
-        .customer-details-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
-            background: #ff2020;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            flex-shrink: 0;
+        .checkout-product-total {
+            width: 100%;
+
+            padding-left: 97px;
+
+            box-sizing: border-box;
+
+            text-align: left;
+        }
+
+    }
+
+
+    /* =====================================================
+       SMALL PHONES
+    ===================================================== */
+
+    @media (max-width: 450px) {
+
+        .checkout-logo {
+            font-size: 18px;
+        }
+
+        .checkout-nav a {
+            padding: 8px 9px;
+
+            font-size: 11px;
+        }
+
+        .checkout > h1 {
+            font-size: 29px;
         }
 
         .customer-details-heading h2 {
-            color: #ffffff;
-            margin: 0;
-            font-size: 24px;
+            font-size: 20px;
         }
 
-        .customer-details-heading p {
-            color: #aaaaaa;
-            margin: 4px 0 0;
-            font-size: 14px;
+        .customer-details-icon {
+            width: 44px;
+            height: 44px;
+
+            font-size: 20px;
         }
 
-
-        /* =========================================
-           CHECKOUT FIELDS
-        ========================================= */
-
-        .checkout-field {
-            margin-bottom: 20px;
+        .checkout-product-image {
+            width: 65px;
+            height: 65px;
         }
 
-        .checkout-field label {
-            display: block;
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .checkout-field input,
-        .checkout-field textarea {
-            width: 100%;
-            box-sizing: border-box;
-            background: #1b1b1b;
-            color: #ffffff;
-            border: 1px solid #333333;
-            border-radius: 12px;
-            padding: 14px 15px;
+        .checkout-product-info h3 {
             font-size: 15px;
-            outline: none;
-            transition: 0.25s ease;
         }
 
-        .checkout-field input {
-            height: 50px;
+        .checkout-product-total {
+            padding-left: 82px;
         }
 
-        .checkout-field textarea {
-            min-height: 110px;
-            resize: vertical;
+        #checkout-total {
+            font-size: 19px;
         }
 
-        .checkout-field input:focus,
-        .checkout-field textarea:focus {
-            border-color: #ff2020;
-            box-shadow: 0 0 0 3px rgba(255, 32, 32, 0.12);
-        }
+    }
 
-        .checkout-field input::placeholder,
-        .checkout-field textarea::placeholder {
-            color: #777777;
-        }
+</style>
 
-        #phone-message {
-            display: block;
-            margin-top: 7px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-
-        /* =========================================
-           DELIVERY NOTE
-        ========================================= */
-
-        .delivery-note {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 32, 32, 0.08);
-            border: 1px solid rgba(255, 32, 32, 0.25);
-            border-radius: 12px;
-            padding: 13px 15px;
-        }
-
-        .delivery-note span {
-            font-size: 22px;
-        }
-
-        .delivery-note p {
-            color: #cccccc;
-            margin: 0;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 600px) {
-
-            .customer-details-section {
-                padding: 20px;
-                border-radius: 16px;
-            }
-
-            .customer-details-heading h2 {
-                font-size: 20px;
-            }
-
-            .customer-details-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 21px;
-            }
-
-            .delivery-note {
-                align-items: flex-start;
-            }
-
-        }
-
-    </style>
 
 </head>
 
-
 <body>
 
-    <!-- =========================================
-         HEADER
-    ========================================= -->
 
-  
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header class="checkout-header">
 
     <div class="checkout-logo">
@@ -356,115 +1019,40 @@
 </header>
 
 
+<!-- =====================================================
+     CHECKOUT
+===================================================== -->
 
-    <!-- =========================================
-         CHECKOUT
-    ========================================= -->
+<main class="checkout">
 
-    <div class="checkout">
-
-        <h1>
-            Checkout 🛒
-        </h1>
-
-
-        <div class="checkout-box">
+    <h1>
+        Checkout 🛒
+    </h1>
 
 
-            <!-- =================================
-                 CUSTOMER DETAILS
-            ================================= -->
+    <div class="checkout-box">
 
-            <div class="customer-details-section">
 
-                <div class="customer-details-heading">
+        <!-- =================================================
+             CUSTOMER DETAILS
+        ================================================= -->
 
-                    <div class="customer-details-icon">
-                        👤
-                    </div>
+        <section class="customer-details-section">
 
-                    <div>
+            <div class="customer-details-heading">
 
-                        <h2>
-                            Customer Details
-                        </h2>
-
-                        <p>
-                            Enter your details for delivery
-                        </p>
-
-                    </div>
-
+                <div class="customer-details-icon">
+                    👤
                 </div>
 
+                <div>
 
-                <!-- NAME -->
-
-                <div class="checkout-field">
-
-                    <label for="customer-name">
-                        👤 Full Name
-                    </label>
-
-                    <input
-                        id="customer-name"
-                        type="text"
-                        placeholder="Enter your full name"
-                        autocomplete="name"
-                    >
-
-                </div>
-
-
-                <!-- PHONE -->
-
-                <div class="checkout-field">
-
-                    <label for="customer-phone">
-                        📱 Phone Number
-                    </label>
-
-                    <input
-                        id="customer-phone"
-                        type="tel"
-                        placeholder="03XXXXXXXXX"
-                        maxlength="11"
-                        autocomplete="tel"
-                    >
-
-                    <small id="phone-message"></small>
-
-                </div>
-
-
-                <!-- ADDRESS -->
-
-                <div class="checkout-field">
-
-                    <label for="customer-address">
-                        📍 Delivery Address
-                    </label>
-
-                    <textarea
-                        id="customer-address"
-                        placeholder="Enter your complete delivery address"
-                        autocomplete="street-address"
-                    ></textarea>
-
-                </div>
-
-
-                <!-- DELIVERY NOTE -->
-
-                <div class="delivery-note">
-
-                    <span>
-                        🚚
-                    </span>
+                    <h2>
+                        Customer Details
+                    </h2>
 
                     <p>
-                        Please provide an accurate address
-                        so we can deliver your order safely.
+                        Enter your details for delivery
                     </p>
 
                 </div>
@@ -472,134 +1060,246 @@
             </div>
 
 
-            <!-- =================================
-                 PAYMENT METHOD
-            ================================= -->
+            <div class="checkout-field">
 
-            <h2>
-                Choose Payment Method
-            </h2>
-
-
-            <div class="payment-options">
-
-
-                <!-- EASYPAISA -->
-
-                <label class="payment-card payment-disabled">
-
-                    <input
-                        type="radio"
-                        name="payment"
-                        value="EasyPaisa"
-                        disabled
-                    >
-
-                    <span>
-
-                        💚 EasyPaisa
-
-                        <small class="coming-soon">
-                            Coming Soon
-                        </small>
-
-                    </span>
-
+                <label for="customer-name">
+                    👤 Full Name
                 </label>
 
-
-                <!-- JAZZCASH -->
-
-                <label class="payment-card payment-disabled">
-
-                    <input
-                        type="radio"
-                        name="payment"
-                        value="JazzCash"
-                        disabled
-                    >
-
-                    <span>
-
-                        ❤️ JazzCash
-
-                        <small class="coming-soon">
-                            Coming Soon
-                        </small>
-
-                    </span>
-
-                </label>
-
-
-                <!-- CASH ON DELIVERY -->
-
-                <label class="payment-card">
-
-                    <input
-                        type="radio"
-                        name="payment"
-                        value="Cash On Delivery"
-                    >
-
-                    <span>
-                        💵 Cash On Delivery
-                    </span>
-
-                </label>
+                <input
+                    id="customer-name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                >
 
             </div>
 
 
-            <!-- =================================
-                 YOUR ORDER
-            ================================= -->
+            <div class="checkout-field">
 
-            <h2>
-                Your Order
-            </h2>
+                <label for="customer-phone">
+                    📱 Phone Number
+                </label>
 
+                <input
+                    id="customer-phone"
+                    type="tel"
+                    placeholder="03XXXXXXXXX"
+                    maxlength="11"
+                    autocomplete="tel"
+                >
 
-            <div id="checkout-items">
+                <small id="phone-message"></small>
+
             </div>
 
 
-            <!-- TOTAL -->
+            <div class="checkout-field">
 
-            <h2 id="checkout-total">
-                Total: PKR 0
-            </h2>
+                <label for="customer-address">
+                    📍 Delivery Address
+                </label>
+
+                <textarea
+                    id="customer-address"
+                    placeholder="Enter your complete delivery address"
+                    autocomplete="street-address"
+                ></textarea>
+
+            </div>
 
 
-            <!-- PLACE ORDER -->
+            <div class="delivery-note">
+
+                <span>🚚</span>
+
+                <p>
+                    Please provide an accurate address
+                    so we can deliver your order safely.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PAYMENT
+        ================================================= -->
+
+        <h2>
+            💳 Choose Payment Method
+        </h2>
+
+        <div class="payment-options">
+
+
+            <label class="payment-card payment-disabled">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="EasyPaisa"
+                    disabled
+                >
+
+                <span>
+
+                    💚 EasyPaisa
+
+                    <small class="coming-soon">
+                        Coming Soon
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <label class="payment-card payment-disabled">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="JazzCash"
+                    disabled
+                >
+
+                <span>
+
+                    ❤️ JazzCash
+
+                    <small class="coming-soon">
+                        Coming Soon
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <label class="payment-card">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Cash On Delivery"
+                    checked
+                >
+
+                <span>
+                    💵 Cash On Delivery
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- =================================================
+             ORDER
+        ================================================= -->
+
+        <h2>
+            🛍️ Your Order
+        </h2>
+
+        <div id="checkout-items"></div>
+
+
+        <h2 id="checkout-total">
+            Total: PKR 0
+        </h2>
+
+
+        <button
+            class="place-order"
+            type="button"
+            onclick="placeOrder()"
+        >
+            Place Order ⚡
+        </button>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     PAYMENT LOADING
+===================================================== -->
+
+<div id="payment-loading">
+
+    <div>
+        Processing payment...
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     PAYMENT POPUP
+===================================================== -->
+
+<div id="payment-popup">
+
+    <div class="payment-popup-box">
+
+        <h2 id="payment-title">
+            Payment
+        </h2>
+
+        <p id="payment-message">
+            Payment details
+        </p>
+
+        <p id="payment-number"></p>
+
+        <p id="payment-name"></p>
+
+        <input
+            id="transaction-id"
+            type="text"
+            placeholder="Enter Transaction ID"
+        >
+
+        <div class="payment-popup-buttons">
 
             <button
-                class="place-order"
-                onclick="placeOrder()"
+                type="button"
+                class="payment-cancel"
+                onclick="closePaymentPopup()"
             >
-                Place Order
+                Cancel
             </button>
 
+            <button
+                type="button"
+                class="payment-confirm"
+                onclick="confirmPayment()"
+            >
+                Confirm Payment
+            </button>
 
         </div>
 
     </div>
 
+</div>
 
-    <!-- =========================================
-         JAVASCRIPT
-    ========================================= -->
 
-    <script
-        type="module"
-        src="assets/js/checkout.js"
-    ></script>
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
-    <script
-       
-    ></script>
+<script
+    type="module"
+    src="assets/js/checkout.js"
+></script>
+
 
 </body>
 
 </html>
-
