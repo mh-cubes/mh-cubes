@@ -9,7 +9,7 @@ function loadCart() {
 
     cartItems.innerHTML = "";
 
-    let total = 0;
+    let subtotal = 0;
 
     const products = Object.keys(cart);
 
@@ -17,20 +17,31 @@ function loadCart() {
 
         cartItems.innerHTML = `
             <div class="empty-cart">
-                <div class="empty-cart-icon">🛒</div>
-                <h3>Your cart is empty</h3>
-                <p>Add some cubes and come back here!</p>
+
+                <div class="empty-cart-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Your cart is empty
+                </h3>
+
+                <p>
+                    Add some cubes and come back here!
+                </p>
 
                 <a href="index.html">
                     Start Shopping
                 </a>
+
             </div>
         `;
 
-        updateTotal(0);
+        updateSummary(0);
 
         return;
     }
+
 
     products.forEach((product) => {
 
@@ -39,6 +50,7 @@ function loadCart() {
         item.className = "cart-product";
 
         item.innerHTML = `
+
             <img
                 src="${cart[product].image}"
                 class="cart-image"
@@ -47,7 +59,9 @@ function loadCart() {
 
             <div class="cart-info">
 
-                <h3>${product}</h3>
+                <h3>
+                    ${product}
+                </h3>
 
                 <p>
                     PKR ${cart[product].price}
@@ -91,26 +105,79 @@ function loadCart() {
 
         cartItems.appendChild(item);
 
-        total +=
+
+        subtotal +=
             Number(cart[product].price) *
             Number(cart[product].quantity);
+
     });
 
-    updateTotal(total);
+
+    updateSummary(subtotal);
 }
 
 
-function updateTotal(total) {
+/* =========================================================
+   ORDER SUMMARY
+========================================================= */
+
+function updateSummary(subtotal) {
 
     const summaryTotal =
         document.getElementById("summary-total");
 
-    if (!summaryTotal) return;
+    const subtotalElement =
+        document.getElementById("cart-subtotal");
 
-    summaryTotal.innerText =
-        "Total: PKR " + total;
+    const deliveryElement =
+        document.getElementById("cart-delivery");
+
+    const finalTotalElement =
+        document.getElementById("cart-final-total");
+
+
+    /*
+       Delivery is calculated later during checkout.
+       Cart page shows it as "Calculated at checkout".
+    */
+
+    if (subtotalElement) {
+
+        subtotalElement.textContent =
+            "PKR " + subtotal;
+    }
+
+
+    if (deliveryElement) {
+
+        deliveryElement.textContent =
+            "Calculated at checkout";
+    }
+
+
+    if (finalTotalElement) {
+
+        finalTotalElement.textContent =
+            "PKR " + subtotal;
+    }
+
+
+    /*
+       Keeps compatibility with your
+       existing summary-total element.
+    */
+
+    if (summaryTotal) {
+
+        summaryTotal.innerText =
+            "Total: PKR " + subtotal;
+    }
 }
 
+
+/* =========================================================
+   INCREASE
+========================================================= */
 
 function increase(product) {
 
@@ -120,9 +187,16 @@ function increase(product) {
 
     saveCart();
 
-    animateQuantity(product, "increase");
+    animateQuantity(
+        product,
+        "increase"
+    );
 }
 
+
+/* =========================================================
+   DECREASE
+========================================================= */
 
 function decrease(product) {
 
@@ -141,37 +215,53 @@ function decrease(product) {
 
     saveCart();
 
-    animateQuantity(product, "decrease");
+    animateQuantity(
+        product,
+        "decrease"
+    );
 }
 
+
+/* =========================================================
+   REMOVE
+========================================================= */
 
 function removeItem(product) {
 
     if (!cart[product]) return;
 
     const cards =
-        document.querySelectorAll(".cart-product");
+        document.querySelectorAll(
+            ".cart-product"
+        );
 
     let selectedCard = null;
+
 
     cards.forEach((card) => {
 
         const title =
-            card.querySelector(".cart-info h3");
+            card.querySelector(
+                ".cart-info h3"
+            );
 
         if (
             title &&
-            title.textContent === product
+            title.textContent.trim() === product
         ) {
+
             selectedCard = card;
         }
+
     });
+
 
     if (selectedCard) {
 
         selectedCard.classList.add(
             "cart-item-removing"
         );
+
 
         setTimeout(() => {
 
@@ -181,8 +271,10 @@ function removeItem(product) {
 
         }, 300);
 
+
         return;
     }
+
 
     delete cart[product];
 
@@ -190,19 +282,32 @@ function removeItem(product) {
 }
 
 
-function animateQuantity(product, type) {
+/* =========================================================
+   QUANTITY ANIMATION
+========================================================= */
+
+function animateQuantity(
+    product,
+    type
+) {
 
     const cards =
-        document.querySelectorAll(".cart-product");
+        document.querySelectorAll(
+            ".cart-product"
+        );
+
 
     cards.forEach((card) => {
 
         const title =
-            card.querySelector(".cart-info h3");
+            card.querySelector(
+                ".cart-info h3"
+            );
+
 
         if (
             title &&
-            title.textContent === product
+            title.textContent.trim() === product
         ) {
 
             const number =
@@ -210,24 +315,34 @@ function animateQuantity(product, type) {
                     ".quantity-number"
                 );
 
+
             if (!number) return;
+
 
             number.classList.remove(
                 "quantity-increase",
                 "quantity-decrease"
             );
 
+
             void number.offsetWidth;
+
 
             number.classList.add(
                 type === "increase"
                     ? "quantity-increase"
                     : "quantity-decrease"
             );
+
         }
+
     });
 }
 
+
+/* =========================================================
+   SAVE CART
+========================================================= */
 
 function saveCart() {
 
@@ -239,6 +354,10 @@ function saveCart() {
     loadCart();
 }
 
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
 
 loadCart();
 
