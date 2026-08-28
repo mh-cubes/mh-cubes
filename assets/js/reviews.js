@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const currentUser = auth.currentUser;
 
             const ownerUID =
-                "UPdmuwyLEcdEyMXFENPGRlAhxwa2";
+                "UPdmuwyLEcdEyMxFENPGRlAhxwa2";
 
 
             reviews.forEach((item) => {
