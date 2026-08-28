@@ -7830,3 +7830,480 @@ body.dark-mode:has(.settings-page) {
     transform: scale(0.97);
 }
 
+/* =========================================================
+   MH CUBES — PREMIUM CART ITEMS
+========================================================= */
+
+#cart-items > div.cart-product {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 18px !important;
+
+    margin-bottom: 15px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0b0b0b
+        ) !important;
+
+    border: 1px solid rgba(0, 255, 255, 0.12) !important;
+
+    border-radius: 16px !important;
+
+    color: #ffffff !important;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+#cart-items > div.cart-product:hover {
+
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(0, 255, 255, 0.35) !important;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.45),
+        0 0 20px rgba(0, 255, 255, 0.06);
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+========================================================= */
+
+.cart-image {
+
+    width: 90px;
+
+    height: 90px;
+
+    flex-shrink: 0;
+
+    object-fit: contain;
+
+    padding: 6px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.cart-product:hover .cart-image {
+
+    transform: scale(1.05);
+}
+
+
+/* =========================================================
+   PRODUCT INFORMATION
+========================================================= */
+
+.cart-info {
+
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.cart-info h3 {
+
+    margin: 0 0 7px;
+
+    color: #ffffff !important;
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    line-height: 1.3;
+
+    word-break: break-word;
+}
+
+
+.cart-info p {
+
+    margin: 0;
+
+    color: #00ffff !important;
+
+    font-size: 16px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   CART CONTROLS
+========================================================= */
+
+.cart-controls {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   QUANTITY BUTTONS
+========================================================= */
+
+.quantity-btn {
+
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.15);
+
+    border-radius: 9px;
+
+    background: #111111;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.quantity-btn:hover {
+
+    background: #00ffff;
+
+    color: #050505;
+
+    transform: scale(1.08);
+}
+
+
+.quantity-btn:active {
+
+    transform: scale(0.94);
+}
+
+
+/* =========================================================
+   QUANTITY NUMBER
+========================================================= */
+
+.quantity-number {
+
+    min-width: 28px;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   REMOVE BUTTON
+========================================================= */
+
+.remove-cart-btn {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-left: 8px;
+
+    padding: 0;
+
+    border: 1px solid
+        rgba(255, 70, 70, 0.25);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255, 50, 50, 0.08);
+
+    color: #ff5c5c;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.remove-cart-btn:hover {
+
+    background: #dc2626;
+
+    color: #ffffff;
+
+    transform: scale(1.08);
+}
+
+
+.remove-cart-btn:active {
+
+    transform: scale(0.94);
+}
+
+
+/* =========================================================
+   EMPTY CART
+========================================================= */
+
+.empty-cart {
+
+    min-height: 260px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+    box-sizing: border-box;
+}
+
+
+.empty-cart-icon {
+
+    font-size: 55px;
+
+    margin-bottom: 12px;
+
+    opacity: 0.9;
+}
+
+
+.empty-cart h3 {
+
+    margin: 0 0 8px;
+
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-weight: 900;
+}
+
+
+.empty-cart p {
+
+    margin: 0 0 20px;
+
+    color: #aaaaaa;
+
+    font-size: 15px;
+}
+
+
+.empty-cart a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 11px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #ef4444
+        );
+
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.empty-cart a:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(220, 38, 38, 0.3);
+}
+
+
+/* =========================================================
+   MOBILE CART
+========================================================= */
+
+@media (max-width: 600px) {
+
+    #cart-items > div.cart-product {
+
+        display: grid;
+
+        grid-template-columns:
+            70px minmax(0, 1fr);
+
+        gap: 12px;
+
+        padding: 14px !important;
+    }
+
+
+    .cart-image {
+
+        width: 70px;
+
+        height: 70px;
+
+        grid-row: span 2;
+    }
+
+
+    .cart-info h3 {
+
+        font-size: 16px;
+    }
+
+
+    .cart-info p {
+
+        font-size: 14px;
+    }
+
+
+    .cart-controls {
+
+        grid-column: 1 / -1;
+
+        justify-content: flex-end;
+
+        width: 100%;
+    }
+
+
+    .quantity-btn {
+
+        width: 34px;
+
+        height: 34px;
+    }
+
+
+    .remove-cart-btn {
+
+        width: 36px;
+
+        height: 36px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 400px) {
+
+    #cart-items > div.cart-product {
+
+        grid-template-columns: 60px minmax(0, 1fr);
+    }
+
+
+    .cart-image {
+
+        width: 60px;
+
+        height: 60px;
+    }
+
+
+    .cart-info h3 {
+
+        font-size: 15px;
+    }
+
+
+    .quantity-btn {
+
+        width: 32px;
+
+        height: 32px;
+    }
+
+
+    .quantity-number {
+
+        font-size: 15px;
+    }
+}
+
