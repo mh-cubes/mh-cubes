@@ -1051,30 +1051,24 @@ function closeContactPopup() {
 function toggleDarkMode() {
 
     const button =
-        document.getElementById(
-            "darkModeBtn"
-        );
+        document.getElementById("darkModeBtn");
 
+    // Start transition
+    document.body.classList.add("theme-transition");
 
-    document.body.classList.toggle(
-        "dark-mode"
-    );
-
+    // Change theme
+    document.body.classList.toggle("dark-mode");
 
     const isDark =
-        document.body.classList.contains(
-            "dark-mode"
-        );
+        document.body.classList.contains("dark-mode");
 
-
+    // Save theme
     localStorage.setItem(
         "theme",
-        isDark
-            ? "dark"
-            : "light"
+        isDark ? "dark" : "light"
     );
 
-
+    // Update button
     if (button) {
 
         button.innerHTML =
@@ -1083,6 +1077,15 @@ function toggleDarkMode() {
                 : "🌙 Dark Mode";
 
     }
+
+    // Remove transition class after animation
+    setTimeout(() => {
+
+        document.body.classList.remove(
+            "theme-transition"
+        );
+
+    }, 500);
 
 }
 
