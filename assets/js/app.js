@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const darkModeButton =
         document.getElementById("darkModeBtn");
 
+
     if (savedTheme === "dark") {
 
         document.body.classList.add("dark-mode");
@@ -61,9 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 let image = "";
 
 
-                // =================================
                 // PRODUCT DETAIL PAGE
-                // =================================
 
                 if (button.dataset.name) {
 
@@ -71,9 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         button.dataset.name;
 
                     price =
-                        Number(
-                            button.dataset.price
-                        );
+                        Number(button.dataset.price);
 
                     image =
                         button.dataset.image || "";
@@ -81,9 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                // =================================
                 // HOMEPAGE PRODUCT CARD
-                // =================================
 
                 else {
 
@@ -96,10 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     const nameElement =
                         productBox.querySelector("h3");
 
-
                     const priceElement =
                         productBox.querySelector("p");
-
 
                     const imageElement =
                         productBox.querySelector("img");
@@ -126,9 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                // =================================
                 // SAFETY CHECK
-                // =================================
 
                 if (!name || !price) {
 
@@ -146,9 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                // =================================
                 // ADD PRODUCT
-                // =================================
 
                 if (cart[name]) {
 
@@ -170,9 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                // =================================
                 // SAVE CART
-                // =================================
 
                 localStorage.setItem(
                     "cart",
@@ -180,16 +167,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
 
-                // =================================
                 // UPDATE CART COUNT
-                // =================================
 
                 updateCartCount();
 
 
-                // =================================
-                // SHOW SUCCESS TOAST
-                // =================================
+                // SHOW TOAST
 
                 showCartToast(
                     `${name} added to cart 🛒`
@@ -213,38 +196,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 const productBox =
                     button.closest(".product");
 
-
                 if (!productBox) return;
 
 
-                const nameElement =
-                    productBox.querySelector("h3");
-
-
-                const priceElement =
-                    productBox.querySelector("p");
-
-
-                const imageElement =
-                    productBox.querySelector("img");
-
-
                 const name =
-                    nameElement
+                    productBox
+                        .querySelector("h3")
                         ?.innerText
                         .trim();
 
 
                 const price =
                     Number(
-                        priceElement
+                        productBox
+                            .querySelector("p")
                             ?.innerText
                             .replace(/[^0-9]/g, "")
                     );
 
 
                 const image =
-                    imageElement
+                    productBox
+                        .querySelector("img")
                         ?.getAttribute("src") || "";
 
 
@@ -296,9 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateCartCount();
 
 
-                // =================================
                 // SHOP LOADING
-                // =================================
 
                 const loading =
                     document.getElementById(
@@ -338,7 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const searchInput =
         document.getElementById("searchInput");
-
 
     const products =
         document.querySelectorAll(".product");
@@ -385,6 +355,86 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
+
+
+    // =========================================
+    // CONTACT POPUP CLOSE BUTTON
+    // =========================================
+
+    const contactPopup =
+        document.getElementById(
+            "contact-popup"
+        );
+
+
+    if (contactPopup) {
+
+        const closeButton =
+            contactPopup.querySelector(
+                ".close-contact"
+            );
+
+
+        if (closeButton) {
+
+            closeButton.addEventListener(
+                "click",
+                closeContactPopup
+            );
+
+        }
+
+
+        // CLOSE WHEN CLICKING OUTSIDE THE BOX
+
+        contactPopup.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    event.target ===
+                    contactPopup
+                ) {
+
+                    closeContactPopup();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // =========================================
+    // ESC KEY CLOSES CONTACT POPUP
+    // =========================================
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (event.key === "Escape") {
+
+                const popup =
+                    document.getElementById(
+                        "contact-popup"
+                    );
+
+
+                if (
+                    popup &&
+                    popup.classList.contains("show")
+                ) {
+
+                    closeContactPopup();
+
+                }
+
+            }
+
+        }
+    );
 
 });
 
@@ -440,7 +490,8 @@ function showCartToast(message) {
         document.getElementById("toast");
 
 
-    // Create toast if it doesn't exist
+    // CREATE TOAST IF IT DOESN'T EXIST
+
     if (!toast) {
 
         toast =
@@ -454,8 +505,10 @@ function showCartToast(message) {
     }
 
 
+    // FIXED TOAST HTML
+
     toast.innerHTML = `
-         span class="toast-icon">✓</span>
+        <span class="toast-icon">✓</span>
         <span>${message}</span>
     `;
 
@@ -463,7 +516,8 @@ function showCartToast(message) {
     toast.classList.remove("show");
 
 
-    // Restart animation
+    // RESTART ANIMATION
+
     void toast.offsetWidth;
 
 
@@ -523,9 +577,7 @@ function showWhy(type, element) {
     if (!details) return;
 
 
-    // =========================================
     // REMOVE ACTIVE FROM ALL CARDS
-    // =========================================
 
     document
         .querySelectorAll(".why-box")
@@ -538,9 +590,7 @@ function showWhy(type, element) {
         });
 
 
-    // =========================================
     // ACTIVE CARD
-    // =========================================
 
     if (element) {
 
@@ -551,9 +601,7 @@ function showWhy(type, element) {
     }
 
 
-    // =========================================
     // RESTART ANIMATION
-    // =========================================
 
     details.style.animation =
         "none";
@@ -847,15 +895,11 @@ function toggleDarkMode() {
         );
 
 
-    // SAVE THEME
-
     localStorage.setItem(
         "theme",
         isDark ? "dark" : "light"
     );
 
-
-    // UPDATE BUTTON
 
     if (button) {
 
@@ -987,44 +1031,89 @@ onAuthStateChanged(
 
     }
 );
+
+
 // =========================================
 // SMOOTH NAVIGATION ANIMATION
 // =========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        document
+            .querySelectorAll('a[href^="#"]')
+            .forEach((link) => {
 
-        link.addEventListener("click", function(event) {
+                link.addEventListener(
+                    "click",
+                    function(event) {
 
-            const targetID = this.getAttribute("href");
+                        const targetID =
+                            this.getAttribute(
+                                "href"
+                            );
 
-            if (!targetID || targetID === "#") return;
 
-            const target =
-                document.querySelector(targetID);
+                        if (
+                            !targetID ||
+                            targetID === "#"
+                        ) {
 
-            if (!target) return;
+                            return;
 
-            event.preventDefault();
+                        }
 
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
+
+                        // Don't interfere with Contact popup
+
+                        if (
+                            this.getAttribute(
+                                "onclick"
+                            )?.includes(
+                                "openContactPopup"
+                            )
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const target =
+                            document.querySelector(
+                                targetID
+                            );
+
+
+                        if (!target) return;
+
+
+                        event.preventDefault();
+
+
+                        target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+
+                        target.classList.remove(
+                            "nav-click-animation"
+                        );
+
+
+                        void target.offsetWidth;
+
+
+                        target.classList.add(
+                            "nav-click-animation"
+                        );
+
+                    }
+                );
+
             });
 
-            target.classList.remove(
-                "nav-click-animation"
-            );
-
-            void target.offsetWidth;
-
-            target.classList.add(
-                "nav-click-animation"
-            );
-
-        });
-
-    });
-
-});
+    }
+);
