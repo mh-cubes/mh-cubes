@@ -987,3 +987,44 @@ onAuthStateChanged(
 
     }
 );
+// =========================================
+// SMOOTH NAVIGATION ANIMATION
+// =========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", function(event) {
+
+            const targetID = this.getAttribute("href");
+
+            if (!targetID || targetID === "#") return;
+
+            const target =
+                document.querySelector(targetID);
+
+            if (!target) return;
+
+            event.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            target.classList.remove(
+                "nav-click-animation"
+            );
+
+            void target.offsetWidth;
+
+            target.classList.add(
+                "nav-click-animation"
+            );
+
+        });
+
+    });
+
+});
