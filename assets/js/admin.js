@@ -444,8 +444,16 @@ async function cancelAdminOrder(id) {
 
     try {
 
-        await deleteDoc(
-            doc(db, "orders", id)
+        await updateDoc(
+            doc(db, "orders", id),
+            {
+
+                status: "Cancelled",
+
+                notification:
+                    "❌ This order was cancelled by the owner."
+
+            }
         );
 
 
@@ -467,7 +475,6 @@ async function cancelAdminOrder(id) {
     }
 
 }
-
 
 // =========================================
 // OWNER LOGOUT
