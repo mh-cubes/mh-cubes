@@ -18,9 +18,7 @@ function loadCart() {
         cartItems.innerHTML = `
             <div class="empty-cart">
                 <div class="empty-cart-icon">🛒</div>
-
                 <h3>Your cart is empty</h3>
-
                 <p>Add some cubes and come back here!</p>
 
                 <a href="index.html">
@@ -96,7 +94,6 @@ function loadCart() {
         total +=
             Number(cart[product].price) *
             Number(cart[product].quantity);
-
     });
 
     updateTotal(total);
@@ -122,6 +119,8 @@ function increase(product) {
     cart[product].quantity++;
 
     saveCart();
+
+    animateQuantity(product, "increase");
 }
 
 
@@ -135,9 +134,14 @@ function decrease(product) {
 
         delete cart[product];
 
+        saveCart();
+
+        return;
     }
 
     saveCart();
+
+    animateQuantity(product, "decrease");
 }
 
 
@@ -145,9 +149,83 @@ function removeItem(product) {
 
     if (!cart[product]) return;
 
+    const cards =
+        document.querySelectorAll(".cart-product");
+
+    let selectedCard = null;
+
+    cards.forEach((card) => {
+
+        const title =
+            card.querySelector(".cart-info h3");
+
+        if (
+            title &&
+            title.textContent === product
+        ) {
+            selectedCard = card;
+        }
+    });
+
+    if (selectedCard) {
+
+        selectedCard.classList.add(
+            "cart-item-removing"
+        );
+
+        setTimeout(() => {
+
+            delete cart[product];
+
+            saveCart();
+
+        }, 300);
+
+        return;
+    }
+
     delete cart[product];
 
     saveCart();
+}
+
+
+function animateQuantity(product, type) {
+
+    const cards =
+        document.querySelectorAll(".cart-product");
+
+    cards.forEach((card) => {
+
+        const title =
+            card.querySelector(".cart-info h3");
+
+        if (
+            title &&
+            title.textContent === product
+        ) {
+
+            const number =
+                card.querySelector(
+                    ".quantity-number"
+                );
+
+            if (!number) return;
+
+            number.classList.remove(
+                "quantity-increase",
+                "quantity-decrease"
+            );
+
+            void number.offsetWidth;
+
+            number.classList.add(
+                type === "increase"
+                    ? "quantity-increase"
+                    : "quantity-decrease"
+            );
+        }
+    });
 }
 
 
