@@ -1,86 +1,166 @@
+
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-function loadCart(){
+function loadCart() {
 
-    let cartItems = document.getElementById("cart-items");
+    const cartItems = document.getElementById("cart-items");
+
+    if (!cartItems) return;
 
     cartItems.innerHTML = "";
 
     let total = 0;
 
-    for(let product in cart){
+    const products = Object.keys(cart);
 
-        let item = document.createElement("div");
+    if (products.length === 0) {
+
+        cartItems.innerHTML = `
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
+
+                <h3>Your cart is empty</h3>
+
+                <p>Add some cubes and come back here!</p>
+
+                <a href="index.html">
+                    Start Shopping
+                </a>
+            </div>
+        `;
+
+        updateTotal(0);
+
+        return;
+    }
+
+    products.forEach((product) => {
+
+        const item = document.createElement("div");
+
+        item.className = "cart-product";
 
         item.innerHTML = `
-    <img src="${cart[product].image}" class="cart-image">
+            <img
+                src="${cart[product].image}"
+                class="cart-image"
+                alt="${product}"
+            >
 
-    <div class="cart-info">
-        <h3>${product}</h3>
-        <p>PKR ${cart[product].price}</p>
-    </div>
+            <div class="cart-info">
 
-    <div class="cart-controls">
-        <button onclick="decrease('${product}')">−</button>
-        <span>${cart[product].quantity}</span>
-        <button onclick="increase('${product}')">+</button>
-        <button onclick="removeItem('${product}')">❌</button>
-    </div>
-`;
+                <h3>${product}</h3>
+
+                <p>
+                    PKR ${cart[product].price}
+                </p>
+
+            </div>
+
+            <div class="cart-controls">
+
+                <button
+                    class="quantity-btn"
+                    onclick="decrease('${product}')"
+                    aria-label="Decrease quantity"
+                >
+                    −
+                </button>
+
+                <span class="quantity-number">
+                    ${cart[product].quantity}
+                </span>
+
+                <button
+                    class="quantity-btn"
+                    onclick="increase('${product}')"
+                    aria-label="Increase quantity"
+                >
+                    +
+                </button>
+
+                <button
+                    class="remove-cart-btn"
+                    onclick="removeItem('${product}')"
+                    title="Remove item"
+                    aria-label="Remove item"
+                >
+                    🗑️
+                </button>
+
+            </div>
+        `;
 
         cartItems.appendChild(item);
 
-        total += cart[product].price * cart[product].quantity;
-    }
+        total +=
+            Number(cart[product].price) *
+            Number(cart[product].quantity);
 
+    });
 
-    let summaryTotal = document.getElementById("summary-total");
-
-    if(summaryTotal){
-        summaryTotal.innerText = "Total: PKR " + total;
-    }
-
+    updateTotal(total);
 }
 
 
-function increase(product){
+function updateTotal(total) {
+
+    const summaryTotal =
+        document.getElementById("summary-total");
+
+    if (!summaryTotal) return;
+
+    summaryTotal.innerText =
+        "Total: PKR " + total;
+}
+
+
+function increase(product) {
+
+    if (!cart[product]) return;
 
     cart[product].quantity++;
 
     saveCart();
-
 }
 
 
-function decrease(product){
+function decrease(product) {
+
+    if (!cart[product]) return;
 
     cart[product].quantity--;
 
-    if(cart[product].quantity <= 0){
+    if (cart[product].quantity <= 0) {
+
         delete cart[product];
+
     }
 
     saveCart();
-
 }
 
 
-function removeItem(product){
+function removeItem(product) {
+
+    if (!cart[product]) return;
 
     delete cart[product];
 
     saveCart();
-
 }
 
 
-function saveCart(){
+function saveCart() {
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
 
     loadCart();
-
 }
 
 
 loadCart();
+
