@@ -6470,3 +6470,7 @@ body:has(.settings-page) header nav a:hover {
     }
 
 }
+/* Settings - Back to MH CUBES text */
+.settings-back a {
+    color: #000000 !important;
+}
