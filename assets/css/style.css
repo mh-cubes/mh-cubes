@@ -5871,3 +5871,12 @@ MOBILE
 .track-product-info .track-subtotal {
     color: #ff2020 !important;
 }
+/* =========================================
+   TRACK ORDER PRODUCT TEXT COLOR
+========================================= */
+
+.track-product h4,
+.track-product p,
+.track-product strong {
+    color: #b30000 !important;
+}
