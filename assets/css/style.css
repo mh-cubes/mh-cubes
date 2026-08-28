@@ -5751,3 +5751,13 @@ MOBILE
 }
 
 }
+/* =========================================
+   TRACK ORDER DETAILS - BLACK TEXT
+========================================= */
+
+.track-order-details,
+.track-order-details p,
+.track-order-details strong,
+.track-order-details span {
+    color: #111111 !important;
+}
