@@ -7397,4 +7397,51 @@ body.dark-mode:has(.settings-page) {
     }
 
 }
+/* =========================================
+   MH CUBES — REVIEW DETAILS
+   NAME + DATE + STARS WHITE
+========================================= */
 
+/* Review name */
+.review-name,
+.review-author,
+.review-user,
+.review-details strong,
+.review-details h4 {
+    color: #ffffff !important;
+}
+
+/* Review date */
+.review-date,
+.review-time,
+.review-details small,
+.review-details span {
+    color: #ffffff !important;
+}
+
+/* Review text */
+.review-text,
+.review-content,
+.review-details p {
+    color: #ffffff !important;
+}
+
+/* Stars */
+.review-stars,
+.review-stars span,
+.stars,
+.stars span {
+    color: #ffffff !important;
+}
+
+/* Filled stars */
+.stars span.active,
+.stars span.selected,
+.stars span.filled {
+    color: #ffd700 !important;
+}
+
+/* Hover stars */
+.stars span:hover {
+    color: #ffd700 !important;
+}
