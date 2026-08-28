@@ -8846,5 +8846,118 @@ body.dark-mode:has(.settings-page) {
         font-size: 15px;
     }
 }
+/* =========================================================
+CANCEL ORDER BUTTON
+========================================================= */
+
+.cancel-order-btn {
+width: 100%;
 
 
+margin-top: 12px;
+
+padding: 13px 18px;
+
+border: 1px solid rgba(255, 70, 70, 0.35);
+
+border-radius: 12px;
+
+background:
+    linear-gradient(
+        135deg,
+        rgba(220, 38, 38, 0.15),
+        rgba(255, 60, 60, 0.08)
+    );
+
+color: #ff5555;
+
+font-size: 15px;
+
+font-weight: 900;
+
+cursor: pointer;
+
+transition:
+    transform 0.2s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+
+
+}
+
+.cancel-order-btn:hover {
+transform: translateY(-2px);
+
+
+background:
+    linear-gradient(
+        135deg,
+        #dc2626,
+        #ef4444
+    );
+
+border-color: #ff5555;
+
+color: #ffffff;
+
+box-shadow:
+    0 8px 22px rgba(220, 38, 38, 0.3);
+
+
+}
+
+.cancel-order-btn:active {
+transform: scale(0.98);
+}
+
+.cancel-order-btn:disabled {
+opacity: 0.6;
+
+
+cursor: not-allowed;
+
+transform: none;
+
+
+}
+
+/* CANCELLED STATUS */
+
+.order-status.status-cancelled {
+background: #3a1111;
+
+
+color: #ff6b6b;
+
+border: 1px solid rgba(255, 70, 70, 0.35);
+
+
+}
+
+/* CANCELLED CARD */
+
+.customer-order-card.order-cancelled {
+border-left-color: #ff4444;
+
+
+opacity: 0.88;
+
+
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+
+.cancel-order-btn {
+    padding: 11px;
+
+    font-size: 13px;
+
+    border-radius: 9px;
+}
+
+
+}
