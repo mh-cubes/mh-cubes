@@ -12,22 +12,21 @@ import {
 document.addEventListener("DOMContentLoaded", () => {
 
     // =========================================
-    // LOAD SAVED DARK MODE
+    // LOAD SAVED THEME
     // =========================================
 
     const savedTheme =
         localStorage.getItem("theme");
 
-    const button =
+    const darkModeButton =
         document.getElementById("darkModeBtn");
-
 
     if (savedTheme === "dark") {
 
         document.body.classList.add("dark-mode");
 
-        if (button) {
-            button.innerHTML =
+        if (darkModeButton) {
+            darkModeButton.innerHTML =
                 "☀️ Light Mode";
         }
 
@@ -35,8 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.body.classList.remove("dark-mode");
 
-        if (button) {
-            button.innerHTML =
+        if (darkModeButton) {
+            darkModeButton.innerHTML =
                 "🌙 Dark Mode";
         }
 
@@ -51,230 +50,283 @@ document.addEventListener("DOMContentLoaded", () => {
         JSON.parse(localStorage.getItem("cart")) || {};
 
 
-    document.querySelectorAll(".cart-btn").forEach(function(button) {
+    document
+        .querySelectorAll(".cart-btn")
+        .forEach((button) => {
 
-        button.addEventListener("click", function() {
+            button.addEventListener("click", () => {
 
-            let name;
-            let price;
-            let image;
-
-
-            // PRODUCT PAGE BUTTON
-
-            if (button.dataset.name) {
-
-                name = button.dataset.name;
-                price = Number(button.dataset.price);
-                image = button.dataset.image;
-
-            }
+                let name = "";
+                let price = 0;
+                let image = "";
 
 
-            // HOMEPAGE PRODUCT CARD
+                // =================================
+                // PRODUCT DETAIL PAGE
+                // =================================
 
-            else {
+                if (button.dataset.name) {
 
-                const productBox =
-                    button.closest(".product");
+                    name =
+                        button.dataset.name;
 
-                if (!productBox) return;
+                    price =
+                        Number(
+                            button.dataset.price
+                        );
+
+                    image =
+                        button.dataset.image || "";
+
+                }
 
 
-                name =
-                    productBox
-                        .querySelector("h3")
-                        ?.innerText;
+                // =================================
+                // HOMEPAGE PRODUCT CARD
+                // =================================
+
+                else {
+
+                    const productBox =
+                        button.closest(".product");
+
+                    if (!productBox) return;
 
 
-                price =
-                    Number(
-                        productBox
-                            .querySelector("p")
+                    const nameElement =
+                        productBox.querySelector("h3");
+
+
+                    const priceElement =
+                        productBox.querySelector("p");
+
+
+                    const imageElement =
+                        productBox.querySelector("img");
+
+
+                    name =
+                        nameElement
                             ?.innerText
-                            .replace("PKR ", "")
+                            .trim();
+
+
+                    price =
+                        Number(
+                            priceElement
+                                ?.innerText
+                                .replace(/[^0-9]/g, "")
+                        );
+
+
+                    image =
+                        imageElement
+                            ?.getAttribute("src") || "";
+
+                }
+
+
+                // =================================
+                // SAFETY CHECK
+                // =================================
+
+                if (!name || !price) {
+
+                    console.error(
+                        "Product information missing:",
+                        {
+                            name,
+                            price,
+                            image
+                        }
                     );
 
+                    return;
 
-                image =
-                    productBox
-                        .querySelector("img")
-                        ?.src;
-
-            }
+                }
 
 
-            // SAFETY CHECK
+                // =================================
+                // ADD PRODUCT
+                // =================================
 
-            if (!name || !price) {
+                if (cart[name]) {
 
-                console.error(
-                    "Product information missing:",
-                    {
-                        name,
-                        price,
-                        image
-                    }
+                    cart[name].quantity =
+                        Number(cart[name].quantity) + 1;
+
+                } else {
+
+                    cart[name] = {
+
+                        price: price,
+
+                        quantity: 1,
+
+                        image: image
+
+                    };
+
+                }
+
+
+                // =================================
+                // SAVE CART
+                // =================================
+
+                localStorage.setItem(
+                    "cart",
+                    JSON.stringify(cart)
                 );
 
-                return;
 
-            }
+                // =================================
+                // UPDATE CART COUNT
+                // =================================
 
-
-            // ADD TO CART
-
-            if (cart[name]) {
-
-                cart[name].quantity++;
-
-            } else {
-
-                cart[name] = {
-
-                    price: price,
-
-                    quantity: 1,
-
-                    image: image || ""
-
-                };
-
-            }
+                updateCartCount();
 
 
-            // SAVE CART
+                // =================================
+                // SHOW SUCCESS TOAST
+                // =================================
 
-            localStorage.setItem(
-                "cart",
-                JSON.stringify(cart)
-            );
+                showCartToast(
+                    `${name} added to cart 🛒`
+                );
 
-
-            updateCartCount();
-
-
-            // TOAST
-
-            const toast =
-                document.getElementById("toast");
-
-
-            if (toast) {
-
-                toast.innerText =
-                    name + " added to cart 🛒";
-
-                toast.classList.add("show");
-
-
-                setTimeout(function() {
-
-                    toast.classList.remove("show");
-
-                }, 3000);
-
-            }
+            });
 
         });
-
-    });
 
 
     // =========================================
     // SHOP NOW BUTTON
     // =========================================
 
-    document.querySelectorAll(".shop-btn").forEach(function(button) {
+    document
+        .querySelectorAll(".shop-btn")
+        .forEach((button) => {
 
-        button.addEventListener("click", function() {
+            button.addEventListener("click", () => {
 
-            const productBox =
-                button.closest(".product");
-
-            if (!productBox) return;
-
-
-            const name =
-                productBox
-                    .querySelector("h3")
-                    ?.innerText;
+                const productBox =
+                    button.closest(".product");
 
 
-            const price =
-                Number(
-                    productBox
-                        .querySelector("p")
+                if (!productBox) return;
+
+
+                const nameElement =
+                    productBox.querySelector("h3");
+
+
+                const priceElement =
+                    productBox.querySelector("p");
+
+
+                const imageElement =
+                    productBox.querySelector("img");
+
+
+                const name =
+                    nameElement
                         ?.innerText
-                        .replace("PKR ", "")
+                        .trim();
+
+
+                const price =
+                    Number(
+                        priceElement
+                            ?.innerText
+                            .replace(/[^0-9]/g, "")
+                    );
+
+
+                const image =
+                    imageElement
+                        ?.getAttribute("src") || "";
+
+
+                if (!name || !price) {
+
+                    console.error(
+                        "Shop Now product information missing."
+                    );
+
+                    return;
+
+                }
+
+
+                let currentCart =
+                    JSON.parse(
+                        localStorage.getItem("cart")
+                    ) || {};
+
+
+                if (currentCart[name]) {
+
+                    currentCart[name].quantity =
+                        Number(
+                            currentCart[name].quantity
+                        ) + 1;
+
+                } else {
+
+                    currentCart[name] = {
+
+                        price: price,
+
+                        quantity: 1,
+
+                        image: image
+
+                    };
+
+                }
+
+
+                localStorage.setItem(
+                    "cart",
+                    JSON.stringify(currentCart)
                 );
 
 
-            const image =
-                productBox
-                    .querySelector("img")
-                    ?.src;
+                updateCartCount();
 
 
-            if (!name || !price) return;
+                // =================================
+                // SHOP LOADING
+                // =================================
+
+                const loading =
+                    document.getElementById(
+                        "shop-loading"
+                    );
 
 
-            let cart =
-                JSON.parse(
-                    localStorage.getItem("cart")
-                ) || {};
+                if (loading) {
+
+                    loading.classList.add("show");
+
+                }
 
 
-            if (cart[name]) {
+                setTimeout(() => {
 
-                cart[name].quantity++;
+                    window.location.href =
+                        "checkout.html";
 
-            } else {
+                }, 1500);
 
-                cart[name] = {
-
-                    price: price,
-
-                    quantity: 1,
-
-                    image: image || ""
-
-                };
-
-            }
-
-
-            localStorage.setItem(
-                "cart",
-                JSON.stringify(cart)
-            );
-
-
-            const loading =
-                document.getElementById("shop-loading");
-
-
-            if (loading) {
-
-                loading.classList.add("show");
-
-            }
-
-
-            setTimeout(function() {
-
-                window.location.href =
-                    "checkout.html";
-
-            }, 1500);
+            });
 
         });
 
-    });
-
 
     // =========================================
-    // UPDATE CART COUNT
+    // INITIAL CART COUNT
     // =========================================
 
     updateCartCount();
@@ -296,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         searchInput.addEventListener(
             "input",
-            function() {
+            () => {
 
                 const searchText =
                     searchInput.value
@@ -304,7 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         .trim();
 
 
-                products.forEach(function(product) {
+                products.forEach((product) => {
 
                     const productName =
                         product.innerText
@@ -317,11 +369,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         )
                     ) {
 
-                        product.style.display = "";
+                        product.style.display =
+                            "";
 
                     } else {
 
-                        product.style.display = "none";
+                        product.style.display =
+                            "none";
 
                     }
 
@@ -336,7 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // =========================================
-// CART COUNT
+// UPDATE CART COUNT
 // =========================================
 
 function updateCartCount() {
@@ -353,20 +407,80 @@ function updateCartCount() {
     for (const product in cart) {
 
         count +=
-            Number(cart[product].quantity) || 0;
+            Number(
+                cart[product].quantity
+            ) || 0;
 
     }
 
 
     const cartCount =
-        document.getElementById("cart-count");
+        document.getElementById(
+            "cart-count"
+        );
 
 
     if (cartCount) {
 
-        cartCount.innerText = count;
+        cartCount.innerText =
+            count;
 
     }
+
+}
+
+
+// =========================================
+// CART SUCCESS TOAST
+// =========================================
+
+function showCartToast(message) {
+
+    let toast =
+        document.getElementById("toast");
+
+
+    // Create toast if it doesn't exist
+    if (!toast) {
+
+        toast =
+            document.createElement("div");
+
+        toast.id =
+            "toast";
+
+        document.body.appendChild(toast);
+
+    }
+
+
+    toast.innerHTML = `
+        <span class="toast-icon">✓</span>
+        <span>${message}</span>
+    `;
+
+
+    toast.classList.remove("show");
+
+
+    // Restart animation
+    void toast.offsetWidth;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(
+        window.cartToastTimer
+    );
+
+
+    window.cartToastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 3000);
 
 }
 
@@ -378,7 +492,9 @@ function updateCartCount() {
 function scrollToProducts() {
 
     const products =
-        document.querySelector(".products");
+        document.querySelector(
+            ".products"
+        );
 
 
     if (products) {
@@ -399,29 +515,48 @@ function scrollToProducts() {
 function showWhy(type, element) {
 
     const details =
-        document.getElementById("why-details");
+        document.getElementById(
+            "why-details"
+        );
 
 
     if (!details) return;
 
 
+    // =========================================
+    // REMOVE ACTIVE FROM ALL CARDS
+    // =========================================
+
     document
         .querySelectorAll(".why-box")
-        .forEach(card => {
+        .forEach((card) => {
 
-            card.classList.remove("active");
+            card.classList.remove(
+                "active"
+            );
 
         });
 
 
+    // =========================================
+    // ACTIVE CARD
+    // =========================================
+
     if (element) {
 
-        element.classList.add("active");
+        element.classList.add(
+            "active"
+        );
 
     }
 
 
-    details.style.animation = "none";
+    // =========================================
+    // RESTART ANIMATION
+    // =========================================
+
+    details.style.animation =
+        "none";
 
     void details.offsetWidth;
 
@@ -429,7 +564,9 @@ function showWhy(type, element) {
         "detailsAppear 0.45s ease";
 
 
+    // =========================================
     // DELIVERY
+    // =========================================
 
     if (type === "delivery") {
 
@@ -475,7 +612,9 @@ function showWhy(type, element) {
     }
 
 
+    // =========================================
     // ORIGINAL
+    // =========================================
 
     else if (type === "original") {
 
@@ -522,7 +661,9 @@ function showWhy(type, element) {
     }
 
 
+    // =========================================
     // PRICE
+    // =========================================
 
     else if (type === "price") {
 
@@ -568,7 +709,9 @@ function showWhy(type, element) {
     }
 
 
+    // =========================================
     // TRUSTED
+    // =========================================
 
     else if (type === "trusted") {
 
@@ -623,37 +766,63 @@ function showWhy(type, element) {
 function openContactPopup() {
 
     const popup =
-        document.getElementById("contact-popup");
+        document.getElementById(
+            "contact-popup"
+        );
+
 
     if (!popup) return;
 
-    popup.classList.remove("closing");
 
-    popup.classList.add("show");
+    popup.classList.remove(
+        "closing"
+    );
 
-    document.body.style.overflow = "hidden";
+
+    popup.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
 }
 
 
 function closeContactPopup() {
 
     const popup =
-        document.getElementById("contact-popup");
+        document.getElementById(
+            "contact-popup"
+        );
+
 
     if (!popup) return;
 
-    popup.classList.add("closing");
 
-    setTimeout(function() {
+    popup.classList.add(
+        "closing"
+    );
 
-        popup.classList.remove("show");
-        popup.classList.remove("closing");
 
-        document.body.style.overflow = "";
+    setTimeout(() => {
+
+        popup.classList.remove(
+            "show"
+        );
+
+        popup.classList.remove(
+            "closing"
+        );
+
+        document.body.style.overflow =
+            "";
 
     }, 300);
 
 }
+
 
 // =========================================
 // DARK MODE
@@ -662,12 +831,20 @@ function closeContactPopup() {
 function toggleDarkMode() {
 
     const button =
-        document.getElementById("darkModeBtn");
+        document.getElementById(
+            "darkModeBtn"
+        );
 
-    document.body.classList.toggle("dark-mode");
+
+    document.body.classList.toggle(
+        "dark-mode"
+    );
+
 
     const isDark =
-        document.body.classList.contains("dark-mode");
+        document.body.classList.contains(
+            "dark-mode"
+        );
 
 
     // SAVE THEME
@@ -678,7 +855,7 @@ function toggleDarkMode() {
     );
 
 
-    // CHANGE BUTTON TEXT
+    // UPDATE BUTTON
 
     if (button) {
 
@@ -691,6 +868,7 @@ function toggleDarkMode() {
 
 }
 
+
 // =========================================
 // MOBILE MENU
 // =========================================
@@ -698,14 +876,18 @@ function toggleDarkMode() {
 function toggleMobileMenu() {
 
     const nav =
-        document.getElementById("main-nav");
+        document.getElementById(
+            "main-nav"
+        );
 
 
-    const menuBtn =
-        document.getElementById("menu-btn");
+    const menuButton =
+        document.getElementById(
+            "menu-btn"
+        );
 
 
-    if (!nav || !menuBtn) return;
+    if (!nav || !menuButton) return;
 
 
     nav.classList.toggle(
@@ -719,11 +901,13 @@ function toggleMobileMenu() {
         )
     ) {
 
-        menuBtn.innerText = "✕";
+        menuButton.innerText =
+            "✕";
 
     } else {
 
-        menuBtn.innerText = "☰";
+        menuButton.innerText =
+            "☰";
 
     }
 
@@ -731,7 +915,7 @@ function toggleMobileMenu() {
 
 
 // =========================================
-// MAKE INLINE FUNCTIONS AVAILABLE
+// MAKE FUNCTIONS AVAILABLE TO HTML
 // =========================================
 
 window.scrollToProducts =
@@ -757,29 +941,49 @@ window.toggleMobileMenu =
 // CUSTOMER AUTHENTICATION
 // =========================================
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(
+    auth,
+    (user) => {
 
-    const authLink = document.getElementById("auth-link");
+        const authLink =
+            document.getElementById(
+                "auth-link"
+            );
 
-    if (!authLink) return;
 
-    if (user) {
+        if (!authLink) return;
 
-        // User is logged in
-        console.log("✅ Customer logged in:", user.email);
 
-        authLink.innerHTML = "👤 My Account";
-        authLink.href = "customer-account.html";
+        if (user) {
 
-    } else {
+            console.log(
+                "✅ Customer logged in:",
+                user.email
+            );
 
-        // User is NOT logged in
-        console.log("❌ Customer is not logged in");
 
-        authLink.innerHTML = "👤 Sign In";
-        authLink.href = "customer-login.html";
+            authLink.innerHTML =
+                "👤 My Account";
+
+
+            authLink.href =
+                "customer-account.html";
+
+        } else {
+
+            console.log(
+                "❌ Customer is not logged in"
+            );
+
+
+            authLink.innerHTML =
+                "👤 Sign In";
+
+
+            authLink.href =
+                "customer-login.html";
+
+        }
 
     }
-
-});
-
+);
