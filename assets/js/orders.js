@@ -401,13 +401,18 @@ async function cancelOrder(orderDocID, orderID) {
         "?"
     );
 
-
     if (!confirmed) {
         return;
     }
 
-
     try {
+
+        const user = auth.currentUser;
+
+        if (!user) {
+            alert("❌ Please sign in again.");
+            return;
+        }
 
         const orderRef = doc(
             db,
@@ -415,7 +420,44 @@ async function cancelOrder(orderDocID, orderID) {
             orderDocID
         );
 
+        // Get the customer's orders
+        const ordersQuery = query(
+            collection(db, "orders"),
+            where("customerUID", "==", user.uid)
+        );
 
+        const snapshot = await getDocs(ordersQuery);
+
+        let orderFound = false;
+
+        snapshot.forEach(function(docSnap) {
+
+            if (docSnap.id === orderDocID) {
+
+                const orderData = docSnap.data();
+
+                // Only allow cancelling pending orders
+                if (
+                    String(orderData.status || "")
+                        .toLowerCase() === "pending"
+                ) {
+                    orderFound = true;
+                }
+
+            }
+
+        });
+
+        if (!orderFound) {
+
+            alert(
+                "❌ You cannot cancel this order."
+            );
+
+            return;
+        }
+
+        // Cancel order
         await updateDoc(
             orderRef,
             {
@@ -425,22 +467,14 @@ async function cancelOrder(orderDocID, orderID) {
             }
         );
 
-
         alert(
             "✅ Order " +
             orderID +
             " has been cancelled."
         );
 
-
-        // Reload orders
-
-        const user = auth.currentUser;
-
-        if (user) {
-            loadCustomerOrders(user);
-        }
-
+        // Reload My Orders
+        loadCustomerOrders(user);
 
     } catch (error) {
 
@@ -448,7 +482,6 @@ async function cancelOrder(orderDocID, orderID) {
             "Cancel order error:",
             error
         );
-
 
         alert(
             "❌ Could not cancel the order.\n\n" +
@@ -458,7 +491,6 @@ async function cancelOrder(orderDocID, orderID) {
     }
 
 }
-
 
 // =========================================
 // AUTHENTICATION
