@@ -6734,3 +6734,152 @@ body.dark-mode:has(.settings-page) {
     }
 
 }
+/* =========================================
+   WHY CHOOSE - INDIVIDUAL EXPANSION
+========================================= */
+
+.why-container {
+    align-items: start;
+}
+
+.why-item {
+    width: 100%;
+}
+
+.why-box {
+    cursor: pointer;
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+.why-box:hover {
+    transform: translateY(-5px);
+}
+
+.why-box.active {
+    transform: translateY(-5px);
+    border-color: #ff2020;
+
+    box-shadow:
+        0 12px 35px rgba(255, 32, 32, 0.25);
+}
+
+
+/* =========================================
+   INDIVIDUAL DETAILS
+========================================= */
+
+.why-item .why-details {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    margin-top: 0;
+    padding: 0 22px;
+
+    transform: translateY(-10px);
+
+    transition:
+        max-height 0.5s ease,
+        opacity 0.4s ease,
+        transform 0.4s ease,
+        margin-top 0.4s ease,
+        padding 0.4s ease;
+}
+
+
+/* OPEN */
+
+.why-item.open .why-details {
+    max-height: 500px;
+    opacity: 1;
+
+    margin-top: 15px;
+    padding: 25px 22px;
+
+    transform: translateY(0);
+
+    background: #050505;
+
+    border: 1px solid rgba(255, 32, 32, 0.4);
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* DETAILS TEXT */
+
+.why-details h3 {
+    color: #ff2020;
+    margin-bottom: 10px;
+}
+
+.why-details p {
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+.why-details ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.why-details li {
+    display: grid;
+    grid-template-columns: 35px 1fr;
+    gap: 3px 10px;
+
+    padding: 12px;
+
+    margin-bottom: 8px;
+
+    background: #111111;
+    border-radius: 10px;
+}
+
+.why-details li span {
+    grid-row: span 2;
+    font-size: 20px;
+}
+
+.why-details li strong {
+    color: white;
+}
+
+.why-details li small {
+    color: #888;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .why-container {
+        grid-template-columns: 1fr;
+    }
+
+    .why-box {
+        transform: none;
+    }
+
+    .why-box:hover {
+        transform: none;
+    }
+
+    .why-box.active {
+        transform: none;
+    }
+
+    .why-item.open .why-details {
+        padding: 20px 16px;
+    }
+
+}
