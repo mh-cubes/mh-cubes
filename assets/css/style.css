@@ -7721,3 +7721,112 @@ body.dark-mode:has(.settings-page) {
     line-height: 1.7 !important;
     font-weight: 500 !important;
 }
+
+/* =========================================
+   REVIEW 3-DOT MENU
+========================================= */
+
+.review-menu {
+    position: relative;
+    margin-left: auto;
+}
+
+/* 3 DOT BUTTON */
+
+.review-menu-button {
+    background: transparent !important;
+    border: none !important;
+    color: #000 !important;
+    font-size: 28px !important;
+    font-weight: 900 !important;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 10px !important;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.review-menu-button:hover {
+    background: rgba(0, 0, 0, 0.08) !important;
+    transform: scale(1.08);
+}
+
+/* DROPDOWN */
+
+.review-delete-menu {
+    position: absolute;
+    top: 42px;
+    right: 0;
+
+    min-width: 170px;
+
+    background: #ffffff;
+    border-radius: 12px;
+
+    padding: 6px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.20);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translateY(-8px)
+        scale(0.96);
+
+    transform-origin: top right;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s ease;
+
+    z-index: 100;
+}
+
+/* OPEN STATE */
+
+.review-delete-menu.open {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+/* DELETE BUTTON */
+
+.review-delete-menu .delete-review-btn {
+    width: 100%;
+
+    background: transparent !important;
+    border: none !important;
+
+    color: #d60000 !important;
+
+    font-size: 15px !important;
+    font-weight: 700 !important;
+
+    text-align: left;
+
+    padding: 11px 12px !important;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+.review-delete-menu .delete-review-btn:hover {
+    background: #ffecec !important;
+}
+
+.review-delete-menu .delete-review-btn:active {
+    transform: scale(0.97);
+}
+
