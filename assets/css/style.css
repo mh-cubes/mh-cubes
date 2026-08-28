@@ -5254,298 +5254,500 @@ body > header nav a:hover {
 }
 
 /* =========================================
-   MH CUBES — BEAUTIFUL PAYMENT SECTION
+MH CUBES — PREMIUM PAYMENT SECTION
 ========================================= */
 
 .payment-section {
-    margin-top: 35px;
-    padding: 28px;
-    background: #111111;
-    border: 1px solid #242424;
-    border-radius: 22px;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+margin-top: 40px;
+padding: 30px;
+
+
+background:
+    linear-gradient(145deg, #151515, #090909);
+
+border: 1px solid #292929;
+border-radius: 24px;
+
+box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.30);
+
+position: relative;
+overflow: hidden;
+
+
 }
 
+/* RED GLOW */
 
-/* HEADING */
+.payment-section::before {
+content: "";
+position: absolute;
+
+
+width: 220px;
+height: 220px;
+
+top: -120px;
+right: -80px;
+
+background: rgba(255, 32, 32, 0.16);
+
+border-radius: 50%;
+
+filter: blur(60px);
+
+pointer-events: none;
+
+
+}
+
+/* =========================================
+HEADING
+========================================= */
 
 .payment-heading {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
+position: relative;
+
+
+display: flex;
+align-items: center;
+
+gap: 16px;
+
+margin-bottom: 28px;
+
+
 }
 
 .payment-icon {
-    width: 52px;
-    height: 52px;
+width: 58px;
+height: 58px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-    background: #ff2020;
-    border-radius: 15px;
+min-width: 58px;
 
-    font-size: 25px;
+display: flex;
+align-items: center;
+justify-content: center;
 
-    box-shadow: 0 8px 22px rgba(255, 32, 32, 0.25);
+background:
+    linear-gradient(135deg, #ff3030, #c90000);
+
+border-radius: 17px;
+
+font-size: 27px;
+
+box-shadow:
+    0 10px 30px rgba(255, 32, 32, 0.30);
+
+
 }
 
 .payment-heading h2 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 24px;
+margin: 0;
+
+
+color: #ffffff;
+
+font-size: 25px;
+font-weight: 800;
+
+
 }
 
 .payment-heading p {
-    margin: 5px 0 0;
-    color: #999999;
-    font-size: 13px;
+margin: 5px 0 0;
+
+
+color: #8c8c8c;
+
+font-size: 13px;
+
+
 }
 
-
-/* PAYMENT OPTIONS */
+/* =========================================
+PAYMENT CARDS
+========================================= */
 
 .payment-options {
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
+position: relative;
+
+
+display: grid;
+
+grid-template-columns: 1fr;
+
+gap: 14px;
+
+
 }
-
-
-/* CARD */
 
 .payment-card {
-    position: relative;
+position: relative;
 
-    display: block;
 
-    background: #181818;
-    border: 1px solid #303030;
+display: block;
 
-    border-radius: 16px;
+padding: 2px;
 
-    padding: 5px;
+border-radius: 17px;
 
-    cursor: pointer;
+background: #222222;
 
-    transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
+cursor: pointer;
+
+transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+
+
 }
 
-.payment-card:hover {
-    transform: translateY(-2px);
-    border-color: #ff2020;
-    box-shadow: 0 8px 25px rgba(255, 32, 32, 0.12);
-}
-
-
-/* HIDE RADIO */
-
-.payment-card input {
-    position: absolute;
-    opacity: 0;
-}
-
-
-/* CARD CONTENT */
+/* CARD INNER */
 
 .payment-card-content {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+display: flex;
+align-items: center;
 
-    padding: 14px;
+
+gap: 15px;
+
+padding: 16px;
+
+min-height: 65px;
+
+background:
+    linear-gradient(145deg, #191919, #101010);
+
+border-radius: 15px;
+
+box-sizing: border-box;
+
+
 }
 
+/* HOVER */
 
-/* ICON */
+.payment-card:not(.payment-disabled):hover {
+transform: translateY(-3px);
+
+
+background:
+    linear-gradient(
+        135deg,
+        #ff2020,
+        #8f0000
+    );
+
+box-shadow:
+    0 12px 30px rgba(255, 32, 32, 0.18);
+
+
+}
+
+/* =========================================
+RADIO
+========================================= */
+
+.payment-card input {
+position: absolute;
+
+
+opacity: 0;
+
+
+}
+
+/* =========================================
+PAYMENT ICONS
+========================================= */
 
 .payment-method-icon {
+width: 50px;
+height: 50px;
+
+
+min-width: 50px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 14px;
+
+font-size: 23px;
+
+background: #242424;
+
+box-shadow:
+    inset 0 0 0 1px #333333;
+
+
+}
+
+/* COD ICON */
+
+.cod-icon {
+background:
+linear-gradient(
+135deg,
+#292929,
+#181818
+);
+}
+
+/* =========================================
+TEXT
+========================================= */
+
+.payment-method-info {
+flex: 1;
+
+
+display: flex;
+flex-direction: column;
+
+gap: 5px;
+
+
+}
+
+.payment-method-info strong {
+color: #ffffff;
+
+
+font-size: 16px;
+
+font-weight: 750;
+
+
+}
+
+.payment-method-info span {
+color: #858585;
+
+font-size: 12px;
+
+
+}
+
+/* =========================================
+SELECTED PAYMENT
+========================================= */
+
+.payment-card:has(input:checked) {
+background:
+linear-gradient(
+135deg,
+#ff3030,
+#b90000
+);
+
+
+box-shadow:
+    0 12px 35px rgba(255, 32, 32, 0.28);
+
+transform: translateY(-2px);
+
+
+}
+
+.payment-card:has(input:checked)
+.payment-card-content {
+background:
+linear-gradient(
+145deg,
+#211010,
+#130909
+);
+}
+
+/* =========================================
+CHECK MARK
+========================================= */
+
+.payment-check {
+width: 34px;
+height: 34px;
+
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 50%;
+
+background: #ff2020;
+
+color: #ffffff;
+
+font-size: 17px;
+font-weight: 900;
+
+box-shadow:
+    0 5px 18px rgba(255, 32, 32, 0.40);
+
+transition:
+    transform 0.25s ease;
+
+
+}
+
+.payment-card:has(input:checked)
+.payment-check {
+transform: scale(1.08);
+}
+
+/* =========================================
+DISABLED METHODS
+========================================= */
+
+.payment-disabled {
+opacity: 0.42;
+
+
+cursor: not-allowed !important;
+
+
+}
+
+.payment-disabled:hover {
+transform: none !important;
+
+
+background: #222222 !important;
+
+box-shadow: none !important;
+
+
+}
+
+.payment-disabled .payment-method-info span {
+color: #ff3030;
+
+
+font-weight: 700;
+
+
+}
+
+.payment-arrow {
+font-size: 15px;
+}
+
+/* =========================================
+SECURITY MESSAGE
+========================================= */
+
+.payment-secure-note {
+position: relative;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+gap: 8px;
+
+margin-top: 22px;
+padding-top: 18px;
+
+border-top: 1px solid #292929;
+
+
+}
+
+.payment-secure-note span {
+font-size: 14px;
+}
+
+.payment-secure-note p {
+margin: 0;
+
+color: #777777;
+
+font-size: 12px;
+
+
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+
+.payment-section {
+    margin-top: 30px;
+
+    padding: 20px 14px;
+
+    border-radius: 20px;
+}
+
+.payment-heading {
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.payment-icon {
     width: 48px;
     height: 48px;
 
     min-width: 48px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 13px;
+    border-radius: 14px;
 
     font-size: 22px;
-
-    background: #222222;
 }
 
+.payment-heading h2 {
+    font-size: 20px;
+}
 
-/* METHOD INFO */
+.payment-heading p {
+    font-size: 11px;
+}
 
-.payment-method-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.payment-card-content {
+    padding: 13px;
 
-    flex: 1;
+    gap: 12px;
+
+    min-height: 60px;
+}
+
+.payment-method-icon {
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+
+    border-radius: 12px;
+
+    font-size: 20px;
 }
 
 .payment-method-info strong {
-    color: #ffffff;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .payment-method-info span {
-    color: #888888;
-    font-size: 12px;
+    font-size: 11px;
 }
-
-
-/* COMING SOON */
-
-.payment-disabled {
-    opacity: 0.48;
-    cursor: not-allowed !important;
-}
-
-.payment-disabled:hover {
-    transform: none;
-    border-color: #303030;
-    box-shadow: none;
-}
-
-.payment-disabled .payment-method-info span {
-    color: #ff2020;
-    font-weight: 700;
-}
-
-
-/* ACTIVE COD */
-
-.payment-active {
-    border-color: #ff2020;
-    background:
-        linear-gradient(
-            135deg,
-            #1c1111,
-            #181818
-        );
-
-    box-shadow:
-        0 8px 25px rgba(255, 32, 32, 0.10);
-}
-
-
-/* RADIO CHECKED EFFECT */
-
-.payment-card:has(input:checked) {
-    border-color: #ff2020;
-
-    background:
-        linear-gradient(
-            135deg,
-            #211010,
-            #181818
-        );
-
-    box-shadow:
-        0 10px 30px rgba(255, 32, 32, 0.15);
-}
-
-
-/* CHECK */
 
 .payment-check {
     width: 30px;
     height: 30px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #ff2020;
-    color: #ffffff;
-
-    font-size: 16px;
-    font-weight: bold;
-
-    box-shadow:
-        0 5px 15px rgba(255, 32, 32, 0.3);
-}
-
-
-/* LOCK */
-
-.payment-arrow {
     font-size: 15px;
-    opacity: 0.7;
 }
-
-
-/* SECURITY NOTE */
 
 .payment-secure-note {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    margin-top: 20px;
-    padding-top: 17px;
-
-    border-top: 1px solid #292929;
+    margin-top: 18px;
 }
 
-.payment-secure-note span {
-    font-size: 14px;
 }
-
-.payment-secure-note p {
-    margin: 0;
-
-    color: #777777;
-
-    font-size: 12px;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    .payment-section {
-        padding: 20px 15px;
-        border-radius: 18px;
-    }
-
-    .payment-heading h2 {
-        font-size: 20px;
-    }
-
-    .payment-heading p {
-        font-size: 12px;
-    }
-
-    .payment-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 21px;
-    }
-
-    .payment-method-icon {
-        width: 42px;
-        height: 42px;
-        min-width: 42px;
-    }
-
-    .payment-method-info strong {
-        font-size: 14px;
-    }
-}
-
