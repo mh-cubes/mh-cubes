@@ -443,17 +443,14 @@ async function cancelAdminOrder(id) {
 
     try {
 
-        await updateDoc(
-            doc(db, "orders", id),
-            {
-
-                status: "Cancelled",
-
-                notification:
-                    "❌ This order was cancelled by the owner."
-
-            }
-        );
+       await updateDoc(
+    orderRef,
+    {
+        status: "Cancelled by Customer",
+        notification:
+            "❌ This order was cancelled by the customer."
+    }
+);
 
 
         location.reload();
