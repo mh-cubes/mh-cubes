@@ -568,39 +568,244 @@ function scrollToProducts() {
 
 function showWhy(type, element) {
 
-    const details =
-        document.getElementById(
-            "why-details"
-        );
+    if (!element) return;
 
+
+    const item =
+        element.closest(".why-item");
+
+    if (!item) return;
+
+
+    const details =
+        item.querySelector(".why-details");
 
     if (!details) return;
 
 
-    // REMOVE ACTIVE FROM ALL CARDS
+    // =========================================
+    // CLOSE OTHER CARDS
+    // =========================================
 
     document
-        .querySelectorAll(".why-box")
-        .forEach((card) => {
+        .querySelectorAll(".why-item")
+        .forEach((otherItem) => {
 
-            card.classList.remove(
-                "active"
-            );
+            if (otherItem !== item) {
+
+                otherItem
+                    .classList.remove("open");
+
+                const otherBox =
+                    otherItem.querySelector(".why-box");
+
+                if (otherBox) {
+                    otherBox.classList.remove("active");
+                }
+
+                const otherDetails =
+                    otherItem.querySelector(".why-details");
+
+                if (otherDetails) {
+                    otherDetails.innerHTML = "";
+                }
+
+            }
 
         });
 
 
-    // ACTIVE CARD
+    // =========================================
+    // TOGGLE CURRENT CARD
+    // =========================================
 
-    if (element) {
+    const alreadyOpen =
+        item.classList.contains("open");
 
-        element.classList.add(
-            "active"
-        );
+
+    if (alreadyOpen) {
+
+        item.classList.remove("open");
+
+        element.classList.remove("active");
+
+        details.innerHTML = "";
+
+        return;
 
     }
 
 
+    item.classList.add("open");
+
+    element.classList.add("active");
+
+
+    // =========================================
+    // DETAILS
+    // =========================================
+
+    if (type === "delivery") {
+
+        details.innerHTML = `
+
+            <div class="details-icon">🚚</div>
+
+            <h3>Fast Delivery</h3>
+
+            <p>
+                We make sure your cube reaches you
+                safely and quickly across Islamabad.
+            </p>
+
+            <ul>
+
+                <li>
+                    <span>🚀</span>
+                    <strong>2–5 Days</strong>
+                    <small>Fast delivery</small>
+                </li>
+
+                <li>
+                    <span>📦</span>
+                    <strong>Safe Packaging</strong>
+                    <small>Protected during shipping</small>
+                </li>
+
+                <li>
+                    <span>💵</span>
+                    <strong>Cash on Delivery</strong>
+                    <small>Easy payment option</small>
+                </li>
+
+            </ul>
+
+        `;
+
+    }
+
+
+    else if (type === "original") {
+
+        details.innerHTML = `
+
+            <div class="details-icon">💯</div>
+
+            <h3>100% Original Cubes</h3>
+
+            <p>
+                We focus on providing quality cubes
+                that give you a smooth and enjoyable
+                cubing experience.
+            </p>
+
+            <ul>
+
+                <li>
+                    <span>✅</span>
+                    <strong>Original Products</strong>
+                    <small>Trusted products</small>
+                </li>
+
+                <li>
+                    <span>⚙️</span>
+                    <strong>High Quality</strong>
+                    <small>Built for performance</small>
+                </li>
+
+                <li>
+                    <span>🧩</span>
+                    <strong>Smooth Performance</strong>
+                    <small>Great turning experience</small>
+                </li>
+
+            </ul>
+
+        `;
+
+    }
+
+
+    else if (type === "price") {
+
+        details.innerHTML = `
+
+            <div class="details-icon">💰</div>
+
+            <h3>Best Prices</h3>
+
+            <p>
+                Get premium speed cubes at prices
+                that give you excellent value for money.
+            </p>
+
+            <ul>
+
+                <li>
+                    <span>💸</span>
+                    <strong>Affordable</strong>
+                    <small>Great prices</small>
+                </li>
+
+                <li>
+                    <span>🏆</span>
+                    <strong>Great Value</strong>
+                    <small>Quality for your money</small>
+                </li>
+
+                <li>
+                    <span>🔥</span>
+                    <strong>Special Offers</strong>
+                    <small>More value for cubers</small>
+                </li>
+
+            </ul>
+
+        `;
+
+    }
+
+
+    else if (type === "trusted") {
+
+        details.innerHTML = `
+
+            <div class="details-icon">⭐</div>
+
+            <h3>Trusted by Cubers</h3>
+
+            <p>
+                MH CUBES is trusted for quality,
+                service and a great shopping experience.
+            </p>
+
+            <ul>
+
+                <li>
+                    <span>💬</span>
+                    <strong>Customer Support</strong>
+                    <small>We're here to help</small>
+                </li>
+
+                <li>
+                    <span>💎</span>
+                    <strong>Quality Products</strong>
+                    <small>Selected with care</small>
+                </li>
+
+                <li>
+                    <span>😊</span>
+                    <strong>Happy Customers</strong>
+                    <small>Built for cubers</small>
+                </li>
+
+            </ul>
+
+        `;
+
+    }
+
+}
     // RESTART ANIMATION
 
     details.style.animation =
