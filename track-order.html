@@ -1,105 +1,224 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <title>Track Order - MH CUBES</title>
 
-<title>Track Order - MH CUBES</title>
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
 
-<link
-    rel="stylesheet"
-    href="assets/css/style.css"
->
+    <style>
 
+        .track-message {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            background: #f5f5f5;
+            text-align: center;
+        }
+
+        .track-message h3 {
+            margin-top: 0;
+            color: #2563eb;
+        }
+
+        .track-message.error h3 {
+            color: #dc2626;
+        }
+
+        .track-message p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .track-login-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 12px 20px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .track-products {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .track-product {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 12px;
+        }
+
+        .track-product-image {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            background: white;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .track-product-info {
+            min-width: 0;
+        }
+
+        .track-product-info h4 {
+            margin: 0 0 7px;
+            color: #2563eb;
+        }
+
+        .track-product-info p {
+            margin: 3px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .track-subtotal {
+            font-weight: 700;
+        }
+
+        .track-muted {
+            color: #777;
+            text-align: center;
+        }
+
+        .track-status {
+            margin-top: 12px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #2563eb;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .track-cancelled {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+
+            .track-product {
+                gap: 10px;
+                padding: 9px;
+            }
+
+            .track-product-image {
+                width: 48px;
+                height: 48px;
+            }
+
+            .track-product-info h4 {
+                font-size: 14px;
+            }
+
+            .track-product-info p {
+                font-size: 12px;
+            }
+
+            .track-status {
+                font-size: 15px;
+            }
+
+        }
+
+    </style>
 
 </head>
+
 
 <body>
 
 
-   
-<!-- =========================================
-     CLEAN HEADER
-========================================= -->
-
 <header>
 
+    <div class="logo">
+        MH CUBES
+    </div>
 
+    <nav>
 
+        <a href="index.html">
+            🏠 Home
+        </a>
 
-<nav>
+        <a href="cart.html">
+            🛒 Cart
+        </a>
 
-    <a href="index.html">
-        🏠 Home
-    </a>
-
-    <a href="cart.html">
-        🛒 Cart
-    </a>
-
-</nav>
-
+    </nav>
 
 </header>
 
-<!-- =========================================
-     TRACK ORDER PAGE
-========================================= -->
 
 <main class="checkout">
 
-
-<h1>
-    📦 Track Your Order
-</h1>
-
-
-<div class="checkout-box">
-
-    <h2>
-        Enter Your Order ID
-    </h2>
-
-    <p>
-        Enter the Order ID you received after placing your order.
-    </p>
+    <h1>
+        📦 Track Your Order
+    </h1>
 
 
-    <input
-        type="text"
-        id="track-id"
-        placeholder="Example: MH1754652345678"
-        autocomplete="off"
-    >
+    <div class="checkout-box">
+
+        <h2>
+            Enter Your Order ID
+        </h2>
+
+        <p>
+            Enter the Order ID you received after placing your order.
+        </p>
 
 
-    <button
-        class="place-order"
-        id="track-button"
-        type="button"
-    >
-        🔍 Track Order
-    </button>
+        <input
+            type="text"
+            id="track-id"
+            placeholder="Example: MH1754652345678"
+            autocomplete="off"
+        >
 
 
-    <div id="track-result"></div>
+        <button
+            class="place-order"
+            id="track-button"
+            type="button"
+        >
+            🔍 Track Order
+        </button>
 
-</div>
 
+        <div id="track-result"></div>
+
+    </div>
 
 </main>
 
-<!-- =========================================
-     FIREBASE TRACKING
-========================================= -->
 
 <script type="module">
 
@@ -117,10 +236,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
-/* =========================================
-   ELEMENTS
-========================================= */
-
 const trackInput =
     document.getElementById("track-id");
 
@@ -131,22 +246,18 @@ const result =
     document.getElementById("track-result");
 
 
-/* =========================================
-   ORDER ID FROM URL
-========================================= */
+let currentUser = null;
+
 
 const urlParams =
     new URLSearchParams(
         window.location.search
     );
 
+
 const orderIDFromURL =
     urlParams.get("orderID");
 
-
-/* =========================================
-   AUTO-FILL ORDER ID
-========================================= */
 
 if (orderIDFromURL) {
 
@@ -154,13 +265,6 @@ if (orderIDFromURL) {
         orderIDFromURL.trim();
 
 }
-
-
-/* =========================================
-   CURRENT USER
-========================================= */
-
-let currentUser = null;
 
 
 /* =========================================
@@ -172,10 +276,6 @@ async function trackOrder() {
     const id =
         trackInput.value.trim();
 
-
-    /* -----------------------------------------
-       EMPTY ORDER ID
-    ----------------------------------------- */
 
     if (!id) {
 
@@ -196,10 +296,6 @@ async function trackOrder() {
     }
 
 
-    /* -----------------------------------------
-       LOGIN CHECK
-    ----------------------------------------- */
-
     if (!currentUser) {
 
         result.innerHTML = `
@@ -218,10 +314,6 @@ async function trackOrder() {
 
     }
 
-
-    /* -----------------------------------------
-       SEARCHING
-    ----------------------------------------- */
 
     result.innerHTML = `
 
@@ -245,11 +337,7 @@ async function trackOrder() {
             );
 
 
-        /* -----------------------------------------
-           CUSTOMER'S ORDER ONLY
-        ----------------------------------------- */
-
-        const q =
+        const ordersQuery =
             query(
 
                 ordersRef,
@@ -270,201 +358,12 @@ async function trackOrder() {
 
 
         const snapshot =
-            await getDocs(q);
+            await getDocs(
+                ordersQuery
+            );
 
 
-        /* =========================================
-           ORDER FOUND
-        ========================================= */
-
-        if (!snapshot.empty) {
-
-            const docSnap =
-                snapshot.docs[0];
-
-            const found =
-                docSnap.data();
-
-
-            /* -----------------------------------------
-               PRODUCTS
-            ----------------------------------------- */
-
-           let productsHTML = "";
-
-if (
-    found.products &&
-    typeof found.products === "object"
-) {
-
-    productsHTML =
-        Object.keys(found.products)
-            .map(function(productName) {
-
-                const product =
-                    found.products[productName];
-
-                const price =
-                    Number(product.price) || 0;
-
-                const quantity =
-                    Number(product.quantity) || 0;
-
-                const subtotal =
-                    price * quantity;
-
-                const image =
-                    product.image || "";
-
-                return `
-
-                    <div class="track-product">
-
-                        ${
-                            image
-                            ? `
-                                <img
-                                    src="${image}"
-                                    alt="${productName}"
-                                    class="track-product-image"
-                                >
-                              `
-                            : ""
-                        }
-
-                        <div class="track-product-info">
-
-                            <h4>
-                                🧩 ${productName}
-                            </h4>
-
-                            <p>
-                                💰 Price:
-                                PKR ${price}
-                            </p>
-
-                            <p>
-                                🔢 Quantity:
-                                ${quantity}
-                            </p>
-
-                            <p class="track-subtotal">
-                                💵 Subtotal:
-                                PKR ${subtotal}
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            })
-            .join("");
-
-} else {
-
-    productsHTML = `
-
-        <p class="track-muted">
-            No product information available.
-        </p>
-
-    `;
-
-}
-
-
-            /* =========================================
-               DISPLAY ORDER
-            ========================================= */
-
-            result.innerHTML = `
-
-                <div class="admin-order-box">
-
-                    <h2>
-                        📦 Order Found
-                    </h2>
-
-
-                    <p>
-                        <strong>Order ID:</strong>
-                        ${found.orderID || id}
-                    </p>
-
-
-                    <p>
-                        <strong>Customer:</strong>
-                        ${found.customerName || "Not available"}
-                    </p>
-
-
-                    <p>
-                        <strong>Phone:</strong>
-                        ${found.phone || "Not available"}
-                    </p>
-
-
-                    <p>
-                        <strong>Payment:</strong>
-                        ${found.payment || "Not selected"}
-                    </p>
-
-
-                    <p>
-                        <strong>Status:</strong>
-                        ${found.status || "Pending 🟡"}
-                    </p>
-
-
-                    <p>
-                        <strong>Date:</strong>
-                        ${found.date || "Not available"}
-                    </p>
-
-
-                    <p>
-                        <strong>Address:</strong>
-                        ${found.address || "Not available"}
-                    </p>
-
-
-                    <h3>
-                        🧩 Products Ordered
-                    </h3>
-
-
-                    <div class="track-products">
-
-                        ${productsHTML}
-
-                    </div>
-
-
-                    <h3>
-                        🚚 Current Order Status
-                    </h3>
-
-
-                    <div class="track-status">
-
-                        ${found.status || "Pending 🟡"}
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-
-
-        /* =========================================
-           ORDER NOT FOUND
-        ========================================= */
-
-        else {
+        if (snapshot.empty) {
 
             result.innerHTML = `
 
@@ -487,10 +386,270 @@ if (
 
             `;
 
+            return;
+
         }
 
 
-    } catch (error) {
+        const docSnap =
+            snapshot.docs[0];
+
+        const order =
+            docSnap.data();
+
+
+        /* =================================
+           PRODUCTS
+        ================================= */
+
+        let productsHTML = "";
+
+
+        if (
+            order.products &&
+            typeof order.products === "object"
+        ) {
+
+            Object.keys(
+                order.products
+            ).forEach(function(productName) {
+
+                const product =
+                    order.products[productName];
+
+
+                const price =
+                    Number(product.price) || 0;
+
+
+                const quantity =
+                    Number(product.quantity) || 0;
+
+
+                const subtotal =
+                    price * quantity;
+
+
+                const image =
+                    product.image ||
+                    product.img ||
+                    "";
+
+
+                productsHTML += `
+
+                    <div class="track-product">
+
+                        ${
+                            image
+                            ?
+                            `
+                                <img
+                                    src="${image}"
+                                    alt="${productName}"
+                                    class="track-product-image"
+                                    onerror="this.style.display='none';"
+                                >
+                            `
+                            :
+                            ""
+                        }
+
+
+                        <div class="track-product-info">
+
+                            <h4>
+                                🧩 ${productName}
+                            </h4>
+
+                            <p>
+                                💰 Price:
+                                PKR ${price.toLocaleString()}
+                            </p>
+
+                            <p>
+                                🔢 Quantity:
+                                ${quantity}
+                            </p>
+
+                            <p class="track-subtotal">
+                                💵 Subtotal:
+                                PKR ${subtotal.toLocaleString()}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+
+        if (!productsHTML) {
+
+            productsHTML = `
+
+                <p class="track-muted">
+                    No product information available.
+                </p>
+
+            `;
+
+        }
+
+
+        /* =================================
+           STATUS
+        ================================= */
+
+        const status =
+            order.status ||
+            "Pending";
+
+
+        const statusLower =
+            status.toLowerCase();
+
+
+        /* =================================
+           CANCELLED MESSAGE
+        ================================= */
+
+        let cancelledMessage = "";
+
+
+        if (
+            statusLower === "cancelled" ||
+            statusLower === "canceled"
+        ) {
+
+            cancelledMessage = `
+
+                <div class="track-cancelled">
+
+                    ❌ This order has been cancelled.
+
+                    <br><br>
+
+                    This order was cancelled by the customer.
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =================================
+           TOTAL
+        ================================= */
+
+        const total =
+            Number(order.total) || 0;
+
+
+        /* =================================
+           DISPLAY ORDER
+        ================================= */
+
+        result.innerHTML = `
+
+            <div class="admin-order-box">
+
+                <h2>
+                    📦 Order Found
+                </h2>
+
+
+                <p>
+                    <strong>Order ID:</strong>
+                    ${order.orderID || id}
+                </p>
+
+
+                <p>
+                    <strong>Customer:</strong>
+                    ${order.customerName || "Not available"}
+                </p>
+
+
+                <p>
+                    <strong>Phone:</strong>
+                    ${order.phone || "Not available"}
+                </p>
+
+
+                <p>
+                    <strong>Payment:</strong>
+                    ${order.payment || "Not selected"}
+                </p>
+
+
+                <p>
+                    <strong>Status:</strong>
+                    ${status}
+                </p>
+
+
+                <p>
+                    <strong>Date:</strong>
+                    ${order.date || "Not available"}
+                </p>
+
+
+                <p>
+                    <strong>Address:</strong>
+                    ${order.address || "Not available"}
+                </p>
+
+
+                <h3>
+                    🧩 Products Ordered
+                </h3>
+
+
+                <div class="track-products">
+
+                    ${productsHTML}
+
+                </div>
+
+
+                <h3>
+                    🚚 Current Order Status
+                </h3>
+
+
+                <div
+                    class="track-status"
+                    ${
+                        statusLower === "cancelled" ||
+                        statusLower === "canceled"
+                        ?
+                        'style="background:#dc2626;"'
+                        :
+                        ""
+                    }
+                >
+
+                    ${status}
+
+                </div>
+
+
+                ${cancelledMessage}
+
+            </div>
+
+        `;
+
+    }
+
+
+    catch (error) {
 
         console.error(
             "Tracking error:",
@@ -507,6 +666,11 @@ if (
                 </h3>
 
                 <p>
+                    Something went wrong while
+                    checking your order.
+                </p>
+
+                <p>
                     Please try again.
                 </p>
 
@@ -520,11 +684,13 @@ if (
 
 
 /* =========================================
-   FIREBASE LOGIN STATE
+   AUTH STATE
 ========================================= */
 
 onAuthStateChanged(
+
     auth,
+
     function(user) {
 
         if (!user) {
@@ -563,18 +729,10 @@ onAuthStateChanged(
         }
 
 
-        /* -----------------------------------------
-           USER LOGGED IN
-        ----------------------------------------- */
-
         currentUser = user;
 
         trackButton.disabled = false;
 
-
-        /* -----------------------------------------
-           AUTO TRACK URL ORDER
-        ----------------------------------------- */
 
         if (orderIDFromURL) {
 
@@ -583,6 +741,7 @@ onAuthStateChanged(
         }
 
     }
+
 );
 
 
@@ -615,13 +774,6 @@ trackInput.addEventListener(
 
 </script>
 
-<!-- =========================================
-     PAGE LOADING SYSTEM
-========================================= -->
-
-<script
-    
-></script>
 
 </body>
 
