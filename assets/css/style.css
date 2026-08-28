@@ -5880,3 +5880,49 @@ MOBILE
 .track-product strong {
     color: #b30000 !important;
 }
+/* =========================================
+   SMOOTH NAVIGATION ANIMATION
+========================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Nav button click effect */
+
+nav a {
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease,
+        background 0.25s ease;
+}
+
+nav a:active {
+    transform: scale(0.92);
+}
+
+/* Smooth section entrance */
+
+section {
+    scroll-margin-top: 80px;
+}
+
+/* Clicked navigation highlight */
+
+.nav-click-animation {
+    animation: navSectionAppear 0.6s ease;
+}
+
+@keyframes navSectionAppear {
+
+    0% {
+        opacity: 0.4;
+        transform: translateY(18px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
