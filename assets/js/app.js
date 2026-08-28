@@ -455,7 +455,7 @@ function showCartToast(message) {
 
 
     toast.innerHTML = `
-        <span class="toast-icon">✓</span>
+         span class="toast-icon">✓</span>
         <span>${message}</span>
     `;
 
