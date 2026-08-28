@@ -15,9 +15,18 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
-const orderBox = document.getElementById("order-box");
-const accountActions = document.getElementById("account-actions");
-const logoutButton = document.getElementById("logout-button");
+// =========================================
+// ELEMENTS
+// =========================================
+
+const orderBox =
+    document.getElementById("order-box");
+
+const accountActions =
+    document.getElementById("account-actions");
+
+const logoutButton =
+    document.getElementById("logout-button");
 
 
 // =========================================
@@ -26,43 +35,91 @@ const logoutButton = document.getElementById("logout-button");
 
 async function loadCustomerOrders(user) {
 
-    if (!orderBox) return;
-
-    orderBox.innerHTML = `
-        <div class="order-loading">
-            <div class="loader"></div>
-            <h3>🔄 Loading your orders...</h3>
-        </div>
-    `;
-
-    try {
-
-        const ordersQuery = query(
-            collection(db, "orders"),
-            where("customerUID", "==", user.uid)
-        );
-
-        const snapshot = await getDocs(ordersQuery);
-
-       const orders = [];
-
-snapshot.forEach(function(docSnap) {
-
-    const orderData = docSnap.data();
-
-    // Hide cancelled orders from customer's My Orders
-    if (
-        String(orderData.status || "").toLowerCase() === "cancelled"
-    ) {
+    if (!orderBox) {
         return;
     }
 
-    orders.push({
-        id: docSnap.id,
-        ...orderData
-    });
 
-});
+    orderBox.innerHTML = `
+
+        <div class="order-loading">
+
+            <div class="loader"></div>
+
+            <h3>
+                🔄 Loading your orders...
+            </h3>
+
+        </div>
+
+    `;
+
+
+    try {
+
+        const ordersQuery =
+            query(
+
+                collection(
+                    db,
+                    "orders"
+                ),
+
+                where(
+                    "customerUID",
+                    "==",
+                    user.uid
+                )
+
+            );
+
+
+        const snapshot =
+            await getDocs(
+                ordersQuery
+            );
+
+
+        const orders = [];
+
+
+        snapshot.forEach(function(docSnap) {
+
+            const orderData =
+                docSnap.data();
+
+
+            // =================================
+            // HIDE CUSTOMER-CANCELLED ORDERS
+            // =================================
+
+            const status =
+                String(
+                    orderData.status || ""
+                )
+                .toLowerCase();
+
+
+            if (
+                status === "cancelled" ||
+                status === "cancelled by customer"
+            ) {
+
+                return;
+
+            }
+
+
+            orders.push({
+
+                id:
+                    docSnap.id,
+
+                ...orderData
+
+            });
+
+        });
 
 
         // =====================================
@@ -71,8 +128,13 @@ snapshot.forEach(function(docSnap) {
 
         orders.sort(function(a, b) {
 
-            return Number(b.createdAt || 0) -
-                   Number(a.createdAt || 0);
+            return Number(
+                b.createdAt || 0
+            )
+            -
+            Number(
+                a.createdAt || 0
+            );
 
         });
 
@@ -84,6 +146,7 @@ snapshot.forEach(function(docSnap) {
         if (orders.length === 0) {
 
             orderBox.innerHTML = `
+
                 <div class="orders-message">
 
                     <div class="message-icon">
@@ -100,9 +163,11 @@ snapshot.forEach(function(docSnap) {
                     </p>
 
                 </div>
+
             `;
 
             return;
+
         }
 
 
@@ -115,9 +180,12 @@ snapshot.forEach(function(docSnap) {
 
         orders.forEach(function(order) {
 
-            const card = document.createElement("div");
+            const card =
+                document.createElement("div");
 
-            card.className = "customer-order-card";
+
+            card.className =
+                "customer-order-card";
 
 
             // =================================
@@ -129,17 +197,33 @@ snapshot.forEach(function(docSnap) {
             let calculatedTotal = 0;
 
 
-            Object.keys(order.products || {}).forEach(function(productName) {
+            Object.keys(
+                order.products || {}
+            )
+            .forEach(function(productName) {
 
-                const item = order.products[productName];
+                const item =
+                    order.products[productName];
 
-                const price = Number(item.price) || 0;
 
-                const quantity = Number(item.quantity) || 0;
+                const price =
+                    Number(
+                        item.price
+                    ) || 0;
 
-                const subtotal = price * quantity;
 
-                calculatedTotal += subtotal;
+                const quantity =
+                    Number(
+                        item.quantity
+                    ) || 0;
+
+
+                const subtotal =
+                    price * quantity;
+
+
+                calculatedTotal +=
+                    subtotal;
 
 
                 const productImage =
@@ -150,27 +234,36 @@ snapshot.forEach(function(docSnap) {
 
                 productsHTML += `
 
-                    <div class="my-order-product-item">
+                    <div
+                        class="my-order-product-item"
+                    >
 
-                        <div class="my-order-product-image">
+                        <div
+                            class="my-order-product-image"
+                        >
 
                             <img
                                 src="${productImage}"
                                 alt="${productName}"
-                                onerror="this.style.display='none';"
+                                onerror="
+                                    this.style.display='none';
+                                "
                             >
 
                         </div>
 
 
-                        <div class="my-order-product-info">
+                        <div
+                            class="my-order-product-info"
+                        >
 
                             <strong>
                                 🧩 ${productName}
                             </strong>
 
                             <span>
-                                PKR ${price.toLocaleString()}
+                                PKR
+                                ${price.toLocaleString()}
                                 × ${quantity}
                             </span>
 
@@ -187,7 +280,9 @@ snapshot.forEach(function(docSnap) {
             // STATUS
             // =================================
 
-            const status = order.status || "Pending";
+            const status =
+                order.status ||
+                "Pending";
 
 
             // =================================
@@ -195,7 +290,10 @@ snapshot.forEach(function(docSnap) {
             // =================================
 
             const total =
-                Number(order.total) ||
+                Number(
+                    order.total
+                )
+                ||
                 calculatedTotal;
 
 
@@ -204,7 +302,8 @@ snapshot.forEach(function(docSnap) {
             // =================================
 
             const orderID =
-                order.orderID || "Order";
+                order.orderID ||
+                "Order";
 
 
             // =================================
@@ -213,7 +312,9 @@ snapshot.forEach(function(docSnap) {
 
             const trackURL =
                 "track-order.html?orderID=" +
-                encodeURIComponent(orderID);
+                encodeURIComponent(
+                    orderID
+                );
 
 
             // =================================
@@ -224,14 +325,21 @@ snapshot.forEach(function(docSnap) {
 
 
             if (
-                status.toLowerCase() === "pending"
+                String(status)
+                    .toLowerCase()
+                    === "pending"
             ) {
 
                 cancelButtonHTML = `
 
                     <button
                         class="cancel-order-btn"
-                        onclick="cancelOrder('${order.id}', '${orderID}')"
+                        onclick="
+                            cancelOrder(
+                                '${order.id}',
+                                '${orderID}'
+                            )
+                        "
                     >
                         ❌ Cancel Order
                     </button>
@@ -247,49 +355,95 @@ snapshot.forEach(function(docSnap) {
 
             card.innerHTML = `
 
-                <div class="order-card-header">
+                <div
+                    class="order-card-header"
+                >
 
                     <h2>
                         📦 ${orderID}
                     </h2>
 
-                    <span class="order-status">
+
+                    <span
+                        class="order-status"
+                    >
                         ${status}
                     </span>
 
                 </div>
 
 
-                <div class="order-details">
+                <div
+                    class="order-details"
+                >
 
                     <p>
-                        <strong>👤 Name</strong>
+
+                        <strong>
+                            👤 Name
+                        </strong>
+
                         <br>
-                        ${order.customerName || "Not available"}
+
+                        ${order.customerName ||
+                        "Not available"}
+
                     </p>
 
-                    <p>
-                        <strong>📱 Phone</strong>
-                        <br>
-                        ${order.phone || "Not available"}
-                    </p>
 
                     <p>
-                        <strong>📍 Address</strong>
+
+                        <strong>
+                            📱 Phone
+                        </strong>
+
                         <br>
-                        ${order.address || "Not available"}
+
+                        ${order.phone ||
+                        "Not available"}
+
                     </p>
 
-                    <p>
-                        <strong>💳 Payment</strong>
-                        <br>
-                        ${order.payment || "Not selected"}
-                    </p>
 
                     <p>
-                        <strong>📅 Date</strong>
+
+                        <strong>
+                            📍 Address
+                        </strong>
+
                         <br>
-                        ${order.date || "Not available"}
+
+                        ${order.address ||
+                        "Not available"}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            💳 Payment
+                        </strong>
+
+                        <br>
+
+                        ${order.payment ||
+                        "Not selected"}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            📅 Date
+                        </strong>
+
+                        <br>
+
+                        ${order.date ||
+                        "Not available"}
+
                     </p>
 
                 </div>
@@ -300,21 +454,29 @@ snapshot.forEach(function(docSnap) {
                 </h3>
 
 
-                <div class="my-order-products">
+                <div
+                    class="my-order-products"
+                >
 
                     ${productsHTML}
 
                 </div>
 
 
-                <div class="order-total">
+                <div
+                    class="order-total"
+                >
 
                     <strong>
                         💰 Total
                     </strong>
 
+
                     <strong>
-                        PKR ${total.toLocaleString()}
+
+                        PKR
+                        ${total.toLocaleString()}
+
                     </strong>
 
                 </div>
@@ -324,9 +486,16 @@ snapshot.forEach(function(docSnap) {
                     order.notification
                     ?
                     `
-                        <div class="order-notification">
-                            🔔 ${order.notification}
+
+                        <div
+                            class="order-notification"
+                        >
+
+                            🔔
+                            ${order.notification}
+
                         </div>
+
                     `
                     :
                     ""
@@ -337,7 +506,9 @@ snapshot.forEach(function(docSnap) {
                     href="${trackURL}"
                     class="track-order-btn"
                 >
+
                     🔍 Track This Order
+
                 </a>
 
 
@@ -346,7 +517,9 @@ snapshot.forEach(function(docSnap) {
             `;
 
 
-            orderBox.appendChild(card);
+            orderBox.appendChild(
+                card
+            );
 
         });
 
@@ -361,20 +534,27 @@ snapshot.forEach(function(docSnap) {
 
         orderBox.innerHTML = `
 
-            <div class="orders-message">
+            <div
+                class="orders-message"
+            >
 
-                <div class="message-icon">
+                <div
+                    class="message-icon"
+                >
                     ❌
                 </div>
+
 
                 <h2>
                     Failed to Load Orders
                 </h2>
 
+
                 <p>
                     Something went wrong while
                     loading your orders.
                 </p>
+
 
                 <p>
                     Please refresh the page and try again.
@@ -390,63 +570,101 @@ snapshot.forEach(function(docSnap) {
 
 
 // =========================================
-// CANCEL ORDER
+// CUSTOMER CANCEL ORDER
 // =========================================
 
-async function cancelOrder(orderDocID, orderID) {
+async function cancelOrder(
+    orderDocID,
+    orderID
+) {
 
-    const confirmed = confirm(
-        "Are you sure you want to cancel order " +
-        orderID +
-        "?"
-    );
+    const confirmed =
+        confirm(
+            "Are you sure you want to cancel order " +
+            orderID +
+            "?"
+        );
+
 
     if (!confirmed) {
         return;
     }
 
+
     try {
 
-        const user = auth.currentUser;
+        const user =
+            auth.currentUser;
+
 
         if (!user) {
-            alert("❌ Please sign in again.");
+
+            alert(
+                "❌ Please sign in again."
+            );
+
             return;
+
         }
 
-        const orderRef = doc(
-            db,
-            "orders",
-            orderDocID
-        );
 
-        // Get the customer's orders
-        const ordersQuery = query(
-            collection(db, "orders"),
-            where("customerUID", "==", user.uid)
-        );
+        const ordersQuery =
+            query(
 
-        const snapshot = await getDocs(ordersQuery);
+                collection(
+                    db,
+                    "orders"
+                ),
 
-        let orderFound = false;
+                where(
+                    "customerUID",
+                    "==",
+                    user.uid
+                )
 
-        snapshot.forEach(function(docSnap) {
+            );
 
-            if (docSnap.id === orderDocID) {
 
-                const orderData = docSnap.data();
+        const snapshot =
+            await getDocs(
+                ordersQuery
+            );
 
-                // Only allow cancelling pending orders
+
+        let orderFound =
+            false;
+
+
+        snapshot.forEach(
+            function(docSnap) {
+
                 if (
-                    String(orderData.status || "")
-                        .toLowerCase() === "pending"
+                    docSnap.id ===
+                    orderDocID
                 ) {
-                    orderFound = true;
+
+                    const orderData =
+                        docSnap.data();
+
+
+                    if (
+                        String(
+                            orderData.status || ""
+                        )
+                        .toLowerCase()
+                        === "pending"
+                    ) {
+
+                        orderFound =
+                            true;
+
+                    }
+
                 }
 
             }
+        );
 
-        });
 
         if (!orderFound) {
 
@@ -455,17 +673,38 @@ async function cancelOrder(orderDocID, orderID) {
             );
 
             return;
+
         }
 
-        // Cancel order
+
+        // =================================
+        // MARK AS CUSTOMER CANCELLED
+        // =================================
+
+        const orderRef =
+            doc(
+                db,
+                "orders",
+                orderDocID
+            );
+
+
         await updateDoc(
+
             orderRef,
+
             {
-                status: "Cancelled",
+
+                status:
+                    "Cancelled by Customer",
+
                 notification:
                     "❌ This order was cancelled by the customer."
+
             }
+
         );
+
 
         alert(
             "✅ Order " +
@@ -473,8 +712,15 @@ async function cancelOrder(orderDocID, orderID) {
             " has been cancelled."
         );
 
-        // Reload My Orders
-        loadCustomerOrders(user);
+
+        // =================================
+        // REFRESH MY ORDERS
+        // =================================
+
+        loadCustomerOrders(
+            user
+        );
+
 
     } catch (error) {
 
@@ -482,6 +728,7 @@ async function cancelOrder(orderDocID, orderID) {
             "Cancel order error:",
             error
         );
+
 
         alert(
             "❌ Could not cancel the order.\n\n" +
@@ -492,12 +739,15 @@ async function cancelOrder(orderDocID, orderID) {
 
 }
 
+
 // =========================================
 // AUTHENTICATION
 // =========================================
 
 onAuthStateChanged(
+
     auth,
+
     function(user) {
 
         if (!user) {
@@ -506,6 +756,7 @@ onAuthStateChanged(
                 "customer-login.html";
 
             return;
+
         }
 
 
@@ -517,9 +768,12 @@ onAuthStateChanged(
         }
 
 
-        loadCustomerOrders(user);
+        loadCustomerOrders(
+            user
+        );
 
     }
+
 );
 
 
@@ -530,18 +784,24 @@ onAuthStateChanged(
 if (logoutButton) {
 
     logoutButton.addEventListener(
+
         "click",
+
         async function() {
 
             try {
 
-                logoutButton.disabled = true;
+                logoutButton.disabled =
+                    true;
+
 
                 logoutButton.innerText =
                     "⏳ Logging out...";
 
 
-                await signOut(auth);
+                await signOut(
+                    auth
+                );
 
 
                 window.location.href =
@@ -559,6 +819,7 @@ if (logoutButton) {
                 logoutButton.disabled =
                     false;
 
+
                 logoutButton.innerText =
                     "🚪 Logout";
 
@@ -570,6 +831,7 @@ if (logoutButton) {
             }
 
         }
+
     );
 
 }
@@ -579,4 +841,5 @@ if (logoutButton) {
 // MAKE FUNCTION AVAILABLE TO HTML
 // =========================================
 
-window.cancelOrder = cancelOrder;
+window.cancelOrder =
+    cancelOrder;
