@@ -20,30 +20,151 @@
 
     <style>
 
-        /* =========================================
-           PAYMENT OPTIONS
-        ========================================= */
+       
+<!-- ================================
+     BEAUTIFUL PAYMENT METHOD
+================================ -->
 
-        .payment-disabled {
-            opacity: 0.55;
-            cursor: not-allowed !important;
-        }
+<div class="payment-section">
 
-        .payment-disabled input {
-            cursor: not-allowed;
-        }
+    <div class="payment-heading">
 
-        .payment-disabled span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        <div class="payment-icon">
+            💳
+        </div>
 
-        .coming-soon {
-            color: #ff2020;
-            font-size: 12px;
-            font-weight: bold;
-        }
+        <div>
+            <h2>Choose Payment Method</h2>
+            <p>Select how you'd like to pay for your order</p>
+        </div>
+
+    </div>
+
+
+    <div class="payment-options">
+
+        <!-- EASYPAISA -->
+
+        <label class="payment-card payment-disabled">
+
+            <input
+                type="radio"
+                name="payment"
+                value="EasyPaisa"
+                disabled
+            >
+
+            <div class="payment-card-content">
+
+                <div class="payment-method-icon easypaisa-icon">
+                    💚
+                </div>
+
+                <div class="payment-method-info">
+
+                    <strong>EasyPaisa</strong>
+
+                    <span>
+                        Coming Soon
+                    </span>
+
+                </div>
+
+                <div class="payment-arrow">
+                    🔒
+                </div>
+
+            </div>
+
+        </label>
+
+
+        <!-- JAZZCASH -->
+
+        <label class="payment-card payment-disabled">
+
+            <input
+                type="radio"
+                name="payment"
+                value="JazzCash"
+                disabled
+            >
+
+            <div class="payment-card-content">
+
+                <div class="payment-method-icon jazzcash-icon">
+                    ❤️
+                </div>
+
+                <div class="payment-method-info">
+
+                    <strong>JazzCash</strong>
+
+                    <span>
+                        Coming Soon
+                    </span>
+
+                </div>
+
+                <div class="payment-arrow">
+                    🔒
+                </div>
+
+            </div>
+
+        </label>
+
+
+        <!-- CASH ON DELIVERY -->
+
+        <label class="payment-card payment-active">
+
+            <input
+                type="radio"
+                name="payment"
+                value="Cash On Delivery"
+            >
+
+            <div class="payment-card-content">
+
+                <div class="payment-method-icon cod-icon">
+                    💵
+                </div>
+
+                <div class="payment-method-info">
+
+                    <strong>Cash On Delivery</strong>
+
+                    <span>
+                        Pay when your order arrives
+                    </span>
+
+                </div>
+
+                <div class="payment-check">
+                    ✓
+                </div>
+
+            </div>
+
+        </label>
+
+    </div>
+
+
+    <div class="payment-secure-note">
+
+        <span>🔒</span>
+
+        <p>
+            Your payment information is safe and secure.
+        </p>
+
+    </div>
+
+</div>
+
+
 
 
         /* =========================================
