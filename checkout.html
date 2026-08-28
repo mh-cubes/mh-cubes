@@ -1,430 +1,509 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Checkout - MH CUBES</title>
+    <title>Checkout - MH CUBES</title>
 
-<link rel="stylesheet" href="assets/css/style.css">
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
 
-<style>
+    <style>
 
-    .payment-disabled {
-        opacity: 0.55;
-        cursor: not-allowed !important;
-    }
+        /* =========================================
+           PAYMENT OPTIONS
+        ========================================= */
 
-    .payment-disabled input {
-        cursor: not-allowed;
-    }
+        .payment-disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
 
-    .payment-disabled span {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
+        .payment-disabled input {
+            cursor: not-allowed;
+        }
 
-    .coming-soon {
-        color: #ff2020;
-        font-size: 12px;
-        font-weight: bold;
-    }
+        .payment-disabled span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-</style>
+        .coming-soon {
+            color: #ff2020;
+            font-size: 12px;
+            font-weight: bold;
+        }
 
+
+        /* =========================================
+           CUSTOMER DETAILS
+        ========================================= */
+
+        .customer-details-section {
+            background: #111111;
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .customer-details-heading {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .customer-details-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: #ff2020;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .customer-details-heading h2 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .customer-details-heading p {
+            color: #aaaaaa;
+            margin: 4px 0 0;
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           CHECKOUT FIELDS
+        ========================================= */
+
+        .checkout-field {
+            margin-bottom: 20px;
+        }
+
+        .checkout-field label {
+            display: block;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .checkout-field input,
+        .checkout-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            background: #1b1b1b;
+            color: #ffffff;
+            border: 1px solid #333333;
+            border-radius: 12px;
+            padding: 14px 15px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.25s ease;
+        }
+
+        .checkout-field input {
+            height: 50px;
+        }
+
+        .checkout-field textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .checkout-field input:focus,
+        .checkout-field textarea:focus {
+            border-color: #ff2020;
+            box-shadow: 0 0 0 3px rgba(255, 32, 32, 0.12);
+        }
+
+        .checkout-field input::placeholder,
+        .checkout-field textarea::placeholder {
+            color: #777777;
+        }
+
+        #phone-message {
+            display: block;
+            margin-top: 7px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           DELIVERY NOTE
+        ========================================= */
+
+        .delivery-note {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 32, 32, 0.08);
+            border: 1px solid rgba(255, 32, 32, 0.25);
+            border-radius: 12px;
+            padding: 13px 15px;
+        }
+
+        .delivery-note span {
+            font-size: 22px;
+        }
+
+        .delivery-note p {
+            color: #cccccc;
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .customer-details-section {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .customer-details-heading h2 {
+                font-size: 20px;
+            }
+
+            .customer-details-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 21px;
+            }
+
+            .delivery-note {
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body>
-<!-- ============================= -->
-<!-- BEAUTIFUL PAGE LOADING SCREEN -->
-<!-- ============================= -->
 
-<div id="page-loading">
+    <!-- =========================================
+         PAGE LOADING SCREEN
+    ========================================= -->
 
-    <div class="loading-content">
+    <div id="page-loading">
 
-        <div class="loading-logo">
-            🧩
-        </div>
+        <div class="loading-content">
 
-        <div class="page-loader"></div>
+            <div class="loading-logo">
+                🧩
+            </div>
 
-        <h2>
-            MH CUBES
-        </h2>
+            <div class="page-loader"></div>
 
-        <p>
-            Loading...
-        </p>
-
-    </div>
-
-</div>
-<!-- ================= HEADER ================= -->
-
-<header>
-
-
-<div class="logo">
-    MH CUBES
-</div>
-
-<nav>
-
-    <a href="index.html">
-        🏠 Home
-    </a>
-
-    <a href="cart.html">
-        🛒 Cart
-    </a>
-
-</nav>
-
-
-</header>
-
-<!-- ================= CHECKOUT ================= -->
-
-<div class="checkout">
-
-
-<h1>
-    Checkout 🛒
-</h1>
-
-
-<div class="checkout-box">
-
-    <!-- CUSTOMER DETAILS -->
-
-   <!-- =========================================
-     BEAUTIFUL CUSTOMER DETAILS
-========================================= -->
-
-<div class="customer-details-section">
-
-    <div class="customer-details-heading">
-
-        <div class="customer-details-icon">
-            👤
-        </div>
-
-        <div>
             <h2>
-                Customer Details
+                MH CUBES
             </h2>
 
             <p>
-                Enter your details for delivery
+                Loading...
             </p>
+
         </div>
 
     </div>
 
 
-    <!-- NAME -->
+    <!-- =========================================
+         HEADER
+    ========================================= -->
 
-    <div class="checkout-field">
+    <header>
 
-        <label for="customer-name">
-            👤 Full Name
-        </label>
+        <div class="logo">
+            MH CUBES
+        </div>
 
-        <input
-            id="customer-name"
-            type="text"
-            placeholder="Enter your full name"
-            autocomplete="name"
-        >
+        <nav>
 
-    </div>
+            <a href="index.html">
+                🏠 Home
+            </a>
 
+            <a href="cart.html">
+                🛒 Cart
+            </a>
 
-    <!-- PHONE -->
+        </nav>
 
-    <div class="checkout-field">
-
-        <label for="customer-phone">
-            📱 Phone Number
-        </label>
-
-        <input
-            id="customer-phone"
-            type="tel"
-            placeholder="03XXXXXXXXX"
-            maxlength="11"
-            autocomplete="tel"
-        >
-
-        <small id="phone-message"></small>
-
-    </div>
+    </header>
 
 
-    <!-- ADDRESS -->
+    <!-- =========================================
+         CHECKOUT
+    ========================================= -->
 
-    <div class="checkout-field">
+    <div class="checkout">
 
-        <label for="customer-address">
-            📍 Delivery Address
-        </label>
-
-        <textarea
-            id="customer-address"
-            placeholder="Enter your complete delivery address"
-            autocomplete="street-address"
-        ></textarea>
-
-    </div>
+        <h1>
+            Checkout 🛒
+        </h1>
 
 
-    <div class="delivery-note">
-
-        <span>
-            🚚
-        </span>
-
-        <p>
-            Please provide an accurate address so we can
-            deliver your order safely.
-        </p>
-
-    </div>
-
-</div>
+        <div class="checkout-box">
 
 
-    <!-- PAYMENT -->
+            <!-- =================================
+                 CUSTOMER DETAILS
+            ================================= -->
 
-    <h2>
-        Choose Payment Method
-    </h2>
+            <div class="customer-details-section">
+
+                <div class="customer-details-heading">
+
+                    <div class="customer-details-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Customer Details
+                        </h2>
+
+                        <p>
+                            Enter your details for delivery
+                        </p>
+
+                    </div>
+
+                </div>
 
 
-    <div class="payment-options">
+                <!-- NAME -->
+
+                <div class="checkout-field">
+
+                    <label for="customer-name">
+                        👤 Full Name
+                    </label>
+
+                    <input
+                        id="customer-name"
+                        type="text"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                    >
+
+                </div>
 
 
-        <!-- EASYPAISA -->
+                <!-- PHONE -->
 
-        <label class="payment-card payment-disabled">
+                <div class="checkout-field">
 
-            <input
-                type="radio"
-                name="payment"
-                value="EasyPaisa"
-                disabled
+                    <label for="customer-phone">
+                        📱 Phone Number
+                    </label>
+
+                    <input
+                        id="customer-phone"
+                        type="tel"
+                        placeholder="03XXXXXXXXX"
+                        maxlength="11"
+                        autocomplete="tel"
+                    >
+
+                    <small id="phone-message"></small>
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="checkout-field">
+
+                    <label for="customer-address">
+                        📍 Delivery Address
+                    </label>
+
+                    <textarea
+                        id="customer-address"
+                        placeholder="Enter your complete delivery address"
+                        autocomplete="street-address"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- DELIVERY NOTE -->
+
+                <div class="delivery-note">
+
+                    <span>
+                        🚚
+                    </span>
+
+                    <p>
+                        Please provide an accurate address
+                        so we can deliver your order safely.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 PAYMENT METHOD
+            ================================= -->
+
+            <h2>
+                Choose Payment Method
+            </h2>
+
+
+            <div class="payment-options">
+
+
+                <!-- EASYPAISA -->
+
+                <label class="payment-card payment-disabled">
+
+                    <input
+                        type="radio"
+                        name="payment"
+                        value="EasyPaisa"
+                        disabled
+                    >
+
+                    <span>
+
+                        💚 EasyPaisa
+
+                        <small class="coming-soon">
+                            Coming Soon
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <!-- JAZZCASH -->
+
+                <label class="payment-card payment-disabled">
+
+                    <input
+                        type="radio"
+                        name="payment"
+                        value="JazzCash"
+                        disabled
+                    >
+
+                    <span>
+
+                        ❤️ JazzCash
+
+                        <small class="coming-soon">
+                            Coming Soon
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <!-- CASH ON DELIVERY -->
+
+                <label class="payment-card">
+
+                    <input
+                        type="radio"
+                        name="payment"
+                        value="Cash On Delivery"
+                    >
+
+                    <span>
+                        💵 Cash On Delivery
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <!-- =================================
+                 YOUR ORDER
+            ================================= -->
+
+            <h2>
+                Your Order
+            </h2>
+
+
+            <div id="checkout-items">
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <h2 id="checkout-total">
+                Total: PKR 0
+            </h2>
+
+
+            <!-- PLACE ORDER -->
+
+            <button
+                class="place-order"
+                onclick="placeOrder()"
             >
-
-            <span>
-
-                💚 EasyPaisa
-
-                <small class="coming-soon">
-                    Coming Soon
-                </small>
-
-            </span>
-
-        </label>
+                Place Order
+            </button>
 
 
-        <!-- JAZZCASH -->
-
-        <label class="payment-card payment-disabled">
-
-            <input
-                type="radio"
-                name="payment"
-                value="JazzCash"
-                disabled
-            >
-
-            <span>
-
-                ❤️ JazzCash
-
-                <small class="coming-soon">
-                    Coming Soon
-                </small>
-
-            </span>
-
-        </label>
-
-
-        <!-- CASH ON DELIVERY -->
-
-        <label class="payment-card">
-
-            <input
-                type="radio"
-                name="payment"
-                value="Cash On Delivery"
-            >
-
-            <span>
-                💵 Cash On Delivery
-            </span>
-
-        </label>
-
+        </div>
 
     </div>
 
 
-    <!-- YOUR ORDER -->
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================= -->
 
-    <h2>
-        Your Order
-    </h2>
+    <script
+        type="module"
+        src="assets/js/checkout.js"
+    ></script>
 
+    <script
+        src="assets/js/page-loading.js"
+    ></script>
 
-    <div id="checkout-items">
-    </div>
-
-
-    <h2 id="checkout-total">
-        Total: PKR 0
-    </h2>
-
-
-    <button
-        class="place-order"
-        onclick="placeOrder()"
-    >
-        Place Order
-    </button>
-
-
-</div>
-
-
-</div>
-
-<!-- ================= PAYMENT LOADING ================= -->
-
-<div
-    id="payment-loading"
-    class="payment-loading"
->
-
-
-<div class="loader"></div>
-
-
-<h2>
-    Opening Payment...
-</h2>
-
-
-<p>
-    Please wait...
-</p>
-
-
-</div>
-
-<!-- ================= PAYMENT POPUP ================= -->
-
-<div
-    id="payment-popup"
-    class="payment-popup"
->
-
-
-<div class="payment-box">
-
-
-    <button
-        class="close-payment"
-        onclick="closePaymentPopup()"
-    >
-        ✖
-    </button>
-
-
-    <h2 id="payment-title">
-        Payment Details
-    </h2>
-
-
-    <div class="payment-warning">
-
-        <h3>
-            ⚠️ IMPORTANT
-        </h3>
-
-
-        <p id="payment-message">
-            Please complete your payment and enter your Transaction ID below.
-        </p>
-
-    </div>
-
-
-    <h3 id="payment-name">
-        Account Name: MH CUBES
-    </h3>
-
-
-    <h3>
-        Account Number
-    </h3>
-
-
-    <p id="payment-number">
-        03XXXXXXXXX
-    </p>
-
-
-    <input
-        id="transaction-id"
-        type="text"
-        placeholder="Enter Transaction ID"
-    >
-
-
-    <div class="payment-buttons">
-
-
-        <button
-            class="confirm-btn"
-            onclick="confirmPayment()"
-        >
-            ✔ Confirm Payment
-        </button>
-
-
-        <button
-            class="cancel-btn"
-            onclick="closePaymentPopup()"
-        >
-            Cancel
-        </button>
-
-
-    </div>
-
-
-</div>
-
-
-</div>
-
-<!-- ================= JAVASCRIPT ================= -->
-
-<script
-    type="module"
-    src="assets/js/checkout.js"
-></script>
-<script src="assets/js/page-loading.js"></script>
 </body>
 
 </html>
+
