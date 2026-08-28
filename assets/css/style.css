@@ -7707,3 +7707,12 @@ body.dark-mode:has(.settings-page) {
 
 }
 
+/* REVIEW NAME ONLY */
+.review-user h3 {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+}
+
+
