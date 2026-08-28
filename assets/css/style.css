@@ -5862,3 +5862,12 @@ MOBILE
     }
 
 }
+/* =========================================
+   TRACK ORDER PRODUCT TEXT - RED
+========================================= */
+
+.track-product-info h4,
+.track-product-info p,
+.track-product-info .track-subtotal {
+    color: #ff2020 !important;
+}
