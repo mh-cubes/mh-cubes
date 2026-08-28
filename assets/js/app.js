@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const darkModeButton =
         document.getElementById("darkModeBtn");
 
-
     if (savedTheme === "dark") {
 
         document.body.classList.add("dark-mode");
@@ -48,7 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================
 
     let cart =
-        JSON.parse(localStorage.getItem("cart")) || {};
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || {};
 
 
     document
@@ -70,7 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         button.dataset.name;
 
                     price =
-                        Number(button.dataset.price);
+                        Number(
+                            button.dataset.price
+                        );
 
                     image =
                         button.dataset.image || "";
@@ -142,7 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (cart[name]) {
 
                     cart[name].quantity =
-                        Number(cart[name].quantity) + 1;
+                        Number(
+                            cart[name].quantity
+                        ) + 1;
 
                 } else {
 
@@ -172,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateCartCount();
 
 
-                // SHOW TOAST
+                // SUCCESS TOAST
 
                 showCartToast(
                     `${name} added to cart 🛒`
@@ -358,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
-    // CONTACT POPUP CLOSE BUTTON
+    // CONTACT POPUP
     // =========================================
 
     const contactPopup =
@@ -367,25 +372,34 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
+    const closeButton =
+        document.getElementById(
+            "close-contact-popup"
+        );
+
+
+    // CLOSE BUTTON
+
+    if (closeButton) {
+
+        closeButton.addEventListener(
+            "click",
+            (event) => {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                closeContactPopup();
+
+            }
+        );
+
+    }
+
+
+    // CLOSE WHEN CLICKING OUTSIDE
+
     if (contactPopup) {
-
-        const closeButton =
-            contactPopup.querySelector(
-                ".close-contact"
-            );
-
-
-        if (closeButton) {
-
-            closeButton.addEventListener(
-                "click",
-                closeContactPopup
-            );
-
-        }
-
-
-        // CLOSE WHEN CLICKING OUTSIDE THE BOX
 
         contactPopup.addEventListener(
             "click",
@@ -407,14 +421,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =========================================
-    // ESC KEY CLOSES CONTACT POPUP
+    // ESC KEY
     // =========================================
 
     document.addEventListener(
         "keydown",
         (event) => {
 
-            if (event.key === "Escape") {
+            if (
+                event.key === "Escape" ||
+                event.key === "Esc"
+            ) {
 
                 const popup =
                     document.getElementById(
@@ -436,6 +453,83 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     );
 
+
+    // =========================================
+    // SMOOTH NAVIGATION
+    // =========================================
+
+    document
+        .querySelectorAll('a[href^="#"]')
+        .forEach((link) => {
+
+            link.addEventListener(
+                "click",
+                function(event) {
+
+                    const targetID =
+                        this.getAttribute("href");
+
+
+                    if (
+                        !targetID ||
+                        targetID === "#"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    // DO NOT INTERFERE
+                    // WITH CONTACT POPUP
+
+                    if (
+                        this.getAttribute("onclick")
+                            ?.includes(
+                                "openContactPopup"
+                            )
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const target =
+                        document.querySelector(
+                            targetID
+                        );
+
+
+                    if (!target) return;
+
+
+                    event.preventDefault();
+
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+
+                    target.classList.remove(
+                        "nav-click-animation"
+                    );
+
+
+                    void target.offsetWidth;
+
+
+                    target.classList.add(
+                        "nav-click-animation"
+                    );
+
+                }
+            );
+
+        });
+
 });
 
 
@@ -454,7 +548,9 @@ function updateCartCount() {
     let count = 0;
 
 
-    for (const product in cart) {
+    for (
+        const product in cart
+    ) {
 
         count +=
             Number(
@@ -490,8 +586,6 @@ function showCartToast(message) {
         document.getElementById("toast");
 
 
-    // CREATE TOAST IF IT DOESN'T EXIST
-
     if (!toast) {
 
         toast =
@@ -500,12 +594,13 @@ function showCartToast(message) {
         toast.id =
             "toast";
 
+        toast.className =
+            "toast";
+
         document.body.appendChild(toast);
 
     }
 
-
-    // FIXED TOAST HTML
 
     toast.innerHTML = `
         <span class="toast-icon">✓</span>
@@ -515,8 +610,6 @@ function showCartToast(message) {
 
     toast.classList.remove("show");
 
-
-    // RESTART ANIMATION
 
     void toast.offsetWidth;
 
@@ -571,14 +664,22 @@ function showWhy(type, element) {
     if (!element) return;
 
 
+    // =========================================
+    // FIND THE CARD CONTAINER
+    // =========================================
+
     const item =
         element.closest(".why-item");
+
 
     if (!item) return;
 
 
     const details =
-        item.querySelector(".why-details");
+        item.querySelector(
+            ".why-details"
+        );
+
 
     if (!details) return;
 
@@ -593,21 +694,37 @@ function showWhy(type, element) {
 
             if (otherItem !== item) {
 
-                otherItem
-                    .classList.remove("open");
+                otherItem.classList.remove(
+                    "open"
+                );
+
 
                 const otherBox =
-                    otherItem.querySelector(".why-box");
+                    otherItem.querySelector(
+                        ".why-box"
+                    );
+
 
                 if (otherBox) {
-                    otherBox.classList.remove("active");
+
+                    otherBox.classList.remove(
+                        "active"
+                    );
+
                 }
 
+
                 const otherDetails =
-                    otherItem.querySelector(".why-details");
+                    otherItem.querySelector(
+                        ".why-details"
+                    );
+
 
                 if (otherDetails) {
-                    otherDetails.innerHTML = "";
+
+                    otherDetails.innerHTML =
+                        "";
+
                 }
 
             }
@@ -625,200 +742,41 @@ function showWhy(type, element) {
 
     if (alreadyOpen) {
 
-        item.classList.remove("open");
+        item.classList.remove(
+            "open"
+        );
 
-        element.classList.remove("active");
 
-        details.innerHTML = "";
+        element.classList.remove(
+            "active"
+        );
+
+
+        details.innerHTML =
+            "";
+
 
         return;
 
     }
 
 
-    item.classList.add("open");
+    // =========================================
+    // OPEN CARD
+    // =========================================
 
-    element.classList.add("active");
+    item.classList.add(
+        "open"
+    );
+
+
+    element.classList.add(
+        "active"
+    );
 
 
     // =========================================
-    // DETAILS
-    // =========================================
-
-    if (type === "delivery") {
-
-        details.innerHTML = `
-
-            <div class="details-icon">🚚</div>
-
-            <h3>Fast Delivery</h3>
-
-            <p>
-                We make sure your cube reaches you
-                safely and quickly across Islamabad.
-            </p>
-
-            <ul>
-
-                <li>
-                    <span>🚀</span>
-                    <strong>2–5 Days</strong>
-                    <small>Fast delivery</small>
-                </li>
-
-                <li>
-                    <span>📦</span>
-                    <strong>Safe Packaging</strong>
-                    <small>Protected during shipping</small>
-                </li>
-
-                <li>
-                    <span>💵</span>
-                    <strong>Cash on Delivery</strong>
-                    <small>Easy payment option</small>
-                </li>
-
-            </ul>
-
-        `;
-
-    }
-
-
-    else if (type === "original") {
-
-        details.innerHTML = `
-
-            <div class="details-icon">💯</div>
-
-            <h3>100% Original Cubes</h3>
-
-            <p>
-                We focus on providing quality cubes
-                that give you a smooth and enjoyable
-                cubing experience.
-            </p>
-
-            <ul>
-
-                <li>
-                    <span>✅</span>
-                    <strong>Original Products</strong>
-                    <small>Trusted products</small>
-                </li>
-
-                <li>
-                    <span>⚙️</span>
-                    <strong>High Quality</strong>
-                    <small>Built for performance</small>
-                </li>
-
-                <li>
-                    <span>🧩</span>
-                    <strong>Smooth Performance</strong>
-                    <small>Great turning experience</small>
-                </li>
-
-            </ul>
-
-        `;
-
-    }
-
-
-    else if (type === "price") {
-
-        details.innerHTML = `
-
-            <div class="details-icon">💰</div>
-
-            <h3>Best Prices</h3>
-
-            <p>
-                Get premium speed cubes at prices
-                that give you excellent value for money.
-            </p>
-
-            <ul>
-
-                <li>
-                    <span>💸</span>
-                    <strong>Affordable</strong>
-                    <small>Great prices</small>
-                </li>
-
-                <li>
-                    <span>🏆</span>
-                    <strong>Great Value</strong>
-                    <small>Quality for your money</small>
-                </li>
-
-                <li>
-                    <span>🔥</span>
-                    <strong>Special Offers</strong>
-                    <small>More value for cubers</small>
-                </li>
-
-            </ul>
-
-        `;
-
-    }
-
-
-    else if (type === "trusted") {
-
-        details.innerHTML = `
-
-            <div class="details-icon">⭐</div>
-
-            <h3>Trusted by Cubers</h3>
-
-            <p>
-                MH CUBES is trusted for quality,
-                service and a great shopping experience.
-            </p>
-
-            <ul>
-
-                <li>
-                    <span>💬</span>
-                    <strong>Customer Support</strong>
-                    <small>We're here to help</small>
-                </li>
-
-                <li>
-                    <span>💎</span>
-                    <strong>Quality Products</strong>
-                    <small>Selected with care</small>
-                </li>
-
-                <li>
-                    <span>😊</span>
-                    <strong>Happy Customers</strong>
-                    <small>Built for cubers</small>
-                </li>
-
-            </ul>
-
-        `;
-
-    }
-
-}
-    // RESTART ANIMATION
-
-    details.style.animation =
-        "none";
-
-    void details.offsetWidth;
-
-    details.style.animation =
-        "detailsAppear 0.45s ease";
-
-
-    // =========================================
-    // DELIVERY
+    // DETAILS CONTENT
     // =========================================
 
     if (type === "delivery") {
@@ -865,10 +823,6 @@ function showWhy(type, element) {
     }
 
 
-    // =========================================
-    // ORIGINAL
-    // =========================================
-
     else if (type === "original") {
 
         details.innerHTML = `
@@ -914,10 +868,6 @@ function showWhy(type, element) {
     }
 
 
-    // =========================================
-    // PRICE
-    // =========================================
-
     else if (type === "price") {
 
         details.innerHTML = `
@@ -962,10 +912,6 @@ function showWhy(type, element) {
     }
 
 
-    // =========================================
-    // TRUSTED
-    // =========================================
-
     else if (type === "trusted") {
 
         details.innerHTML = `
@@ -1009,6 +955,21 @@ function showWhy(type, element) {
 
     }
 
+
+    // =========================================
+    // RESTART DETAILS ANIMATION
+    // =========================================
+
+    details.style.animation =
+        "none";
+
+
+    void details.offsetWidth;
+
+
+    details.style.animation =
+        "detailsAppear 0.45s ease";
+
 }
 
 
@@ -1043,6 +1004,10 @@ function openContactPopup() {
 }
 
 
+// =========================================
+// CLOSE CONTACT POPUP
+// =========================================
+
 function closeContactPopup() {
 
     const popup =
@@ -1065,9 +1030,11 @@ function closeContactPopup() {
             "show"
         );
 
+
         popup.classList.remove(
             "closing"
         );
+
 
         document.body.style.overflow =
             "";
@@ -1102,7 +1069,9 @@ function toggleDarkMode() {
 
     localStorage.setItem(
         "theme",
-        isDark ? "dark" : "light"
+        isDark
+            ? "dark"
+            : "light"
     );
 
 
@@ -1170,17 +1139,22 @@ function toggleMobileMenu() {
 window.scrollToProducts =
     scrollToProducts;
 
+
 window.showWhy =
     showWhy;
+
 
 window.openContactPopup =
     openContactPopup;
 
+
 window.closeContactPopup =
     closeContactPopup;
 
+
 window.toggleDarkMode =
     toggleDarkMode;
+
 
 window.toggleMobileMenu =
     toggleMobileMenu;
@@ -1236,109 +1210,3 @@ onAuthStateChanged(
 
     }
 );
-
-
-// =========================================
-// SMOOTH NAVIGATION ANIMATION
-// =========================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        document
-            .querySelectorAll('a[href^="#"]')
-            .forEach((link) => {
-
-                link.addEventListener(
-                    "click",
-                    function(event) {
-
-                        const targetID =
-                            this.getAttribute(
-                                "href"
-                            );
-
-
-                        if (
-                            !targetID ||
-                            targetID === "#"
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        // Don't interfere with Contact popup
-
-                        if (
-                            this.getAttribute(
-                                "onclick"
-                            )?.includes(
-                                "openContactPopup"
-                            )
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        const target =
-                            document.querySelector(
-                                targetID
-                            );
-
-
-                        if (!target) return;
-
-
-                        event.preventDefault();
-
-
-                        target.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start"
-                        });
-
-
-                        target.classList.remove(
-                            "nav-click-animation"
-                        );
-
-
-                        void target.offsetWidth;
-
-
-                        target.classList.add(
-                            "nav-click-animation"
-                        );
-
-                    }
-                );
-
-            });
-
-    }
-);
-// =========================================
-// CONTACT POPUP CLOSE BUTTON
-// =========================================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const closeButton =
-        document.getElementById("close-contact-popup");
-
-    if (closeButton) {
-
-        closeButton.addEventListener("click", () => {
-
-            closeContactPopup();
-
-        });
-
-    }
-
-});
