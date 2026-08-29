@@ -35,7 +35,7 @@
                 ),
                 radial-gradient(
                     circle at bottom right,
-                    rgba(153, 27, 27, 0.10),
+                    rgba(37, 99, 235, 0.10),
                     transparent 35%
                 ),
                 #f5f5f5;
@@ -51,10 +51,10 @@
             justify-content: center;
             align-items: center;
 
-            gap: 16px;
+            gap: 14px;
             flex-wrap: wrap;
 
-            padding: 22px 20px;
+            padding: 20px;
         }
 
         .account-nav a {
@@ -62,11 +62,11 @@
             align-items: center;
             justify-content: center;
 
-            min-width: 150px;
+            min-width: 145px;
 
-            padding: 13px 24px;
+            padding: 12px 22px;
 
-            border-radius: 14px;
+            border-radius: 13px;
 
             text-decoration: none;
 
@@ -83,7 +83,7 @@
                 );
 
             box-shadow:
-                0 8px 22px rgba(0, 0, 0, 0.20);
+                0 7px 20px rgba(0,0,0,0.18);
 
             transition: 0.25s ease;
         }
@@ -91,12 +91,8 @@
         .account-nav a:hover {
             transform: translateY(-3px);
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #ef4444,
-                    #b91c1c
-                );
+            box-shadow:
+                0 12px 25px rgba(220,38,38,0.25);
         }
 
 
@@ -108,7 +104,7 @@
             width: 100%;
             max-width: 1000px;
 
-            margin: 20px auto 60px;
+            margin: 15px auto 60px;
 
             padding: 20px;
 
@@ -117,7 +113,7 @@
 
 
         /* =========================================
-           ACCOUNT HEADER
+           ACCOUNT HERO
         ========================================= */
 
         .account-header {
@@ -134,14 +130,14 @@
 
             color: white;
 
-            padding: 42px 30px;
+            padding: 45px 25px;
 
-            border-radius: 25px;
+            border-radius: 26px;
 
             text-align: center;
 
             box-shadow:
-                0 15px 40px rgba(0, 0, 0, 0.20);
+                0 18px 45px rgba(0,0,0,0.20);
         }
 
         .account-header::before {
@@ -149,13 +145,14 @@
 
             position: absolute;
 
-            width: 180px;
-            height: 180px;
+            width: 220px;
+            height: 220px;
 
-            right: -60px;
-            top: -70px;
+            right: -80px;
+            top: -100px;
 
-            background: rgba(255, 255, 255, 0.08);
+            background:
+                rgba(255,255,255,0.08);
 
             border-radius: 50%;
         }
@@ -165,25 +162,31 @@
 
             position: absolute;
 
-            width: 130px;
-            height: 130px;
+            width: 160px;
+            height: 160px;
 
-            left: -50px;
-            bottom: -60px;
+            left: -70px;
+            bottom: -80px;
 
-            background: rgba(255, 255, 255, 0.06);
+            background:
+                rgba(255,255,255,0.06);
 
             border-radius: 50%;
         }
+
+
+        /* =========================================
+           AVATAR
+        ========================================= */
 
         .account-avatar {
             position: relative;
             z-index: 1;
 
-            width: 90px;
-            height: 90px;
+            width: 95px;
+            height: 95px;
 
-            margin: 0 auto 15px;
+            margin: 0 auto 18px;
 
             border-radius: 50%;
 
@@ -193,29 +196,43 @@
             align-items: center;
             justify-content: center;
 
-            font-size: 45px;
+            font-size: 46px;
 
             box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.20);
+                0 10px 30px rgba(0,0,0,0.25);
         }
+
+
+        /* =========================================
+           ACCOUNT TITLE
+        ========================================= */
 
         .account-header h1 {
             position: relative;
             z-index: 1;
 
-            margin: 10px 0;
+            margin: 8px 0;
 
-            font-size: 32px;
+            font-size: 34px;
+
+            font-weight: 900;
         }
 
-        .account-header p {
+        .account-welcome {
             position: relative;
             z-index: 1;
 
             margin: 5px 0;
 
+            font-size: 16px;
+
             opacity: 0.9;
         }
+
+
+        /* =========================================
+           EMAIL
+        ========================================= */
 
         .account-email {
             position: relative;
@@ -225,31 +242,33 @@
 
             max-width: 90%;
 
-            margin-top: 15px;
+            margin-top: 16px;
 
             padding: 10px 18px;
 
-            background: rgba(255, 255, 255, 0.15);
+            background:
+                rgba(255,255,255,0.15);
 
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border:
+                1px solid rgba(255,255,255,0.18);
 
             border-radius: 30px;
 
-            font-size: 15px;
+            font-size: 14px;
 
             word-break: break-word;
         }
 
 
         /* =========================================
-           ACTION CARDS
+           QUICK ACTIONS
         ========================================= */
 
         .account-actions {
             display: grid;
 
             grid-template-columns:
-                repeat(3, 1fr);
+                repeat(2, 1fr);
 
             gap: 20px;
 
@@ -266,7 +285,7 @@
             text-align: center;
 
             box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.10);
+                0 8px 25px rgba(0,0,0,0.10);
 
             transition: 0.25s ease;
         }
@@ -275,7 +294,7 @@
             transform: translateY(-5px);
 
             box-shadow:
-                0 15px 35px rgba(0, 0, 0, 0.16);
+                0 15px 35px rgba(0,0,0,0.16);
         }
 
         .account-icon {
@@ -286,6 +305,8 @@
 
         .account-card h3 {
             margin: 8px 0;
+
+            font-size: 20px;
         }
 
         .account-card p {
@@ -300,25 +321,50 @@
 
 
         /* =========================================
-           ORDER COUNT
+           BUTTON
         ========================================= */
 
-        .order-count {
-            font-size: 42px;
+        .account-button {
+            display: inline-flex;
 
-            font-weight: 900;
+            align-items: center;
+            justify-content: center;
 
-            color: #2563eb;
+            width: 100%;
 
-            margin: 10px 0;
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            box-sizing: border-box;
+
+            transition: 0.2s ease;
         }
 
-        .order-count-text {
-            color: #666;
+        .account-button:hover {
+            transform: translateY(-2px);
 
-            font-size: 14px;
-
-            margin-bottom: 20px;
+            box-shadow:
+                0 8px 20px rgba(37,99,235,0.25);
         }
 
 
@@ -330,7 +376,7 @@
             display: grid;
 
             grid-template-columns:
-                repeat(2, 1fr);
+                repeat(3, 1fr);
 
             gap: 20px;
 
@@ -347,7 +393,7 @@
             text-align: center;
 
             box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.08);
+                0 8px 25px rgba(0,0,0,0.08);
 
             transition: 0.25s ease;
         }
@@ -356,13 +402,13 @@
             transform: translateY(-4px);
 
             box-shadow:
-                0 14px 30px rgba(0, 0, 0, 0.13);
+                0 14px 30px rgba(0,0,0,0.13);
         }
 
         .account-stat-icon {
             font-size: 32px;
 
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
         .account-stat-number {
@@ -383,58 +429,13 @@
 
 
         /* =========================================
-           BUTTONS
-        ========================================= */
-
-        .account-button {
-            display: inline-flex;
-
-            align-items: center;
-            justify-content: center;
-
-            width: 100%;
-
-            padding: 13px;
-
-            border: none;
-
-            border-radius: 10px;
-
-            background: #2563eb;
-
-            color: white;
-
-            font-size: 15px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            text-decoration: none;
-
-            box-sizing: border-box;
-
-            transition: 0.2s ease;
-        }
-
-        .account-button:hover {
-            background: #1d4ed8;
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 7px 18px rgba(37, 99, 235, 0.25);
-        }
-
-
-        /* =========================================
-           SHOPPING
+           CONTINUE SHOPPING
         ========================================= */
 
         .shop-button {
             display: flex;
 
-            width: min(420px, 100%);
+            width: min(450px, 100%);
 
             margin: 30px auto 0;
 
@@ -442,7 +443,8 @@
 
             color: #2563eb;
 
-            border: 2px solid #2563eb;
+            border:
+                2px solid #2563eb;
         }
 
         .shop-button:hover {
@@ -459,15 +461,68 @@
         .logout-button {
             display: flex;
 
-            width: min(420px, 100%);
+            width: min(450px, 100%);
 
             margin: 15px auto 0;
 
-            background: #dc2626;
+            background:
+                linear-gradient(
+                    135deg,
+                    #dc2626,
+                    #b91c1c
+                );
         }
 
         .logout-button:hover {
-            background: #b91c1c;
+            background:
+                linear-gradient(
+                    135deg,
+                    #ef4444,
+                    #991b1b
+                );
+        }
+
+
+        /* =========================================
+           LOADING
+        ========================================= */
+
+        .account-loading {
+            text-align: center;
+
+            padding: 30px;
+
+            color: #666;
+        }
+
+        .account-loader {
+            width: 35px;
+            height: 35px;
+
+            margin: 0 auto 12px;
+
+            border:
+                4px solid #ddd;
+
+            border-top:
+                4px solid #2563eb;
+
+            border-radius: 50%;
+
+            animation:
+                accountSpin 0.8s linear infinite;
+        }
+
+        @keyframes accountSpin {
+
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+
         }
 
 
@@ -478,43 +533,52 @@
         @media (max-width: 700px) {
 
             .account-nav {
-                gap: 10px;
+                gap: 9px;
 
-                padding: 16px 12px;
+                padding: 15px 10px;
             }
 
             .account-nav a {
-                min-width: 135px;
+                min-width: 130px;
 
-                padding: 12px 18px;
+                padding: 11px 15px;
 
-                font-size: 14px;
+                font-size: 13px;
             }
 
             .account-container {
-                margin: 15px auto 40px;
+                margin: 10px auto 40px;
 
                 padding: 12px;
             }
 
             .account-header {
-                padding: 32px 18px;
+                padding: 35px 18px;
 
                 border-radius: 20px;
+            }
+
+            .account-avatar {
+                width: 80px;
+                height: 80px;
+
+                font-size: 40px;
             }
 
             .account-header h1 {
                 font-size: 27px;
             }
 
-            .account-header p {
+            .account-welcome {
                 font-size: 14px;
             }
 
             .account-email {
                 max-width: 100%;
 
-                font-size: 13px;
+                font-size: 12px;
+
+                padding: 9px 14px;
             }
 
             .account-actions {
@@ -523,14 +587,14 @@
                 gap: 15px;
             }
 
+            .account-card {
+                padding: 25px 20px;
+            }
+
             .account-stat-grid {
                 grid-template-columns: 1fr;
 
                 gap: 15px;
-            }
-
-            .account-card {
-                padding: 25px 20px;
             }
 
             .account-stat {
@@ -573,7 +637,9 @@
     <div class="account-container">
 
 
-        <!-- ACCOUNT HEADER -->
+        <!-- =====================================
+             ACCOUNT HEADER
+        ====================================== -->
 
         <section class="account-header">
 
@@ -585,7 +651,10 @@
                 My Account
             </h1>
 
-            <p>
+            <p
+                class="account-welcome"
+                id="account-welcome"
+            >
                 Welcome back to MH CUBES!
             </p>
 
@@ -600,7 +669,7 @@
 
 
         <!-- =====================================
-             MAIN ACTIONS
+             QUICK ACTIONS
         ====================================== -->
 
         <section class="account-actions">
@@ -619,7 +688,7 @@
                 </h3>
 
                 <p>
-                    View your previous and current orders.
+                    View your current and previous MH CUBES orders.
                 </p>
 
                 <a
@@ -645,7 +714,7 @@
                 </h3>
 
                 <p>
-                    Check the current status of your order.
+                    Check the latest status of your order.
                 </p>
 
                 <a
@@ -658,40 +727,36 @@
             </div>
 
 
-            <!-- TOTAL ORDERS -->
+        </section>
 
-            <div class="account-card">
 
-                <div class="account-icon">
+        <!-- =====================================
+             ORDER STATISTICS
+        ====================================== -->
+
+        <section class="account-stat-grid">
+
+
+            <!-- TOTAL -->
+
+            <div class="account-stat">
+
+                <div class="account-stat-icon">
                     📊
                 </div>
 
-                <h3>
-                    Total Orders
-                </h3>
-
                 <div
-                    class="order-count"
+                    class="account-stat-number"
                     id="order-count"
                 >
                     ...
                 </div>
 
-                <div class="order-count-text">
-                    Orders you've placed with MH CUBES
+                <div class="account-stat-label">
+                    Total Orders
                 </div>
 
             </div>
-
-
-        </section>
-
-
-        <!-- =====================================
-             STATISTICS
-        ====================================== -->
-
-        <section class="account-stat-grid">
 
 
             <!-- ACTIVE -->
@@ -741,7 +806,9 @@
         </section>
 
 
-        <!-- CONTINUE SHOPPING -->
+        <!-- =====================================
+             CONTINUE SHOPPING
+        ====================================== -->
 
         <a
             href="index.html"
@@ -751,7 +818,9 @@
         </a>
 
 
-        <!-- LOGOUT -->
+        <!-- =====================================
+             LOGOUT
+        ====================================== -->
 
         <button
             class="account-button logout-button"
@@ -798,6 +867,9 @@ import {
 const emailBox =
     document.getElementById("account-email");
 
+const welcomeBox =
+    document.getElementById("account-welcome");
+
 const orderCount =
     document.getElementById("order-count");
 
@@ -812,7 +884,7 @@ const logoutButton =
 
 
 /* =========================================
-   LOAD ACCOUNT
+   AUTHENTICATION
 ========================================= */
 
 onAuthStateChanged(
@@ -832,11 +904,28 @@ onAuthStateChanged(
         }
 
 
-        /* EMAIL */
+        /* =====================================
+           CUSTOMER INFORMATION
+        ===================================== */
 
         emailBox.innerText =
             user.email ||
             "Customer account";
+
+
+        if (user.displayName) {
+
+            welcomeBox.innerText =
+                "Welcome back, " +
+                user.displayName +
+                "! 👋";
+
+        } else {
+
+            welcomeBox.innerText =
+                "Welcome back to MH CUBES! 👋";
+
+        }
 
 
         /* =====================================
@@ -847,15 +936,18 @@ onAuthStateChanged(
 
             const ordersQuery =
                 query(
+
                     collection(
                         db,
                         "orders"
                     ),
+
                     where(
                         "customerUID",
                         "==",
                         user.uid
                     )
+
                 );
 
 
@@ -878,6 +970,7 @@ onAuthStateChanged(
 
                     const order =
                         docSnap.data();
+
 
                     const status =
                         String(
@@ -903,7 +996,9 @@ onAuthStateChanged(
             );
 
 
-            /* DISPLAY */
+            /* =================================
+               DISPLAY
+            ================================= */
 
             orderCount.innerText =
                 totalOrders;
@@ -918,15 +1013,18 @@ onAuthStateChanged(
         } catch (error) {
 
             console.error(
-                "Order statistics error:",
+                "Account order statistics error:",
                 error
             );
 
-            orderCount.innerText = "0";
+            orderCount.innerText =
+                "0";
 
-            activeCount.innerText = "0";
+            activeCount.innerText =
+                "0";
 
-            cancelledCount.innerText = "0";
+            cancelledCount.innerText =
+                "0";
 
         }
 
