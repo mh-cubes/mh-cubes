@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,118 +13,413 @@
 
 <style>
 
-body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #111827, #2563eb);
-    font-family: Arial, sans-serif;
-}
+/* =========================================
+   PAGE
+========================================= */
 
-.login-box {
-    background: white;
-    width: 350px;
-    padding: 35px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    text-align: center;
-}
-
-.login-box h1 {
-    color: #2563eb;
-    margin-bottom: 10px;
-}
-
-.login-box p {
-    color: #666;
-}
-
-.login-box input {
-    width: 90%;
-    padding: 14px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 16px;
+* {
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.35),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(220, 38, 38, 0.20),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #050b14,
+            #111827,
+            #07101f
+        );
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================================
+   LOGIN BOX
+========================================= */
+
+.login-box {
+    width: min(430px, 100%);
+
+    padding: 38px 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.98),
+            rgba(245,247,250,0.98)
+        );
+
+    border: 1px solid rgba(255,255,255,0.5);
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.45),
+        0 0 35px rgba(37,99,235,0.12);
+}
+
+
+/* =========================================
+   ICON
+========================================= */
+
+.login-icon {
+    width: 78px;
+    height: 78px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    font-size: 38px;
+
+    box-shadow:
+        0 10px 25px rgba(37,99,235,0.30);
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.login-box h1 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.login-box h1 span {
+    color: #2563eb;
+}
+
+#form-title {
+    margin: 8px 0 25px;
+
+    color: #666;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.input-group {
+    position: relative;
+
+    width: 100%;
+
+    margin: 12px 0;
+}
+
+.input-group input {
+    width: 100%;
+
+    padding: 15px 16px;
+
+    border: 2px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #111827;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.input-group input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 4px rgba(37,99,235,0.10);
+}
+
+.input-group input::placeholder {
+    color: #9ca3af;
+}
+
+
+/* =========================================
+   PASSWORD
+========================================= */
+
 .password-wrapper {
     position: relative;
-    width: 90%;
-    margin: 10px auto;
+
+    width: 100%;
+
+    margin: 12px 0;
 }
 
 .password-wrapper input {
     width: 100%;
-    margin: 0;
-    padding: 14px 85px 14px 14px;
+
+    padding: 15px 82px 15px 16px;
+
+    border: 2px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.2s ease;
 }
+
+.password-wrapper input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 4px rgba(37,99,235,0.10);
+}
+
+
+/* =========================================
+   SHOW PASSWORD
+========================================= */
 
 .show-password-btn {
     position: absolute !important;
-    right: 8px;
+
+    right: 7px;
     top: 50%;
+
     transform: translateY(-50%);
 
     width: auto !important;
+
     margin: 0 !important;
+
     padding: 7px 9px !important;
 
+    border: none !important;
+
     background: transparent !important;
+
     color: #2563eb !important;
 
-    font-size: 13px !important;
-    font-weight: bold;
+    font-size: 12px !important;
 
-    border: none !important;
+    font-weight: 800 !important;
+
+    cursor: pointer;
 }
 
 .show-password-btn:hover {
     background: transparent !important;
+
     color: #1d4ed8 !important;
+
     transform: translateY(-50%);
 }
 
-.login-box button {
-    width: 95%;
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.login-box > button:not(.show-password-btn) {
+    width: 100%;
+
     padding: 14px;
+
     margin-top: 10px;
+
     border: none;
-    border-radius: 10px;
-    background: #2563eb;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
     color: white;
-    font-size: 16px;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
     cursor: pointer;
+
+    transition: 0.2s ease;
+
+    box-shadow:
+        0 7px 18px rgba(37,99,235,0.20);
 }
 
-.login-box button:hover {
-    background: #1d4ed8;
+.login-box > button:not(.show-password-btn):hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(37,99,235,0.30);
 }
+
+.login-box > button:not(.show-password-btn):active {
+    transform: scale(0.98);
+}
+
+.login-box button:disabled {
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none !important;
+}
+
+
+/* =========================================
+   SWITCH MODE
+========================================= */
+
+#switch-mode {
+    margin: 20px 0 10px;
+
+    color: #2563eb;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+#switch-mode:hover {
+    color: #1d4ed8;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   HOME BUTTON
+========================================= */
+
+.home-link {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    color: #555;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.home-link:hover {
+    color: #2563eb;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
 
 #login-message {
-    margin-top: 15px;
-    min-height: 20px;
+    min-height: 22px;
+
+    margin: 15px 0 0;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
 }
+
+
+/* =========================================
+   SIGNUP NAME
+========================================= */
 
 #customer-name {
     display: none;
 }
 
 .signup-mode #customer-name {
-    display: inline-block;
+    display: block;
 }
 
-@media (max-width: 600px) {
 
-    .login-box {
-        width: calc(100% - 30px);
-        padding: 30px 20px;
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 14px;
     }
 
-    .password-wrapper {
-        width: 90%;
+    .login-box {
+        padding: 30px 20px;
+
+        border-radius: 20px;
+    }
+
+    .login-icon {
+        width: 68px;
+        height: 68px;
+
+        font-size: 32px;
+    }
+
+    .login-box h1 {
+        font-size: 26px;
+    }
+
+    #form-title {
+        font-size: 14px;
     }
 
 }
@@ -133,95 +428,135 @@ body {
 
 </head>
 
+
 <body>
 
-<div class="login-box" id="login-box">
 
-
-<div style="font-size:45px;">
-    👤
-</div>
-
-<h1>MH CUBES</h1>
-
-<p id="form-title">
-    Customer Account
-</p>
-
-
-<!-- NAME -->
-
-<input
-    type="text"
-    id="customer-name"
-    placeholder="Enter your full name"
+<div
+    class="login-box"
+    id="login-box"
 >
 
 
-<!-- EMAIL -->
+    <!-- ICON -->
 
-<input
-    type="email"
-    id="customer-email"
-    placeholder="Enter your email"
->
+    <div class="login-icon">
+        👤
+    </div>
 
 
-<!-- PASSWORD -->
+    <!-- TITLE -->
 
-<div class="password-wrapper">
+    <h1>
+        <span>MH CUBES</span>
+    </h1>
 
-    <input
-        type="password"
-        id="customer-password"
-        placeholder="Enter your password"
-    >
+    <p id="form-title">
+        Customer Account
+    </p>
+
+
+    <!-- NAME -->
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            id="customer-name"
+            placeholder="Full Name"
+            autocomplete="name"
+        >
+
+    </div>
+
+
+    <!-- EMAIL -->
+
+    <div class="input-group">
+
+        <input
+            type="email"
+            id="customer-email"
+            placeholder="Email Address"
+            autocomplete="email"
+        >
+
+    </div>
+
+
+    <!-- PASSWORD -->
+
+    <div class="password-wrapper">
+
+        <input
+            type="password"
+            id="customer-password"
+            placeholder="Password"
+            autocomplete="current-password"
+        >
+
+        <button
+            type="button"
+            id="toggle-password"
+            class="show-password-btn"
+        >
+            👁️ Show
+        </button>
+
+    </div>
+
+
+    <!-- LOGIN -->
 
     <button
+        id="login-button"
         type="button"
-        id="toggle-password"
-        class="show-password-btn"
     >
-        👁️ Show
+        🔐 Login
     </button>
 
+
+    <!-- SIGNUP -->
+
+    <button
+        id="signup-button"
+        type="button"
+    >
+        ✨ Create Account
+    </button>
+
+
+    <!-- SWITCH -->
+
+    <p id="switch-mode">
+        Create a new account
+    </p>
+
+
+    <!-- MESSAGE -->
+
+    <p id="login-message"></p>
+
+
+    <!-- HOME -->
+
+    <a
+        href="index.html"
+        class="home-link"
+    >
+        ← Back to MH CUBES
+    </a>
+
+
 </div>
 
-
-<!-- LOGIN -->
-
-<button id="login-button">
-    Login
-</button>
-
-
-<!-- SIGNUP -->
-
-<button id="signup-button">
-    Create Account
-</button>
-
-
-<!-- SWITCH -->
-
-<p
-    id="switch-mode"
-    style="cursor:pointer;color:#2563eb;font-weight:bold;"
->
-    Create a new account
-</p>
-
-
-<!-- MESSAGE -->
-
-<p id="login-message"></p>
-
-
-</div>
 
 <script type="module">
 
-import { auth, db } from "./assets/js/firebase.js";
+import {
+    auth,
+    db
+} from "./assets/js/firebase.js";
 
 import {
     signInWithEmailAndPassword,
@@ -235,6 +570,10 @@ import {
     setDoc
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
+
+/* =========================================
+   ELEMENTS
+========================================= */
 
 const loginBox =
     document.getElementById("login-box");
@@ -270,24 +609,29 @@ const togglePassword =
 let signupMode = false;
 
 
-// =========================================
-// SHOW / HIDE PASSWORD
-// =========================================
+/* =========================================
+   PASSWORD TOGGLE
+========================================= */
 
 togglePassword.addEventListener(
     "click",
     function() {
 
-        if (passwordInput.type === "password") {
+        if (
+            passwordInput.type ===
+            "password"
+        ) {
 
-            passwordInput.type = "text";
+            passwordInput.type =
+                "text";
 
             togglePassword.innerText =
                 "🙈 Hide";
 
         } else {
 
-            passwordInput.type = "password";
+            passwordInput.type =
+                "password";
 
             togglePassword.innerText =
                 "👁️ Show";
@@ -298,23 +642,31 @@ togglePassword.addEventListener(
 );
 
 
-// =========================================
-// SWITCH LOGIN / SIGNUP
-// =========================================
+/* =========================================
+   SWITCH LOGIN / SIGNUP
+========================================= */
 
 switchMode.addEventListener(
     "click",
     function() {
 
-        signupMode = !signupMode;
+        signupMode =
+            !signupMode;
 
-        message.innerText = "";
+        message.innerText =
+            "";
 
-        nameInput.value = "";
+        nameInput.value =
+            "";
+
+        passwordInput.value =
+            "";
 
         if (signupMode) {
 
-            loginBox.classList.add("signup-mode");
+            loginBox.classList.add(
+                "signup-mode"
+            );
 
             formTitle.innerText =
                 "Create Customer Account";
@@ -328,9 +680,14 @@ switchMode.addEventListener(
             switchMode.innerText =
                 "Already have an account? Login";
 
+            passwordInput.autocomplete =
+                "new-password";
+
         } else {
 
-            loginBox.classList.remove("signup-mode");
+            loginBox.classList.remove(
+                "signup-mode"
+            );
 
             formTitle.innerText =
                 "Customer Account";
@@ -344,32 +701,37 @@ switchMode.addEventListener(
             switchMode.innerText =
                 "Create a new account";
 
+            passwordInput.autocomplete =
+                "current-password";
+
         }
 
     }
 );
 
 
-// =========================================
-// FIREBASE PERSISTENCE
-// =========================================
+/* =========================================
+   FIREBASE PERSISTENCE
+========================================= */
 
 setPersistence(
     auth,
     browserLocalPersistence
-).catch(function(error) {
+).catch(
+    function(error) {
 
-    console.error(
-        "Persistence error:",
-        error
-    );
+        console.error(
+            "Persistence error:",
+            error
+        );
 
-});
+    }
+);
 
 
-// =========================================
-// LOGIN
-// =========================================
+/* =========================================
+   LOGIN
+========================================= */
 
 loginButton.addEventListener(
     "click",
@@ -388,7 +750,7 @@ loginButton.addEventListener(
                 "❌ Please enter your email and password.";
 
             message.style.color =
-                "red";
+                "#dc2626";
 
             return;
 
@@ -397,10 +759,18 @@ loginButton.addEventListener(
 
         try {
 
+            loginButton.disabled =
+                true;
+
+            loginButton.innerText =
+                "⏳ Logging in...";
+
+
             await setPersistence(
                 auth,
                 browserLocalPersistence
             );
+
 
             await signInWithEmailAndPassword(
                 auth,
@@ -413,26 +783,39 @@ loginButton.addEventListener(
                 "✅ Login successful!";
 
             message.style.color =
-                "green";
+                "#16a34a";
 
 
-            setTimeout(function() {
+            setTimeout(
+                function() {
 
-                window.location.href =
-                    "my-orders.html";
+                    window.location.href =
+                        "my-orders.html";
 
-            }, 1000);
+                },
+                700
+            );
 
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Login error:",
+                error
+            );
+
+            loginButton.disabled =
+                false;
+
+            loginButton.innerText =
+                "🔐 Login";
+
 
             message.innerText =
                 "❌ Invalid email or password.";
 
             message.style.color =
-                "red";
+                "#dc2626";
 
         }
 
@@ -440,27 +823,18 @@ loginButton.addEventListener(
 );
 
 
-// =========================================
-// CREATE ACCOUNT
-// =========================================
+/* =========================================
+   CREATE ACCOUNT
+========================================= */
 
 signupButton.addEventListener(
     "click",
     async function() {
 
-        const name =
-            nameInput.value.trim();
-
-        const email =
-            emailInput.value.trim();
-
-        const password =
-            passwordInput.value;
-
-
         if (!signupMode) {
 
-            signupMode = true;
+            signupMode =
+                true;
 
             loginBox.classList.add(
                 "signup-mode"
@@ -478,18 +852,35 @@ signupButton.addEventListener(
             message.style.color =
                 "#2563eb";
 
+            switchMode.innerText =
+                "Already have an account? Login";
+
             return;
 
         }
 
 
-        if (!name || !email || !password) {
+        const name =
+            nameInput.value.trim();
+
+        const email =
+            emailInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+
+        if (
+            !name ||
+            !email ||
+            !password
+        ) {
 
             message.innerText =
                 "❌ Please enter your name, email and password.";
 
             message.style.color =
-                "red";
+                "#dc2626";
 
             return;
 
@@ -502,7 +893,7 @@ signupButton.addEventListener(
                 "❌ Password must be at least 6 characters.";
 
             message.style.color =
-                "red";
+                "#dc2626";
 
             return;
 
@@ -510,6 +901,13 @@ signupButton.addEventListener(
 
 
         try {
+
+            signupButton.disabled =
+                true;
+
+            signupButton.innerText =
+                "⏳ Creating account...";
+
 
             await setPersistence(
                 auth,
@@ -529,9 +927,7 @@ signupButton.addEventListener(
                 userCredential.user;
 
 
-            // =================================
-            // SAVE CUSTOMER PROFILE
-            // =================================
+            /* SAVE CUSTOMER PROFILE */
 
             await setDoc(
                 doc(
@@ -552,20 +948,33 @@ signupButton.addEventListener(
                 "✅ Account created successfully!";
 
             message.style.color =
-                "green";
+                "#16a34a";
 
 
-            setTimeout(function() {
+            setTimeout(
+                function() {
 
-                window.location.href =
-                    "customer-account.html";
+                    window.location.href =
+                        "customer-account.html";
 
-            }, 1000);
+                },
+                700
+            );
 
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Signup error:",
+                error
+            );
+
+
+            signupButton.disabled =
+                false;
+
+            signupButton.innerText =
+                "✨ Create Account";
 
 
             if (
@@ -584,7 +993,7 @@ signupButton.addEventListener(
             }
 
             message.style.color =
-                "red";
+                "#dc2626";
 
         }
 
@@ -596,3 +1005,4 @@ signupButton.addEventListener(
 </body>
 
 </html>
+
