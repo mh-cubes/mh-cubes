@@ -1,3 +1,4 @@
+
 import { db, auth } from "./firebase.js";
 
 import {
@@ -30,6 +31,23 @@ const logoutButton =
 
 
 // =========================================
+// SECURITY
+// ESCAPE FIRESTORE DATA BEFORE HTML
+// =========================================
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// =========================================
 // LOAD CUSTOMER ORDERS
 // =========================================
 
@@ -59,25 +77,17 @@ async function loadCustomerOrders(user) {
 
         const ordersQuery =
             query(
-
-                collection(
-                    db,
-                    "orders"
-                ),
-
+                collection(db, "orders"),
                 where(
                     "customerUID",
                     "==",
                     user.uid
                 )
-
             );
 
 
         const snapshot =
-            await getDocs(
-                ordersQuery
-            );
+            await getDocs(ordersQuery);
 
 
         const orders = [];
@@ -96,8 +106,7 @@ async function loadCustomerOrders(user) {
             const status =
                 String(
                     orderData.status || ""
-                )
-                .toLowerCase();
+                ).toLowerCase();
 
 
             if (
@@ -122,9 +131,9 @@ async function loadCustomerOrders(user) {
         });
 
 
-        // =====================================
+        // =================================
         // NEWEST FIRST
-        // =====================================
+        // =================================
 
         orders.sort(function(a, b) {
 
@@ -139,9 +148,9 @@ async function loadCustomerOrders(user) {
         });
 
 
-        // =====================================
+        // =================================
         // NO ORDERS
-        // =====================================
+        // =================================
 
         if (orders.length === 0) {
 
@@ -174,9 +183,9 @@ async function loadCustomerOrders(user) {
         orderBox.innerHTML = "";
 
 
-        // =====================================
+        // =================================
         // DISPLAY ORDERS
-        // =====================================
+        // =================================
 
         orders.forEach(function(order) {
 
@@ -186,6 +195,65 @@ async function loadCustomerOrders(user) {
 
             card.className =
                 "customer-order-card";
+
+
+            // =================================
+            // SAFE ORDER VALUES
+            // =================================
+
+            const orderID =
+                escapeHTML(
+                    order.orderID || "Order"
+                );
+
+
+            const customerName =
+                escapeHTML(
+                    order.customerName ||
+                    "Not available"
+                );
+
+
+            const phone =
+                escapeHTML(
+                    order.phone ||
+                    "Not available"
+                );
+
+
+            const address =
+                escapeHTML(
+                    order.address ||
+                    "Not available"
+                );
+
+
+            const payment =
+                escapeHTML(
+                    order.payment ||
+                    "Not selected"
+                );
+
+
+            const date =
+                escapeHTML(
+                    order.date ||
+                    "Not available"
+                );
+
+
+            const status =
+                escapeHTML(
+                    order.status ||
+                    "Pending"
+                );
+
+
+            const notification =
+                escapeHTML(
+                    order.notification ||
+                    ""
+                );
 
 
             // =================================
@@ -203,19 +271,15 @@ async function loadCustomerOrders(user) {
             .forEach(function(productName) {
 
                 const item =
-                    order.products[productName];
+                    order.products[productName] || {};
 
 
                 const price =
-                    Number(
-                        item.price
-                    ) || 0;
+                    Number(item.price) || 0;
 
 
                 const quantity =
-                    Number(
-                        item.quantity
-                    ) || 0;
+                    Number(item.quantity) || 0;
 
 
                 const subtotal =
@@ -226,10 +290,29 @@ async function loadCustomerOrders(user) {
                     subtotal;
 
 
+                const safeProductName =
+                    escapeHTML(
+                        productName
+                    );
+
+
                 const productImage =
                     item.image ||
                     item.img ||
                     "assets/images/placeholder.png";
+
+
+                /*
+                 * Only allow normal image paths.
+                 * Block javascript:, data:, etc.
+                 */
+
+                const safeImage =
+                    typeof productImage === "string" &&
+                    /^(https?:\/\/|\/|\.\/|\.\.\/|assets\/)/i
+                        .test(productImage)
+                        ? escapeHTML(productImage)
+                        : "assets/images/placeholder.png";
 
 
                 productsHTML += `
@@ -243,11 +326,9 @@ async function loadCustomerOrders(user) {
                         >
 
                             <img
-                                src="${productImage}"
-                                alt="${productName}"
-                                onerror="
-                                    this.style.display='none';
-                                "
+                                src="${safeImage}"
+                                alt="${safeProductName}"
+                                onerror="this.style.display='none';"
                             >
 
                         </div>
@@ -258,7 +339,7 @@ async function loadCustomerOrders(user) {
                         >
 
                             <strong>
-                                🧩 ${productName}
+                                🧩 ${safeProductName}
                             </strong>
 
                             <span>
@@ -277,33 +358,12 @@ async function loadCustomerOrders(user) {
 
 
             // =================================
-            // STATUS
-            // =================================
-
-            const status =
-                order.status ||
-                "Pending";
-
-
-            // =================================
             // TOTAL
             // =================================
 
             const total =
-                Number(
-                    order.total
-                )
-                ||
+                Number(order.total) ||
                 calculatedTotal;
-
-
-            // =================================
-            // ORDER ID
-            // =================================
-
-            const orderID =
-                order.orderID ||
-                "Order";
 
 
             // =================================
@@ -313,7 +373,7 @@ async function loadCustomerOrders(user) {
             const trackURL =
                 "track-order.html?orderID=" +
                 encodeURIComponent(
-                    orderID
+                    order.orderID || ""
                 );
 
 
@@ -325,21 +385,36 @@ async function loadCustomerOrders(user) {
 
 
             if (
-                String(status)
-                    .toLowerCase()
-                    === "pending"
+                String(
+                    order.status || ""
+                ).toLowerCase()
+                === "pending"
             ) {
+
+                /*
+                 * Pass encoded IDs safely.
+                 * The function still verifies ownership
+                 * against Firebase before updating.
+                 */
+
+                const safeDocID =
+                    escapeHTML(order.id);
+
+
+                const safeOrderID =
+                    escapeHTML(
+                        order.orderID ||
+                        "Order"
+                    );
+
 
                 cancelButtonHTML = `
 
                     <button
                         class="cancel-order-btn"
-                        onclick="
-                            cancelOrder(
-                                '${order.id}',
-                                '${orderID}'
-                            )
-                        "
+                        type="button"
+                        data-order-doc-id="${safeDocID}"
+                        data-order-id="${safeOrderID}"
                     >
                         ❌ Cancel Order
                     </button>
@@ -363,7 +438,6 @@ async function loadCustomerOrders(user) {
                         📦 ${orderID}
                     </h2>
 
-
                     <span
                         class="order-status"
                     >
@@ -385,8 +459,7 @@ async function loadCustomerOrders(user) {
 
                         <br>
 
-                        ${order.customerName ||
-                        "Not available"}
+                        ${customerName}
 
                     </p>
 
@@ -399,8 +472,7 @@ async function loadCustomerOrders(user) {
 
                         <br>
 
-                        ${order.phone ||
-                        "Not available"}
+                        ${phone}
 
                     </p>
 
@@ -413,8 +485,7 @@ async function loadCustomerOrders(user) {
 
                         <br>
 
-                        ${order.address ||
-                        "Not available"}
+                        ${address}
 
                     </p>
 
@@ -427,8 +498,7 @@ async function loadCustomerOrders(user) {
 
                         <br>
 
-                        ${order.payment ||
-                        "Not selected"}
+                        ${payment}
 
                     </p>
 
@@ -441,8 +511,7 @@ async function loadCustomerOrders(user) {
 
                         <br>
 
-                        ${order.date ||
-                        "Not available"}
+                        ${date}
 
                     </p>
 
@@ -471,19 +540,16 @@ async function loadCustomerOrders(user) {
                         💰 Total
                     </strong>
 
-
                     <strong>
-
                         PKR
                         ${total.toLocaleString()}
-
                     </strong>
 
                 </div>
 
 
                 ${
-                    order.notification
+                    notification
                     ?
                     `
 
@@ -492,7 +558,7 @@ async function loadCustomerOrders(user) {
                         >
 
                             🔔
-                            ${order.notification}
+                            ${notification}
 
                         </div>
 
@@ -503,12 +569,10 @@ async function loadCustomerOrders(user) {
 
 
                 <a
-                    href="${trackURL}"
+                    href="${escapeHTML(trackURL)}"
                     class="track-order-btn"
                 >
-
                     🔍 Track This Order
-
                 </a>
 
 
@@ -517,9 +581,40 @@ async function loadCustomerOrders(user) {
             `;
 
 
-            orderBox.appendChild(
-                card
-            );
+            orderBox.appendChild(card);
+
+
+            // =================================
+            // CANCEL BUTTON EVENT
+            // =================================
+
+            const cancelButton =
+                card.querySelector(
+                    ".cancel-order-btn"
+                );
+
+
+            if (cancelButton) {
+
+                cancelButton.addEventListener(
+                    "click",
+                    function() {
+
+                        const docID =
+                            this.dataset.orderDocId;
+
+                        const displayedOrderID =
+                            this.dataset.orderId;
+
+                        cancelOrder(
+                            docID,
+                            displayedOrderID
+                        );
+
+                    }
+                );
+
+            }
 
         });
 
@@ -544,17 +639,14 @@ async function loadCustomerOrders(user) {
                     ❌
                 </div>
 
-
                 <h2>
                     Failed to Load Orders
                 </h2>
-
 
                 <p>
                     Something went wrong while
                     loading your orders.
                 </p>
-
 
                 <p>
                     Please refresh the page and try again.
@@ -597,6 +689,10 @@ async function cancelOrder(
             auth.currentUser;
 
 
+        // =================================
+        // AUTH CHECK
+        // =================================
+
         if (!user) {
 
             alert(
@@ -607,6 +703,10 @@ async function cancelOrder(
 
         }
 
+
+        // =================================
+        // VERIFY ORDER BELONGS TO USER
+        // =================================
 
         const ordersQuery =
             query(
@@ -631,8 +731,7 @@ async function cancelOrder(
             );
 
 
-        let orderFound =
-            false;
+        let orderFound = false;
 
 
         snapshot.forEach(
@@ -647,12 +746,17 @@ async function cancelOrder(
                         docSnap.data();
 
 
-                    if (
+                    const status =
                         String(
                             orderData.status || ""
-                        )
-                        .toLowerCase()
-                        === "pending"
+                        ).toLowerCase();
+
+
+                    if (
+                        orderData.customerUID ===
+                        user.uid
+                        &&
+                        status === "pending"
                     ) {
 
                         orderFound =
@@ -678,7 +782,8 @@ async function cancelOrder(
 
 
         // =================================
-        // MARK AS CUSTOMER CANCELLED
+        // UPDATE ORDER
+        // FIRESTORE RULES ALSO VERIFY THIS
         // =================================
 
         const orderRef =
@@ -714,10 +819,10 @@ async function cancelOrder(
 
 
         // =================================
-        // REFRESH MY ORDERS
+        // REFRESH
         // =================================
 
-        loadCustomerOrders(
+        await loadCustomerOrders(
             user
         );
 
@@ -752,8 +857,9 @@ onAuthStateChanged(
 
         if (!user) {
 
-            window.location.href =
-                "customer-login.html";
+            window.location.replace(
+                "customer-login.html"
+            );
 
             return;
 
@@ -804,8 +910,9 @@ if (logoutButton) {
                 );
 
 
-                window.location.href =
-                    "index.html";
+                window.location.replace(
+                    "index.html"
+                );
 
 
             } catch (error) {
@@ -836,10 +943,3 @@ if (logoutButton) {
 
 }
 
-
-// =========================================
-// MAKE FUNCTION AVAILABLE TO HTML
-// =========================================
-
-window.cancelOrder =
-    cancelOrder;
