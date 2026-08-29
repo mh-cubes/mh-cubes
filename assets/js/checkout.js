@@ -1,3 +1,4 @@
+
 import { db, auth } from "./firebase.js";
 
 import {
@@ -10,6 +11,10 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
+// =========================================
+// CART
+// =========================================
+
 let cart =
     JSON.parse(localStorage.getItem("cart")) || {};
 
@@ -20,7 +25,7 @@ let cart =
 
 let currentUser = null;
 
-onAuthStateChanged(auth, function(user) {
+onAuthStateChanged(auth, function (user) {
 
     currentUser = user;
 
@@ -46,7 +51,7 @@ if (phoneInput) {
 
     phoneInput.addEventListener(
         "input",
-        function() {
+        function () {
 
             const phone =
                 phoneInput.value.trim();
@@ -55,6 +60,7 @@ if (phoneInput) {
 
                 if (phoneMessage) {
                     phoneMessage.innerText = "";
+                    phoneMessage.className = "";
                 }
 
                 phoneInput.classList.remove(
@@ -118,10 +124,6 @@ if (phoneInput) {
 // LOAD CHECKOUT
 // =========================================
 
-// =========================================
-// LOAD CHECKOUT
-// =========================================
-
 function loadCheckout() {
 
     const box =
@@ -131,11 +133,46 @@ function loadCheckout() {
         return;
     }
 
+
     box.innerHTML = "";
 
-    for (const product in cart) {
 
-        const item = cart[product];
+    const products =
+        Object.keys(cart);
+
+
+    if (products.length === 0) {
+
+        box.innerHTML = `
+            <div class="checkout-empty">
+                🛒 Your cart is empty.
+            </div>
+        `;
+
+        updateTotal();
+
+        return;
+
+    }
+
+
+    products.forEach(function (product) {
+
+        const item =
+            cart[product];
+
+
+        const price =
+            Number(item.price) || 0;
+
+
+        const quantity =
+            Number(item.quantity) || 0;
+
+
+        const subtotal =
+            price * quantity;
+
 
         box.innerHTML += `
 
@@ -144,11 +181,13 @@ function loadCheckout() {
                 <div class="checkout-product-image">
 
                     <img
-                        src="${item.image}"
+                        src="${item.image || ""}"
                         alt="${product}"
+                        onerror="this.style.display='none';"
                     >
 
                 </div>
+
 
                 <div class="checkout-product-info">
 
@@ -157,22 +196,27 @@ function loadCheckout() {
                     </h3>
 
                     <p class="checkout-product-price">
-                        PKR ${item.price}
+                        PKR ${price.toLocaleString()}
                     </p>
+
 
                     <div class="checkout-quantity">
 
                         <button
-                            onclick="decreaseQty('${product}')">
+                            type="button"
+                            onclick="decreaseQty('${product}')"
+                        >
                             −
                         </button>
 
                         <span>
-                            ${item.quantity}
+                            ${quantity}
                         </span>
 
                         <button
-                            onclick="increaseQty('${product}')">
+                            type="button"
+                            onclick="increaseQty('${product}')"
+                        >
                             +
                         </button>
 
@@ -180,12 +224,15 @@ function loadCheckout() {
 
                 </div>
 
+
                 <div class="checkout-product-total">
 
-                    <span>Subtotal</span>
+                    <span>
+                        Subtotal
+                    </span>
 
                     <strong>
-                        PKR ${Number(item.price) * Number(item.quantity)}
+                        PKR ${subtotal.toLocaleString()}
                     </strong>
 
                 </div>
@@ -193,13 +240,17 @@ function loadCheckout() {
             </div>
 
         `;
-    }
+
+    });
+
 
     updateTotal();
+
 }
 
+
 // =========================================
-// QUANTITY CONTROLS
+// INCREASE QUANTITY
 // =========================================
 
 function increaseQty(product) {
@@ -209,12 +260,22 @@ function increaseQty(product) {
     }
 
 
-    cart[product].quantity++;
+    const quantity =
+        Number(cart[product].quantity) || 0;
+
+
+    cart[product].quantity =
+        quantity + 1;
+
 
     saveCheckout();
 
 }
 
+
+// =========================================
+// DECREASE QUANTITY
+// =========================================
 
 function decreaseQty(product) {
 
@@ -223,7 +284,12 @@ function decreaseQty(product) {
     }
 
 
-    cart[product].quantity--;
+    const quantity =
+        Number(cart[product].quantity) || 0;
+
+
+    cart[product].quantity =
+        quantity - 1;
 
 
     if (cart[product].quantity <= 0) {
@@ -249,39 +315,70 @@ function saveCheckout() {
         JSON.stringify(cart)
     );
 
+
     loadCheckout();
 
 }
 
 
 // =========================================
-// TOTAL
+// CALCULATE TOTAL
 // =========================================
 
-function updateTotal() {
+function calculateCartTotal() {
 
     let total = 0;
 
 
     for (const product in cart) {
 
+        const item =
+            cart[product];
+
+
+        const price =
+            Number(item.price) || 0;
+
+
+        const quantity =
+            Number(item.quantity) || 0;
+
+
         total +=
-            Number(cart[product].price) *
-            Number(cart[product].quantity);
+            price * quantity;
 
     }
 
+
+    return total;
+
+}
+
+
+// =========================================
+// UPDATE TOTAL DISPLAY
+// =========================================
+
+function updateTotal() {
 
     const totalElement =
-        document.getElementById("checkout-total");
+        document.getElementById(
+            "checkout-total"
+        );
 
 
-    if (totalElement) {
-
-        totalElement.innerText =
-            "Total: PKR " + total;
-
+    if (!totalElement) {
+        return;
     }
+
+
+    const total =
+        calculateCartTotal();
+
+
+    totalElement.innerText =
+        "Total: PKR " +
+        total.toLocaleString();
 
 }
 
@@ -292,11 +389,20 @@ function updateTotal() {
 
 async function placeOrder() {
 
+    // Always get the latest cart
     cart =
-        JSON.parse(localStorage.getItem("cart")) || {};
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || {};
 
 
-    if (Object.keys(cart).length === 0) {
+    // =====================================
+    // CART CHECK
+    // =====================================
+
+    if (
+        Object.keys(cart).length === 0
+    ) {
 
         alert(
             "🛒 Your cart is empty."
@@ -308,7 +414,7 @@ async function placeOrder() {
 
 
     // =====================================
-    // REQUIRE CUSTOMER LOGIN
+    // LOGIN CHECK
     // =====================================
 
     if (!currentUser) {
@@ -317,39 +423,60 @@ async function placeOrder() {
             "🔐 Please login to your customer account before placing an order."
         );
 
+
         window.location.href =
             "customer-login.html";
+
 
         return;
 
     }
 
 
-    const name =
-        document
-            .getElementById("customer-name")
-            .value
-            .trim();
+    // =====================================
+    // GET CUSTOMER DETAILS
+    // =====================================
+
+    const nameInput =
+        document.getElementById(
+            "customer-name"
+        );
 
 
-    const phone =
-        document
-            .getElementById("customer-phone")
-            .value
-            .trim();
+    const phoneInputElement =
+        document.getElementById(
+            "customer-phone"
+        );
 
 
-    const address =
-        document
-            .getElementById("customer-address")
-            .value
-            .trim();
+    const addressInput =
+        document.getElementById(
+            "customer-address"
+        );
 
 
     const paymentElement =
         document.querySelector(
             'input[name="payment"]:checked'
         );
+
+
+    const name =
+        nameInput
+            ? nameInput.value.trim()
+            : "";
+
+
+    const phone =
+        phoneInputElement
+            ? phoneInputElement.value.trim()
+            : "";
+
+
+    const address =
+        addressInput
+            ? addressInput.value.trim()
+            : "";
 
 
     const payment =
@@ -359,7 +486,7 @@ async function placeOrder() {
 
 
     // =====================================
-    // VALIDATION
+    // REQUIRED FIELDS
     // =====================================
 
     if (
@@ -370,18 +497,7 @@ async function placeOrder() {
     ) {
 
         alert(
-            "Please fill all details and select a payment method."
-        );
-
-        return;
-
-    }
-
-
-    if (!/^03\d{9}$/.test(phone)) {
-
-        alert(
-            "Please enter a valid Pakistani phone number."
+            "❌ Please fill all details and select a payment method."
         );
 
         return;
@@ -390,7 +506,49 @@ async function placeOrder() {
 
 
     // =====================================
-    // SAVE CUSTOMER DETAILS
+    // PHONE VALIDATION
+    // =====================================
+
+    if (
+        !/^03\d{9}$/.test(phone)
+    ) {
+
+        alert(
+            "❌ Please enter a valid Pakistani phone number."
+        );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // PAYMENT VALIDATION
+    // =====================================
+
+    const allowedPayments = [
+        "EasyPaisa",
+        "JazzCash",
+        "Card On Delivery",
+        "Cash On Delivery"
+    ];
+
+
+    if (
+        !allowedPayments.includes(payment)
+    ) {
+
+        alert(
+            "❌ Invalid payment method."
+        );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // SAVE CUSTOMER DETAILS LOCALLY
     // =====================================
 
     localStorage.setItem(
@@ -398,10 +556,12 @@ async function placeOrder() {
         name
     );
 
+
     localStorage.setItem(
         "customerPhone",
         phone
     );
+
 
     localStorage.setItem(
         "customerAddress",
@@ -410,7 +570,7 @@ async function placeOrder() {
 
 
     // =====================================
-    // CONFIRM
+    // CONFIRM ORDER
     // =====================================
 
     const confirmed =
@@ -430,16 +590,26 @@ async function placeOrder() {
         // CALCULATE TOTAL
         // =================================
 
-        let total = 0;
+        const total =
+            calculateCartTotal();
 
 
-        for (const product in cart) {
+        // =================================
+        // CREATE ORDER ID
+        // =================================
 
-            total +=
-                Number(cart[product].price) *
-                Number(cart[product].quantity);
+        const orderID =
+            "MH" + Date.now();
 
-        }
+
+        // =================================
+        // GET TRANSACTION ID
+        // =================================
+
+        const transactionID =
+            localStorage.getItem(
+                "transactionID"
+            ) || "";
 
 
         // =================================
@@ -449,44 +619,67 @@ async function placeOrder() {
         const order = {
 
             orderID:
-                "MH" + Date.now(),
+
+                orderID,
+
 
             customerUID:
+
                 currentUser.uid,
 
+
             customerName:
+
                 name,
 
+
             phone:
+
                 phone,
 
+
             address:
+
                 address,
 
+
             payment:
+
                 payment,
 
+
             products:
+
                 cart,
 
+
             total:
+
                 total,
 
+
             transactionID:
-                localStorage.getItem(
-                    "transactionID"
-                ) || "",
+
+                transactionID,
+
 
             status:
+
                 "Pending",
 
+
             notification:
+
                 "",
 
+
             date:
+
                 new Date().toLocaleString(),
 
+
             createdAt:
+
                 Date.now()
 
         };
@@ -497,8 +690,14 @@ async function placeOrder() {
         // =================================
 
         await addDoc(
-            collection(db, "orders"),
+
+            collection(
+                db,
+                "orders"
+            ),
+
             order
+
         );
 
 
@@ -507,22 +706,37 @@ async function placeOrder() {
         // =================================
 
         alert(
+
             "🎉 Order placed successfully!\n\n" +
+
             "Your Order ID:\n" +
-            order.orderID +
+
+            orderID +
+
             "\n\n" +
+
             "Please save this Order ID."
+
         );
 
+
+        // =================================
+        // CLEAR CART
+        // =================================
 
         localStorage.removeItem(
             "cart"
         );
 
+
         localStorage.removeItem(
             "transactionID"
         );
 
+
+        // =================================
+        // GO HOME
+        // =================================
 
         window.location.href =
             "index.html";
@@ -537,8 +751,11 @@ async function placeOrder() {
 
 
         alert(
+
             "❌ Order could not be placed.\n\n" +
+
             "Please try again."
+
         );
 
     }
@@ -547,24 +764,24 @@ async function placeOrder() {
 
 
 // =========================================
-// LOAD SAVED DETAILS
+// LOAD SAVED CUSTOMER DETAILS
 // =========================================
 
-const nameInput =
+const savedNameInput =
     document.getElementById(
         "customer-name"
     );
 
 
-const addressInput =
+const savedAddressInput =
     document.getElementById(
         "customer-address"
     );
 
 
-if (nameInput) {
+if (savedNameInput) {
 
-    nameInput.value =
+    savedNameInput.value =
         localStorage.getItem(
             "customerName"
         ) || "";
@@ -582,9 +799,9 @@ if (phoneInput) {
 }
 
 
-if (addressInput) {
+if (savedAddressInput) {
 
-    addressInput.value =
+    savedAddressInput.value =
         localStorage.getItem(
             "customerAddress"
         ) || "";
@@ -603,11 +820,11 @@ const paymentOptions =
 
 
 paymentOptions.forEach(
-    function(option) {
+    function (option) {
 
         option.addEventListener(
             "change",
-            function() {
+            function () {
 
                 const method =
                     this.value;
@@ -673,8 +890,13 @@ function openPaymentPopup(method) {
         );
 
 
-    if (!loading || !popup) {
+    if (
+        !loading ||
+        !popup
+    ) {
+
         return;
+
     }
 
 
@@ -683,7 +905,7 @@ function openPaymentPopup(method) {
 
 
     setTimeout(
-        function() {
+        function () {
 
             loading.style.display =
                 "none";
@@ -693,27 +915,51 @@ function openPaymentPopup(method) {
                 "flex";
 
 
-            if (method === "EasyPaisa") {
+            if (
+                method === "EasyPaisa"
+            ) {
 
-                title.innerHTML =
-                    "🟢 EasyPaisa Payment";
+                if (title) {
+
+                    title.innerHTML =
+                        "🟢 EasyPaisa Payment";
+
+                }
 
 
-                message.innerHTML =
-                    "⚠️ <b>IMPORTANT!</b><br><br>" +
-                    "EasyPaisa payments are manual.<br>" +
-                    "Please send the payment first, then enter your Transaction ID below.";
+                if (message) {
+
+                    message.innerHTML =
+
+                        "⚠️ <b>IMPORTANT!</b><br><br>" +
+
+                        "EasyPaisa payments are manual.<br>" +
+
+                        "Please send the payment first, then enter your Transaction ID below.";
+
+                }
 
             } else {
 
-                title.innerHTML =
-                    "🔴 JazzCash Payment";
+                if (title) {
+
+                    title.innerHTML =
+                        "🔴 JazzCash Payment";
+
+                }
 
 
-                message.innerHTML =
-                    "⚠️ <b>IMPORTANT!</b><br><br>" +
-                    "JazzCash payments are manual.<br>" +
-                    "Please send the payment first, then enter your Transaction ID below.";
+                if (message) {
+
+                    message.innerHTML =
+
+                        "⚠️ <b>IMPORTANT!</b><br><br>" +
+
+                        "JazzCash payments are manual.<br>" +
+
+                        "Please send the payment first, then enter your Transaction ID below.";
+
+                }
 
             }
 
@@ -825,12 +1071,12 @@ function confirmPayment() {
 
 
 // =========================================
-// CLOSE POPUP OUTSIDE
+// CLOSE POPUP WHEN CLICKING OUTSIDE
 // =========================================
 
 window.addEventListener(
     "click",
-    function(event) {
+    function (event) {
 
         const popup =
             document.getElementById(
@@ -858,17 +1104,22 @@ window.addEventListener(
 window.placeOrder =
     placeOrder;
 
+
 window.increaseQty =
     increaseQty;
+
 
 window.decreaseQty =
     decreaseQty;
 
+
 window.openPaymentPopup =
     openPaymentPopup;
 
+
 window.closePaymentPopup =
     closePaymentPopup;
+
 
 window.confirmPayment =
     confirmPayment;
@@ -879,3 +1130,4 @@ window.confirmPayment =
 // =========================================
 
 loadCheckout();
+
