@@ -8961,3 +8961,23 @@ opacity: 0.88;
 
 
 }
+/* Selected Payment Method */
+.payment-card:has(input:checked) {
+    border-color: #ef4444 !important;
+
+    background: linear-gradient(
+        145deg,
+        rgba(220, 38, 38, 0.22),
+        #111111
+    ) !important;
+
+    box-shadow: 0 0 22px rgba(220, 38, 38, 0.18) !important;
+}
+
+.payment-card:has(input:checked) span {
+    color: #ef4444 !important;
+}
+
+.payment-card:has(input:checked) input {
+    accent-color: #ef4444 !important;
+}
