@@ -1,4 +1,3 @@
-
 import { db, auth } from "./firebase.js";
 
 import {
@@ -390,6 +389,7 @@ function updateTotal() {
 async function placeOrder() {
 
     // Always get the latest cart
+
     cart =
         JSON.parse(
             localStorage.getItem("cart")
@@ -486,18 +486,58 @@ async function placeOrder() {
 
 
     // =====================================
-    // REQUIRED FIELDS
+    // CUSTOMER NAME
     // =====================================
 
-    if (
-        name === "" ||
-        phone === "" ||
-        address === "" ||
-        payment === ""
-    ) {
+    if (name === "") {
 
         alert(
-            "❌ Please fill all details and select a payment method."
+            "❌ Please enter your name."
+        );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // PHONE
+    // =====================================
+
+    if (phone === "") {
+
+        alert(
+            "❌ Please enter your phone number."
+        );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // ADDRESS
+    // =====================================
+
+    if (address === "") {
+
+        alert(
+            "❌ Please enter your address."
+        );
+
+        return;
+
+    }
+
+
+    // =====================================
+    // PAYMENT METHOD
+    // =====================================
+
+    if (payment === "") {
+
+        alert(
+            "❌ Please select a payment method."
         );
 
         return;
@@ -619,67 +659,42 @@ async function placeOrder() {
         const order = {
 
             orderID:
-
                 orderID,
 
-
             customerUID:
-
                 currentUser.uid,
 
-
             customerName:
-
                 name,
 
-
             phone:
-
                 phone,
 
-
             address:
-
                 address,
 
-
             payment:
-
                 payment,
 
-
             products:
-
                 cart,
 
-
             total:
-
                 total,
 
-
             transactionID:
-
                 transactionID,
 
-
             status:
-
                 "Pending",
 
-
             notification:
-
                 "",
 
-
             date:
-
                 new Date().toLocaleString(),
 
-
             createdAt:
-
                 Date.now()
 
         };
@@ -1130,4 +1145,3 @@ window.confirmPayment =
 // =========================================
 
 loadCheckout();
-
