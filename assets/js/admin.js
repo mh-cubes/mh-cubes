@@ -14,6 +14,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
+
 // =========================================
 // OWNER UID
 // =========================================
@@ -22,12 +23,14 @@ const OWNER_UID =
     "UPdmuwyLEcdEyMxFENPGRlAhxwa2";
 
 
+
 // =========================================
 // ADMIN ORDER BOX
 // =========================================
 
 const box =
     document.getElementById("admin-order-box");
+
 
 
 // =========================================
@@ -46,6 +49,7 @@ onAuthStateChanged(auth, (user) => {
     }
 
 
+
     console.log(
         "Admin user email:",
         user.email
@@ -57,6 +61,7 @@ onAuthStateChanged(auth, (user) => {
     );
 
 
+
     // =====================================
     // OWNER ONLY
     // =====================================
@@ -66,6 +71,7 @@ onAuthStateChanged(auth, (user) => {
         alert(
             "❌ You are not authorized to access the Owner Dashboard."
         );
+
 
 
         signOut(auth).then(() => {
@@ -80,6 +86,7 @@ onAuthStateChanged(auth, (user) => {
     }
 
 
+
     // =====================================
     // OWNER AUTHORIZED
     // =====================================
@@ -87,6 +94,7 @@ onAuthStateChanged(auth, (user) => {
     loadOrders();
 
 });
+
 
 
 // =========================================
@@ -98,6 +106,7 @@ async function loadOrders() {
     if (!box) {
         return;
     }
+
 
 
     box.innerHTML = `
@@ -114,9 +123,11 @@ async function loadOrders() {
     `;
 
 
+
     try {
 
         const orders = [];
+
 
 
         const snapshot =
@@ -126,6 +137,7 @@ async function loadOrders() {
                     "orders"
                 )
             );
+
 
 
         snapshot.forEach((docSnap) => {
@@ -141,10 +153,12 @@ async function loadOrders() {
         });
 
 
+
         console.log(
             "Orders loaded:",
             orders
         );
+
 
 
         // =====================================
@@ -177,6 +191,7 @@ async function loadOrders() {
         }
 
 
+
         // =====================================
         // NEWEST ORDERS FIRST
         // =====================================
@@ -192,6 +207,7 @@ async function loadOrders() {
         });
 
 
+
         // =====================================
         // CLEAR BOX
         // =====================================
@@ -199,11 +215,13 @@ async function loadOrders() {
         box.innerHTML = "";
 
 
+
         // =====================================
         // DISPLAY ORDERS
         // =====================================
 
         orders.forEach((order) => {
+
 
 
             // =================================
@@ -215,9 +233,11 @@ async function loadOrders() {
                 "Pending";
 
 
+
             const statusLower =
                 String(status)
                     .toLowerCase();
+
 
 
             // =================================
@@ -238,16 +258,19 @@ async function loadOrders() {
                         ] || {};
 
 
+
                     const price =
                         Number(
                             item.price
                         ) || 0;
 
 
+
                     const quantity =
                         Number(
                             item.quantity
                         ) || 0;
+
 
 
                     return `
@@ -275,6 +298,18 @@ async function loadOrders() {
                 .join("");
 
 
+
+            // =================================
+            // TOTAL AMOUNT
+            // =================================
+
+            const totalAmount =
+                Number(
+                    order.total
+                ) || 0;
+
+
+
             // =================================
             // CUSTOMER CANCELLED
             // =================================
@@ -285,11 +320,13 @@ async function loadOrders() {
                 );
 
 
+
             // =================================
             // ADMIN BUTTONS
             // =================================
 
             let buttonsHTML = "";
+
 
 
             if (customerCancelled) {
@@ -311,6 +348,8 @@ async function loadOrders() {
 
                     </div>
 
+
+
                     <button
                         onclick="deleteCancelledOrder('${order.id}')"
                         style="
@@ -322,7 +361,9 @@ async function loadOrders() {
                                 );
                         "
                     >
+
                         🗑️ Remove From Dashboard
+
                     </button>
 
                 `;
@@ -336,40 +377,55 @@ async function loadOrders() {
                     <button
                         onclick="confirmOrder('${order.id}')"
                     >
+
                         Confirm ✅
+
                     </button>
+
 
 
                     <button
                         onclick="processOrder('${order.id}')"
                     >
+
                         Processing 📦
+
                     </button>
+
 
 
                     <button
                         onclick="shipOrder('${order.id}')"
                     >
+
                         Ship 🚚
+
                     </button>
+
 
 
                     <button
                         onclick="deliverOrder('${order.id}')"
                     >
+
                         Deliver ✅
+
                     </button>
+
 
 
                     <button
                         onclick="cancelAdminOrder('${order.id}')"
                     >
+
                         Cancel ❌
+
                     </button>
 
                 `;
 
             }
+
 
 
             // =================================
@@ -391,6 +447,7 @@ async function loadOrders() {
                     </h2>
 
 
+
                     <p>
 
                         <strong>
@@ -400,6 +457,7 @@ async function loadOrders() {
                         ${order.customerName || "N/A"}
 
                     </p>
+
 
 
                     <p>
@@ -413,6 +471,7 @@ async function loadOrders() {
                     </p>
 
 
+
                     <p>
 
                         <strong>
@@ -422,6 +481,7 @@ async function loadOrders() {
                         ${order.address || "N/A"}
 
                     </p>
+
 
 
                     <p>
@@ -435,6 +495,7 @@ async function loadOrders() {
                     </p>
 
 
+
                     <p>
 
                         <strong>
@@ -444,6 +505,7 @@ async function loadOrders() {
                         ${order.transactionID || "Not provided"}
 
                     </p>
+
 
 
                     <p>
@@ -457,20 +519,68 @@ async function loadOrders() {
                     </p>
 
 
+
                     <h3>
                         🛒 Products
                     </h3>
 
 
+
                     <div class="admin-products">
 
-                        ${productsHTML || `
-                            <p>
-                                No product information available.
-                            </p>
-                        `}
+                        ${
+                            productsHTML ||
+
+                            `
+                                <p>
+                                    No product information available.
+                                </p>
+                            `
+                        }
 
                     </div>
+
+
+
+                    <!-- =================================
+                         TOTAL AMOUNT
+                    ================================== -->
+
+                    <p
+                        style="
+                            background:
+                                linear-gradient(
+                                    135deg,
+                                    #fff1f1,
+                                    #ffe5e5
+                                );
+
+                            border:
+                                2px solid #c40000;
+
+                            font-size:18px;
+
+                            font-weight:bold;
+
+                            color:#b30000;
+
+                            box-shadow:
+                                0 5px 15px
+                                rgba(196,0,0,0.10);
+                        "
+                    >
+
+                        💰
+
+                        <strong>
+                            Total Amount:
+                        </strong>
+
+                        PKR
+                        ${totalAmount.toLocaleString()}
+
+                    </p>
+
 
 
                     <p>
@@ -482,6 +592,7 @@ async function loadOrders() {
                         ${status}
 
                     </p>
+
 
 
                     ${
@@ -505,6 +616,7 @@ async function loadOrders() {
                     }
 
 
+
                     <div
                         class="admin-order-buttons"
                     >
@@ -520,6 +632,7 @@ async function loadOrders() {
         });
 
 
+
     }
 
     catch (error) {
@@ -530,16 +643,19 @@ async function loadOrders() {
         );
 
 
+
         console.error(
             "Error code:",
             error.code
         );
 
 
+
         console.error(
             "Error message:",
             error.message
         );
+
 
 
         box.innerHTML = `
@@ -553,6 +669,8 @@ async function loadOrders() {
                     ❌ Error Loading Orders
                 </h2>
 
+
+
                 <p>
 
                     <strong>
@@ -562,6 +680,7 @@ async function loadOrders() {
                     ${error.code || "Unknown"}
 
                 </p>
+
 
 
                 <p>
@@ -581,6 +700,7 @@ async function loadOrders() {
     }
 
 }
+
 
 
 // =========================================
@@ -613,6 +733,7 @@ async function updateOrderStatus(
         );
 
 
+
         location.reload();
 
     }
@@ -625,6 +746,7 @@ async function updateOrderStatus(
         );
 
 
+
         alert(
             "❌ Failed to update order."
         );
@@ -632,6 +754,7 @@ async function updateOrderStatus(
     }
 
 }
+
 
 
 // =========================================
@@ -653,6 +776,7 @@ async function confirmOrder(id) {
 }
 
 
+
 // =========================================
 // PROCESS ORDER
 // =========================================
@@ -670,6 +794,7 @@ async function processOrder(id) {
     );
 
 }
+
 
 
 // =========================================
@@ -691,6 +816,7 @@ async function shipOrder(id) {
 }
 
 
+
 // =========================================
 // DELIVER ORDER
 // =========================================
@@ -710,6 +836,7 @@ async function deliverOrder(id) {
 }
 
 
+
 // =========================================
 // ADMIN CANCEL ORDER
 // =========================================
@@ -722,6 +849,7 @@ async function cancelAdminOrder(id) {
         );
 
 
+
     if (!confirmCancel) {
 
         return;
@@ -729,11 +857,8 @@ async function cancelAdminOrder(id) {
     }
 
 
-    try {
 
-        // =================================
-        // DELETE ORDER FROM FIRESTORE
-        // =================================
+    try {
 
         await deleteDoc(
             doc(
@@ -744,14 +869,12 @@ async function cancelAdminOrder(id) {
         );
 
 
+
         alert(
             "✅ Order cancelled and removed from the dashboard."
         );
 
 
-        // =================================
-        // RELOAD DASHBOARD
-        // =================================
 
         location.reload();
 
@@ -765,6 +888,7 @@ async function cancelAdminOrder(id) {
         );
 
 
+
         alert(
             "❌ Failed to cancel order."
         );
@@ -772,6 +896,7 @@ async function cancelAdminOrder(id) {
     }
 
 }
+
 
 
 // =========================================
@@ -786,11 +911,13 @@ async function deleteCancelledOrder(id) {
         );
 
 
+
     if (!confirmed) {
 
         return;
 
     }
+
 
 
     try {
@@ -804,9 +931,11 @@ async function deleteCancelledOrder(id) {
         );
 
 
+
         alert(
             "✅ Cancelled order removed."
         );
+
 
 
         location.reload();
@@ -821,6 +950,7 @@ async function deleteCancelledOrder(id) {
         );
 
 
+
         alert(
             "❌ Failed to remove cancelled order."
         );
@@ -828,6 +958,7 @@ async function deleteCancelledOrder(id) {
     }
 
 }
+
 
 
 // =========================================
@@ -841,9 +972,11 @@ async function logoutOwner() {
         await signOut(auth);
 
 
+
         localStorage.removeItem(
             "adminAccess"
         );
+
 
 
         window.location.href =
@@ -859,6 +992,7 @@ async function logoutOwner() {
         );
 
 
+
         alert(
             "❌ Logout failed. Please try again."
         );
@@ -866,6 +1000,7 @@ async function logoutOwner() {
     }
 
 }
+
 
 
 // =========================================
@@ -876,24 +1011,30 @@ window.confirmOrder =
     confirmOrder;
 
 
+
 window.processOrder =
     processOrder;
+
 
 
 window.shipOrder =
     shipOrder;
 
 
+
 window.deliverOrder =
     deliverOrder;
+
 
 
 window.cancelAdminOrder =
     cancelAdminOrder;
 
 
+
 window.deleteCancelledOrder =
     deleteCancelledOrder;
+
 
 
 window.logoutOwner =
