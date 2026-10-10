@@ -8981,3 +8981,14 @@ opacity: 0.88;
 .payment-card:has(input:checked) input {
     accent-color: #ef4444 !important;
 }
+/* MH CUBES - Product Name and Price in Yellow */
+.product-details h1,
+.product-details h2,
+.product-details .price,
+.product-details .product-price,
+.product-info h1,
+.product-info h2,
+.product-info .price,
+.product-info .product-price {
+    color: #FFD700 !important;
+}
