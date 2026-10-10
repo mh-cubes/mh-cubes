@@ -8992,3 +8992,10 @@ opacity: 0.88;
 .product-info .product-price {
     color: #FFD700 !important;
 }
+/* Make Cube Product Names Yellow */
+.product-details h1,
+.product-info h1,
+.product-title,
+.product-name {
+    color: #FFD700 !important;
+}
